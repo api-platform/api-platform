@@ -3,8 +3,7 @@ Dunglas's API platform
 
 *The new bread of web frameworks*
 
-**The framework is still in development. The first public release is planned for
-the end of June 2015**
+[![API Platform](http://api-platform.com/api-platform.png)](http://api-platform.com)
 
 Dunglas's API platform is a next-generation PHP web framework designed to create
 API-first projects easily but without compromise in the field of extensibility and
