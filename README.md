@@ -1,7 +1,7 @@
 Dunglas's API platform
 ======================
 
-*The new bread of web frameworks*
+*The new breed of web frameworks*
 
 [![API Platform](http://api-platform.com/api-platform.png)](http://api-platform.com)
 
