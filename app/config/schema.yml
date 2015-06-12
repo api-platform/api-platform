@@ -1,0 +1,39 @@
+# Example PHP Schema file
+# Use the following command to regenerate entities:
+# bin/schema generate-types src/ app/config/schema.yml
+
+rdfa:
+  - https://raw.githubusercontent.com/schemaorg/schemaorg/sdo-gozer/data/schema.rdfa
+annotationGenerators:
+    - SchemaOrgModel\AnnotationGenerator\PhpDocAnnotationGenerator
+    - SchemaOrgModel\AnnotationGenerator\DoctrineOrmAnnotationGenerator
+    - SchemaOrgModel\AnnotationGenerator\ConstraintAnnotationGenerator
+    - SchemaOrgModel\AnnotationGenerator\DunglasApiAnnotationGenerator
+namespaces:
+  entity: AppBundle\Entity
+types:
+  Thing:
+    properties:
+      name: ~
+      description: ~
+      url: ~
+  CreativeWork:
+    properties:
+      author:
+        range:       Person
+        cardinality: (*..*)
+      publisher: ~
+      genre: ~
+      datePublished: ~
+  Book:
+    properties:
+      illustrator:
+        cardinality: (*..*)
+      isbn: ~
+      numberOfPages: ~
+  Person:
+    properties:
+      birthDate: ~
+      gender: ~
+  Organization:
+    properties: {}
