@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-06-17 12:21:22"
         },
         {
             "name": "doctrine/cache",
@@ -704,16 +704,16 @@
         },
         {
             "name": "dunglas/api-bundle",
-            "version": "v1.0.0-beta",
+            "version": "v1.0.0-beta.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dunglas/DunglasApiBundle.git",
-                "reference": "74a176ce0b712cc020d227f311d3f07ddb94b4bc"
+                "reference": "b1d16070a34fa4baf6468bc4d60698cbe1f07974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dunglas/DunglasApiBundle/zipball/74a176ce0b712cc020d227f311d3f07ddb94b4bc",
-                "reference": "74a176ce0b712cc020d227f311d3f07ddb94b4bc",
+                "url": "https://api.github.com/repos/dunglas/DunglasApiBundle/zipball/b1d16070a34fa4baf6468bc4d60698cbe1f07974",
+                "reference": "b1d16070a34fa4baf6468bc4d60698cbe1f07974",
                 "shasum": ""
             },
             "require": {
@@ -774,7 +774,7 @@
                 "json",
                 "rest"
             ],
-            "time": "2015-06-08 22:51:45"
+            "time": "2015-06-17 20:23:19"
         },
         {
             "name": "dunglas/php-property-info",
@@ -905,16 +905,16 @@
         },
         {
             "name": "friendsofsymfony/http-cache-bundle",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSHttpCacheBundle.git",
-                "reference": "db5d4b3107595c5835af0d960fcd75e85ef23617"
+                "reference": "b048546bfcdef0c0cc0d196b1a62d821f429b8e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCacheBundle/zipball/db5d4b3107595c5835af0d960fcd75e85ef23617",
-                "reference": "db5d4b3107595c5835af0d960fcd75e85ef23617",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCacheBundle/zipball/b048546bfcdef0c0cc0d196b1a62d821f429b8e7",
+                "reference": "b048546bfcdef0c0cc0d196b1a62d821f429b8e7",
                 "shasum": ""
             },
             "require": {
@@ -923,7 +923,6 @@
                 "symfony/framework-bundle": "~2.3"
             },
             "require-dev": {
-                "friendsofsymfony/http-cache": "~1.2@dev",
                 "matthiasnoback/symfony-dependency-injection-test": "0.*",
                 "mockery/mockery": "0.9.*",
                 "monolog/monolog": "*",
@@ -931,6 +930,7 @@
                 "sensio/framework-extra-bundle": "~2.3",
                 "symfony/expression-language": "~2.4",
                 "symfony/monolog-bundle": "~2.3",
+                "symfony/phpunit-bridge": "~2.7",
                 "symfony/symfony": "~2.3"
             },
             "suggest": {
@@ -978,7 +978,7 @@
                 "purge",
                 "varnish"
             ],
-            "time": "2015-06-04 22:15:06"
+            "time": "2015-06-11 11:19:02"
         },
         {
             "name": "guzzle/guzzle",
@@ -1307,19 +1307,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "a679eb80891fc037c9356a381a92d090a83533cb"
+                "reference": "a05ed385013178b3801f25999bdb24f8204cd02b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/a679eb80891fc037c9356a381a92d090a83533cb",
-                "reference": "a679eb80891fc037c9356a381a92d090a83533cb",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/a05ed385013178b3801f25999bdb24f8204cd02b",
+                "reference": "a05ed385013178b3801f25999bdb24f8204cd02b",
                 "shasum": ""
             },
             "require": {
                 "michelf/php-markdown": "~1.4",
-                "symfony/console": "~2.1",
-                "symfony/framework-bundle": "~2.1",
-                "symfony/twig-bundle": "~2.1"
+                "symfony/console": "~2.3",
+                "symfony/framework-bundle": "~2.3",
+                "symfony/twig-bundle": "~2.3"
             },
             "conflict": {
                 "jms/serializer": "<0.12",
@@ -1330,14 +1330,14 @@
                 "friendsofsymfony/rest-bundle": "~1.0",
                 "jms/serializer-bundle": ">=0.11",
                 "sensio/framework-extra-bundle": "~3.0",
-                "symfony/browser-kit": "~2.1",
-                "symfony/css-selector": "~2.1",
-                "symfony/finder": "~2.1",
-                "symfony/form": "~2.1",
+                "symfony/browser-kit": "~2.3",
+                "symfony/css-selector": "~2.3",
+                "symfony/finder": "~2.3",
+                "symfony/form": "~2.3",
                 "symfony/phpunit-bridge": "~2.7",
                 "symfony/serializer": "~2.7@dev",
-                "symfony/validator": "~2.1",
-                "symfony/yaml": "~2.1"
+                "symfony/validator": "~2.3",
+                "symfony/yaml": "~2.3"
             },
             "suggest": {
                 "dunglas/api-bundle": "For making use of resources definitions of DunglasApiBundle.",
@@ -1378,7 +1378,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2015-06-08 12:24:59"
+            "time": "2015-06-17 15:46:56"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -2015,16 +2015,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46"
+                "reference": "932b6e7499c670f4db6d0b871477a4a3ca161e74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
-                "reference": "9975b1eca3de4db792a2c3e4e16f676a4aadcd46",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/932b6e7499c670f4db6d0b871477a4a3ca161e74",
+                "reference": "932b6e7499c670f4db6d0b871477a4a3ca161e74",
                 "shasum": ""
             },
             "require": {
@@ -2133,7 +2133,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-30 16:52:28"
+            "time": "2015-06-11 21:15:28"
         },
         {
             "name": "twig/extensions",
@@ -3105,16 +3105,16 @@
         },
         {
             "name": "fabpot/php-cs-fixer",
-            "version": "v1.8.1",
+            "version": "v1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "c1e28e95a978e967dade5469a4bf88162faa67bf"
+                "reference": "ef528b9d3f1dd66197baabf8f77c8402c62bb9fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/c1e28e95a978e967dade5469a4bf88162faa67bf",
-                "reference": "c1e28e95a978e967dade5469a4bf88162faa67bf",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ef528b9d3f1dd66197baabf8f77c8402c62bb9fc",
+                "reference": "ef528b9d3f1dd66197baabf8f77c8402c62bb9fc",
                 "shasum": ""
             },
             "require": {
@@ -3155,7 +3155,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2015-05-29 06:10:12"
+            "time": "2015-06-13 09:30:19"
         },
         {
             "name": "fzaninotto/faker",
@@ -3269,20 +3269,20 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/justinrainbow/json-schema.git",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3"
+                "reference": "7dfe4f1db8a62be3dd35710efce663537d515653"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/2465fe486c864e30badaa4d005ebdf89dbc503f3",
-                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/7dfe4f1db8a62be3dd35710efce663537d515653",
+                "reference": "7dfe4f1db8a62be3dd35710efce663537d515653",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.3.2"
             },
             "require-dev": {
                 "json-schema/json-schema-test-suite": "1.1.0",
@@ -3331,7 +3331,7 @@
                 "json",
                 "schema"
             ],
-            "time": "2015-03-27 16:41:39"
+            "time": "2015-06-14 20:01:28"
         },
         {
             "name": "nelmio/alice",
