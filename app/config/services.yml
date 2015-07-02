@@ -6,7 +6,7 @@ parameters:
 services:
 
 # Examples of API resource mapping, learn more at
-# https://github.com/dunglas/DunglasJsonLdApiBundle
+# https://github.com/dunglas/DunglasApiBundle
     resource.book:
         parent:    "api.resource"
         arguments: [ "AppBundle\\Entity\\Book" ]
