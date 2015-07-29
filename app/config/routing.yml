@@ -1,6 +1,6 @@
-api:
-    resource: "."
-    type:     "api"
+# api:
+#    resource: "."
+#    type:     "api"
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
