@@ -31,7 +31,7 @@
         "behat/mink": "~1.5",
         "behat/mink-extension": "~2.0",
         "behat/mink-browserkit-driver": "~1.1",
-        "behatch/contexts": "~2.1",
+        "behatch/contexts": "dev-master",
         "hautelook/alice-bundle": "~0.2"
     },
     "scripts": {
