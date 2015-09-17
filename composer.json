@@ -1,8 +1,8 @@
 {
-    "name": "dunglas/api-platform",
+    "name": "api-platform/api-platform",
     "license": "MIT",
     "type": "project",
-    "description": "Dunglas's API platform",
+    "description": "The API Platform framework",
     "autoload": {
         "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
     },
@@ -18,14 +18,14 @@
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "dunglas/api-bundle": "~1.0@beta",
+        "dunglas/api-bundle": "~1.0",
         "nelmio/cors-bundle": "~1.4",
         "nelmio/api-doc-bundle": "~2.9@dev",
         "friendsofsymfony/http-cache-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "dunglas/php-schema": "~0.4",
+        "api-platform/schema-generator": "~1.0",
         "behat/behat": "~3.0",
         "behat/symfony2-extension": "~2.0",
         "behat/mink": "~1.5",

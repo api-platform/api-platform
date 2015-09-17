@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A book.
- *
+ * 
  * @see http://schema.org/Book Documentation on Schema.org
- *
+ * 
  * @ORM\Entity
  * @Iri("http://schema.org/Book")
  */
@@ -19,7 +19,7 @@ class Book extends CreativeWork
 {
     /**
      * @var int
-     *
+     * 
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,14 +27,14 @@ class Book extends CreativeWork
     private $id;
     /**
      * @var ArrayCollection<Person> The illustrator of the book.
-     *
+     * 
      * @ORM\ManyToMany(targetEntity="Person")
      * @Iri("https://schema.org/illustrator")
      */
     private $illustrator;
     /**
      * @var string The ISBN of the book.
-     *
+     * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
      * @Iri("https://schema.org/isbn")
@@ -42,7 +42,7 @@ class Book extends CreativeWork
     private $isbn;
     /**
      * @var int The number of pages in the book.
-     *
+     * 
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type(type="integer")
      * @Iri("https://schema.org/numberOfPages")
@@ -58,9 +58,9 @@ class Book extends CreativeWork
 
     /**
      * Sets id.
-     *
+     * 
      * @param int $id
-     *
+     * 
      * @return $this
      */
     public function setId($id)
@@ -72,7 +72,7 @@ class Book extends CreativeWork
 
     /**
      * Gets id.
-     *
+     * 
      * @return int
      */
     public function getId()
@@ -82,9 +82,9 @@ class Book extends CreativeWork
 
     /**
      * Adds illustrator.
-     *
+     * 
      * @param Person $illustrator
-     *
+     * 
      * @return $this
      */
     public function addIllustrator(Person $illustrator)
@@ -96,9 +96,9 @@ class Book extends CreativeWork
 
     /**
      * Removes illustrator.
-     *
+     * 
      * @param Person $illustrator
-     *
+     * 
      * @return $this
      */
     public function removeIllustrator(Person $illustrator)
@@ -113,7 +113,7 @@ class Book extends CreativeWork
 
     /**
      * Gets illustrator.
-     *
+     * 
      * @return ArrayCollection<Person>
      */
     public function getIllustrator()
@@ -123,9 +123,9 @@ class Book extends CreativeWork
 
     /**
      * Sets isbn.
-     *
+     * 
      * @param string $isbn
-     *
+     * 
      * @return $this
      */
     public function setIsbn($isbn)
@@ -137,7 +137,7 @@ class Book extends CreativeWork
 
     /**
      * Gets isbn.
-     *
+     * 
      * @return string
      */
     public function getIsbn()
@@ -147,9 +147,9 @@ class Book extends CreativeWork
 
     /**
      * Sets numberOfPages.
-     *
+     * 
      * @param int $numberOfPages
-     *
+     * 
      * @return $this
      */
     public function setNumberOfPages($numberOfPages)
@@ -161,7 +161,7 @@ class Book extends CreativeWork
 
     /**
      * Gets numberOfPages.
-     *
+     * 
      * @return int
      */
     public function getNumberOfPages()

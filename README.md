@@ -1,13 +1,16 @@
-Dunglas's API platform
-======================
+The API Platform framework
+==========================
 
 *The new breed of web frameworks*
 
-[![API Platform](http://api-platform.com/api-platform.png)](http://api-platform.com)
+[![API Platform](https://api-platform.com/images/api-platform-logo.27a08537.png)](https://api-platform.com)
 
-Dunglas's API platform is a next-generation PHP web framework designed to create
+The official project documentation is available **[on the API Platform website][31]**.
+
+API Platform is a next-generation PHP web framework designed to create
 API-first projects easily but without compromise in the field of extensibility and
 flexibility:
+
 * Use our awesome code generator to **bootstrap a fully-functional data model from
   [Schema.org][8] vocabularies** with ORM mapping and validation (you can also do
   it manually)
@@ -23,20 +26,21 @@ flexibility:
   **your preferred client-side technologies**! Tested and approved with **AngularJS**
   (integration included), **Ionic**, **React** and **native mobile** apps
 
-Dunglas's API platform embraces open web standards (JSON-LD, Hydra, JWT, OAuth,
+API Platform embraces open web standards (JSON-LD, Hydra, JWT, OAuth,
 HTTP, HTML5...) and the [Linked Data][27] movement. Your API will automatically
-expose structured data in Schema.org/JSON-LD. It means that your Dunglas's API
-platform application is usable **out of the box** with technologies of the semantic
+expose structured data in Schema.org/JSON-LD. It means that your API Platform application
+is usable **out of the box** with technologies of the semantic
 web.
 
 It also means that **your SEO will be improved** because **[Google recommends these
 formats][28]**.
 And yes, Google crawls full-Javascript applications [as well as old-fashioned ones][29].
 
-Last but not least, Dunglas's API platform is built on top of the [Symfony][5]
+Last but not least, API Platform is built on top of the [Symfony][5]
 full-stack framework and follows its best practices. It means than you can:
-* use **thousands of Symfony bundles** with API platform
-* integrate API platform in **any existing Symfony application**
+
+* use **thousands of Symfony bundles** with API Platform
+* integrate API Platform in **any existing Symfony application**
 * reuse **all your Symfony skills** and benefit of the incredible
   amount of Symfony documentation available
 * enjoy the popular [Doctrine ORM][6] (used by default, but fully optional: you can
@@ -47,7 +51,7 @@ Install
 
 Use [Composer][3] to create your new project:
 
-    composer create-project dunglas/api-platform --stability=dev my-api
+    composer create-project api-platform/api-platform my-api
 
 Start to hack
 -------------
@@ -66,13 +70,13 @@ A demo application (a bookstore) is pre-installed.
 What's inside?
 --------------
 
-Dunglas's API platform provides rock solid foundations to build your project:
+API Platform provides rock solid foundations to build your project:
 
-* [**Dunglas's PHP Schema**][7] to generate PHP entities from [Schema.org][8] types with
+* [**The Schema Generator**][7] to generate PHP entities from [Schema.org][8] types with
 Doctrine ORM mappings, Symfony validation and extended PHPDoc
-* [**DunglasApiBundle**][9] to expose in minutes your entities as a JSON-LD and
+* [**The API bundle**][9] to expose in minutes your entities as a JSON-LD and
  Hydra enabled hypermedia REST API
-* [**NelmioApiDocBundle**][24] integrated with DunglasApiBundle to
+* [**NelmioApiDocBundle**][24] integrated with the API bundle to
 automatically generate a beautiful human-readable documentation and a
 sandbox to test the API
 * [Behat][10] and [Behatch][11] configured to easily test the API
@@ -84,9 +88,9 @@ sandbox to test the API
 
 It comes pre-configured with the following bundles:
 
-  * [**Symfony**][5] - Dunglas's API platform is built on top of the full-stack
+  * [**Symfony**][5] - API Platform is built on top of the full-stack
     Symfony framework
-  * [**DunglasApiBundle**][9] - Creates powerful Hypermedia APIs supporting JSON-LD
+  * [**API Platform's API bundle**][9] - Creates powerful Hypermedia APIs supporting JSON-LD
     and Hydra
   * [**NelmioCorsBundle**][12] - Support for CORS headers
   * [**NelmioApiDocBundle**][24] - Generates a human-readable documentation
@@ -108,7 +112,7 @@ It comes pre-configured with the following bundles:
     and working with Symfony distributions
   * [**SensioGeneratorBundle**][20] (in dev/test env) - Adds code generation capabilities
 
-All libraries and bundles included in Dunglas's API platform are released under
+All libraries and bundles included in API Platform are released under
 the MIT or BSD license.
 
 Authentication support
@@ -116,16 +120,15 @@ Authentication support
 
 Json Web Token is a lightweight and popular way to handle authentication in a
 stateless way. Install [**LexikJWTAuthenticationBundle**][21] to adds JWT support
-to Dunglas's API platform.
+to API Platform.
 
 Oauth support can also be easily added using [**FOSOAuthServerBundle**][22].
 
 Verifying release signature
 ---------------------------
 
-Releases of projects under the `dunglas` namespace published after June 9, 2015
-[can be verified with `git`](https://git-scm.com/book/tr/v2/Git-Tools-Signing-Your-Work#Verifying-Tags)
-using my GPG public signature:
+Software released by the API Platform project [can be verified with `git`](https://git-scm.com/book/tr/v2/Git-Tools-Signing-Your-Work#Verifying-Tags)
+using the following GPG public signature:
 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -187,34 +190,38 @@ Enjoy!
 Credits
 -------
 
-Built by [Kévin Dunglas][23]. Commercial support available upon request.
+Created by [Kévin Dunglas][23]. Sponsored by [Les-Tilleuls.coop][30]
+Commercial support available upon request.
 
 [1]:  http://json-ld.org
 [2]:  http://hydra-cg.com
-[3]:  http://getcomposer.org
+[3]:  https://getcomposer.org
 [4]:  http://www.hydra-cg.com/
-[5]:  http://symfony.com
-[6]:  http://doctrine-project.org
-[7]:  http://php-schema.dunglas.com
+[5]:  https://symfony.com
+[6]:  http://www.doctrine-project.org
+[7]:  https://api-platform.com/doc/1.0/schema-generator/
 [8]:  http://schema.org
-[9]:  https://github.com/dunglas/DunglasJsonLdApiBundle
-[10]: http://behat.readthedocs.org
+[9]:  https://api-platform.com/doc/1.0/api-bundle/
+[10]: https://behat.readthedocs.org
 [11]: https://github.com/Behatch/contexts
 [12]: https://github.com/nelmio/NelmioCorsBundle
-[13]: http://foshttpcachebundle.readthedocs.org
-[14]: http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[15]: http://symfony.com/doc/current/book/doctrine.html
-[16]: http://symfony.com/doc/current/book/templating.html
-[17]: http://symfony.com/doc/current/book/security.html
-[18]: http://symfony.com/doc/current/cookbook/email.html
-[19]: http://symfony.com/doc/current/cookbook/logging/monolog.html
-[20]: http://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+[13]: https://foshttpcachebundle.readthedocs.org
+[14]: https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
+[15]: https://symfony.com/doc/current/book/doctrine.html
+[16]: https://symfony.com/doc/current/book/templating.html
+[17]: https://symfony.com/doc/current/book/security.html
+[18]: https://symfony.com/doc/current/cookbook/email.html
+[19]: https://symfony.com/doc/current/cookbook/logging/monolog.html
+[20]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [21]: https://github.com/lexik/LexikJWTAuthenticationBundle
 [22]: https://github.com/FriendsOfSymfony/FOSOAuthServerBundle
-[23]: http://dunglas.fr
+[23]: https://dunglas.fr
 [24]: https://github.com/nelmio/NelmioApiDocBundle
 [25]: http://jwt.io/
 [26]: http://oauth.net/
-[27]: http://en.wikipedia.org/wiki/Linked_data
+[27]: https://en.wikipedia.org/wiki/Linked_data
 [28]: https://developers.google.com/structured-data/
 [29]: http://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
+[30]: https://les-tilleuls.coop
+[31]: https://api-platform.com
+

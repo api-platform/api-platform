@@ -5,20 +5,18 @@
 rdfa:
   - https://raw.githubusercontent.com/schemaorg/schemaorg/sdo-gozer/data/schema.rdfa
 annotationGenerators:
-    - SchemaOrgModel\AnnotationGenerator\PhpDocAnnotationGenerator
-    - SchemaOrgModel\AnnotationGenerator\DoctrineOrmAnnotationGenerator
-    - SchemaOrgModel\AnnotationGenerator\ConstraintAnnotationGenerator
-    - SchemaOrgModel\AnnotationGenerator\DunglasApiAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\DoctrineOrmAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ConstraintAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\DunglasApiAnnotationGenerator
 namespaces:
   entity: AppBundle\Entity
 types:
-  Thing:
+  CreativeWork:
+    parent: false
     properties:
       name: ~
       description: ~
-      url: ~
-  CreativeWork:
-    properties:
       author:
         range:       Person
         cardinality: (*..*)
@@ -32,8 +30,17 @@ types:
       isbn: ~
       numberOfPages: ~
   Person:
+    parent: false
     properties:
+      name: ~
+      description: ~
+      url: ~
       birthDate: ~
       gender: ~
   Organization:
-    properties: {}
+    parent: false
+    properties:
+      name: ~
+      description: ~
+      url: ~
+

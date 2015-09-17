@@ -9,40 +9,56 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * The most generic kind of creative work, including books, movies, photographs, software programs, etc.
- *
+ * 
  * @see http://schema.org/CreativeWork Documentation on Schema.org
- *
+ * 
  * @ORM\MappedSuperclass
  * @Iri("http://schema.org/CreativeWork")
  */
-abstract class CreativeWork extends Thing
+abstract class CreativeWork
 {
     /**
      * @var ArrayCollection<Person> The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
-     *
+     * 
      * @ORM\ManyToMany(targetEntity="Person")
      * @Iri("https://schema.org/author")
      */
     private $author;
     /**
      * @var \DateTime Date of first broadcast/publication.
-     *
+     * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date
      * @Iri("https://schema.org/datePublished")
      */
     private $datePublished;
     /**
+     * @var string A short description of the item.
+     * 
+     * @ORM\Column(nullable=true)
+     * @Assert\Type(type="string")
+     * @Iri("https://schema.org/description")
+     */
+    private $description;
+    /**
      * @var string Genre of the creative work or group.
-     *
+     * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
      * @Iri("https://schema.org/genre")
      */
     private $genre;
     /**
+     * @var string The name of the item.
+     * 
+     * @ORM\Column(nullable=true)
+     * @Assert\Type(type="string")
+     * @Iri("https://schema.org/name")
+     */
+    private $name;
+    /**
      * @var Organization The publisher of the creative work.
-     *
+     * 
      * @ORM\OneToOne(targetEntity="Organization")
      * @Iri("https://schema.org/publisher")
      */
@@ -55,9 +71,9 @@ abstract class CreativeWork extends Thing
 
     /**
      * Adds author.
-     *
+     * 
      * @param Person $author
-     *
+     * 
      * @return $this
      */
     public function addAuthor(Person $author)
@@ -69,9 +85,9 @@ abstract class CreativeWork extends Thing
 
     /**
      * Removes author.
-     *
+     * 
      * @param Person $author
-     *
+     * 
      * @return $this
      */
     public function removeAuthor(Person $author)
@@ -86,7 +102,7 @@ abstract class CreativeWork extends Thing
 
     /**
      * Gets author.
-     *
+     * 
      * @return ArrayCollection<Person>
      */
     public function getAuthor()
@@ -96,9 +112,9 @@ abstract class CreativeWork extends Thing
 
     /**
      * Sets datePublished.
-     *
+     * 
      * @param \DateTime $datePublished
-     *
+     * 
      * @return $this
      */
     public function setDatePublished(\DateTime $datePublished = null)
@@ -110,7 +126,7 @@ abstract class CreativeWork extends Thing
 
     /**
      * Gets datePublished.
-     *
+     * 
      * @return \DateTime
      */
     public function getDatePublished()
@@ -119,10 +135,34 @@ abstract class CreativeWork extends Thing
     }
 
     /**
+     * Sets description.
+     * 
+     * @param string $description
+     * 
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets description.
+     * 
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
      * Sets genre.
-     *
+     * 
      * @param string $genre
-     *
+     * 
      * @return $this
      */
     public function setGenre($genre)
@@ -134,7 +174,7 @@ abstract class CreativeWork extends Thing
 
     /**
      * Gets genre.
-     *
+     * 
      * @return string
      */
     public function getGenre()
@@ -143,10 +183,34 @@ abstract class CreativeWork extends Thing
     }
 
     /**
+     * Sets name.
+     * 
+     * @param string $name
+     * 
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets name.
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Sets publisher.
-     *
+     * 
      * @param Organization $publisher
-     *
+     * 
      * @return $this
      */
     public function setPublisher(Organization $publisher = null)
@@ -158,7 +222,7 @@ abstract class CreativeWork extends Thing
 
     /**
      * Gets publisher.
-     *
+     * 
      * @return Organization
      */
     public function getPublisher()
