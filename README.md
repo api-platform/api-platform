@@ -224,4 +224,3 @@ Commercial support available upon request.
 [29]: http://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
 [30]: https://les-tilleuls.coop
 [31]: https://api-platform.com
-
