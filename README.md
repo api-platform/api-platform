@@ -1,6 +1,8 @@
 The API Platform framework
 ==========================
 
+[![Join the chat at https://gitter.im/api-platform/api-platform](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/api-platform/api-platform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 *The new breed of web frameworks*
 
 [![API Platform](https://api-platform.com/images/api-platform-logo.27a08537.png)](https://api-platform.com)
