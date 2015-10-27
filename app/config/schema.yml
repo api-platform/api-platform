@@ -3,7 +3,7 @@
 # bin/schema generate-types src/ app/config/schema.yml
 
 rdfa:
-  - https://raw.githubusercontent.com/schemaorg/schemaorg/sdo-gozer/data/schema.rdfa
+  - http://schema.org/docs/schema_org_rdfa.html
 annotationGenerators:
     - ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
     - ApiPlatform\SchemaGenerator\AnnotationGenerator\DoctrineOrmAnnotationGenerator
