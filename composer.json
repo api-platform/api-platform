@@ -18,14 +18,14 @@
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "dunglas/api-bundle": "~1.0",
+        "dunglas/api-bundle": "~1.1@beta",
         "nelmio/cors-bundle": "~1.4",
-        "nelmio/api-doc-bundle": "~2.9@dev",
+        "nelmio/api-doc-bundle": "~2.10",
         "friendsofsymfony/http-cache-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "api-platform/schema-generator": "~1.0",
+        "api-platform/schema-generator": "~1.1@beta",
         "behat/behat": "~3.0",
         "behat/symfony2-extension": "~2.0",
         "behat/mink": "~1.5",
@@ -68,7 +68,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.1-dev"
         }
     }
 }
