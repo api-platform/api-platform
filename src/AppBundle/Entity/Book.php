@@ -103,9 +103,8 @@ class Book extends CreativeWork
      */
     public function removeIllustrator(Person $illustrator)
     {
-        $key = array_search($illustrator, $this->illustrator, true);
-        if (false !== $key) {
-            unset($this->illustrator[$key]);
+        if (true === $this->illustrator->contains($illustrator)) {
+            $this->illustrator->removeElement($illustrator);
         }
 
         return $this;

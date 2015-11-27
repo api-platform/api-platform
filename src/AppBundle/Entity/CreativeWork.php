@@ -92,9 +92,8 @@ abstract class CreativeWork
      */
     public function removeAuthor(Person $author)
     {
-        $key = array_search($author, $this->author, true);
-        if (false !== $key) {
-            unset($this->author[$key]);
+        if (true === $this->author->contains($author)) {
+            $this->author->removeElement($author);
         }
 
         return $this;
