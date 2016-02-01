@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b55becc1ad27adee43604e6f9488ab6",
-    "content-hash": "a05a19abdfbe731fbfb275478fa00b49",
+    "hash": "5363e999838f27fd2f0d669fb13b4347",
+    "content-hash": "af9d188891a4fca630731a52c92baa4f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2950,16 +2950,16 @@
         },
         {
             "name": "behatch/contexts",
-            "version": "dev-master",
+            "version": "2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behatch/contexts.git",
-                "reference": "85537f70350c6e4e1a95f235082b5d49fd8b2c0e"
+                "reference": "5df15c4dfa9e79f328bf8871d3b958e1c520e0de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behatch/contexts/zipball/85537f70350c6e4e1a95f235082b5d49fd8b2c0e",
-                "reference": "85537f70350c6e4e1a95f235082b5d49fd8b2c0e",
+                "url": "https://api.github.com/repos/Behatch/contexts/zipball/5df15c4dfa9e79f328bf8871d3b958e1c520e0de",
+                "reference": "5df15c4dfa9e79f328bf8871d3b958e1c520e0de",
                 "shasum": ""
             },
             "require": {
@@ -2995,7 +2995,7 @@
                 "Context",
                 "Symfony2"
             ],
-            "time": "2015-11-20 15:38:34"
+            "time": "2015-12-08 21:27:27"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -3629,8 +3629,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "dunglas/api-bundle": 10,
-        "api-platform/schema-generator": 10,
-        "behatch/contexts": 20
+        "api-platform/schema-generator": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
