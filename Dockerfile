@@ -18,9 +18,11 @@ WORKDIR /app
 
 # Remove cache and logs if some and fixes permissions
 RUN ((rm -rf app/cache/* && rm -rf app/logs/*) || true) \
-    && chown www-data . app/cache app/logs
 
-# Install dependencies
-RUN composer install -o
+    # Install dependencies
+    && composer install -o && app/console cache:warmup -e=prod \
+
+    # Fixes permissions issues in non-dev mode
+    && chown -R www-data . app/cache app/logs
 
 CMD ["/app/docker/apache/run.sh"]
