@@ -1,0 +1,15 @@
+web:
+    build: .
+    links:
+        - database
+    volumes:
+        - .:/app
+
+database:
+    image: mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: changeme
+        MYSQL_DATABASE: api-platform
+        MYSQL_USER: api-platform
+        MYSQL_PASSWORD: api-platform
+
