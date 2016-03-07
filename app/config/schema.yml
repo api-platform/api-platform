@@ -1,18 +1,18 @@
 # Example PHP Schema file
 # Use the following command to regenerate entities:
-# bin/schema generate-types src/ app/config/schema.yml
+# vendor/bin/schema generate-types src/ app/config/schema.yml
 
 rdfa:
-  - https://raw.githubusercontent.com/schemaorg/schemaorg/sdo-gozer/data/schema.rdfa
+    - { uri: https://raw.githubusercontent.com/schemaorg/schemaorg/master/data/schema.rdfa, format: rdfa }
 annotationGenerators:
     - ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
     - ApiPlatform\SchemaGenerator\AnnotationGenerator\DoctrineOrmAnnotationGenerator
     - ApiPlatform\SchemaGenerator\AnnotationGenerator\ConstraintAnnotationGenerator
-    - ApiPlatform\SchemaGenerator\AnnotationGenerator\DunglasApiAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ApiPlatformCoreAnnotationGenerator
 namespaces:
   entity: AppBundle\Entity
 types:
-  CreativeWork:
+  Book:
     parent: false
     properties:
       name: ~
@@ -20,15 +20,13 @@ types:
       author:
         range:       Person
         cardinality: (*..*)
-      publisher: ~
-      genre: ~
-      datePublished: ~
-  Book:
-    properties:
-      illustrator:
-        cardinality: (*..*)
+      publisher:
+        range: Organization
       isbn: ~
       numberOfPages: ~
+      genre:
+          range: Text
+      datePublished: ~
   Person:
     parent: false
     properties:
@@ -43,4 +41,3 @@ types:
       name: ~
       description: ~
       url: ~
-
