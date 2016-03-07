@@ -2,8 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\Property;
+use ApiPlatform\Core\Annotation\Resource;
 use Doctrine\ORM\Mapping as ORM;
-use Dunglas\ApiBundle\Annotation\Iri;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @see http://schema.org/Person Documentation on Schema.org
  * 
  * @ORM\Entity
- * @Iri("http://schema.org/Person")
+ * @Resource(iri="http://schema.org/Person")
  */
 class Person
 {
@@ -29,7 +30,7 @@ class Person
      * 
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date
-     * @Iri("https://schema.org/birthDate")
+     * @Property(iri="http://schema.org/birthDate")
      */
     private $birthDate;
     /**
@@ -37,7 +38,7 @@ class Person
      * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
-     * @Iri("https://schema.org/description")
+     * @Property(iri="http://schema.org/description")
      */
     private $description;
     /**
@@ -45,7 +46,7 @@ class Person
      * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
-     * @Iri("https://schema.org/gender")
+     * @Property(iri="http://schema.org/gender")
      */
     private $gender;
     /**
@@ -53,7 +54,7 @@ class Person
      * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
-     * @Iri("https://schema.org/name")
+     * @Property(iri="http://schema.org/name")
      */
     private $name;
     /**
@@ -61,7 +62,7 @@ class Person
      * 
      * @ORM\Column(nullable=true)
      * @Assert\Url
-     * @Iri("https://schema.org/url")
+     * @Property(iri="http://schema.org/url")
      */
     private $url;
 

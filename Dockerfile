@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.0-apache
 
 # PHP extensions
 RUN docker-php-ext-install mbstring
@@ -17,12 +17,12 @@ ADD . /app
 WORKDIR /app
 
 # Remove cache and logs if some and fixes permissions
-RUN ((rm -rf app/cache/* && rm -rf app/logs/*) || true) \
+RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
 
     # Install dependencies
     && composer install -o && app/console cache:warmup -e=prod \
 
     # Fixes permissions issues in non-dev mode
-    && chown -R www-data . app/cache app/logs
+    && chown -R www-data . var/cache var/logs var/sessions
 
 CMD ["/app/docker/apache/run.sh"]

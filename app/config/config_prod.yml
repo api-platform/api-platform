@@ -3,22 +3,15 @@ imports:
 
 #framework:
 #    validation:
-#        cache: validator.mapping.cache.apc
+#        cache: validator.mapping.cache.doctrine.apc
 #    serializer:
-#        cache: serializer.mapping.cache.apc
-
-#dunglas_api:
-#    cache: api.mapping.cache.apc
+#        cache: serializer.mapping.cache.doctrine.apc
 
 #doctrine:
 #    orm:
 #        metadata_cache_driver: apc
 #        result_cache_driver: apc
 #        query_cache_driver: apc
-
-nelmio_api_doc:
-    cache:
-        enabled: true
 
 monolog:
     handlers:

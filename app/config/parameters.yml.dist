@@ -1,12 +1,12 @@
 # This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_driver:   pdo_mysql
     database_host:     database
     database_port:     ~
     database_name:     api-platform
     database_user:     api-platform
     database_password: api-platform
-
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -14,8 +14,6 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
-
-    locale:            en
 
     cors_allow_origin: http://localhost
 
