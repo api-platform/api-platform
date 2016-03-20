@@ -43,12 +43,12 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "api-platform/schema-generator": "dev-master",
-        "behat/behat": "~3.1@dev",
-        "behat/symfony2-extension": "~2.1@dev",
-        "behat/mink": "~1.7@dev",
-        "behat/mink-extension": "~2.2",
+        "behat/behat": "^3.1@dev",
+        "behat/symfony2-extension": "^2.1@dev",
+        "behat/mink": "^1.7@dev",
+        "behat/mink-extension": "^2.2",
         "behat/mink-browserkit-driver": "^1.3.1",
-        "behatch/contexts": "~2.5"
+        "behatch/contexts": "^2.5"
     },
     "scripts": {
         "post-install-cmd": [
