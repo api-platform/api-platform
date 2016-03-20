@@ -1,0 +1,10 @@
+AppBundle\Entity\Book:
+    book_{1..10}:
+        author: ['@person*']
+        datePublished: <dateTime()>
+        description: <text()>
+        genre: <word()>
+        isbn: <isbn13()>
+        name: <title()>
+        numberOfPages: <numberBetween(30, 1000)>
+        publisher: '@organization*'

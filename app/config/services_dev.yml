@@ -1,0 +1,5 @@
+services:
+    faker.provider.foo:
+        class: AppBundle\DataFixtures\Provider\GenderProvider
+        tags:
+            - { name: hautelook_alice.faker.provider }
