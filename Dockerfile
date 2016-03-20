@@ -1,7 +1,9 @@
 FROM php:7.0-apache
 
+RUN apt-get update && apt-get install -y --no-install-recommends git libicu-dev zlib1g-dev && rm -rf /var/lib/apt/lists/*
+
 # PHP extensions
-RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install intl mbstring pdo_mysql zip
 
 # Apache & PHP configuration
 RUN a2enmod rewrite
@@ -20,7 +22,7 @@ WORKDIR /app
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
 
     # Install dependencies
-    && composer install -o && app/console cache:warmup -e=prod \
+    && composer install -o && bin/console cache:warmup -e=prod \
 
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
