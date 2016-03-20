@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
+use Symfony\Component\HttpFoundation\Request;
 
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#checking-symfony-application-configuration-and-setup
@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 }
 
 /**
- * @var Composer\Autoload\ClassLoader $loader
+ * @var Composer\Autoload\ClassLoader
  */
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();

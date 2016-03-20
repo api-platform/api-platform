@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A person (alive, dead, undead, or fictional).
- * 
+ *
  * @see http://schema.org/Person Documentation on Schema.org
- * 
+ *
  * @ORM\Entity
  * @Resource(iri="http://schema.org/Person")
  */
@@ -19,7 +19,7 @@ class Person
 {
     /**
      * @var int
-     * 
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,7 +27,7 @@ class Person
     private $id;
     /**
      * @var \DateTime Date of birth.
-     * 
+     *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date
      * @Property(iri="http://schema.org/birthDate")
@@ -35,7 +35,7 @@ class Person
     private $birthDate;
     /**
      * @var string A short description of the item.
-     * 
+     *
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
      * @Property(iri="http://schema.org/description")
@@ -43,7 +43,7 @@ class Person
     private $description;
     /**
      * @var string Gender of the person.
-     * 
+     *
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
      * @Property(iri="http://schema.org/gender")
@@ -51,7 +51,7 @@ class Person
     private $gender;
     /**
      * @var string The name of the item.
-     * 
+     *
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
      * @Property(iri="http://schema.org/name")
@@ -59,7 +59,7 @@ class Person
     private $name;
     /**
      * @var string URL of the item.
-     * 
+     *
      * @ORM\Column(nullable=true)
      * @Assert\Url
      * @Property(iri="http://schema.org/url")
@@ -68,9 +68,9 @@ class Person
 
     /**
      * Sets id.
-     * 
+     *
      * @param int $id
-     * 
+     *
      * @return $this
      */
     public function setId($id)
@@ -82,7 +82,7 @@ class Person
 
     /**
      * Gets id.
-     * 
+     *
      * @return int
      */
     public function getId()
@@ -92,9 +92,9 @@ class Person
 
     /**
      * Sets birthDate.
-     * 
+     *
      * @param \DateTime $birthDate
-     * 
+     *
      * @return $this
      */
     public function setBirthDate(\DateTime $birthDate = null)
@@ -106,7 +106,7 @@ class Person
 
     /**
      * Gets birthDate.
-     * 
+     *
      * @return \DateTime
      */
     public function getBirthDate()
@@ -116,9 +116,9 @@ class Person
 
     /**
      * Sets description.
-     * 
+     *
      * @param string $description
-     * 
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -130,7 +130,7 @@ class Person
 
     /**
      * Gets description.
-     * 
+     *
      * @return string
      */
     public function getDescription()
@@ -140,9 +140,9 @@ class Person
 
     /**
      * Sets gender.
-     * 
+     *
      * @param string $gender
-     * 
+     *
      * @return $this
      */
     public function setGender($gender)
@@ -154,7 +154,7 @@ class Person
 
     /**
      * Gets gender.
-     * 
+     *
      * @return string
      */
     public function getGender()
@@ -164,9 +164,9 @@ class Person
 
     /**
      * Sets name.
-     * 
+     *
      * @param string $name
-     * 
+     *
      * @return $this
      */
     public function setName($name)
@@ -178,7 +178,7 @@ class Person
 
     /**
      * Gets name.
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -188,9 +188,9 @@ class Person
 
     /**
      * Sets url.
-     * 
+     *
      * @param string $url
-     * 
+     *
      * @return $this
      */
     public function setUrl($url)
@@ -202,7 +202,7 @@ class Person
 
     /**
      * Gets url.
-     * 
+     *
      * @return string
      */
     public function getUrl()
