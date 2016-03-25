@@ -36,13 +36,13 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "api-platform/core": "^2.0@dev",
         "nelmio/cors-bundle": "^1.4",
-        "nelmio/api-doc-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "api-platform/schema-generator": "dev-master",
+        "nelmio/api-doc-bundle": "^2.10",
         "behat/behat": "^3.1@dev",
         "behat/symfony2-extension": "^2.1@dev",
         "behat/mink": "^1.7@dev",

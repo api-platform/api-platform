@@ -1,6 +1,17 @@
 imports:
     - { resource: config.yml }
 
+# Nelmio API Doc
+nelmio_api_doc:
+    sandbox:
+        accept_type:        "application/json"
+        body_format:
+            formats:        [ "json" ]
+            default_format: "json"
+        request_format:
+            formats:
+                json:       "application/json"
+
 framework:
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"

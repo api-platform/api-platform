@@ -83,14 +83,3 @@ nelmio_cors:
         max_age:        3600
     paths:
         '^/': ~
-
-# Nelmio API Doc
-nelmio_api_doc:
-    sandbox:
-        accept_type:        "application/json"
-        body_format:
-            formats:        [ "json" ]
-            default_format: "json"
-        request_format:
-            formats:
-                json:       "application/json"
