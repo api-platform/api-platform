@@ -32,7 +32,7 @@ class Book
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Person")
      * @Property(iri="http://schema.org/author")
      */
-    private $authors;
+    private $author;
     /**
      * @var \DateTime Date of first broadcast/publication.
      *
@@ -85,14 +85,13 @@ class Book
      * @var Organization The publisher of the creative work.
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organization")
-     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id")
      * @Property(iri="http://schema.org/publisher")
      */
     private $publisher;
 
     public function __construct()
     {
-        $this->authors = new ArrayCollection();
+        $this->author = new ArrayCollection();
     }
 
     /**
@@ -128,7 +127,7 @@ class Book
      */
     public function addAuthor(Person $author)
     {
-        $this->authors[] = $author;
+        $this->author[] = $author;
 
         return $this;
     }
@@ -142,7 +141,7 @@ class Book
      */
     public function removeAuthor(Person $author)
     {
-        $this->authors->removeElement($author);
+        $this->author->removeElement($author);
 
         return $this;
     }
@@ -152,9 +151,9 @@ class Book
      *
      * @return ArrayCollection<Person>
      */
-    public function getAuthors()
+    public function getAuthor()
     {
-        return $this->authors;
+        return $this->author;
     }
 
     /**
