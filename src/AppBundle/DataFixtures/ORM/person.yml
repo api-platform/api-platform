@@ -2,6 +2,6 @@ AppBundle\Entity\Person:
     person_{1..10}:
         birthDate: <dateTime()>
         description: <text()>
-        gender: <gender()>
+        gender: female
         name: <name($gender)>
         url: <url()>
