@@ -22,6 +22,7 @@ types:
         cardinality: (*..*)
       publisher:
         range: Organization
+        cardinality: (*..1)
       isbn: ~
       numberOfPages: ~
       genre:

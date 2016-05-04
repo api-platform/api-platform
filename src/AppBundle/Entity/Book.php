@@ -84,7 +84,7 @@ class Book
     /**
      * @var Organization The publisher of the creative work.
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Organization")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organization")
      * @Property(iri="http://schema.org/publisher")
      */
     private $publisher;

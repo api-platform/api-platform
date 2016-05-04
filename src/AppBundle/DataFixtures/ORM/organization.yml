@@ -1,0 +1,5 @@
+AppBundle\Entity\Organization:
+    organization_{1..10}:
+        description: '<text()>'
+        name: '<company()>'
+        url: '<url()>'
