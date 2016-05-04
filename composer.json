@@ -33,7 +33,8 @@
         "nelmio/api-doc-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^3.0",
         "theofidry/psysh-bundle": "^2.0",
-        "doctrine/data-fixtures": "^1.1"
+        "doctrine/data-fixtures": "^1.1",
+        "hautelook/alice-bundle": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
