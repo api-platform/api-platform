@@ -2,11 +2,11 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     database
+    database_host:     127.0.0.1
     database_port:     ~
     database_name:     api-platform
-    database_user:     api-platform
-    database_password: api-platform
+    database_user:     root
+    database_password: ~
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -15,10 +15,10 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
     cors_allow_origin: http://localhost
 
     api_name:          Your API name
     api_description:   The full description of your API
-
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
