@@ -2,59 +2,59 @@
 
 namespace AppBundle\Entity;
 
-use ApiPlatform\Core\Annotation\Property;
-use ApiPlatform\Core\Annotation\Resource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * An organization such as a school, NGO, corporation, club, etc.
- *
+ * 
  * @see http://schema.org/Organization Documentation on Schema.org
- *
+ * 
  * @ORM\Entity
- * @Resource(iri="http://schema.org/Organization")
+ * @ApiResource(iri="http://schema.org/Organization")
  */
 class Organization
 {
     /**
      * @var int
-     *
+     * 
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
     /**
-     * @var string A short description of the item.
-     *
+     * @var string A description of the item.
+     * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
-     * @Property(iri="http://schema.org/description")
+     * @ApiProperty(iri="http://schema.org/description")
      */
     private $description;
     /**
      * @var string The name of the item.
-     *
+     * 
      * @ORM\Column(nullable=true)
      * @Assert\Type(type="string")
-     * @Property(iri="http://schema.org/name")
+     * @ApiProperty(iri="http://schema.org/name")
      */
     private $name;
     /**
      * @var string URL of the item.
-     *
+     * 
      * @ORM\Column(nullable=true)
      * @Assert\Url
-     * @Property(iri="http://schema.org/url")
+     * @ApiProperty(iri="http://schema.org/url")
      */
     private $url;
 
     /**
      * Sets id.
-     *
+     * 
      * @param int $id
-     *
+     * 
      * @return $this
      */
     public function setId($id)
@@ -66,7 +66,7 @@ class Organization
 
     /**
      * Gets id.
-     *
+     * 
      * @return int
      */
     public function getId()
@@ -76,9 +76,9 @@ class Organization
 
     /**
      * Sets description.
-     *
+     * 
      * @param string $description
-     *
+     * 
      * @return $this
      */
     public function setDescription($description)
@@ -90,7 +90,7 @@ class Organization
 
     /**
      * Gets description.
-     *
+     * 
      * @return string
      */
     public function getDescription()
@@ -100,9 +100,9 @@ class Organization
 
     /**
      * Sets name.
-     *
+     * 
      * @param string $name
-     *
+     * 
      * @return $this
      */
     public function setName($name)
@@ -114,7 +114,7 @@ class Organization
 
     /**
      * Gets name.
-     *
+     * 
      * @return string
      */
     public function getName()
@@ -124,9 +124,9 @@ class Organization
 
     /**
      * Sets url.
-     *
+     * 
      * @param string $url
-     *
+     * 
      * @return $this
      */
     public function setUrl($url)
@@ -138,7 +138,7 @@ class Organization
 
     /**
      * Gets url.
-     *
+     * 
      * @return string
      */
     public function getUrl()

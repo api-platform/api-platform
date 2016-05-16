@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eca22e66c810ab619cc62b112bddec01",
-    "content-hash": "59a033c5d457c5b624d3794e4005e45a",
+    "hash": "68ec1216415ae874b80467b1e128718f",
+    "content-hash": "ec535ca353e1765bc61d9dd64cc76b7d",
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "dev-master",
+            "version": "v2.0.0-alpha.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "9870182972fc50316c5a010dc7022d67cd68f6ea"
+                "reference": "7e278be5c15cc44f73a4730407096457ecc92d50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/9870182972fc50316c5a010dc7022d67cd68f6ea",
-                "reference": "9870182972fc50316c5a010dc7022d67cd68f6ea",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/7e278be5c15cc44f73a4730407096457ecc92d50",
+                "reference": "7e278be5c15cc44f73a4730407096457ecc92d50",
                 "shasum": ""
             },
             "require": {
@@ -48,6 +48,7 @@
                 "symfony/dependency-injection": "^2.8 || ^3.0 || ^3.1@dev",
                 "symfony/finder": "^2.3",
                 "symfony/framework-bundle": "^3.1@dev",
+                "symfony/phpunit-bridge": "^3.1@dev",
                 "symfony/security": "^2.7 || ^3.0",
                 "symfony/validator": "^2.5 || ^3.0"
             },
@@ -89,40 +90,7 @@
                 "json",
                 "rest"
             ],
-            "time": "2016-05-02 21:50:28"
-        },
-        {
-            "name": "dnoegel/php-xdg-base-dir",
-            "version": "0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dnoegel/php-xdg-base-dir.git",
-                "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dnoegel/php-xdg-base-dir/zipball/265b8593498b997dc2d31e75b89f053b5cc9621a",
-                "reference": "265b8593498b997dc2d31e75b89f053b5cc9621a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "@stable"
-            },
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "XdgBaseDir\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "implementation of xdg base directory specification for php",
-            "time": "2014-10-24 07:27:01"
+            "time": "2016-05-16 08:16:23"
         },
         {
             "name": "doctrine/annotations",
@@ -998,16 +966,16 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "a7b9da1f4fe4cb92ab18e5934399bc67ac182e6e"
+                "reference": "96dc5d831485af2feb1fb26ae0b990fbcdba63dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/a7b9da1f4fe4cb92ab18e5934399bc67ac182e6e",
-                "reference": "a7b9da1f4fe4cb92ab18e5934399bc67ac182e6e",
+                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/96dc5d831485af2feb1fb26ae0b990fbcdba63dc",
+                "reference": "96dc5d831485af2feb1fb26ae0b990fbcdba63dc",
                 "shasum": ""
             },
             "require": {
@@ -1077,7 +1045,7 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2016-03-21 21:09:09"
+            "time": "2016-05-11 12:57:42"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1129,93 +1097,6 @@
                 "parameters management"
             ],
             "time": "2015-11-10 17:04:01"
-        },
-        {
-            "name": "jakub-onderka/php-console-color",
-            "version": "0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JakubOnderka/PHP-Console-Color.git",
-                "reference": "e0b393dacf7703fc36a4efc3df1435485197e6c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Color/zipball/e0b393dacf7703fc36a4efc3df1435485197e6c1",
-                "reference": "e0b393dacf7703fc36a4efc3df1435485197e6c1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "jakub-onderka/php-code-style": "1.0",
-                "jakub-onderka/php-parallel-lint": "0.*",
-                "jakub-onderka/php-var-dump-check": "0.*",
-                "phpunit/phpunit": "3.7.*",
-                "squizlabs/php_codesniffer": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JakubOnderka\\PhpConsoleColor": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Jakub Onderka",
-                    "email": "jakub.onderka@gmail.com",
-                    "homepage": "http://www.acci.cz"
-                }
-            ],
-            "time": "2014-04-08 15:00:19"
-        },
-        {
-            "name": "jakub-onderka/php-console-highlighter",
-            "version": "v0.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JakubOnderka/PHP-Console-Highlighter.git",
-                "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/7daa75df45242c8d5b75a22c00a201e7954e4fb5",
-                "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5",
-                "shasum": ""
-            },
-            "require": {
-                "jakub-onderka/php-console-color": "~0.1",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-code-style": "~1.0",
-                "jakub-onderka/php-parallel-lint": "~0.5",
-                "jakub-onderka/php-var-dump-check": "~0.1",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "JakubOnderka\\PhpConsoleHighlighter": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jakub Onderka",
-                    "email": "acci@acci.cz",
-                    "homepage": "http://www.acci.cz/"
-                }
-            ],
-            "time": "2015-04-20 18:58:01"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1597,57 +1478,6 @@
             "time": "2015-12-09 17:26:34"
         },
         {
-            "name": "nikic/php-parser",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
-                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2016-04-19 13:41:41"
-        },
-        {
             "name": "paragonie/random_compat",
             "version": "v1.4.1",
             "source": {
@@ -1924,78 +1754,6 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
-        },
-        {
-            "name": "psy/psysh",
-            "version": "v0.7.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "e64e10b20f8d229cac76399e1f3edddb57a0f280"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e64e10b20f8d229cac76399e1f3edddb57a0f280",
-                "reference": "e64e10b20f8d229cac76399e1f3edddb57a0f280",
-                "shasum": ""
-            },
-            "require": {
-                "dnoegel/php-xdg-base-dir": "0.1",
-                "jakub-onderka/php-console-highlighter": "0.3.*",
-                "nikic/php-parser": "^1.2.1|~2.0",
-                "php": ">=5.3.9",
-                "symfony/console": "~2.3.10|^2.4.2|~3.0",
-                "symfony/var-dumper": "~2.7|~3.0"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "~1.5",
-                "phpunit/phpunit": "~3.7|~4.0|~5.0",
-                "squizlabs/php_codesniffer": "~2.0",
-                "symfony/finder": "~2.1|~3.0"
-            },
-            "suggest": {
-                "ext-pcntl": "Enabling the PCNTL extension makes PsySH a lot happier :)",
-                "ext-pdo-sqlite": "The doc command requires SQLite to work.",
-                "ext-posix": "If you have PCNTL, you'll want the POSIX extension as well.",
-                "ext-readline": "Enables support for arrow-key history navigation, and showing and manipulating command history."
-            },
-            "bin": [
-                "bin/psysh"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.8.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/Psy/functions.php"
-                ],
-                "psr-4": {
-                    "Psy\\": "src/Psy/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
-                }
-            ],
-            "description": "An interactive shell for modern PHP.",
-            "homepage": "http://psysh.org",
-            "keywords": [
-                "REPL",
-                "console",
-                "interactive",
-                "shell"
-            ],
-            "time": "2016-03-09 05:03:14"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2611,16 +2369,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "dev-master",
+            "version": "v3.1.0-BETA1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "cfcf263e246c663bd64e82d66c7217684cea0d5f"
+                "reference": "ae87cf88ed7f3dea7f662f56c71fb25f2646b411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/cfcf263e246c663bd64e82d66c7217684cea0d5f",
-                "reference": "cfcf263e246c663bd64e82d66c7217684cea0d5f",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/ae87cf88ed7f3dea7f662f56c71fb25f2646b411",
+                "reference": "ae87cf88ed7f3dea7f662f56c71fb25f2646b411",
                 "shasum": ""
             },
             "require": {
@@ -2696,6 +2454,7 @@
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": "~0.4|~1.0|~2.0",
                 "phpdocumentor/reflection-docblock": "^3.0",
+                "predis/predis": "~1.0",
                 "symfony/polyfill-apcu": "~1.1",
                 "symfony/security-acl": "~2.8|~3.0"
             },
@@ -2741,64 +2500,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-05-02 12:52:27"
-        },
-        {
-            "name": "theofidry/psysh-bundle",
-            "version": "v2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/theofidry/PsyshBundle.git",
-                "reference": "0ec5fa67773b30e237aedb4e505dbafb7d6a0ea1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/theofidry/PsyshBundle/zipball/0ec5fa67773b30e237aedb4e505dbafb7d6a0ea1",
-                "reference": "0ec5fa67773b30e237aedb4e505dbafb7d6a0ea1",
-                "shasum": ""
-            },
-            "require": {
-                "psy/psysh": "~0.3",
-                "symfony/framework-bundle": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5",
-                "symfony/symfony": "~2.7|~3.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Fidry\\PsyshBundle\\": "src"
-                },
-                "files": [
-                    "src/Support/psysh.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adrian Palmer",
-                    "email": "navitronic@gmail.com"
-                },
-                {
-                    "name": "Théo FIDRY",
-                    "email": "theo.fidry@gmail.com",
-                    "homepage": "https://github.com/theofidry"
-                }
-            ],
-            "description": "A port of the PHP REPL PsySH for Symfony.",
-            "keywords": [
-                "REPL",
-                "console",
-                "interactive",
-                "psysh",
-                "shell",
-                "symfony"
-            ],
-            "time": "2016-04-23 18:11:28"
+            "time": "2016-05-13 18:34:22"
         },
         {
             "name": "twig/twig",
@@ -2963,16 +2665,16 @@
     "packages-dev": [
         {
             "name": "api-platform/schema-generator",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/schema-generator.git",
-                "reference": "d0357a1e91e886b28a9d790c7f9a67ee3b6c0c9d"
+                "reference": "c3ae6c12b8d03a56750cf050aaf341d811de4d4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/schema-generator/zipball/d0357a1e91e886b28a9d790c7f9a67ee3b6c0c9d",
-                "reference": "d0357a1e91e886b28a9d790c7f9a67ee3b6c0c9d",
+                "url": "https://api.github.com/repos/api-platform/schema-generator/zipball/c3ae6c12b8d03a56750cf050aaf341d811de4d4b",
+                "reference": "c3ae6c12b8d03a56750cf050aaf341d811de4d4b",
                 "shasum": ""
             },
             "require": {
@@ -3027,7 +2729,7 @@
                 "semantic",
                 "symfony"
             ],
-            "time": "2016-03-11 10:45:23"
+            "time": "2016-05-16 07:41:59"
         },
         {
             "name": "behat/behat",
@@ -3841,7 +3543,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.0.5",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
@@ -3898,10 +3600,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/symfony": 20,
-        "api-platform/core": 20,
-        "doctrine/doctrine-bundle": 20,
-        "api-platform/schema-generator": 20
+        "symfony/symfony": 10,
+        "api-platform/core": 15,
+        "doctrine/doctrine-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
