@@ -1,17 +1,9 @@
-# Example PHP Schema file
+# Example config file for the Schema Generator
 # Use the following command to regenerate entities:
-# vendor/bin/schema generate-types src/ app/config/schema.yml
+# bin/schema generate-types src/ app/config/schema.yml
 
-rdfa:
-    - { uri: https://raw.githubusercontent.com/schemaorg/schemaorg/master/data/schema.rdfa, format: rdfa }
-annotationGenerators:
-    - ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
-    - ApiPlatform\SchemaGenerator\AnnotationGenerator\DoctrineOrmAnnotationGenerator
-    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ConstraintAnnotationGenerator
-    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ApiPlatformCoreAnnotationGenerator
-namespaces:
-  entity: AppBundle\Entity
 types:
+
   Book:
     parent: false
     properties:
@@ -20,14 +12,18 @@ types:
       author:
         range:       Person
         cardinality: (*..*)
+        relationTableName: book_author
       publisher:
         range: Organization
         cardinality: (*..1)
+      genre: ~
+      datePublished: ~
+      illustrator:
+        cardinality: (*..*)
+        relationTableName: book_illustrator
       isbn: ~
       numberOfPages: ~
-      genre:
-          range: Text
-      datePublished: ~
+
   Person:
     parent: false
     properties:
@@ -36,9 +32,19 @@ types:
       url: ~
       birthDate: ~
       gender: ~
+
   Organization:
     parent: false
     properties:
       name: ~
       description: ~
       url: ~
+
+namespaces:
+  entity: AppBundle\Entity
+
+annotationGenerators:
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\PhpDocAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\DoctrineOrmAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ConstraintAnnotationGenerator
+    - ApiPlatform\SchemaGenerator\AnnotationGenerator\ApiPlatformCoreAnnotationGenerator
