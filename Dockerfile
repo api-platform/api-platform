@@ -43,10 +43,6 @@ WORKDIR /app
 
 # Remove cache and logs if some and fixes permissions
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
-
-    # Install dependencies
-    && composer install --optimize-autoloader \
-
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
 

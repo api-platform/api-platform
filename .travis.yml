@@ -5,6 +5,7 @@ services:
 
 script:
     - docker-compose build
+    - docker-compose run web composer install
     - docker-compose run web bin/console security:check
     - docker-compose run web bin/console doctrine:schema:create
     - docker-compose run web bin/console doctrine:mapping:info
