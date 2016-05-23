@@ -45,7 +45,7 @@ WORKDIR /app
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
 
     # Install dependencies
-    && composer install -o && bin/console cache:warmup -e=prod \
+    && composer install --optimize-autoloader \
 
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
