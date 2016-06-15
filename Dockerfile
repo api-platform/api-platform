@@ -1,6 +1,7 @@
 FROM php:7.0-apache
 
 # PHP extensions
+ENV APCU_VERSION 5.1.5
 RUN buildDeps=" \
         libicu-dev \
         zlib1g-dev \
@@ -18,7 +19,7 @@ RUN buildDeps=" \
         zip \
     && apt-get purge -y --auto-remove $buildDeps
 RUN pecl install \
-        apcu \
+        apcu-$APCU_VERSION \
     && docker-php-ext-enable --ini-name 05-opcache.ini \
         opcache \
     && docker-php-ext-enable --ini-name 20-apcu.ini \
