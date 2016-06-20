@@ -10,3 +10,4 @@ script:
     - docker-compose run web bin/console doctrine:schema:create
     - docker-compose run web bin/console doctrine:mapping:info
     - docker-compose run web bin/console doctrine:schema:validate
+    - docker-compose run web bin/console hautelook_alice:doctrine:fixtures:load -n
