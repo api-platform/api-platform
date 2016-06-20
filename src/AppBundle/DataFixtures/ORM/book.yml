@@ -5,6 +5,6 @@ AppBundle\Entity\Book:
         description: '<text()>'
         genre: '<word()>'
         isbn: '<isbn13()>'
-        name: '<title()>'
+        name: '<sentence()>'
         numberOfPages: '<numberBetween(30, 1000)>'
         publisher: '@organization*'
