@@ -1,5 +1,5 @@
 AppBundle\Entity\Book:
-    book_{1..10}:
+    book_{1..50}:
         authors: ['@person*']
         datePublished: '<dateTime()>'
         description: '<text()>'
