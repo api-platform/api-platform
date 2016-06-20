@@ -9,26 +9,26 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v2.0.0-alpha.1",
+            "version": "v2.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "7e278be5c15cc44f73a4730407096457ecc92d50"
+                "reference": "24f53ca6e1c7b7154d28961510e742a1498f72bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/7e278be5c15cc44f73a4730407096457ecc92d50",
-                "reference": "7e278be5c15cc44f73a4730407096457ecc92d50",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/24f53ca6e1c7b7154d28961510e742a1498f72bc",
+                "reference": "24f53ca6e1c7b7154d28961510e742a1498f72bc",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "^1.0",
                 "php": ">=7.0",
                 "psr/cache": "^1.0",
-                "symfony/http-foundation": "^2.3 || ^3.0 || ^3.1@dev",
-                "symfony/http-kernel": "^2.8 || ^3.0 || ^3.1@dev",
-                "symfony/property-info": "^2.8 || ^3.0 || ^3.1@dev",
-                "symfony/serializer": "^3.1@dev",
+                "symfony/http-foundation": "^2.3 || ^3.0",
+                "symfony/http-kernel": "^2.8 || ^3.0",
+                "symfony/property-info": "^2.8 || ^3.0 ",
+                "symfony/serializer": "^3.1",
                 "willdurand/negotiation": "^2.0"
             },
             "require-dev": {
@@ -44,11 +44,12 @@
                 "nelmio/api-doc-bundle": "^2.11.2",
                 "php-mock/php-mock-phpunit": "^1.1",
                 "phpdocumentor/reflection-docblock": "^3.0",
-                "symfony/cache": "^3.1@dev",
-                "symfony/dependency-injection": "^2.8 || ^3.0 || ^3.1@dev",
-                "symfony/finder": "^2.3",
-                "symfony/framework-bundle": "^3.1@dev",
-                "symfony/phpunit-bridge": "^3.1@dev",
+                "phpunit/phpunit": "^5.0",
+                "symfony/cache": "^3.1",
+                "symfony/dependency-injection": "^2.8 || ^3.0",
+                "symfony/finder": "^2.8 || ^3.1",
+                "symfony/framework-bundle": "^3.1",
+                "symfony/phpunit-bridge": "^3.1",
                 "symfony/security": "^2.7 || ^3.0",
                 "symfony/validator": "^2.5 || ^3.0"
             },
@@ -90,7 +91,7 @@
                 "json",
                 "rest"
             ],
-            "time": "2016-05-16 08:16:23"
+            "time": "2016-06-16 06:18:51"
         },
         {
             "name": "doctrine/annotations",
@@ -371,27 +372,29 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "bd44f6b6e40247b6530bc8abe802e4e4d914976a"
+                "reference": "1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/bd44f6b6e40247b6530bc8abe802e4e4d914976a",
-                "reference": "bd44f6b6e40247b6530bc8abe802e4e4d914976a",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8",
+                "reference": "1bd7eb8720cb600a9cf0a798698fbf4fa2bec9b8",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.2",
-                "php": ">=5.3.2"
+                "php": "^5.6 || ^7.0"
             },
             "conflict": {
                 "doctrine/orm": "< 2.4"
             },
             "require-dev": {
-                "doctrine/orm": "~2.4"
+                "doctrine/dbal": "^2.5.4",
+                "doctrine/orm": "^2.5.4",
+                "phpunit/phpunit": "^5.4.6"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
@@ -424,7 +427,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2015-03-30 12:14:13"
+            "time": "2016-06-19 09:43:21"
         },
         {
             "name": "doctrine/dbal",
@@ -503,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1"
+                "reference": "1391a2c628c85926a0dbc56c119f3258de3cb184"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/fd51907c6c76acaa8a5234822a4f901c1500afc1",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/1391a2c628c85926a0dbc56c119f3258de3cb184",
+                "reference": "1391a2c628c85926a0dbc56c119f3258de3cb184",
                 "shasum": ""
             },
             "require": {
@@ -575,7 +578,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-04-21 19:55:56"
+            "time": "2016-06-20 11:27:25"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -3689,16 +3692,16 @@
         },
         {
             "name": "sensio/generator-bundle",
-            "version": "v3.0.6",
+            "version": "v3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioGeneratorBundle.git",
-                "reference": "ac91535054d025937d897d78ebb5fc2da5e955a4"
+                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/ac91535054d025937d897d78ebb5fc2da5e955a4",
-                "reference": "ac91535054d025937d897d78ebb5fc2da5e955a4",
+                "url": "https://api.github.com/repos/sensiolabs/SensioGeneratorBundle/zipball/d1be460925376703a470a3ac6ec034eb7eab3892",
+                "reference": "d1be460925376703a470a3ac6ec034eb7eab3892",
                 "shasum": ""
             },
             "require": {
@@ -3737,7 +3740,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2016-02-26 04:36:01"
+            "time": "2016-06-20 05:58:05"
         },
         {
             "name": "symfony/phpunit-bridge",
