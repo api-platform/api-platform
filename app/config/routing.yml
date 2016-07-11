@@ -6,6 +6,5 @@ api:
     resource: '.'
     type:     'api_platform'
 
-NelmioApiDocBundle:
-    resource: '@NelmioApiDocBundle/Resources/config/routing.yml'
-    prefix:   '/doc'
+doc:
+    resource: '@ApiPlatformBundle/Resources/config/routing/swagger-ui.xml'
