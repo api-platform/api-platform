@@ -1,0 +1,23 @@
+version: "2"
+services:
+    api:
+        volumes:
+            - api_vendor:/app/vendor
+            - api_var:/app/var
+        ports:
+            - "80:8000"
+        environment:
+            SYMFONY_ENV: dev
+    db:
+        volumes:
+            - db_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+volumes:
+    api_vendor:
+        ~
+    api_var:
+        ~
+    db_data:
+        ~

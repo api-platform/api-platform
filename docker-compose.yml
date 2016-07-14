@@ -1,16 +1,19 @@
-web:
-    build: .
-    links:
-        - database
-    volumes:
-        - .:/app
-    ports:
-        - 80:80
+version: "2"
 
-database:
-    image: mysql
-    environment:
-        MYSQL_ROOT_PASSWORD: changeme
-        MYSQL_DATABASE: api_platform
-        MYSQL_USER: api_platform
-        MYSQL_PASSWORD: api_platform
+services:
+  api:
+      build: ./
+      environment:
+          SYMFONY_ENV: dev
+      links:
+          - db
+      volumes:
+          - ./:/app
+
+  db:
+      image: mysql
+      environment:
+          MYSQL_ROOT_PASSWORD: changeme
+          MYSQL_DATABASE: api_platform
+          MYSQL_USER: api_platform
+          MYSQL_PASSWORD: api_platform

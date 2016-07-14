@@ -55,20 +55,29 @@ Use [Composer][3] to create your new project:
 
     composer create-project api-platform/api-platform my-api
 
-Start to hack
--------------
+Run the API
+-----------
 
 A demo application (a bookstore) is pre-installed.
-
+Using local server
+-------------------
 * Run `app/console server:start` and open `http://localhost:8000` in any
   HTTP client to access the API
+
+
+Using Docker
+------------
+* To activate the volumes you have to run `cp docker-compose.override.yml.dist docker-compose.override.yml`
+* Run `docker-compose run api composer install && docker-compose up`
+
+Start to hack
+-------------
 * Open `http://localhost:8000/doc` to read the HTML documentation an play
   with the sandbox
 * Give a try to the [HydraConsole][4] client to leverage JSON-LD and Hydra
   features
 * Build your first custom client using Javascript, CORS headers are already
   configured
-
 What's inside?
 --------------
 
