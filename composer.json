@@ -33,7 +33,6 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "dunglas/action-bundle": "^0.3",
         "nelmio/cors-bundle": "^1.4",
-        "nelmio/api-doc-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^3.0",
         "doctrine/data-fixtures": "^1.1",
         "hautelook/alice-bundle": "^1.2"
