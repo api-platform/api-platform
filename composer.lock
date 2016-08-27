@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a2dafb8a63b029d3fec0b144f208925e",
-    "content-hash": "e0c21e0e9b4939badb99291ff12c297b",
+    "hash": "b2cb9dccb3f89283168d1cd839130eed",
+    "content-hash": "fa3283e996ab87ae4935ff007d092234",
     "packages": [
         {
             "name": "api-platform/core",
@@ -371,65 +371,6 @@
             "time": "2015-12-25 13:18:31"
         },
         {
-            "name": "doctrine/data-fixtures",
-            "version": "v1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "b3cae5efef97191a08d53d733260f7eb667c16e4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/b3cae5efef97191a08d53d733260f7eb667c16e4",
-                "reference": "b3cae5efef97191a08d53d733260f7eb667c16e4",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/common": "~2.2",
-                "php": "^5.6 || ^7.0"
-            },
-            "conflict": {
-                "doctrine/orm": "< 2.4"
-            },
-            "require-dev": {
-                "doctrine/dbal": "^2.5.4",
-                "doctrine/orm": "^2.5.4",
-                "phpunit/phpunit": "^5.4.6"
-            },
-            "suggest": {
-                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
-                "doctrine/orm": "For loading ORM fixtures",
-                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\DataFixtures": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                }
-            ],
-            "description": "Data Fixtures for all Doctrine Object Managers",
-            "homepage": "http://www.doctrine-project.org",
-            "keywords": [
-                "database"
-            ],
-            "time": "2016-06-20 18:08:26"
-        },
-        {
             "name": "doctrine/dbal",
             "version": "v2.5.4",
             "source": {
@@ -502,16 +443,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "dev-master",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "87f0554b3152ae9dc7136a635807117c3a29ae1d"
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/87f0554b3152ae9dc7136a635807117c3a29ae1d",
-                "reference": "87f0554b3152ae9dc7136a635807117c3a29ae1d",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/dd40b0a7fb16658cda9def9786992b8df8a49be7",
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7",
                 "shasum": ""
             },
             "require": {
@@ -520,6 +461,7 @@
                 "jdorn/sql-formatter": "~1.1",
                 "php": ">=5.3.2",
                 "symfony/console": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
                 "symfony/doctrine-bridge": "~2.2|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
             },
@@ -578,7 +520,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-06-26 20:09:10"
+            "time": "2016-08-10 15:35:22"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -987,34 +929,44 @@
             "time": "2016-05-03 08:00:55"
         },
         {
-            "name": "fzaninotto/faker",
-            "version": "v1.6.0",
+            "name": "friendsofsymfony/http-cache",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123"
+                "url": "https://github.com/FriendsOfSymfony/FOSHttpCache.git",
+                "reference": "783f3918d85263e444db02a9e42d0f42aa7c1f43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/44f9a286a04b80c76a4e5fb7aad8bb539b920123",
-                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCache/zipball/783f3918d85263e444db02a9e42d0f42aa7c1f43",
+                "reference": "783f3918d85263e444db02a9e42d0f42aa7c1f43",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3|^7.0"
+                "guzzle/guzzle": "~3.8",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": "^2.3||^3.0",
+                "symfony/options-resolver": "^2.3||^3.0"
             },
             "require-dev": {
-                "ext-intl": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~1.5"
+                "mockery/mockery": "~0.9.1",
+                "monolog/monolog": "~1.0",
+                "symfony/http-kernel": "^2.3||^3.0",
+                "symfony/process": "^2.3||^3.0"
+            },
+            "suggest": {
+                "monolog/monolog": "For logging issues while invalidating"
             },
             "type": "library",
             "extra": {
-                "branch-alias": []
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
-                    "Faker\\": "src/Faker/"
+                    "FOS\\HttpCache\\": "src/",
+                    "FOS\\HttpCache\\Tests\\": "tests/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1023,73 +975,78 @@
             ],
             "authors": [
                 {
-                    "name": "François Zaninotto"
+                    "name": "Liip AG",
+                    "homepage": "http://www.liip.ch/"
+                },
+                {
+                    "name": "Driebit",
+                    "email": "tech@driebit.nl",
+                    "homepage": "http://www.driebit.nl"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/friendsofsymfony/FOSHttpCache/contributors"
                 }
             ],
-            "description": "Faker is a PHP library that generates fake data for you.",
+            "description": "Tools to manage cache invalidation",
+            "homepage": "https://github.com/friendsofsymfony/FOSHttpCache",
             "keywords": [
-                "data",
-                "faker",
-                "fixtures"
+                "caching",
+                "http",
+                "invalidation",
+                "nginx",
+                "purge",
+                "varnish"
             ],
-            "time": "2016-04-29 12:21:54"
+            "time": "2016-02-02 12:07:34"
         },
         {
-            "name": "hautelook/alice-bundle",
-            "version": "v1.3.1",
+            "name": "friendsofsymfony/http-cache-bundle",
+            "version": "1.3.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d"
+                "url": "https://github.com/FriendsOfSymfony/FOSHttpCacheBundle.git",
+                "reference": "f12b74b422e46c65daae8b3363bcf555f6957eea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/ecb649d1a53e75511e16c924797fb2676810d21d",
-                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSHttpCacheBundle/zipball/f12b74b422e46c65daae8b3363bcf555f6957eea",
+                "reference": "f12b74b422e46c65daae8b3363bcf555f6957eea",
                 "shasum": ""
             },
             "require": {
-                "nelmio/alice": "~2.1",
-                "php": ">=5.4.0",
-                "symfony/finder": "^2.7|~3.0"
+                "friendsofsymfony/http-cache": "~1.4",
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "^2.3||^3.0"
+            },
+            "conflict": {
+                "twig/twig": "<1.12.0"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "dev-sharding-erb as 1.2.x-dev",
-                "doctrine/doctrine-fixtures-bundle": "~2.2",
-                "doctrine/mongodb-odm": "^1.0",
-                "doctrine/mongodb-odm-bundle": "^3.0",
-                "doctrine/orm": "~2.4",
-                "doctrine/phpcr-bundle": "^1.3",
-                "doctrine/phpcr-odm": "^1.2",
-                "jackalope/jackalope-doctrine-dbal": "^1.2",
-                "phpunit/phpunit": "~4.8",
-                "sllh/php-cs-fixer-styleci-bridge": "~1.0",
-                "symfony/console": "~2.3|~3.0",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "symfony/phpunit-bridge": "^2.7.4|~3.0",
-                "symfony/validator": "~2.3|~3.0",
-                "symfony/yaml": "~2.3|~3.0"
+                "matthiasnoback/symfony-dependency-injection-test": "^0.7.4",
+                "mockery/mockery": "0.9.*",
+                "monolog/monolog": "*",
+                "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+                "sensio/framework-extra-bundle": "^2.3||^3.0",
+                "symfony/expression-language": "^2.4||^3.0",
+                "symfony/monolog-bundle": "^2.3||^3.0",
+                "symfony/phpunit-bridge": "^2.7||^3.0",
+                "symfony/symfony": "^2.3||^3.0"
             },
             "suggest": {
-                "doctrine/data-fixtures": "To use Doctrine fixtures loader",
-                "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
-                "doctrine/mongodb-odm": "To use Doctrine MongoDB",
-                "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
-                "doctrine/orm": "To use Doctrine ORM",
-                "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony",
-                "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
-                "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
-                "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle"
+                "sensio/framework-extra-bundle": "For Tagged Cache Invalidation",
+                "symfony/console": "To send invalidation requests from the command line",
+                "symfony/expression-language": "For Tagged Cache Invalidation"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.x-dev"
+                    "dev-master": "1.3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Hautelook\\AliceBundle\\": "src"
+                    "FOS\\HttpCacheBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1098,24 +1055,249 @@
             ],
             "authors": [
                 {
-                    "name": "Baldur Rensch",
-                    "email": "brensch@gmail.com"
+                    "name": "Liip AG",
+                    "homepage": "http://www.liip.ch/"
                 },
                 {
-                    "name": "Théo FIDRY",
-                    "email": "theo.fidry@gmail.com",
-                    "homepage": "https://github.com/theofidry"
+                    "name": "Driebit",
+                    "email": "tech@driebit.nl",
+                    "homepage": "http://www.driebit.nl"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/friendsofsymfony/FOSHttpCacheBundle/contributors"
                 }
             ],
-            "description": "Symfony2 Bundle to manage fixtures with Alice and Faker.",
+            "description": "Set path based HTTP cache headers and send invalidation requests to your HTTP cache",
+            "homepage": "https://github.com/FriendsOfSymfony/FOSHttpCacheBundle",
             "keywords": [
-                "Fixture",
-                "alice",
-                "faker",
-                "orm",
-                "symfony"
+                "caching",
+                "esi",
+                "http",
+                "invalidation",
+                "purge",
+                "varnish"
             ],
-            "time": "2016-06-07 20:46:56"
+            "time": "2016-02-24 21:36:18"
+        },
+        {
+            "name": "friendsofsymfony/oauth-server-bundle",
+            "version": "1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle.git",
+                "reference": "0b25cdaae8983c630bb62d14b6993219b1dadb8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/0b25cdaae8983c630bb62d14b6993219b1dadb8d",
+                "reference": "0b25cdaae8983c630bb62d14b6993219b1dadb8d",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofsymfony/oauth2-php": "~1.1",
+                "php": "^5.3.3|^7.0",
+                "symfony/framework-bundle": "~2.2|~3.0",
+                "symfony/security-bundle": "~2.1|~3.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.0",
+                "doctrine/mongodb-odm": "~1.0",
+                "doctrine/orm": "~2.2",
+                "phing/phing": "~2.4",
+                "propel/propel1": "^1.6.5",
+                "symfony/class-loader": "~2.1|~3.0",
+                "symfony/form": "~2.3|~3.0",
+                "symfony/yaml": "~2.1|~3.0",
+                "willdurand/propel-typehintable-behavior": "^1.0.4"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "*",
+                "propel/propel-bundle": "If you want to use Propel with Symfony2, then you will have to install the PropelBundle",
+                "symfony/form": "Needed to be able to use the AuthorizeFormType",
+                "willdurand/propel-typehintable-behavior": "The Typehintable behavior is useful to add type hints on generated methods, to be compliant with interfaces"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\OAuthServerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arnaud Le Blanc",
+                    "email": "arnaud.lb@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/contributors"
+                }
+            ],
+            "description": "Symfony2 OAuth Server Bundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "oauth",
+                "oauth2",
+                "server"
+            ],
+            "time": "2016-02-22 13:57:55"
+        },
+        {
+            "name": "friendsofsymfony/oauth2-php",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/oauth2-php.git",
+                "reference": "fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c",
+                "reference": "fa2aecb1fca2a03fd5f9aca19fe9adb9dfff928c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/http-foundation": "~2.0|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OAuth2\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arnaud Le Blanc",
+                    "email": "arnaud.lb@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/oauth2-php/contributors"
+                }
+            ],
+            "description": "OAuth2 library",
+            "homepage": "https://github.com/FriendsOfSymfony/oauth2-php",
+            "keywords": [
+                "oauth",
+                "oauth2"
+            ],
+            "time": "2016-03-31 14:24:17"
+        },
+        {
+            "name": "guzzle/guzzle",
+            "version": "v3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "*",
+                "monolog/monolog": "1.*",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "1.0.*",
+                "symfony/class-loader": "*",
+                "zendframework/zend-cache": "<2.3",
+                "zendframework/zend-log": "<2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "abandoned": "guzzlehttp/guzzle",
+            "time": "2014-01-28 22:29:15"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1219,17 +1401,92 @@
             "time": "2014-01-12 16:20:24"
         },
         {
-            "name": "monolog/monolog",
-            "version": "1.20.0",
+            "name": "lexik/jwt-authentication-bundle",
+            "version": "v1.7.0",
+            "target-dir": "Lexik/Bundle/JWTAuthenticationBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037"
+                "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
+                "reference": "8b4556ed6a62ed1c5a587b843ede9f938b4bf188"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/55841909e2bcde01b5318c35f2b74f8ecc86e037",
-                "reference": "55841909e2bcde01b5318c35f2b74f8ecc86e037",
+                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/8b4556ed6a62ed1c5a587b843ede9f938b4bf188",
+                "reference": "8b4556ed6a62ed1c5a587b843ede9f938b4bf188",
+                "shasum": ""
+            },
+            "require": {
+                "namshi/jose": "~6.0",
+                "php": ">=5.4.8",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/security-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.1",
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "suggest": {
+                "gesdinet/jwt-refresh-token-bundle": "Implements a refresh token system over Json Web Tokens in Symfony"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Lexik\\Bundle\\JWTAuthenticationBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Barthe",
+                    "email": "j.barthe@lexik.fr"
+                },
+                {
+                    "name": "Dev Lexik",
+                    "email": "dev@lexik.fr"
+                },
+                {
+                    "name": "Cedric Girard",
+                    "email": "c.girard@lexik.fr"
+                },
+                {
+                    "name": "Nicolas Cabot",
+                    "email": "n.cabot@lexik.fr"
+                }
+            ],
+            "description": "This bundle provides JWT authentication for your Symfony REST API",
+            "homepage": "https://github.com/lexik/LexikJWTAuthenticationBundle",
+            "keywords": [
+                "Authentication",
+                "JWS",
+                "api",
+                "bundle",
+                "jwt",
+                "rest",
+                "symfony"
+            ],
+            "time": "2016-07-27 21:43:34"
+        },
+        {
+            "name": "monolog/monolog",
+            "version": "1.21.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
                 "shasum": ""
             },
             "require": {
@@ -1294,42 +1551,41 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-07-02 14:02:10"
+            "time": "2016-07-29 03:23:52"
         },
         {
-            "name": "nelmio/alice",
-            "version": "2.2.2",
+            "name": "namshi/jose",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nelmio/alice.git",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf"
+                "url": "https://github.com/namshi/jose.git",
+                "reference": "d234ab5da058bda234efbfc231a4ff68f9c984be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/be940d30a450043c7991f2bc6ad19682db98c8cf",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf",
+                "url": "https://api.github.com/repos/namshi/jose/zipball/d234ab5da058bda234efbfc231a4ff68f9c984be",
+                "reference": "d234ab5da058bda234efbfc231a4ff68f9c984be",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "^1.0",
-                "php": "^5.6||^7.0",
-                "symfony/yaml": "^2.0||^3.0"
+                "ext-date": "*",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "ext-spl": "*",
+                "php": ">=5.5",
+                "phpseclib/phpseclib": "^2.0",
+                "symfony/polyfill-php56": "^1.0"
             },
             "require-dev": {
-                "doctrine/common": "^2.3",
-                "phpunit/phpunit": "^5.0||^4.0",
-                "symfony/phpunit-bridge": "^3.0",
-                "symfony/property-access": "^2.2||^3.0"
+                "phpunit/phpunit": "^4.5|^5.0",
+                "satooshi/php-coveralls": "^1.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "Nelmio\\Alice\\": "src/Nelmio/Alice"
+                    "Namshi\\JOSE\\": "src/Namshi/JOSE/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1338,26 +1594,24 @@
             ],
             "authors": [
                 {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be"
+                    "name": "Alessandro Nadalin",
+                    "email": "alessandro.nadalin@gmail.com"
                 },
                 {
-                    "name": "Tim Shelburne",
-                    "email": "shelburt02@gmail.com"
-                },
-                {
-                    "name": "Théo FIDRY",
-                    "email": "theo.fidry@gmail.com"
+                    "name": "Alessandro Cinelli (cirpo)",
+                    "email": "alessandro.cinelli@gmail.com"
                 }
             ],
-            "description": "Expressive fixtures generator",
+            "description": "JSON Object Signing and Encryption library for PHP.",
             "keywords": [
-                "Fixture",
-                "data",
-                "orm",
-                "test"
+                "JSON Web Signature",
+                "JSON Web Token",
+                "JWS",
+                "json",
+                "jwt",
+                "token"
             ],
-            "time": "2016-07-15 19:50:38"
+            "time": "2016-01-24 11:10:26"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -1611,17 +1865,109 @@
             "time": "2016-06-10 07:14:17"
         },
         {
-            "name": "psr/cache",
-            "version": "1.0.0",
+            "name": "phpseclib/phpseclib",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/cache.git",
-                "reference": "9e66031f41fbbdda45ee11e93c45d480ccba3eb3"
+                "url": "https://github.com/phpseclib/phpseclib.git",
+                "reference": "41f85e9c2582b3f6d1b7d20395fb40c687ad5370"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/cache/zipball/9e66031f41fbbdda45ee11e93c45d480ccba3eb3",
-                "reference": "9e66031f41fbbdda45ee11e93c45d480ccba3eb3",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/41f85e9c2582b3f6d1b7d20395fb40c687ad5370",
+                "reference": "41f85e9c2582b3f6d1b7d20395fb40c687ad5370",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "~4.0",
+                "sami/sami": "~2.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "suggest": {
+                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+                "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
+                "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "phpseclib/bootstrap.php"
+                ],
+                "psr-4": {
+                    "phpseclib\\": "phpseclib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Patrick Monnerat",
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Fischer",
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Hans-Jürgen Petrich",
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "homepage": "http://phpseclib.sourceforge.net",
+            "keywords": [
+                "BigInteger",
+                "aes",
+                "asn.1",
+                "asn1",
+                "blowfish",
+                "crypto",
+                "cryptography",
+                "encryption",
+                "rsa",
+                "security",
+                "sftp",
+                "signature",
+                "signing",
+                "ssh",
+                "twofish",
+                "x.509",
+                "x509"
+            ],
+            "time": "2016-08-18 18:49:14"
+        },
+        {
+            "name": "psr/cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/cache.git",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
                 "shasum": ""
             },
             "require": {
@@ -1654,7 +2000,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2015-12-11 02:52:07"
+            "time": "2016-08-06 20:24:11"
         },
         {
             "name": "psr/log",
@@ -1696,16 +2042,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.7",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a"
+                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
-                "reference": "a9c4723cbdbc6cf7fbfdfde3c639cb1943f0293a",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/f8ace5c71ee309492b027ef71215577f5a52b4ea",
+                "reference": "f8ace5c71ee309492b027ef71215577f5a52b4ea",
                 "shasum": ""
             },
             "require": {
@@ -1744,7 +2090,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-06-23 16:11:33"
+            "time": "2016-08-17 18:16:49"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -1907,7 +2253,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -2312,12 +2658,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "eea6c102b8e1efb06de9a0dab9c1c029b639010e"
+                "reference": "dd72f7ac64eb854c2385bb56db189335ce41059a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/eea6c102b8e1efb06de9a0dab9c1c029b639010e",
-                "reference": "eea6c102b8e1efb06de9a0dab9c1c029b639010e",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/dd72f7ac64eb854c2385bb56db189335ce41059a",
+                "reference": "dd72f7ac64eb854c2385bb56db189335ce41059a",
                 "shasum": ""
             },
             "require": {
@@ -2325,7 +2671,8 @@
                 "symfony/inflector": "~3.1"
             },
             "conflict": {
-                "phpdocumentor/reflection-docblock": "<3.0"
+                "phpdocumentor/reflection-docblock": "<3.0",
+                "phpdocumentor/type-resolver": "<0.2.0"
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
@@ -2377,7 +2724,7 @@
                 "type",
                 "validator"
             ],
-            "time": "2016-06-29 07:02:38"
+            "time": "2016-08-16 16:09:30"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -2438,16 +2785,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "2e98c829524e505a9561ac9e54fa715e8b79905e"
+                "reference": "4478f047409028dc6e3ab320590f1247fec7a850"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/2e98c829524e505a9561ac9e54fa715e8b79905e",
-                "reference": "2e98c829524e505a9561ac9e54fa715e8b79905e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/4478f047409028dc6e3ab320590f1247fec7a850",
+                "reference": "4478f047409028dc6e3ab320590f1247fec7a850",
                 "shasum": ""
             },
             "require": {
@@ -2463,7 +2810,8 @@
                 "twig/twig": "~1.23|~2.0"
             },
             "conflict": {
-                "phpdocumentor/reflection-docblock": "<3.0"
+                "phpdocumentor/reflection-docblock": "<3.0",
+                "phpdocumentor/type-resolver": "<0.2.0"
             },
             "replace": {
                 "symfony/asset": "self.version",
@@ -2569,7 +2917,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-06-30 17:16:26"
+            "time": "2016-07-30 09:31:00"
         },
         {
             "name": "twig/twig",
@@ -2634,28 +2982,29 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde"
+                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde",
-                "reference": "30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/bb2d123231c095735130cc8f6d31385a44c7b308",
+                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3|^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6"
+                "phpunit/phpunit": "^4.6",
+                "sebastian/version": "^1.0.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -2679,7 +3028,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2015-08-24 13:29:44"
+            "time": "2016-08-09 15:02:57"
         },
         {
             "name": "willdurand/negotiation",
@@ -2732,74 +3081,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "api-platform/schema-generator",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/api-platform/schema-generator.git",
-                "reference": "4a26288e7be4a9db2ffbdd84973c536efa3e024b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/schema-generator/zipball/4a26288e7be4a9db2ffbdd84973c536efa3e024b",
-                "reference": "4a26288e7be4a9db2ffbdd84973c536efa3e024b",
-                "shasum": ""
-            },
-            "require": {
-                "easyrdf/easyrdf": "~0.9.0",
-                "ext-json": "*",
-                "friendsofphp/php-cs-fixer": "~1.0",
-                "league/html-to-markdown": "~4.0",
-                "php": ">=5.4",
-                "psr/log": "~1.0",
-                "symfony/config": "~2.4|~3.0",
-                "symfony/console": "~2.5|~3.0",
-                "symfony/yaml": "~2.4|~3.0",
-                "twig/twig": "~1.0"
-            },
-            "require-dev": {
-                "doctrine/orm": "~2.2",
-                "symfony/validator": "~2.6"
-            },
-            "suggest": {
-                "doctrine/collections": "For Doctrine collections",
-                "doctrine/orm": "For Doctrine annotations",
-                "myclabs/php-enum": "For enumerations",
-                "symfony/validator": "For constraint annotations"
-            },
-            "bin": [
-                "bin/schema"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ApiPlatform\\SchemaGenerator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com"
-                }
-            ],
-            "description": "Various tools to generate a data model based on Schema.org vocables",
-            "homepage": "https://api-platform.com",
-            "keywords": [
-                "doctrine",
-                "entity",
-                "enum",
-                "model",
-                "schema.org",
-                "semantic",
-                "symfony"
-            ],
-            "time": "2016-05-31 12:51:33"
-        },
         {
             "name": "behat/behat",
             "version": "v3.1.0",
@@ -3261,106 +3542,45 @@
             "time": "2016-02-19 18:29:26"
         },
         {
-            "name": "easyrdf/easyrdf",
-            "version": "0.9.1",
+            "name": "doctrine/data-fixtures",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/njh/easyrdf.git",
-                "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566"
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "b3cae5efef97191a08d53d733260f7eb667c16e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/njh/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
-                "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/b3cae5efef97191a08d53d733260f7eb667c16e4",
+                "reference": "b3cae5efef97191a08d53d733260f7eb667c16e4",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "ext-pcre": "*",
-                "php": ">=5.2.8"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~3.5",
-                "sami/sami": "~1.4",
-                "squizlabs/php_codesniffer": "~1.4.3"
-            },
-            "suggest": {
-                "ml/json-ld": "~1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "EasyRdf_": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nicholas Humfrey",
-                    "email": "njh@aelius.com",
-                    "homepage": "http://www.aelius.com/njh/",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Alexey Zakhlestin",
-                    "email": "indeyets@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF.",
-            "homepage": "http://www.easyrdf.org/",
-            "keywords": [
-                "Linked Data",
-                "RDF",
-                "Semantic Web",
-                "Turtle",
-                "rdfa",
-                "sparql"
-            ],
-            "time": "2015-02-27 09:45:49"
-        },
-        {
-            "name": "friendsofphp/php-cs-fixer",
-            "version": "v1.11.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "d3d08b76753092a232a4d8c3b94095ac06898719"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/d3d08b76753092a232a4d8c3b94095ac06898719",
-                "reference": "d3d08b76753092a232a4d8c3b94095ac06898719",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=5.3.6",
-                "sebastian/diff": "~1.1",
-                "symfony/console": "~2.3|~3.0",
-                "symfony/event-dispatcher": "~2.1|~3.0",
-                "symfony/filesystem": "~2.1|~3.0",
-                "symfony/finder": "~2.1|~3.0",
-                "symfony/process": "~2.3|~3.0",
-                "symfony/stopwatch": "~2.5|~3.0"
+                "doctrine/common": "~2.2",
+                "php": "^5.6 || ^7.0"
             },
             "conflict": {
-                "hhvm": "<3.9"
+                "doctrine/orm": "< 2.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.5|^5",
-                "satooshi/php-coveralls": "^0.7.1"
+                "doctrine/dbal": "^2.5.4",
+                "doctrine/orm": "^2.5.4",
+                "phpunit/phpunit": "^5.4.6"
             },
-            "bin": [
-                "php-cs-fixer"
-            ],
-            "type": "application",
+            "suggest": {
+                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
+                "doctrine/orm": "For loading ORM fixtures",
+                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\CS\\": "Symfony/CS/"
+                "psr-0": {
+                    "Doctrine\\Common\\DataFixtures": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3369,16 +3589,147 @@
             ],
             "authors": [
                 {
-                    "name": "Dariusz Rumiński",
-                    "email": "dariusz.ruminski@gmail.com"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
                 }
             ],
-            "description": "A tool to automatically fix PHP code style",
-            "time": "2016-07-06 22:49:35"
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
+            ],
+            "time": "2016-06-20 18:08:26"
+        },
+        {
+            "name": "fzaninotto/faker",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/44f9a286a04b80c76a4e5fb7aad8bb539b920123",
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3|^7.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": []
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2016-04-29 12:21:54"
+        },
+        {
+            "name": "hautelook/alice-bundle",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hautelook/AliceBundle.git",
+                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/ecb649d1a53e75511e16c924797fb2676810d21d",
+                "reference": "ecb649d1a53e75511e16c924797fb2676810d21d",
+                "shasum": ""
+            },
+            "require": {
+                "nelmio/alice": "~2.1",
+                "php": ">=5.4.0",
+                "symfony/finder": "^2.7|~3.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "dev-sharding-erb as 1.2.x-dev",
+                "doctrine/doctrine-fixtures-bundle": "~2.2",
+                "doctrine/mongodb-odm": "^1.0",
+                "doctrine/mongodb-odm-bundle": "^3.0",
+                "doctrine/orm": "~2.4",
+                "doctrine/phpcr-bundle": "^1.3",
+                "doctrine/phpcr-odm": "^1.2",
+                "jackalope/jackalope-doctrine-dbal": "^1.2",
+                "phpunit/phpunit": "~4.8",
+                "sllh/php-cs-fixer-styleci-bridge": "~1.0",
+                "symfony/console": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/phpunit-bridge": "^2.7.4|~3.0",
+                "symfony/validator": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
+            },
+            "suggest": {
+                "doctrine/data-fixtures": "To use Doctrine fixtures loader",
+                "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
+                "doctrine/mongodb-odm": "To use Doctrine MongoDB",
+                "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
+                "doctrine/orm": "To use Doctrine ORM",
+                "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony",
+                "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
+                "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
+                "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hautelook\\AliceBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baldur Rensch",
+                    "email": "brensch@gmail.com"
+                },
+                {
+                    "name": "Théo FIDRY",
+                    "email": "theo.fidry@gmail.com",
+                    "homepage": "https://github.com/theofidry"
+                }
+            ],
+            "description": "Symfony2 Bundle to manage fixtures with Alice and Faker.",
+            "keywords": [
+                "Fixture",
+                "alice",
+                "faker",
+                "orm",
+                "symfony"
+            ],
+            "time": "2016-06-07 20:46:56"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3447,41 +3798,39 @@
             "time": "2016-01-25 15:43:01"
         },
         {
-            "name": "league/html-to-markdown",
-            "version": "4.2.1",
+            "name": "nelmio/alice",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "4e4d46079f59995a37145c19cc688e6fb8c981ab"
+                "url": "https://github.com/nelmio/alice.git",
+                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/4e4d46079f59995a37145c19cc688e6fb8c981ab",
-                "reference": "4e4d46079f59995a37145c19cc688e6fb8c981ab",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/be940d30a450043c7991f2bc6ad19682db98c8cf",
+                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf",
                 "shasum": ""
             },
             "require": {
-                "ext-dom": "*",
-                "ext-xml": "*",
-                "php": ">=5.3.3"
+                "fzaninotto/faker": "^1.0",
+                "php": "^5.6||^7.0",
+                "symfony/yaml": "^2.0||^3.0"
             },
             "require-dev": {
-                "mikehaertl/php-shellcommand": "~1.1.0",
-                "phpunit/phpunit": "4.*",
-                "scrutinizer/ocular": "~1.1"
+                "doctrine/common": "^2.3",
+                "phpunit/phpunit": "^5.0||^4.0",
+                "symfony/phpunit-bridge": "^3.0",
+                "symfony/property-access": "^2.2||^3.0"
             },
-            "bin": [
-                "bin/html-to-markdown"
-            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.3-dev"
+                    "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "League\\HTMLToMarkdown\\": "src/"
+                    "Nelmio\\Alice\\": "src/Nelmio/Alice"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3490,77 +3839,26 @@
             ],
             "authors": [
                 {
-                    "name": "Colin O'Dell",
-                    "email": "colinodell@gmail.com",
-                    "homepage": "http://www.colinodell.com",
-                    "role": "Lead Developer"
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be"
                 },
                 {
-                    "name": "Nick Cernis",
-                    "email": "nick@cern.is",
-                    "homepage": "http://modernnerd.net",
-                    "role": "Original Author"
-                }
-            ],
-            "description": "An HTML-to-markdown conversion helper for PHP",
-            "homepage": "https://github.com/thephpleague/html-to-markdown",
-            "keywords": [
-                "html",
-                "markdown"
-            ],
-            "time": "2016-05-18 12:57:10"
-        },
-        {
-            "name": "sebastian/diff",
-            "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "13edfd8706462032c2f52b4b862974dd46b71c9e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/13edfd8706462032c2f52b4b862974dd46b71c9e",
-                "reference": "13edfd8706462032c2f52b4b862974dd46b71c9e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Kore Nordmann",
-                    "email": "mail@kore-nordmann.de"
+                    "name": "Tim Shelburne",
+                    "email": "shelburt02@gmail.com"
                 },
                 {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
+                    "name": "Théo FIDRY",
+                    "email": "theo.fidry@gmail.com"
                 }
             ],
-            "description": "Diff implementation",
-            "homepage": "https://github.com/sebastianbergmann/diff",
+            "description": "Expressive fixtures generator",
             "keywords": [
-                "diff"
+                "Fixture",
+                "data",
+                "orm",
+                "test"
             ],
-            "time": "2015-12-08 07:14:41"
+            "time": "2016-07-15 19:50:38"
         },
         {
             "name": "sensio/generator-bundle",
@@ -3616,7 +3914,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
@@ -3674,8 +3972,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "symfony/property-info": 20,
-        "api-platform/core": 10,
-        "doctrine/doctrine-bundle": 20
+        "api-platform/core": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -24,7 +24,7 @@
         "symfony/property-info": "3.2.*@dev",
         "api-platform/core": "^2.0@beta",
         "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6@dev",
+        "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/monolog-bundle": "^2.8",
@@ -34,19 +34,21 @@
         "dunglas/action-bundle": "^0.3",
         "nelmio/cors-bundle": "^1.4",
         "phpdocumentor/reflection-docblock": "^3.0",
-        "doctrine/data-fixtures": "^1.1",
-        "hautelook/alice-bundle": "^1.2"
+        "friendsofsymfony/http-cache-bundle": "^1.3",
+        "lexik/jwt-authentication-bundle": "^1.7",
+        "friendsofsymfony/oauth-server-bundle": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "api-platform/schema-generator": "^1.1",
         "behat/behat": "^3.1",
         "behat/symfony2-extension": "^2.1",
         "behat/mink": "^1.7",
         "behat/mink-extension": "^2.2",
         "behat/mink-browserkit-driver": "^1.3.1",
-        "behatch/contexts": "^2.5"
+        "behatch/contexts": "^2.5",
+        "doctrine/data-fixtures": "^1.1",
+        "hautelook/alice-bundle": "^1.2"
     },
     "scripts": {
         "post-install-cmd": [
