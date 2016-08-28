@@ -9,8 +9,8 @@ The API Platform framework
 
 The official project documentation is available **[on the API Platform website][31]**.
 
-API Platform is a next-generation PHP web framework designed to create
-API-first projects easily but without compromise in the field of extensibility and
+API Platform is a next-generation PHP web framework designed to easily create
+API-first projects without compromising extensibility and
 flexibility:
 
 * Use our awesome code generator to **bootstrap a fully-functional data model from
@@ -18,10 +18,10 @@ flexibility:
   it manually)
 * **Expose in minutes an hypermedia REST API** that works out of the box by reusing
   entity metadata (ORM mapping, validation and serialization) ; that embraces [JSON-LD][1],
-  [Hydra][2] and provides a ton of features (CRUD, validation and error handling,
-  relation embedding, filters, ordering...)
+  [Hydra][2] (and such other data formats like [HAL][32], [YAML][33], [XML][34], [CSV][35])
+  and provides a ton of features (CRUD, validation and error handling, relation embedding, filters, ordering...)
 * Enjoy the **beautiful automatically generated API documentation** (Swagger-like)
-* Add easily **[JSON Web Token][25] or [OAuth][26] authentication**
+* Easily add **[JSON Web Token][25] or [OAuth][26] authentication**
 * Create specs and tests with a **developer friendly API context system** on top
   of [Behat][10]
 * Develop your website UI, webapp, mobile app or anything else you want using
@@ -44,7 +44,7 @@ full-stack framework and follows its best practices. It means than you can:
 * use **thousands of Symfony bundles** with API Platform
 * integrate API Platform in **any existing Symfony application**
 * reuse **all your Symfony skills** and benefit of the incredible
-  amount of Symfony documentation available
+  amount of Symfony documentation
 * enjoy the popular [Doctrine ORM][6] (used by default, but fully optional: you can
   use the data provider you want, including but not limited to MongoDB ODM and ElasticSearch)
 
@@ -165,3 +165,7 @@ Commercial support available upon request.
 [29]: http://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157
 [30]: https://les-tilleuls.coop
 [31]: https://api-platform.com
+[32]: http://stateless.co/hal_specification.html
+[33]: http://yaml.org/
+[34]: https://www.w3.org/XML/
+[35]: https://www.ietf.org/rfc/rfc4180.txt
