@@ -68,7 +68,6 @@ swiftmailer:
     spool:     { type: memory }
 
 # Nelmio CORS
-
 nelmio_cors:
     defaults:
         allow_origin:   ["%cors_allow_origin%"]
