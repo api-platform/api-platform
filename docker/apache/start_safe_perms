@@ -5,6 +5,13 @@
 # and run apache as that user.
 #
 main() {
+    # Docker for Mac requires a special handling, see https://docs.docker.com/docker-for-mac/osxfs/#/ownership
+    if [[ -n $(mount -t fuse.osxfs | grep /app) ]]; then
+        chown -R www-data:www-data /app 2> /dev/null
+        exec /usr/sbin/apache2ctl "$@"
+        return
+    fi
+
     local owner group owner_id group_id tmp
     read owner group owner_id group_id < <(stat -c '%U %G %u %g' .)
     if [[ $owner = UNKNOWN ]]; then

@@ -25,17 +25,24 @@ RUN pecl install \
     && docker-php-ext-enable --ini-name 20-apcu.ini \
         apcu
 
-# Apache & PHP configuration
+# Apache config
 RUN a2enmod rewrite
-ADD docker/apache/vhost.conf /etc/apache2/sites-enabled/default.conf
+ADD docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+
+# PHP config
 ADD docker/php/php.ini /usr/local/etc/php/php.ini
 
-# Install composer
+# Install Git
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         git \
     && rm -rf /var/lib/apt/lists/*
-RUN curl -sS https://getcomposer.org/installer | php \
+
+# Install composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php composer-setup.php \
+    && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/bin/composer
 
 # Add the application
@@ -44,6 +51,9 @@ WORKDIR /app
 
 # Remove cache and logs if some and fixes permissions
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
+    # Install dependencies
+    && composer install --optimize-autoloader \
+    && bin/console cache:warmup -e=prod \
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
 
