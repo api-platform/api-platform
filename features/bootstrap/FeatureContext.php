@@ -14,10 +14,21 @@ class FeatureContext implements Context, SnippetAcceptingContext
      * @var ManagerRegistry
      */
     private $doctrine;
+
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     private $manager;
+
+    /**
+     * @var SchemaTool
+     */
+    private $schemaTool;
+
+    /**
+     * @var array
+     */
+    private $classes;
 
     /**
      * Initializes context.
