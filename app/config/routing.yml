@@ -5,6 +5,3 @@ app:
 api:
     resource: '.'
     type:     'api_platform'
-
-doc:
-    resource: '@ApiPlatformBundle/Resources/config/routing/swagger-ui.xml'
