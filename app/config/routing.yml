@@ -4,4 +4,4 @@ api:
 
 app:
     resource: '@AppBundle/Action/'
-    type:     'annotation
+    type:     'annotation'
