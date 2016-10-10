@@ -1,7 +1,13 @@
-The API Platform framework
+The API Platform Framework
 ==========================
 
 [![Join the chat at https://gitter.im/api-platform/api-platform](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/api-platform/api-platform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
+[![Build status](https://ci.appveyor.com/api/projects/status/grwuyprts3wdqx5l?svg=true)](https://ci.appveyor.com/project/dunglas/dunglasapibundle)
+[![Coverage Status](https://coveralls.io/repos/github/api-platform/core/badge.svg)](https://coveralls.io/github/api-platform/core)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a93f5a40-483f-4c46-ba09-3e1033b62552/mini.png)](https://insight.sensiolabs.com/projects/a93f5a40-483f-4c46-ba09-3e1033b62552)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/5552e93306c318a32a0000fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5552e93306c318a32a0000fa)
 
 *The new breed of web frameworks*
 
@@ -18,7 +24,7 @@ flexibility:
   it manually)
 * **Expose in minutes an hypermedia REST API** that works out of the box by reusing
   entity metadata (ORM mapping, validation and serialization) ; that embraces [JSON-LD][1],
-  [Hydra][2] (and such other data formats like [HAL][32], [YAML][33], [XML][34], [CSV][35])
+  [Hydra][2] and such other data formats like [HAL][32], [YAML][33], [XML][34] or [CSV][35]
   and provides a ton of features (CRUD, validation and error handling, relation embedding, filters, ordering...)
 * Enjoy the **beautiful automatically generated API documentation** (Swagger-like)
 * Easily add **[JSON Web Token][25] or [OAuth][26] authentication**
@@ -78,7 +84,7 @@ API Platform provides rock solid foundations to build your project:
 Doctrine ORM mappings, Symfony validation and extended PHPDoc
 * [**The API bundle**][9] to expose in minutes your entities as a JSON-LD and
  Hydra enabled hypermedia REST API
-* [**NelmioApiDocBundle**][24] integrated with the API bundle to
+* [**Swagger UI**][24] integrated with the API bundle to
 automatically generate a beautiful human-readable documentation and a
 sandbox to test the API
 * [Behat][10] and [Behatch][11] configured to easily test the API
@@ -94,6 +100,8 @@ It comes pre-configured with the following bundles:
     Symfony framework
   * [**API Platform's API bundle**][9] - Creates powerful Hypermedia APIs supporting JSON-LD
     and Hydra
+  * [**DunglasActionBundle**][36] - Automatically register actions, commands and event
+   subscribers as a service
   * [**NelmioCorsBundle**][12] - Support for CORS headers
   * [**NelmioApiDocBundle**][24] - Generates a human-readable documentation
   * [**FosHttpCacheBundle**][13] - Add powerful caching capacities, supports Varnish,
@@ -157,7 +165,7 @@ Commercial support available upon request.
 [21]: https://github.com/lexik/LexikJWTAuthenticationBundle
 [22]: https://github.com/FriendsOfSymfony/FOSOAuthServerBundle
 [23]: https://dunglas.fr
-[24]: https://github.com/nelmio/NelmioApiDocBundle
+[24]: http://swagger.io/swagger-ui/
 [25]: http://jwt.io/
 [26]: http://oauth.net/
 [27]: https://en.wikipedia.org/wiki/Linked_data
@@ -169,3 +177,4 @@ Commercial support available upon request.
 [33]: http://yaml.org/
 [34]: https://www.w3.org/XML/
 [35]: https://www.ietf.org/rfc/rfc4180.txt
+[36]: https://github.com/dunglas/DunglasActionBundle
