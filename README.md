@@ -11,7 +11,7 @@ The API Platform Framework
 
 *The new breed of web frameworks*
 
-[![API Platform](https://api-platform.com/images/api-platform-logo.27a08537.png)](https://api-platform.com)
+[![API Platform](https://api-platform.com/logo-250x250.png)](https://api-platform.com)
 
 The official project documentation is available **[on the API Platform website][31]**.
 
@@ -19,23 +19,23 @@ API Platform is a next-generation PHP web framework designed to easily create
 API-first projects without compromising extensibility and
 flexibility:
 
-* Use our awesome code generator to **bootstrap a fully-functional data model from
-  [Schema.org][8] vocabularies** with ORM mapping and validation (you can also do
-  it manually)
 * **Expose in minutes an hypermedia REST API** that works out of the box by reusing
   entity metadata (ORM mapping, validation and serialization) ; that embraces [JSON-LD][1],
   [Hydra][2] and such other data formats like [HAL][32], [YAML][33], [XML][34] or [CSV][35]
   and provides a ton of features (CRUD, validation and error handling, relation embedding, filters, ordering...)
-* Enjoy the **beautiful automatically generated API documentation** (Swagger-like)
+* Enjoy the **beautiful automatically generated API documentation** (Swagger)
+* Use our awesome code generator to **bootstrap a fully-functional data model from
+  [Schema.org][8] vocabularies** with ORM mapping and validation (you can also do
+  it manually)
 * Easily add **[JSON Web Token][25] or [OAuth][26] authentication**
 * Create specs and tests with a **developer friendly API context system** on top
   of [Behat][10]
 * Develop your website UI, webapp, mobile app or anything else you want using
-  **your preferred client-side technologies**! Tested and approved with **AngularJS**
-  (integration included), **Ionic**, **React** and **native mobile** apps
+  **your preferred client-side technologies**! Tested and approved with **React**, **AngularJS**
+  (integration included), **Ionic**  and **native mobile** apps
 
-API Platform embraces open web standards (JSON-LD, Hydra, JWT, OAuth,
-HTTP, HTML5...) and the [Linked Data][27] movement. Your API will automatically
+API Platform embraces open web standards (Swagger, JSON-LD, Hydra, HAL, JWT, OAuth,
+HTTP...) and the [Linked Data][27] movement. Your API will automatically
 expose structured data in Schema.org/JSON-LD. It means that your API Platform application
 is usable **out of the box** with technologies of the semantic
 web.
@@ -57,23 +57,7 @@ full-stack framework and follows its best practices. It means than you can:
 Install
 -------
 
-Use [Composer][3] to create your new project:
-
-    composer create-project api-platform/api-platform my-api
-
-Start to hack
--------------
-
-A demo application (a bookstore) is pre-installed.
-
-* Run `app/console server:start` and open `http://localhost:8000` in any
-  HTTP client to access the API
-* Open `http://localhost:8000/doc` to read the HTML documentation an play
-  with the sandbox
-* Give a try to the [HydraConsole][4] client to leverage JSON-LD and Hydra
-  features
-* Build your first custom client using Javascript, CORS headers are already
-  configured
+[Read the official "Getting Started" guide](https://api-platform.com/docs/core/getting-started).
 
 What's inside?
 --------------
