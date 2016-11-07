@@ -38,17 +38,14 @@ RUN apt-get update \
         git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-    && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /usr/bin/composer \
-    && composer global require "hirak/prestissimo:^0.3"
-
 # Add the application
 ADD . /app
 WORKDIR /app
+
+# Install composer
+RUN ./docker/composer.sh \ 
+&& mv composer.phar /usr/bin/composer \  
+&& composer global require "hirak/prestissimo:^0.3"
 
 # Remove cache and logs if some and fixes permissions
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
