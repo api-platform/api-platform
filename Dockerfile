@@ -11,7 +11,6 @@ RUN buildDeps=" \
         $buildDeps \
         libicu52 \
         zlib1g \
-	wget \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install \
         intl \
@@ -47,7 +46,6 @@ WORKDIR /app
 RUN ./docker/composer.sh \ 
 && mv composer.phar /usr/bin/composer \  
 && composer global require "hirak/prestissimo:^0.3"
-
 
 # Remove cache and logs if some and fixes permissions
 RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
