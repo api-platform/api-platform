@@ -1,5 +1,7 @@
 web:
     build: .
+    environment:
+        SYMFONY_ENV: dev
     links:
         - database
     volumes:

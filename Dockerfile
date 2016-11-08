@@ -43,15 +43,18 @@ ADD . /app
 WORKDIR /app
 
 # Install composer
-RUN ./docker/composer.sh \ 
-&& mv composer.phar /usr/bin/composer \  
-&& composer global require "hirak/prestissimo:^0.3"
+RUN ./docker/composer.sh \
+    && mv composer.phar /usr/bin/composer \
+    && composer global require "hirak/prestissimo:^0.3"
 
-# Remove cache and logs if some and fixes permissions
-RUN ((rm -rf var/cache/* && rm -rf var/logs/* && rm -rf var/sessions/*) || true) \
+RUN \
+    # Remove var directory if it's accidentally included
+    (rm -rf var || true) \
+    # Create the var sub-directories
+    && mkdir -p var/cache var/logs var/sessions \
     # Install dependencies
     && composer install --optimize-autoloader --no-scripts \
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
 
-CMD ["/app/docker/apache/run.sh"]
+CMD ["/app/docker/start.sh"]
