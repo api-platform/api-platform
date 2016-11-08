@@ -8,11 +8,9 @@ then
     php composer-setup.php --quiet
     RESULT=$?
     rm composer-setup.php
-    rm installer.sig
     exit $RESULT
 else
     >&2 echo 'ERROR: Invalid installer signature'
     rm composer-setup.php
-    rm installer.sig
     exit 1
 fi
