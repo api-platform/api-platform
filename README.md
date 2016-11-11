@@ -5,7 +5,7 @@ The API Platform Framework
 [![Build Status](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
 [![Build status](https://ci.appveyor.com/api/projects/status/grwuyprts3wdqx5l?svg=true)](https://ci.appveyor.com/project/dunglas/dunglasapibundle)
 [![Coverage Status](https://coveralls.io/repos/github/api-platform/core/badge.svg)](https://coveralls.io/github/api-platform/core)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a93f5a40-483f-4c46-ba09-3e1033b62552/mini.png)](https://insight.sensiolabs.com/projects/a93f5a40-483f-4c46-ba09-3e1033b62552)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/92d78899-946c-4282-89a3-ac92344f9a93/mini.png)](https://insight.sensiolabs.com/projects/92d78899-946c-4282-89a3-ac92344f9a93)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/5552e93306c318a32a0000fa/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5552e93306c318a32a0000fa)
 
@@ -132,9 +132,9 @@ Commercial support available upon request.
 [4]:  http://www.hydra-cg.com/
 [5]:  https://symfony.com
 [6]:  http://www.doctrine-project.org
-[7]:  https://api-platform.com/doc/1.0/schema-generator/
+[7]:  https://api-platform.com/docs/schema-generator/
 [8]:  http://schema.org
-[9]:  https://api-platform.com/doc/1.0/api-bundle/
+[9]:  https://api-platform.com/docs/core/getting-started#installing-api-platform-core
 [10]: https://behat.readthedocs.org
 [11]: https://github.com/Behatch/contexts
 [12]: https://github.com/nelmio/NelmioCorsBundle
