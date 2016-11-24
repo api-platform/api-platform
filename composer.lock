@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ab1b7ce06b0618e14c43e315d2096d6f",
-    "content-hash": "147f783cd9e78258d7dc6740e69502a3",
+    "hash": "5bb085df2f0eeb3096fdf89366b0157a",
+    "content-hash": "9835d86316783a240c6a4887fdf531e4",
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v2.0.0-rc.6",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "ede7b9a5dbb29142dae1e643bd46e65b03d3e25f"
+                "reference": "0357a414cb3ae2d402d8fe3c87e95123a9209575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/ede7b9a5dbb29142dae1e643bd46e65b03d3e25f",
-                "reference": "ede7b9a5dbb29142dae1e643bd46e65b03d3e25f",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/0357a414cb3ae2d402d8fe3c87e95123a9209575",
+                "reference": "0357a414cb3ae2d402d8fe3c87e95123a9209575",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2016-11-16 15:50:49"
+            "time": "2016-11-24 13:54:47"
         },
         {
             "name": "doctrine/annotations",
@@ -1618,16 +1618,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.3",
+            "version": "v5.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
+                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
-                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/545ce9136690cea74f98f86fbb9c92dd9ab1a756",
+                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756",
                 "shasum": ""
             },
             "require": {
@@ -1667,7 +1667,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-07-08 11:51:25"
+            "time": "2016-11-24 01:01:23"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2289,16 +2289,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.28.1",
+            "version": "v1.28.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "fff80c4a7ae1d47a81dfec10c76cbcb939170b45"
+                "reference": "b22ce0eb070e41f7cba65d78fe216de29726459c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/fff80c4a7ae1d47a81dfec10c76cbcb939170b45",
-                "reference": "fff80c4a7ae1d47a81dfec10c76cbcb939170b45",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b22ce0eb070e41f7cba65d78fe216de29726459c",
+                "reference": "b22ce0eb070e41f7cba65d78fe216de29726459c",
                 "shasum": ""
             },
             "require": {
@@ -2306,7 +2306,7 @@
             },
             "require-dev": {
                 "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~2.7"
+                "symfony/phpunit-bridge": "~3.2@dev"
             },
             "type": "library",
             "extra": {
@@ -2346,24 +2346,24 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-11-19 05:52:49"
+            "time": "2016-11-23 18:41:40"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308"
+                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bb2d123231c095735130cc8f6d31385a44c7b308",
-                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3|^7.0"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6",
@@ -2372,7 +2372,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
@@ -2396,7 +2396,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-08-09 15:02:57"
+            "time": "2016-11-23 20:04:58"
         },
         {
             "name": "willdurand/negotiation",
@@ -2454,16 +2454,16 @@
     "packages-dev": [
         {
             "name": "api-platform/schema-generator",
-            "version": "v1.1.2",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/schema-generator.git",
-                "reference": "85bd370a7dbc16317deef44c91c4a78f1a2bed49"
+                "reference": "6866df7c7f21ae128e461f85aba8af4c2ecdb738"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/schema-generator/zipball/85bd370a7dbc16317deef44c91c4a78f1a2bed49",
-                "reference": "85bd370a7dbc16317deef44c91c4a78f1a2bed49",
+                "url": "https://api.github.com/repos/api-platform/schema-generator/zipball/6866df7c7f21ae128e461f85aba8af4c2ecdb738",
+                "reference": "6866df7c7f21ae128e461f85aba8af4c2ecdb738",
                 "shasum": ""
             },
             "require": {
@@ -2519,7 +2519,7 @@
                 "semantic",
                 "symfony"
             ],
-            "time": "2016-09-27 19:20:26"
+            "time": "2016-11-24 13:47:23"
         },
         {
             "name": "behat/behat",
@@ -3645,8 +3645,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/property-info": 5,
-        "api-platform/core": 5
+        "symfony/property-info": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
