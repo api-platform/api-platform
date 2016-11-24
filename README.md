@@ -66,7 +66,7 @@ API Platform provides rock solid foundations to build your project:
 
 * [**The Schema Generator**][7] to generate PHP entities from [Schema.org][8] types with
 Doctrine ORM mappings, Symfony validation and extended PHPDoc
-* [**The API bundle**][9] to expose in minutes your entities as a JSON-LD and
+* [**The API Platform Core Library**][9] to expose in minutes your entities as a JSON-LD and
  Hydra enabled hypermedia REST API
 * [**Swagger UI**][24] integrated with the API bundle to
 automatically generate a beautiful human-readable documentation and a
