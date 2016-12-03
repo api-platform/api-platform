@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f67b8a1677606433c6268d00575047a",
-    "content-hash": "588ac58ab9a523e7e1a598c95f6a65eb",
+    "hash": "dbf0c5aab3b196472a7b9042bdc36be8",
+    "content-hash": "6a25a1b99fa5b1315551f80048418c1e",
     "packages": [
         {
             "name": "api-platform/core",
@@ -3330,9 +3330,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "symfony/property-info": 5
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

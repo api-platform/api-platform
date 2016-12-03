@@ -21,7 +21,6 @@
     "require": {
         "php": ">=7.0",
         "symfony/symfony": "3.2.*",
-        "symfony/property-info": "3.2.*@rc",
         "api-platform/core": "^2.0",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
