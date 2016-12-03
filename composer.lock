@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5bb085df2f0eeb3096fdf89366b0157a",
-    "content-hash": "9835d86316783a240c6a4887fdf531e4",
+    "hash": "5bc95dfd5579437b459d30932e7aea6d",
+    "content-hash": "6eb37bf30658df0c84e5bda7ffabbea8",
     "packages": [
         {
             "name": "api-platform/core",
@@ -3212,37 +3212,39 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "v1.4.1",
+            "version": "v2.0.0-beta.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "058925945bccbc8776725fec9e8557aca9666d9c"
+                "reference": "0643d10a8babaee60acfa572da271350c1307158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/058925945bccbc8776725fec9e8557aca9666d9c",
-                "reference": "058925945bccbc8776725fec9e8557aca9666d9c",
+                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/0643d10a8babaee60acfa572da271350c1307158",
+                "reference": "0643d10a8babaee60acfa572da271350c1307158",
                 "shasum": ""
             },
             "require": {
-                "nelmio/alice": "^2.1 < 2.2.0 || ^2.2.1",
-                "php": "^5.6||^7.0",
+                "nelmio/alice": "^3.0@dev",
+                "php": "^7.0",
                 "symfony/finder": "^2.7||^3.0"
             },
             "require-dev": {
-                "doctrine/data-fixtures": "1.0.1",
-                "doctrine/doctrine-bundle": "^1.6.4",
-                "doctrine/doctrine-fixtures-bundle": "^2.2",
-                "doctrine/mongodb-odm": "^1.0",
-                "doctrine/mongodb-odm-bundle": "^3.0",
-                "doctrine/orm": "^2.4",
+                "bamarni/composer-bin-plugin": "dev-master",
+                "doctrine/data-fixtures": "^1.2",
+                "doctrine/doctrine-bundle": "^1.6",
+                "doctrine/orm": "^2.5",
+                "easycorp/easy-log-handler": "^1.0",
                 "phpunit/phpunit": "^5.6",
                 "sllh/php-cs-fixer-styleci-bridge": "^1.0",
                 "symfony/console": "^2.3||~3.0",
                 "symfony/framework-bundle": "^2.3||^3.0",
-                "symfony/phpunit-bridge": "^3.1",
+                "symfony/monolog-bundle": "^2.11",
+                "symfony/phpunit-bridge": "^2.7.4||^3.0",
                 "symfony/validator": "^2.3|^3.0",
-                "symfony/yaml": "^2.3||^3.0"
+                "symfony/yaml": "^2.3||^3.0",
+                "theofidry/alice-data-fixtures": "^1.0@dev",
+                "theofidry/psysh-bundle": "^2.0"
             },
             "suggest": {
                 "doctrine/data-fixtures": "To use Doctrine fixtures loader",
@@ -3250,6 +3252,9 @@
                 "doctrine/mongodb-odm": "To use Doctrine MongoDB",
                 "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
                 "doctrine/orm": "To use Doctrine ORM",
+                "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony",
+                "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
+                "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
                 "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle"
             },
             "type": "symfony-bundle",
@@ -3257,6 +3262,7 @@
                 "branch-alias": {
                     "dev-master": "2.x-dev"
                 },
+                "bin-dir": "bin",
                 "sort-packages": true
             },
             "autoload": {
@@ -3287,7 +3293,7 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2016-11-04 08:48:00"
+            "time": "2016-10-23 17:01:37"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3420,39 +3426,88 @@
             "time": "2016-10-27 20:05:57"
         },
         {
-            "name": "nelmio/alice",
-            "version": "2.2.2",
+            "name": "myclabs/deep-copy",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nelmio/alice.git",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf"
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/be940d30a450043c7991f2bc6ad19682db98c8cf",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/399c1f9781e222f6eb6cc238796f5200d1b7f108",
+                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "doctrine/collections": "1.*",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Create deep copies (clones) of your objects",
+            "homepage": "https://github.com/myclabs/DeepCopy",
+            "keywords": [
+                "clone",
+                "copy",
+                "duplicate",
+                "object",
+                "object graph"
+            ],
+            "time": "2016-10-31 17:19:45"
+        },
+        {
+            "name": "nelmio/alice",
+            "version": "v3.0.0-beta.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nelmio/alice.git",
+                "reference": "cfa21ed203fbc70108769ee1b23c9c7e4e3d9a49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/cfa21ed203fbc70108769ee1b23c9c7e4e3d9a49",
+                "reference": "cfa21ed203fbc70108769ee1b23c9c7e4e3d9a49",
                 "shasum": ""
             },
             "require": {
                 "fzaninotto/faker": "^1.0",
-                "php": "^5.6||^7.0",
+                "myclabs/deep-copy": "^1.5.2",
+                "php": "^7.0",
+                "symfony/property-access": "^2.2||^3.0",
                 "symfony/yaml": "^2.0||^3.0"
             },
             "require-dev": {
-                "doctrine/common": "^2.3",
-                "phpunit/phpunit": "^5.0||^4.0",
-                "symfony/phpunit-bridge": "^3.0",
-                "symfony/property-access": "^2.2||^3.0"
+                "bamarni/composer-bin-plugin": "^1.0.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/phpunit-bridge": "^3.1"
             },
             "type": "library",
             "extra": {
+                "bamarni-bin": {
+                    "bin-links": false
+                },
                 "branch-alias": {
                     "dev-master": "3.0.x-dev"
                 }
             },
             "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
                 "psr-4": {
-                    "Nelmio\\Alice\\": "src/Nelmio/Alice"
+                    "Nelmio\\Alice\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3477,10 +3532,10 @@
             "keywords": [
                 "Fixture",
                 "data",
-                "orm",
+                "faker",
                 "test"
             ],
-            "time": "2016-07-15 19:50:38"
+            "time": "2016-11-12 17:22:45"
         },
         {
             "name": "sebastian/diff",
@@ -3640,12 +3695,79 @@
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
             "time": "2016-11-17 10:59:24"
+        },
+        {
+            "name": "theofidry/alice-data-fixtures",
+            "version": "v1.0.0-beta.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/theofidry/AliceDataFixtures.git",
+                "reference": "edd468dffcd82e06d1eb4f79f2d40ef1fc7b0a64"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/theofidry/AliceDataFixtures/zipball/edd468dffcd82e06d1eb4f79f2d40ef1fc7b0a64",
+                "reference": "edd468dffcd82e06d1eb4f79f2d40ef1fc7b0a64",
+                "shasum": ""
+            },
+            "require": {
+                "nelmio/alice": "^3.0@dev",
+                "php": "~7.0.0 || ~7.1.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.0",
+                "phpunit/phpunit": "^5.5",
+                "symfony/phpunit-bridge": "^3.1"
+            },
+            "suggest": {
+                "doctrine/orm": "To use Doctrine ORM"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": false
+                },
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "bin-dir": "bin",
+                "sort-packages": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fidry\\AliceDataFixtures\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Théo FIDRY",
+                    "email": "theo.fidry@gmail.com",
+                    "homepage": "https://github.com/theofidry"
+                }
+            ],
+            "description": "Nelmio alice extension to persist the loaded fixtures.",
+            "keywords": [
+                "Fixture",
+                "alice",
+                "data",
+                "faker",
+                "orm",
+                "tests"
+            ],
+            "time": "2016-11-06 18:26:05"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/property-info": 5
+        "symfony/property-info": 5,
+        "hautelook/alice-bundle": 10,
+        "nelmio/alice": 10,
+        "theofidry/alice-data-fixtures": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
