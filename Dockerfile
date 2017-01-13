@@ -1,7 +1,7 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 # PHP extensions
-ENV APCU_VERSION 5.1.5
+ENV APCU_VERSION 5.1.7
 RUN buildDeps=" \
         libicu-dev \
         zlib1g-dev \
