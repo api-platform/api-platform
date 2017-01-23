@@ -42,6 +42,9 @@ RUN apt-get update \
 ADD . /app
 WORKDIR /app
 
+# Fix permissions (useful if the host is Windows)
+RUN chmod +x docker/composer.sh docker/start.sh docker/apache/start_safe_perms
+
 # Install composer
 RUN ./docker/composer.sh \
     && mv composer.phar /usr/bin/composer \
