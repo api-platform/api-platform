@@ -5,5 +5,5 @@ services:
 
 script:
     - docker-compose build
-    - docker-compose run --rm web composer install -o -n
-    - docker-compose run --rm web bin/console security:check
+    - docker-compose run --user=www-data --rm web composer install -o -n
+    - docker-compose run --user=www-data --rm web bin/console security:check
