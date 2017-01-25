@@ -8,7 +8,7 @@ To have your code integrated in the API Platform project, there is some rules to
 
 If you happen to find a bug, we kindly request you to report it. However, before submitting it, please:
 
-  * Check the [project documentation available online](https://api-platform.com/doc/)
+  * Check the [project documentation available online](https://api-platform.com/docs/)
 
 Then, if it appears that it's a real bug, you may report it using Github by following these 3 points:
 
@@ -23,7 +23,7 @@ Then, if it appears that it's a real bug, you may report it using Github by foll
 ### Writing a Pull Request
 
 First of all, you must decide on what branch your changes will be based. If the changes your are going to make are
-fully backward-compatible, you should base your changes on the latest stable branch (`1.0` at the moment).
+fully backward-compatible, you should base your changes on the latest stable branch (`2.0` at the moment).
 Otherwise, you should base your changes on the `master` branch.
 
 ### Matching coding standards
@@ -101,4 +101,3 @@ and to transfer the copyright on the submitted code to Kévin Dunglas.
 Be sure to you have the right to do that (if you are a professional, ask your company)!
 
 If you include code from another project, please mention it in the Pull Request description and credit the original author.
-
