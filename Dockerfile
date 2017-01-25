@@ -1,7 +1,7 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 # PHP extensions
-ENV APCU_VERSION 5.1.5
+ENV APCU_VERSION 5.1.7
 RUN buildDeps=" \
         libicu-dev \
         zlib1g-dev \
@@ -42,6 +42,9 @@ RUN apt-get update \
 ADD . /app
 WORKDIR /app
 
+# Fix permissions (useful if the host is Windows)
+RUN chmod +x docker/composer.sh docker/start.sh docker/apache/start_safe_perms
+
 # Install composer
 RUN ./docker/composer.sh \
     && mv composer.phar /usr/bin/composer \
@@ -53,7 +56,7 @@ RUN \
     # Create the var sub-directories
     && mkdir -p var/cache var/logs var/sessions \
     # Install dependencies
-    && composer install --optimize-autoloader --no-scripts \
+    && composer install --prefer-dist --no-scripts --no-dev --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
     # Fixes permissions issues in non-dev mode
     && chown -R www-data . var/cache var/logs var/sessions
 
