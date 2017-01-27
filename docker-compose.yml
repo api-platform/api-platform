@@ -1,18 +1,29 @@
-web:
-    build: .
-    environment:
-        SYMFONY_ENV: dev
-    links:
-        - database
-    volumes:
-        - .:/app
-    ports:
-        - 80:80
+version: '2'
+services:
+    database:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: changeme
+            MYSQL_DATABASE: api_platform
+            MYSQL_USER: api_platform
+            MYSQL_PASSWORD: api_platform
 
-database:
-    image: mysql
-    environment:
-        MYSQL_ROOT_PASSWORD: changeme
-        MYSQL_DATABASE: api_platform
-        MYSQL_USER: api_platform
-        MYSQL_PASSWORD: api_platform
+    nginx:
+        image: nginx:1.11-alpine
+        depends_on:
+            - php
+        ports:
+            - "80:80"
+        volumes:
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+        volumes_from:
+            - php:ro
+
+    php:
+        build: .
+        environment:
+            SYMFONY_ENV: dev
+        links:
+            - database
+        volumes:
+            - .:/api-platform

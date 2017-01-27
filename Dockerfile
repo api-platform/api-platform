@@ -1,63 +1,58 @@
-FROM php:7.1-apache
+FROM php:7.1-fpm-alpine
 
-# PHP extensions
 ENV APCU_VERSION 5.1.7
-RUN buildDeps=" \
-        libicu-dev \
-        zlib1g-dev \
-    " \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-        $buildDeps \
-        libicu52 \
-        zlib1g \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install \
-        intl \
+
+# Git is for composer
+# su-exec for managing permissions
+RUN apk add --no-cache --virtual build-dependencies \
+	autoconf \
+	build-base \
+	icu-dev \
+	zlib-dev
+
+RUN apk --update --no-cache add \
+        git \
+        icu-libs \
+        openssl \
+        su-exec \
+        zlib
+
+RUN docker-php-ext-install \
         mbstring \
+        intl \
         pdo_mysql \
         zip \
-    && apt-get purge -y --auto-remove $buildDeps
-RUN pecl install \
-        apcu-$APCU_VERSION \
-    && docker-php-ext-enable --ini-name 05-opcache.ini \
-        opcache \
-    && docker-php-ext-enable --ini-name 20-apcu.ini \
-        apcu
+	&& pecl install apcu-${APCU_VERSION} \
+	&& docker-php-ext-enable --ini-name 20-apcu.ini apcu \
+	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache
 
-# Apache config
-RUN a2enmod rewrite
-ADD docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+RUN apk del build-dependencies
 
-# PHP config
-ADD docker/php/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/php/php.ini /etc/php7/php.ini
 
-# Install Git
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        git \
-    && rm -rf /var/lib/apt/lists/*
+# install composer
+COPY ./docker/php/composer.sh composer.sh
+RUN chmod +x composer.sh \
+	&& sh composer.sh \
+	&& mv composer.phar /usr/bin/composer \
+	&& chmod +x /usr/bin/composer
 
-# Add the application
-ADD . /app
-WORKDIR /app
+# prepare volume directory
+RUN mkdir /api-platform
 
-# Fix permissions (useful if the host is Windows)
-RUN chmod +x docker/composer.sh docker/start.sh docker/apache/start_safe_perms
+# speed up composer
+RUN su-exec www-data composer global require hirak/prestissimo:^0.3
 
-# Install composer
-RUN ./docker/composer.sh \
-    && mv composer.phar /usr/bin/composer \
-    && composer global require "hirak/prestissimo:^0.3"
+WORKDIR /api-platform
 
-RUN \
-    # Remove var directory if it's accidentally included
-    (rm -rf var || true) \
-    # Create the var sub-directories
-    && mkdir -p var/cache var/logs var/sessions \
-    # Install dependencies
-    && composer install --prefer-dist --no-scripts --no-dev --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
-    # Fixes permissions issues in non-dev mode
-    && chown -R www-data . var/cache var/logs var/sessions
+COPY composer.json .
+COPY composer.lock .
 
-CMD ["/app/docker/start.sh"]
+RUN chown -R www-data .
+
+RUN su-exec www-data composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest \
+        && composer clear-cache
+
+COPY ./docker/php/docker-cmd.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-cmd.sh
+CMD ["docker-cmd.sh"]
