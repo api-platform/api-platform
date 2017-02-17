@@ -1,63 +1,69 @@
-FROM php:7.1-apache
+FROM php:7.1-fpm-alpine
 
-# PHP extensions
-ENV APCU_VERSION 5.1.7
-RUN buildDeps=" \
-        libicu-dev \
-        zlib1g-dev \
-    " \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-        $buildDeps \
-        libicu52 \
-        zlib1g \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-install \
-        intl \
-        mbstring \
-        pdo_mysql \
-        zip \
-    && apt-get purge -y --auto-remove $buildDeps
-RUN pecl install \
-        apcu-$APCU_VERSION \
-    && docker-php-ext-enable --ini-name 05-opcache.ini \
-        opcache \
-    && docker-php-ext-enable --ini-name 20-apcu.ini \
-        apcu
+RUN apk add --no-cache --virtual .persistent-deps \
+		git \
+		icu-libs \
+		zlib
 
-# Apache config
-RUN a2enmod rewrite
-ADD docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+ENV APCU_VERSION 5.1.8
 
-# PHP config
-ADD docker/php/php.ini /usr/local/etc/php/php.ini
+RUN set -xe \
+	&& apk add --no-cache --virtual .build-deps \
+		$PHPIZE_DEPS \
+		icu-dev \
+		zlib-dev \
+	&& docker-php-ext-install \
+		intl \
+		pdo_mysql \
+		zip \
+	&& pecl install \
+		apcu-${APCU_VERSION} \
+	&& docker-php-ext-enable --ini-name 20-apcu.ini apcu \
+	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache \
+	&& apk del .build-deps
 
-# Install Git
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        git \
-    && rm -rf /var/lib/apt/lists/*
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
 
-# Add the application
-ADD . /app
-WORKDIR /app
+COPY docker/php/install-composer.sh /usr/local/bin/docker-app-install-composer
 
-# Fix permissions (useful if the host is Windows)
-RUN chmod +x docker/composer.sh docker/start.sh docker/apache/start_safe_perms
+RUN chmod +x /usr/local/bin/docker-app-install-composer
 
-# Install composer
-RUN ./docker/composer.sh \
-    && mv composer.phar /usr/bin/composer \
-    && composer global require "hirak/prestissimo:^0.3"
+RUN set -xe \
+	&& apk add --no-cache --virtual .fetch-deps \
+		openssl \
+	&& docker-app-install-composer \
+	&& mv composer.phar /usr/local/bin/composer \
+	&& apk del .fetch-deps
 
-RUN \
-    # Remove var directory if it's accidentally included
-    (rm -rf var || true) \
-    # Create the var sub-directories
-    && mkdir -p var/cache var/logs var/sessions \
-    # Install dependencies
-    && composer install --prefer-dist --no-scripts --no-dev --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
-    # Fixes permissions issues in non-dev mode
-    && chown -R www-data . var/cache var/logs var/sessions
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-CMD ["/app/docker/start.sh"]
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
+	&& composer clear-cache
+
+WORKDIR /srv/api-platform
+
+COPY composer.json ./
+COPY composer.lock ./
+
+RUN mkdir -p \
+		var/cache \
+		var/logs \
+		var/sessions \
+	&& composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest \
+	&& composer clear-cache \
+# Permissions hack because setfacl does not work on Mac and Windows
+	&& chown -R www-data var
+
+COPY app app/
+COPY bin bin/
+COPY src src/
+COPY web web/
+
+RUN composer dump-autoload --optimize --classmap-authoritative --no-dev
+
+COPY docker/php/start.sh /usr/local/bin/docker-app-start
+
+RUN chmod +x /usr/local/bin/docker-app-start
+
+CMD ["docker-app-start"]

@@ -1,18 +1,38 @@
-web:
-    build: .
-    environment:
-        SYMFONY_ENV: dev
-    links:
-        - database
-    volumes:
-        - .:/app
-    ports:
-        - 80:80
+version: '2'
 
-database:
-    image: mysql
+services:
+  db:
     environment:
-        MYSQL_ROOT_PASSWORD: changeme
-        MYSQL_DATABASE: api_platform
-        MYSQL_USER: api_platform
-        MYSQL_PASSWORD: api_platform
+      MYSQL_DATABASE: api_platform
+      MYSQL_PASSWORD: api_platform
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_USER: api_platform
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+  nginx:
+    image: nginx:1.11-alpine
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./web:/srv/api-platform/web
+  php:
+    build: .
+    depends_on:
+      - db
+    environment:
+      SYMFONY_ENV: dev
+    volumes:
+      - ./:/srv/api-platform
+      - ./var/cache:/srv/api-platform/var/cache
+      - ./var/logs:/srv/api-platform/var/logs
+      - ./var/sessions:/srv/api-platform/var/sessions
+      - ./var:/srv/api-platform/var
+      - ./vendor:/srv/api-platform/vendor
+      - ./web:/srv/api-platform/web
+
+volumes:
+  db-data: {}

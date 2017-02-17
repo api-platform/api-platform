@@ -1,9 +1,9 @@
 sudo: required
 
 services:
-    - docker
+  - docker
 
 script:
-    - docker-compose build
-    - docker-compose run --rm web composer install -o -n
-    - docker-compose run --rm web bin/console security:check
+  - docker-compose build
+  - docker-compose run --rm php composer install --prefer-dist --no-progress --no-suggest --no-interaction
+  - docker-compose run --rm php bin/console security:check
