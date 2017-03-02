@@ -1,12 +1,13 @@
 sudo: required
 
 env:
-  DOCKER_COMPOSE_VERSION: "1.10"
+  DOCKER_COMPOSE_VERSION: "1.11"
 
 services:
   - docker
 
 script:
+  - docker-compose --version
   - docker-compose build
   - docker-compose run --rm php composer install --prefer-dist --no-progress --no-suggest --no-interaction
   - docker-compose run --rm php bin/console security:check
