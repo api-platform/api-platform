@@ -27,11 +27,11 @@ services:
       SYMFONY_ENV: dev
     volumes:
       - ./:/srv/api-platform
-      - ./var/cache:/srv/api-platform/var/cache
-      - ./var/logs:/srv/api-platform/var/logs
-      - ./var/sessions:/srv/api-platform/var/sessions
       - ./var:/srv/api-platform/var
-      - ./vendor:/srv/api-platform/vendor
+      - /srv/api-platform/var/cache
+      - ./var/logs:/srv/api-platform/var/logs
+      - /srv/api-platform/var/sessions
+      - /srv/api-platform/vendor
       - ./web:/srv/api-platform/web
 
 volumes:
