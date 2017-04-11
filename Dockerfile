@@ -1,39 +1,11 @@
-FROM php:7.1-fpm-alpine
+FROM phpdockerio/php71-fpm
 
-RUN apk add --no-cache --virtual .persistent-deps \
-		git \
-		icu-libs \
-		zlib
-
-ENV APCU_VERSION 5.1.8
-
-RUN set -xe \
-	&& apk add --no-cache --virtual .build-deps \
-		$PHPIZE_DEPS \
-		icu-dev \
-		zlib-dev \
-	&& docker-php-ext-install \
-		intl \
-		pdo_mysql \
-		zip \
-	&& pecl install \
-		apcu-${APCU_VERSION} \
-	&& docker-php-ext-enable --ini-name 20-apcu.ini apcu \
-	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache \
-	&& apk del .build-deps
+# Install MySQL PDO extension
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install php7.1-mysql php7.1-mbstring iproute2 git \
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
-
-COPY docker/php/install-composer.sh /usr/local/bin/docker-app-install-composer
-
-RUN chmod +x /usr/local/bin/docker-app-install-composer
-
-RUN set -xe \
-	&& apk add --no-cache --virtual .fetch-deps \
-		openssl \
-	&& docker-app-install-composer \
-	&& mv composer.phar /usr/local/bin/composer \
-	&& apk del .fetch-deps
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
