@@ -66,4 +66,7 @@ COPY docker/php/start.sh /usr/local/bin/docker-app-start
 
 RUN chmod +x /usr/local/bin/docker-app-start
 
+RUN ln -sf /dev/stdout /var/log/nginx/app_access.log
+RUN ln -sf /dev/stderr /var/log/nginx/app_error.log
+
 CMD ["docker-app-start"]
