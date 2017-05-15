@@ -32,7 +32,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "dunglas/action-bundle": "^0.3",
         "nelmio/cors-bundle": "^1.4",
-        "phpdocumentor/reflection-docblock": "^3.0"
+        "phpdocumentor/reflection-docblock": "^3.0",
+        "swagger-api/swagger-ui": "^2.2"
     },
     "require-dev": {
         "api-platform/schema-generator": "^1.2",
@@ -73,5 +74,16 @@
         "branch-alias": {
             "dev-master": "2.0-dev"
         }
+    },
+    "scripts": {
+      "api-platform-scripts": [
+        "ApiPlatform\\Core\\Composer\\ScriptHandler::installSwaggerUi"
+      ],
+      "post-install-cmd": [
+        "@api-platform-scripts"
+      ],
+      "post-update-cmd": [
+        "@api-platform-scripts"
+      ]
     }
 }
