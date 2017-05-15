@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v2.0.7",
+            "version": "v2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "1eb8408e732a9a7ed2ac4acee9ed2baf559391d8"
+                "reference": "c3f56dbde4ba46b6838e4ebac6c1be9640b36943"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/1eb8408e732a9a7ed2ac4acee9ed2baf559391d8",
-                "reference": "1eb8408e732a9a7ed2ac4acee9ed2baf559391d8",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/c3f56dbde4ba46b6838e4ebac6c1be9640b36943",
+                "reference": "c3f56dbde4ba46b6838e4ebac6c1be9640b36943",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +26,7 @@
                 "psr/cache": "^1.0",
                 "symfony/http-foundation": "^2.7 || ^3.0",
                 "symfony/http-kernel": "^2.7 || ^3.0",
+                "symfony/property-access": "^2.7 || ^3.0",
                 "symfony/property-info": "^3.1",
                 "symfony/serializer": "^3.1",
                 "willdurand/negotiation": "^2.0.3"
@@ -40,7 +41,7 @@
                 "doctrine/annotations": "^1.2",
                 "doctrine/doctrine-bundle": "^1.6.3",
                 "doctrine/orm": "^2.5",
-                "friendsofsymfony/user-bundle": "^2.0@dev",
+                "friendsofsymfony/user-bundle": "^2.0",
                 "nelmio/api-doc-bundle": "^2.11.2",
                 "php-mock/php-mock-phpunit": "^1.1",
                 "phpdocumentor/reflection-docblock": "^3.0",
@@ -56,7 +57,6 @@
                 "symfony/framework-bundle": "^3.1",
                 "symfony/phpunit-bridge": "^2.7 || ^3.0",
                 "symfony/security": "^2.7 || ^3.0",
-                "symfony/templating": "^2.7 || ^3.0",
                 "symfony/twig-bundle": "^2.8 || ^3.1",
                 "symfony/validator": "^2.7 || ^3.0"
             },
@@ -101,7 +101,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2017-04-08T12:53:38+00:00"
+            "time": "2017-05-15T13:41:12+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -2404,16 +2404,16 @@
         },
         {
             "name": "willdurand/negotiation",
-            "version": "v2.3.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/willdurand/Negotiation.git",
-                "reference": "2ba90aa46b5e77f87b55f149cfd544b8434941d9"
+                "reference": "03436ededa67c6e83b9b12defac15384cb399dc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/2ba90aa46b5e77f87b55f149cfd544b8434941d9",
-                "reference": "2ba90aa46b5e77f87b55f149cfd544b8434941d9",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/03436ededa67c6e83b9b12defac15384cb399dc9",
+                "reference": "03436ededa67c6e83b9b12defac15384cb399dc9",
                 "shasum": ""
             },
             "require": {
@@ -2452,7 +2452,7 @@
                 "header",
                 "negotiation"
             ],
-            "time": "2017-05-04T12:15:48+00:00"
+            "time": "2017-05-14T17:21:12+00:00"
         }
     ],
     "packages-dev": [
