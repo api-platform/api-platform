@@ -10,7 +10,6 @@ ENV APCU_VERSION 5.1.8
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
-		pcre-dev \
 		icu-dev \
 		zlib-dev \
 	&& docker-php-ext-install \
