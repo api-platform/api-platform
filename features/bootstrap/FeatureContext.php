@@ -46,7 +46,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @BeforeScenario @createSchema
+     * @BeforeScenario
      */
     public function createDatabase()
     {
@@ -54,7 +54,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @AfterScenario @dropSchema
+     * @AfterScenario
      */
     public function dropDatabase()
     {
