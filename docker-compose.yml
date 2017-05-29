@@ -1,38 +1,52 @@
-version: '2'
+version: '3'
 
 services:
-  db:
-    environment:
-      MYSQL_DATABASE: api_platform
-      MYSQL_PASSWORD: api_platform
-      MYSQL_ROOT_PASSWORD: changeme
-      MYSQL_USER: api_platform
-    image: mysql:5.7
-    volumes:
-      - db-data:/var/lib/mysql
-  nginx:
-    image: nginx:1.11-alpine
-    depends_on:
-      - php
-    ports:
-      - "80:80"
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./web:/srv/api-platform/web
-  php:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     depends_on:
       - db
     environment:
-      SYMFONY_ENV: dev
+      # Change to prod in production
+      - SYMFONY_ENV=dev
     volumes:
-      - ./:/srv/api-platform
-      - ./var/cache:/srv/api-platform/var/cache
-      - ./var/logs:/srv/api-platform/var/logs
-      - ./var/sessions:/srv/api-platform/var/sessions
-      - ./var:/srv/api-platform/var
-      - ./vendor:/srv/api-platform/vendor
-      - ./web:/srv/api-platform/web
+      # Comment out the next line in production
+      - ./:/srv/api-platform:rw
+      # This is for assets:install
+      - ./web:/srv/api-platform/web:rw
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+      - /srv/api-platform/var
+      - /srv/api-platform/var/cache
+      - /srv/api-platform/var/logs
+      - /srv/api-platform/var/sessions
+      - /srv/api-platform/vendor
+  db:
+    build:
+      context: ./docker/db
+      dockerfile: ./Dockerfile
+    environment:
+      - MYSQL_DATABASE=api_platform
+      # You should definitely change the password in production
+      - MYSQL_PASSWORD=api_platform
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_USER=api_platform
+    volumes:
+      - db-data:/var/lib/mysql:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/mysql:rw
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+      # - "443:443"
+    volumes:
+      # Comment out the next line in production
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./web:/srv/api-platform/web:ro
 
 volumes:
+  app-web: {}
   db-data: {}
