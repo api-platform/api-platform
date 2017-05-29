@@ -1,7 +1,7 @@
 api:
     resource: '.'
-    type:     'api_platform'
+    type: 'api_platform'
 
 app:
     resource: '@AppBundle/Action/'
-    type:     'annotation'
+    type: 'annotation'
