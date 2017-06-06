@@ -19,3 +19,5 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     cors_allow_origin: http://localhost
+
+    varnish_urls: [http://varnish]
