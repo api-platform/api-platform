@@ -20,7 +20,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "api-platform/core": "2.1.x-dev",
+        "api-platform/core": "^2.1@beta",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "guzzlehttp/guzzle": "^6.0",
