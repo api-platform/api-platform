@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf7857fab443617332a4e5586267e252",
+    "content-hash": "2afb10084dda1a6724b080a89f72dc5e",
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "dev-master",
+            "version": "v2.1.0-beta.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "9fa028903d1df02011c2b75504b87d1e975e7b70"
+                "reference": "8fc752c8c44de99f6f6d78ca0bc59bf4982d2df0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/9fa028903d1df02011c2b75504b87d1e975e7b70",
-                "reference": "9fa028903d1df02011c2b75504b87d1e975e7b70",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/8fc752c8c44de99f6f6d78ca0bc59bf4982d2df0",
+                "reference": "8fc752c8c44de99f6f6d78ca0bc59bf4982d2df0",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +115,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2017-06-06 17:59:08"
+            "time": "2017-06-07T15:28:03+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -2675,16 +2675,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.34.2",
+            "version": "v1.34.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "55e4beb721a044db9e31ae0470024fc205b6a008"
+                "reference": "451c6f4197e113e24c1c85bc3fc8c2d77adeff2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/55e4beb721a044db9e31ae0470024fc205b6a008",
-                "reference": "55e4beb721a044db9e31ae0470024fc205b6a008",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/451c6f4197e113e24c1c85bc3fc8c2d77adeff2e",
+                "reference": "451c6f4197e113e24c1c85bc3fc8c2d77adeff2e",
                 "shasum": ""
             },
             "require": {
@@ -2736,7 +2736,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-06-06T03:56:50+00:00"
+            "time": "2017-06-07T18:45:17+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3832,7 +3832,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/core": 20
+        "api-platform/core": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
