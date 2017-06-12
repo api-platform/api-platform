@@ -3,6 +3,7 @@ FROM php:7.1-fpm-alpine
 RUN apk add --no-cache --virtual .persistent-deps \
 		git \
 		icu-libs \
+		make \
 		zlib
 
 ENV APCU_VERSION 5.1.8
@@ -40,7 +41,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
 	&& composer clear-cache
 
-WORKDIR /srv/api-platform
+WORKDIR /srv/app
 
 COPY composer.json ./
 COPY composer.lock ./
@@ -54,9 +55,9 @@ RUN mkdir -p \
 # Permissions hack because setfacl does not work on Mac and Windows
 	&& chown -R www-data var
 
-COPY app app/
-COPY bin bin/
+COPY etc etc/
 COPY src src/
+COPY var var/
 COPY web web/
 
 RUN composer dump-autoload --optimize --classmap-authoritative --no-dev
