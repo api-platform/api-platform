@@ -1,3 +1,3 @@
-FROM nginx:1.11-alpine
+FROM nginx:mainline-alpine
 
 COPY conf.d /etc/nginx/conf.d/
