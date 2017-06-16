@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
   app:
@@ -43,7 +43,6 @@ services:
       # Comment out the next line in production
       - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./web:/srv/api-platform/web:ro
-
   varnish:
     build:
       context: ./docker/varnish
