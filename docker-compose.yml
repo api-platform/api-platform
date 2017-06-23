@@ -16,11 +16,11 @@ services:
       # This is for assets:install
       - ./web:/srv/api-platform/web:rw
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /srv/api-platform/var
-      - /srv/api-platform/var/cache
-      - /srv/api-platform/var/logs
-      - /srv/api-platform/var/sessions
-      - /srv/api-platform/vendor
+      - /srv/api-platform/var/
+      - /srv/api-platform/var/cache/
+      - /srv/api-platform/var/logs/
+      - /srv/api-platform/var/sessions/
+      - /srv/api-platform/vendor/
   db:
     build:
       context: ./docker/db
