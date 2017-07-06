@@ -9,6 +9,7 @@ RUN buildDeps=" \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         $buildDeps \
+        libpcre3-dev \
         libicu52 \
         zlib1g \
     && rm -rf /var/lib/apt/lists/* \
