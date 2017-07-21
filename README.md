@@ -3,8 +3,8 @@
 API Platform is a next-generation web framework designed to easily create API-first projects without
 compromising extensibility and flexibility:
 
-* Design your own data model as Plain Old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator/) from the [Schema.org](https://schema.org/) vocabulary
-* **Expose in minutes an hypermedia REST API** with pagination, data validation, access control, relation embedding, filters and error handling...
+* Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator/) from the [Schema.org](https://schema.org/) vocabulary
+* **Expose in minutes a hypermedia REST API** with pagination, data validation, access control, relation embedding, filters and error handling...
 * Benefit from Content Negotation: [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
 * Enjoy the **beautiful automatically generated API documentation** (Swagger/OpenAPI)
 * Add without a line of code [**a convenient Material Design adminitration interface**](https://github.com/api-platform/admin), built with [React](https://facebook.github.io/react/)
