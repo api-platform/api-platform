@@ -11,16 +11,17 @@ API Platform is a next-generation web framework designed to easily create API-fi
 compromising extensibility and flexibility:
 
 * Design your own data model as Plain Old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator/) from the [Schema.org](https://schema.org/) vocabulary
-* **Expose it in minutes as an hypermedia REST API** with data validation and error handling, access control, relation embedding, filters, ordering... and that embraces cutting-edge to legacy formats including [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt)
-* Enjoy the **beautiful automatically generated API documentation**
-* Add without a line of code [a convenient Material Design adminitration interface](https://github.com/api-platform/admin) for your users built with [React](https://facebook.github.io/react/)
-* Scaffold a fully functional Single-Page-Application built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.org/), [React Router](https://reacttraining.com/react-router/) and [Bootstrap](https://getbootstrap.com/) thanks to [the CRUD generator](github.com/api-platform/generate-crud)
-* Install a development environment and deploy your project in production using [Docker][40]
+* **Expose in minutes an hypermedia REST API** with pagination, data validation, access control, relation embedding, filters and error handling...
+* Benefit from Content Negotation: [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
+* Enjoy the **beautiful automatically generated API documentation** (Swagger/OpenAPI)
+* Add without a line of code [**a convenient Material Design adminitration interface**](https://github.com/api-platform/admin), built with [React](https://facebook.github.io/react/)
+* **Scaffold a fully functional Single-Page-Application** built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.org/), [React Router](https://reacttraining.com/react-router/) and [Bootstrap](https://getbootstrap.com/) thanks to [the CRUD generator](github.com/api-platform/generate-crud)
+* Install a development environment and deploy your project in production using **[Docker](https://docker.com)**
 * Easily add **[JSON Web Token](https://jwt.io/) or [OAuth](https://oauth.net/) authentication**
-* Create specs and tests with a **developer friendly API context system** on top
+* Create specs and tests with a **developer friendly API testing tool** on top
   of [Behat](http://behat.org/)
 
-The official project documentation is available **[on the API Platform website][31]**.
+The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
 API Platform embraces open web standards (Swagger, JSON-LD, Hydra, HAL, JWT, OAuth,
 HTTP...) and the [Linked Data](https://www.w3.org/standards/semanticweb/data) movement. Your API will automatically
@@ -29,7 +30,7 @@ is usable **out of the box** with technologies of the semantic
 web.
 
 It also means that **your SEO will be improved** because **[Google leverages these
-formats(https://developers.google.com/structured-data/)**.
+formats](https://developers.google.com/structured-data/)**.
 
 Last but not least, API Platform is built on top of the [Symfony](https://symfony.com) framework.
 It means than you can:
