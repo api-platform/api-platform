@@ -26,7 +26,7 @@
         "guzzlehttp/guzzle": "^6.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "nelmio/cors-bundle": "^1.4",
-        "phpdocumentor/reflection-docblock": "^3.0",
+        "phpdocumentor/reflection-docblock": "3.1.*",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^3.1.0",
