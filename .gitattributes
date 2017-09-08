@@ -1,0 +1,3 @@
+* text=auto
+*.sh text eol=lf
+docker/apache/start_safe_perms text eol=lf
