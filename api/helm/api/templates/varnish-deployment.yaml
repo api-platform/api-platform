@@ -1,0 +1,31 @@
+{{- if .Values.varnish.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}-varnish
+  labels:
+    app: {{ template "name" . }}-varnish
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.varnish.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}-varnish
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-varnish
+          image: "{{ .Values.varnish.repository }}:{{ .Values.varnish.tag }}"
+          imagePullPolicy: {{ .Values.varnish.pullPolicy }}
+          ports:
+            - containerPort: 80
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+{{- end -}}

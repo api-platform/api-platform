@@ -1,0 +1,4 @@
+FROM nginx:1.13-alpine
+
+RUN rm -Rf /usr/share/nginx/html/*
+COPY build /usr/share/nginx/html

@@ -1,0 +1,7 @@
+###> symfony/framework-bundle ###
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+/helm/api/charts
+/helm/api/requirements.lock

@@ -3,7 +3,25 @@ sudo: required
 services:
   - docker
 
+before_install:
+  - sudo service postgresql stop
+  - wget https://kubernetes-helm.storage.googleapis.com/helm-v2.6.1-linux-amd64.tar.gz
+  - tar xzf helm-v2.6.1-linux-amd64.tar.gz
+  # wait for postgresql to shutdown
+  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+
 script:
-  - docker-compose build
-  - docker-compose run --rm app bin/console security:check
-  - docker-compose run --rm app bin/console doctrine:schema:create
+  - if [[ $(jq  '.extra.symfony.id' api/composer.json) != '""' ]]; then echo 'symfony.id must be empty' 1>&2 && false; fi
+  - docker-compose up -d
+  - linux-amd64/helm lint api/helm/api/
+  - sleep 30
+  - docker-compose exec -T php composer req sensiolabs/security-checker
+  - docker-compose exec -T php bin/console security:check
+  - curl http://localhost # API
+  - curl http://localhost:81 # Varnish
+  - curl http://localhost:3000 # Client
+  - curl http://localhost:3001 # Admin
+  - curl -k https://localhost # API (HTTP/2)
+  - curl -k https://localhost:444 # Varnish (HTTP/2)
+  - curl -k https://localhost:8000 # Client (HTTP/2)
+  - curl -k https://localhost:8001 # Admin (HTTP/2)
