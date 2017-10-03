@@ -50,8 +50,7 @@ COPY . ./
 
 RUN mkdir -p var/cache var/logs var/sessions \
 	&& composer dump-autoload --optimize --classmap-authoritative --no-dev \
-	# Permissions hack because setfacl does not work on Mac and Windows
-	&& chown -R www-data var
+	&& chown -R www-data var # Permissions hack because setfacl does not work on Mac and Windows
 
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint

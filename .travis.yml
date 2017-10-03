@@ -17,11 +17,11 @@ script:
   - sleep 30
   - docker-compose exec -T php composer req sensiolabs/security-checker
   - docker-compose exec -T php bin/console security:check
-  - curl http://localhost # API
-  - curl http://localhost:81 # Varnish
-  - curl http://localhost:3000 # Client
-  - curl http://localhost:3001 # Admin
-  - curl -k https://localhost # API (HTTP/2)
-  - curl -k https://localhost:444 # Varnish (HTTP/2)
-  - curl -k https://localhost:8000 # Client (HTTP/2)
-  - curl -k https://localhost:8001 # Admin (HTTP/2)
+  - curl http://localhost # Client
+  - curl http://localhost:81 # Admin
+  - curl http://localhost:8080 # API
+  - curl http://localhost:8081 # Varnish
+  - curl -k https://localhost # Client (HTTP/2)
+  - curl -k https://localhost:444 # Admin (HTTP/2)
+  - curl -k https://localhost:8443 # API (HTTP/2)
+  - curl -k https://localhost:8444 # Varnish (HTTP/2)

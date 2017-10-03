@@ -24,7 +24,7 @@ services:
         depends_on:
             - php
         ports:
-            - "80:80"
+            - "8080:80"
         volumes:
             - ./api/public:/srv/api/public:ro
 
@@ -38,7 +38,7 @@ services:
         volumes:
             - ./api/docker/varnish/conf:/etc/varnish:ro
         ports:
-            - "81:80"
+            - "8081:80"
 
     db:
         # In production, you may want to use a managed database service
@@ -55,21 +55,9 @@ services:
         ports:
             - "5432:5432"
 
-    admin:
-        # Use a static website hosting service or the nginx image in production
-        build:
-            context: ./admin
-            dockerfile: ./Dockerfile
-        env_file:
-            - ./admin/.env
-        volumes:
-            - ./admin:/usr/src/admin:rw
-            - /usr/src/admin/node_modules
-        ports:
-            - "3000:3000"
-
     client:
-        # Use a static website hosting service or the nginx image in production
+        # Use a static website hosting service in production
+        # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./client
             dockerfile: ./Dockerfile
@@ -79,7 +67,21 @@ services:
             - ./client:/usr/src/client:rw
             - /usr/src/client/node_modules
         ports:
-            - "3001:3000"
+            - "80:3000"
+
+    admin:
+        # Use a static website hosting service in production
+        # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+        build:
+            context: ./admin
+            dockerfile: ./Dockerfile
+        env_file:
+            - ./admin/.env
+        volumes:
+            - ./admin:/usr/src/admin:rw
+            - /usr/src/admin/node_modules
+        ports:
+            - "81:3000"
 
     h2-proxy:
         # Don't use this proxy in prod
@@ -87,15 +89,15 @@ services:
             context: ./h2-proxy
             dockerfile: ./Dockerfile
         depends_on:
-            - api
-            - admin
             - client
+            - admin
+            - api
             - cache-proxy
         ports:
             - "443:443"
             - "444:444"
-            - "8000:8000"
-            - "8001:8001"
+            - "8443:8443"
+            - "8444:8444"
 
 volumes:
     db-data: {}

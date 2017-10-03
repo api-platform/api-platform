@@ -49,9 +49,8 @@ provided by API Platform, don't forget to deploy a Varnish:
         --set varnish.enabled=false \
         --set varnish.url=https://myvarnish.com
 
-Finally, build the `client` and `admin` JavaScript apps and deploy them on a static
-website hosting service like [Google Cloud Storage](https://cloud.google.com/storage/docs/static-website)
-or [GitHub Pages](https://pages.github.com/).
+Finally, build the `client` and `admin` JavaScript apps and [deploy them on a static
+website hosting service](ttps://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment).
 
 ## Init the Database
 
