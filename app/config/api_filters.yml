@@ -1,8 +1,0 @@
-# Learn more about filters
-# https://api-platform.com/docs/core/filters
-services:
-    # configure filters
-    #foo.search_filter:
-    #    parent: 'api_platform.doctrine.orm.search_filter'
-    #    arguments: [ { id: 'exact', bar: 'partial' } ]
-    #    tags: ['api_platform.filter']

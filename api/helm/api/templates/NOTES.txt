@@ -1,0 +1,5 @@
+API deployed.
+
+To get the ingress's IP:
+
+    kubectl --namespace {{ .Release.Namespace }} get ingress -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}"

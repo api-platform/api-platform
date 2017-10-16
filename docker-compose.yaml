@@ -1,0 +1,103 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: ./api
+        depends_on:
+            - db
+        env_file:
+            - ./api/.env
+        # Comment out these volumes in production
+        volumes:
+            - ./api:/srv/api:rw
+            # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+            - /srv/api/var/
+            - /srv/api/var/cache/
+            - /srv/api/var/logs/
+            - /srv/api/var/sessions/
+
+    api:
+        build:
+            context: ./api
+            dockerfile: ./Dockerfile.nginx
+        depends_on:
+            - php
+        ports:
+            - "8080:80"
+        volumes:
+            - ./api/public:/srv/api/public:ro
+
+    cache-proxy:
+        build:
+            context: ./api
+            dockerfile: ./Dockerfile.varnish
+        depends_on:
+            - api
+        # Comment out this volume in production
+        volumes:
+            - ./api/docker/varnish/conf:/etc/varnish:ro
+        ports:
+            - "8081:80"
+
+    db:
+        # In production, you may want to use a managed database service
+        image: postgres:9.6-alpine
+        environment:
+            - POSTGRES_DB=api
+            - POSTGRES_USER=api-platform
+            # You should definitely change the password in production
+            - POSTGRES_PASSWORD=!ChangeMe!
+        volumes:
+            - db-data:/var/lib/postgresql/data:rw
+            # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+            # - ./docker/db/data:/var/lib/postgresql/data:rw
+        ports:
+            - "5432:5432"
+
+    client:
+        # Use a static website hosting service in production
+        # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+        build:
+            context: ./client
+            dockerfile: ./Dockerfile
+        env_file:
+            - ./client/.env
+        volumes:
+            - ./client:/usr/src/client:rw
+            - /usr/src/client/node_modules
+        ports:
+            - "80:3000"
+
+    admin:
+        # Use a static website hosting service in production
+        # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+        build:
+            context: ./admin
+            dockerfile: ./Dockerfile
+        env_file:
+            - ./admin/.env
+        volumes:
+            - ./admin:/usr/src/admin:rw
+            - /usr/src/admin/node_modules
+        ports:
+            - "81:3000"
+
+    h2-proxy:
+        # Don't use this proxy in prod
+        build:
+            context: ./h2-proxy
+            dockerfile: ./Dockerfile
+        depends_on:
+            - client
+            - admin
+            - api
+            - cache-proxy
+        ports:
+            - "443:443"
+            - "444:444"
+            - "8443:8443"
+            - "8444:8444"
+
+volumes:
+    db-data: {}

@@ -1,0 +1,20 @@
+{{- if .Values.varnish.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: varnish
+  labels:
+    app: {{ template "name" . }}-varnish
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: {{ template "name" . }}-varnish
+    release: {{ .Release.Name }}
+{{- end -}}
