@@ -3,6 +3,11 @@ sudo: required
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 before_install:
   - sudo service postgresql stop
   - wget https://kubernetes-helm.storage.googleapis.com/helm-v2.6.1-linux-amd64.tar.gz
