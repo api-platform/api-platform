@@ -8,7 +8,6 @@ RUN apk add --no-cache --virtual .persistent-deps \
 		zlib
 
 ENV APCU_VERSION 5.1.8
-
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -25,20 +24,18 @@ RUN set -xe \
 	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache \
 	&& apk del .build-deps
 
-COPY docker/php/php.ini /usr/local/etc/php/php.ini
 COPY --from=0 /usr/bin/composer /usr/bin/composer
-
-# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
-ENV COMPOSER_ALLOW_SUPERUSER 1
-
-RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
-
+COPY docker/php/php.ini /usr/local/etc/php/php.ini
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 WORKDIR /srv/api
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
+
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
+ENV COMPOSER_ALLOW_SUPERUSER 1
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
 
 # Prevent the reinstallation of vendors at every changes in the source code
 COPY composer.json composer.lock ./
