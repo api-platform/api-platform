@@ -1,3 +1,4 @@
+FROM composer:1.5
 FROM php:7.1-fpm-alpine
 
 RUN apk add --no-cache --virtual .persistent-deps \
@@ -25,20 +26,19 @@ RUN set -xe \
 	&& apk del .build-deps
 
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
-
-COPY docker/php/install-composer.sh /usr/local/bin/install-composer
-RUN chmod +x /usr/local/bin/install-composer
-
-RUN set -xe \
-	&& install-composer \
-	&& mv composer.phar /usr/local/bin/composer
+COPY --from=0 /usr/bin/composer /usr/bin/composer
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
+
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
 
 WORKDIR /srv/api
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["php-fpm"]
 
 # Prevent the reinstallation of vendors at every changes in the source code
 COPY composer.json composer.lock ./
@@ -48,11 +48,5 @@ RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-pr
 COPY . ./
 
 RUN mkdir -p var/cache var/logs var/sessions \
-	&& composer dump-autoload --optimize --classmap-authoritative --no-dev \
-	&& chown -R www-data var # Permissions hack because setfacl does not work on Mac and Windows
-
-COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["php-fpm"]
+	&& composer dump-autoload --classmap-authoritative --no-dev \
+	&& chown -R www-data var
