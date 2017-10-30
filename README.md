@@ -5,7 +5,7 @@ compromising extensibility and flexibility:
 
 * Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator/) from the [Schema.org](https://schema.org/) vocabulary
 * **Expose in minutes a hypermedia REST API** with pagination, data validation, access control, relation embedding, filters and error handling...
-* Benefit from Content Negotiation: [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
+* Benefit from Content Negotiation: [GraphQL](http://graphql.org), [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
 * Enjoy the **beautiful automatically generated API documentation** (Swagger/OpenAPI)
 * Add [**a convenient Material Design administration interface**](https://github.com/api-platform/admin) built with [React](https://facebook.github.io/react/) without writing a line of code
 * **Scaffold a fully functional Single-Page-Application** built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.org/), [React Router](https://reacttraining.com/react-router/) and [Bootstrap](https://getbootstrap.com/) thanks to [the client generator](https://api-platform.com/docs/client-generator/)
