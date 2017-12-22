@@ -35,7 +35,7 @@ sub vcl_deliver {
   # Uncomment the following line to NOT send the "Cache-Tags" header to the client (prevent using CloudFlare cache tags)
   #unset resp.http.Cache-Tags;
 
-  # Add debug header to see if it's the number of hits (if 0 is MISS)
+  # Add a debug to see the number of HITS (0 means MISS)
   set resp.http.ApiPlatform-Cache-Hits = obj.hits;
 
   return (deliver);
