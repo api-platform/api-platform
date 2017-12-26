@@ -34,6 +34,11 @@ sub vcl_deliver {
   unset resp.http.url;
   # Uncomment the following line to NOT send the "Cache-Tags" header to the client (prevent using CloudFlare cache tags)
   #unset resp.http.Cache-Tags;
+
+  # Add a debug to see the number of HITS (0 means MISS)
+  set resp.http.ApiPlatform-Cache-Hits = obj.hits;
+
+  return (deliver);
 }
 
 sub vcl_recv {
@@ -55,10 +60,17 @@ sub vcl_recv {
     return(synth(400, "ApiPlatform-Ban-Regex HTTP header must be set."));
   }
 
+  if (req.method != "GET" && req.method != "HEAD") {
+    # Only cache GET or HEAD requests. This makes sure the POST/PUT/DELETE requests are always passed.
+    return (pass);
+  }
+
   # Don't cache in dev mode
   if (req.url ~ "^/app_dev.php") {
     return(pass);
   }
+
+  return(hash);
 }
 
 # From https://github.com/varnish/Varnish-Book/blob/master/vcl/grace.vcl
