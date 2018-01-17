@@ -11,15 +11,15 @@
 
 1. Build the PHP and Nginx Docker images:
 
-    docker build -t gcr.io/test-api-platform/php -t gcr.io/test-api-platform/php:latest api
-    docker build -t gcr.io/test-api-platform/nginx -t gcr.io/test-api-platform/nginx:latest -f api/Dockerfile.nginx api
-    docker build -t gcr.io/test-api-platform/varnish -t gcr.io/test-api-platform/varnish:latest -f api/Dockerfile.varnish api
+        docker build -t gcr.io/test-api-platform/php -t gcr.io/test-api-platform/php:latest api
+        docker build -t gcr.io/test-api-platform/nginx -t gcr.io/test-api-platform/nginx:latest -f api/Dockerfile.nginx api
+        docker build -t gcr.io/test-api-platform/varnish -t gcr.io/test-api-platform/varnish:latest -f api/Dockerfile.varnish api
 
 2. Push your images to your Docker registry, example with [Google Container Registry](https://cloud.google.com/container-registry/):
 
-    gcloud docker -- push gcr.io/test-api-platform/php
-    gcloud docker -- push gcr.io/test-api-platform/nginx
-    gcloud docker -- push gcr.io/test-api-platform/varnish
+        gcloud docker -- push gcr.io/test-api-platform/php
+        gcloud docker -- push gcr.io/test-api-platform/nginx
+        gcloud docker -- push gcr.io/test-api-platform/varnish
 
 ## Deploy
 
