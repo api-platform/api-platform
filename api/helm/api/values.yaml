@@ -40,7 +40,7 @@ ingress:
 postgresql:
   enabled: true
   # If bringing your own PostgreSQL, the full uri to use
-  #url: pgsql://api-platform:!ChangeMe!@example.com/api?serverVersion=9.6
+  #url: pgsql://api-platform:!ChangeMe!@example.com/api?serverVersion=10.1
   postgresUser: api-platform
   postgresPassword: ChangeMe
   postgresDatabase: api

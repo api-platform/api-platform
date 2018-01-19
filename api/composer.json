@@ -2,14 +2,16 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.0.8",
+        "php": "^7.1.3",
+        "ext-iconv": "*",
         "api-platform/api-pack": "^1.0",
-        "guzzlehttp/guzzle": "^6.0",
+        "guzzlehttp/guzzle": "^6.3",
         "nelmio/cors-bundle": "^1.5",
-        "symfony/console": "^3.3 || ^4.0",
+        "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^3.3 || ^4.0",
-        "symfony/yaml": "^3.3 || ^4.0"
+        "symfony/framework-bundle": "^4.0",
+        "symfony/lts": "^4@dev",
+        "symfony/yaml": "^4.0"
     },
     "config": {
         "preferred-install": {
@@ -27,10 +29,16 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "replace": {
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -40,13 +48,11 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*",
-        "symfony/twig-bundle": "<3.3",
-        "symfony/debug": "<3.3"
+        "symfony/symfony": "*"
     },
     "extra": {
         "symfony": {
-            "id": "",
+            "id": "01C46JNK7YY9QNE3605GB77K64",
             "allow-contrib": false
         }
     }

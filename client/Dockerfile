@@ -1,4 +1,4 @@
-FROM node:8.7-alpine
+FROM node:9.4-alpine
 
 RUN mkdir -p /usr/src/client
 

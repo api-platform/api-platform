@@ -10,3 +10,5 @@ Dockerfile*
 .env*
 !var/.gitignore
 var/*
+helm/*
+docker/*
