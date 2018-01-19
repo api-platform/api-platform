@@ -6,7 +6,7 @@
     "@api-platform/admin": "^0.1.15"
   },
   "devDependencies": {
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

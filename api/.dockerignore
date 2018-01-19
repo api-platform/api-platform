@@ -11,4 +11,3 @@ Dockerfile*
 !var/.gitignore
 var/*
 helm/*
-docker/*
