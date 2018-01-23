@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "4.0.0-beta",
+    "bootstrap": "^4.0.0",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
@@ -16,7 +16,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

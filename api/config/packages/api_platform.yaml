@@ -3,6 +3,7 @@ api_platform:
         paths: ['%kernel.project_dir%/src/Entity']
     title: Hello API Platform
     version: 1.0.0
+    # Enable the Varnish integration
     http_cache:
         invalidation:
             enabled: true

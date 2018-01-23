@@ -42,7 +42,7 @@ services:
 
     db:
         # In production, you may want to use a managed database service
-        image: postgres:9.6-alpine
+        image: postgres:10.1-alpine
         environment:
             - POSTGRES_DB=api
             - POSTGRES_USER=api-platform

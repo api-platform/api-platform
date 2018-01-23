@@ -1,5 +1,5 @@
-FROM composer:1.5
-FROM php:7.1-fpm-alpine
+FROM composer:1.6
+FROM php:7.2-fpm-alpine3.7
 
 RUN apk add --no-cache --virtual .persistent-deps \
 		git \
@@ -7,7 +7,7 @@ RUN apk add --no-cache --virtual .persistent-deps \
 		libpq \
 		zlib
 
-ENV APCU_VERSION 5.1.8
+ENV APCU_VERSION 5.1.9
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \

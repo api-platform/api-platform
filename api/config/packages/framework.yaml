@@ -3,9 +3,23 @@ framework:
     #default_locale: en
     #csrf_protection: ~
     #http_method_override: true
-    # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
-    #session:
-    #    handler_id: session.handler.native_file
-    #    save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: ~
+
+    #esi: ~
+    #fragments: ~
     php_errors:
         log: true
+
+    cache:
+        # The app cache caches to the filesystem by default. Other options include:
+
+        # Redis
+        #app: cache.adapter.redis
+        #default_redis_provider: redis://localhost
+
+        # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
+        #app: cache.adapter.apcu
