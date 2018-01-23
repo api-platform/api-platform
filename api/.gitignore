@@ -8,3 +8,8 @@
 
 /helm/api/charts
 /helm/api/requirements.lock
+
+###> friendsofphp/php-cs-fixer ###
+.php_cs
+.php_cs.cache
+###< friendsofphp/php-cs-fixer ###

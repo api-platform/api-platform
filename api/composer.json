@@ -5,6 +5,7 @@
         "php": "^7.1.3",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.0",
+        "api-platform/core": "^2.2@beta",
         "guzzlehttp/guzzle": "^6.3",
         "nelmio/cors-bundle": "^1.5",
         "symfony/console": "^4.0",
@@ -12,6 +13,9 @@
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
         "symfony/yaml": "^4.0"
+    },
+    "require-dev": {
+        "api-platform/schema-generator": "^2.1@beta"
     },
     "config": {
         "preferred-install": {
