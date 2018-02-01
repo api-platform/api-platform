@@ -78,16 +78,16 @@ const Welcome = () => (
             </div>
         </section>
         <div className="welcome__help">
-            <h2>Need help ?</h2>
+            <h2>Need help?</h2>
             <HelpButton
                 url="https://stackoverflow.com/questions/tagged/api-platform.com"
                 Image={Sto}
-                title="Ask your questions on Stack Overflow !"
+                title="Ask your questions on Stack Overflow!"
             />
             <HelpButton
                 url="https://api-platform.com/support"
                 Image={Slack}
-                title="Chat with the community on Slack !"
+                title="Chat with the community on Slack!"
             />
         </div>
     </div>
