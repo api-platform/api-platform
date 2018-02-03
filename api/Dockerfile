@@ -1,11 +1,8 @@
 FROM composer:1.6
 FROM php:7.2-fpm-alpine3.7
 
-RUN apk add --no-cache --virtual .persistent-deps \
-		git \
-		icu-libs \
-		libpq \
-		zlib
+RUN apk add --no-cache \
+		git
 
 ENV APCU_VERSION 5.1.9
 RUN set -xe \
@@ -22,6 +19,13 @@ RUN set -xe \
 		apcu-${APCU_VERSION} \
 	&& docker-php-ext-enable --ini-name 20-apcu.ini apcu \
 	&& docker-php-ext-enable --ini-name 05-opcache.ini opcache \
+	&& runDeps="$( \
+		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
+			| tr ',' '\n' \
+			| sort -u \
+			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+	)" \
+	&& apk add --no-cache --virtual .php-phpexts-rundeps $runDeps \
 	&& apk del .build-deps
 
 COPY --from=0 /usr/bin/composer /usr/bin/composer
