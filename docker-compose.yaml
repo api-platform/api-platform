@@ -10,7 +10,7 @@ services:
             - ./api/.env
         # Comment out these volumes in production
         volumes:
-            - ./api:/srv/api:rw
+            - ./api:/srv/api:rw,cached
             # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
             - /srv/api/var/
             - /srv/api/var/cache/
@@ -64,7 +64,7 @@ services:
         env_file:
             - ./client/.env
         volumes:
-            - ./client:/usr/src/client:rw
+            - ./client:/usr/src/client:rw,cached
             - /usr/src/client/node_modules
         ports:
             - "80:3000"
@@ -78,7 +78,7 @@ services:
         env_file:
             - ./admin/.env
         volumes:
-            - ./admin:/usr/src/admin:rw
+            - ./admin:/usr/src/admin:rw,cached
             - /usr/src/admin/node_modules
         ports:
             - "81:3000"
