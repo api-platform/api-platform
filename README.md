@@ -46,7 +46,7 @@ It means than you can:
 Install
 -------
 
-[Read the official "Getting Started" guide](https://api-platform.com/docs/core/getting-started).
+[Read the official "Getting Started" guide](https://api-platform.com/docs/distribution).
 
 Credits
 -------
