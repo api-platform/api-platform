@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fda19192b8d0517889824a2c32dcca8",
+    "content-hash": "25a6029e3814617fc86a1ea7933ac297",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "45c537fac12b579aea321ac2170f90abcfcba9ff"
+                "reference": "078a4a3a1a096d550d4880ca9355124b29c28be2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/45c537fac12b579aea321ac2170f90abcfcba9ff",
-                "reference": "45c537fac12b579aea321ac2170f90abcfcba9ff",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/078a4a3a1a096d550d4880ca9355124b29c28be2",
+                "reference": "078a4a3a1a096d550d4880ca9355124b29c28be2",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2018-02-16T14:53:49+00:00"
+            "time": "2018-02-16T17:51:00+00:00"
         },
         {
             "name": "doctrine/annotations",
