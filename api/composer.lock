@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8b70c80be5f35a55c67714fb0e6b38f",
+    "content-hash": "8fda19192b8d0517889824a2c32dcca8",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.2.0-beta.2",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "0e5df6fbd703e1cca2efecf21c56232d8ac6d140"
+                "reference": "45c537fac12b579aea321ac2170f90abcfcba9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/0e5df6fbd703e1cca2efecf21c56232d8ac6d140",
-                "reference": "0e5df6fbd703e1cca2efecf21c56232d8ac6d140",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/45c537fac12b579aea321ac2170f90abcfcba9ff",
+                "reference": "45c537fac12b579aea321ac2170f90abcfcba9ff",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2018-02-12T14:32:52+00:00"
+            "time": "2018-02-16T14:53:49+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -3803,7 +3803,7 @@
     "packages-dev": [
         {
             "name": "api-platform/schema-generator",
-            "version": "v2.1.0-beta.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/schema-generator.git",
@@ -4198,23 +4198,23 @@
         },
         {
             "name": "php-cs-fixer/diff",
-            "version": "v1.2.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/diff.git",
-                "reference": "b95b8c02c58670b15612cfc60873f3f7f5290484"
+                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/b95b8c02c58670b15612cfc60873f3f7f5290484",
-                "reference": "b95b8c02c58670b15612cfc60873f3f7f5290484",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/78bb099e9c16361126c86ce82ec4405ebab8e756",
+                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.4.3",
+                "phpunit/phpunit": "^5.7.23 || ^6.4.3",
                 "symfony/process": "^3.3"
             },
             "type": "library",
@@ -4245,7 +4245,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-10-21T10:28:17+00:00"
+            "time": "2018-02-15T16:58:55+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -4458,9 +4458,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/core": 10,
-        "symfony/lts": 20,
-        "api-platform/schema-generator": 10
+        "symfony/lts": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
