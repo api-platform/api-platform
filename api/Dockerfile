@@ -1,17 +1,18 @@
-FROM composer:1.6
-FROM php:7.2-fpm-alpine3.7
+ARG PHP_VERSION=7.2
+ARG ALPINE_VERSION=3.7
+FROM php:${PHP_VERSION}-fpm-alpine${ALPINE_VERSION}
 
 RUN apk add --no-cache \
 		git
 
-ENV APCU_VERSION 5.1.9
+ARG APCU_VERSION=5.1.11
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
 		icu-dev \
 		postgresql-dev \
 		zlib-dev \
-	&& docker-php-ext-install \
+	&& docker-php-ext-install -j$(nproc) \
 		intl \
 		pdo_pgsql \
 		zip \
@@ -25,21 +26,20 @@ RUN set -xe \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)" \
-	&& apk add --no-cache --virtual .php-phpexts-rundeps $runDeps \
+	&& apk add --no-cache --virtual .api-phpexts-rundeps $runDeps \
 	&& apk del .build-deps
 
-COPY --from=0 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
-COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-WORKDIR /srv/api
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["php-fpm"]
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative
+
+WORKDIR /srv/api
+
+# Prevent Symfony Flex from generating a project ID at build time
+ARG SYMFONY_SKIP_REGISTRATION=1
 
 # Prevent the reinstallation of vendors at every changes in the source code
 COPY composer.json composer.lock ./
@@ -51,3 +51,9 @@ COPY . ./
 RUN mkdir -p var/cache var/logs var/sessions \
 	&& composer dump-autoload --classmap-authoritative --no-dev \
 	&& chown -R www-data var
+
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["php-fpm"]
