@@ -11,11 +11,8 @@ services:
         # Comment out these volumes in production
         volumes:
             - ./api:/srv/api:rw,cached
-            # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-            - /srv/api/var/
-            - /srv/api/var/cache/
-            - /srv/api/var/logs/
-            - /srv/api/var/sessions/
+            # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
+            # - ./api/var:/srv/api/var:rw
 
     api:
         build:
@@ -60,7 +57,6 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./client
-            dockerfile: Dockerfile
         env_file:
             - ./client/.env
         volumes:
@@ -74,7 +70,6 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./admin
-            dockerfile: Dockerfile
         env_file:
             - ./admin/.env
         volumes:
@@ -87,7 +82,6 @@ services:
         # Don't use this proxy in prod
         build:
             context: ./h2-proxy
-            dockerfile: Dockerfile
         depends_on:
             - client
             - admin

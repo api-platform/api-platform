@@ -1,3 +1,10 @@
+parameters:
+    # Adds a fallback VARNISH_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(VARNISH_URL): ''
+
 api_platform:
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
