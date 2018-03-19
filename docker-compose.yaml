@@ -20,7 +20,7 @@ services:
     api:
         build:
             context: ./api
-            dockerfile: ./Dockerfile.nginx
+            dockerfile: Dockerfile.nginx
         depends_on:
             - php
         ports:
@@ -31,7 +31,7 @@ services:
     cache-proxy:
         build:
             context: ./api
-            dockerfile: ./Dockerfile.varnish
+            dockerfile: Dockerfile.varnish
         depends_on:
             - api
         # Comment out this volume in production
@@ -60,7 +60,7 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./client
-            dockerfile: ./Dockerfile
+            dockerfile: Dockerfile
         env_file:
             - ./client/.env
         volumes:
@@ -74,7 +74,7 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./admin
-            dockerfile: ./Dockerfile
+            dockerfile: Dockerfile
         env_file:
             - ./admin/.env
         volumes:
@@ -87,7 +87,7 @@ services:
         # Don't use this proxy in prod
         build:
             context: ./h2-proxy
-            dockerfile: ./Dockerfile
+            dockerfile: Dockerfile
         depends_on:
             - client
             - admin
