@@ -10,8 +10,7 @@ addons:
 
 before_install:
   - sudo service postgresql stop
-  - wget https://kubernetes-helm.storage.googleapis.com/helm-v2.6.1-linux-amd64.tar.gz
-  - tar xzf helm-v2.6.1-linux-amd64.tar.gz
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.6.1
   # wait for postgresql to shutdown
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
@@ -19,7 +18,7 @@ script:
   - if jq '.extra.symfony.id != ""' api/composer.json -e; then { echo 'symfony.id must be empty'; echo 'Hint - use $ SYMFONY_SKIP_REGISTRATION=1 composer update ...'; } 1>&2 && false; fi
   - docker-compose build
   - docker-compose run --no-deps -T php sh -c 'SYMFONY_SKIP_REGISTRATION=1 composer validate --no-check-publish'
-  - linux-amd64/helm lint api/helm/api/
+  - helm lint api/helm/api/
   - docker-compose up -d
   - sleep 30
   - docker-compose exec -T php composer req sensiolabs/security-checker

@@ -7,10 +7,11 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
+	mkdir -p var/cache var/logs var/sessions
+
 	if [ "$APP_ENV" != 'prod' ]; then
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
-		php bin/console assets:install
-		php bin/console doctrine:schema:update -f
+		bin/console doctrine:schema:update --force --no-interaction
 	fi
 
 	# Permissions hack because setfacl does not work on Mac and Windows
