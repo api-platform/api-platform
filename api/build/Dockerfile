@@ -31,7 +31,7 @@ RUN set -xe \
 	&& apk del .build-deps
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY docker/php/php.ini /usr/local/etc/php/php.ini
+COPY build/docker/php/php.ini /usr/local/etc/php/php.ini
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -48,11 +48,11 @@ ARG SYMFONY_SKIP_REGISTRATION=1
 ARG APP_ENV=prod
 
 # Prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock ./
+COPY source/composer.json source/composer.lock ./
 RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest \
 	&& composer clear-cache
 
-COPY . ./
+COPY source/. ./
 
 RUN mkdir -p var/cache var/logs var/sessions \
 	&& composer dump-autoload --classmap-authoritative --no-dev \
@@ -61,7 +61,7 @@ RUN mkdir -p var/cache var/logs var/sessions \
 	&& chown -R www-data var
 VOLUME /srv/api/var
 
-COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY build/docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["docker-entrypoint"]
