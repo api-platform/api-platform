@@ -4,36 +4,37 @@ services:
     php:
         build:
             context: ./api
+            dockerfile: build/Dockerfile
         depends_on:
             - db
         env_file:
-            - ./api/.env
+            - ./api/build/.env
         # Comment out these volumes in production
         volumes:
-            - ./api:/srv/api:rw,cached
+            - ./api/source:/srv/api:rw,cached
             # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
-            # - ./api/var:/srv/api/var:rw
+            # - ./api/source/var:/srv/api/var:rw
 
     api:
         build:
             context: ./api
-            dockerfile: Dockerfile.nginx
+            dockerfile: build/Dockerfile.nginx
         depends_on:
             - php
         ports:
             - "8080:80"
         volumes:
-            - ./api/public:/srv/api/public:ro
+            - ./api/source/public:/srv/api/public:ro
 
     cache-proxy:
         build:
             context: ./api
-            dockerfile: Dockerfile.varnish
+            dockerfile: build/Dockerfile.varnish
         depends_on:
             - api
         # Comment out this volume in production
         volumes:
-            - ./api/docker/varnish/conf:/etc/varnish:ro
+            - ./api/build/docker/varnish/conf:/etc/varnish:ro
         ports:
             - "8081:80"
 
@@ -57,10 +58,11 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./client
+            dockerfile: build/Dockerfile
         env_file:
-            - ./client/.env
+            - ./client/build/.env
         volumes:
-            - ./client:/usr/src/client:rw,cached
+            - ./client/source:/usr/src/client:rw,cached
             - /usr/src/client/node_modules
         ports:
             - "80:3000"
@@ -70,10 +72,11 @@ services:
         # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
         build:
             context: ./admin
+            dockerfile: build/Dockerfile
         env_file:
-            - ./admin/.env
+            - ./admin/build/.env
         volumes:
-            - ./admin:/usr/src/admin:rw,cached
+            - ./admin/source:/usr/src/admin:rw,cached
             - /usr/src/admin/node_modules
         ports:
             - "81:3000"

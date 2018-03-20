@@ -7,9 +7,9 @@ WORKDIR /usr/src/client
 RUN yarn global add @api-platform/client-generator
 
 # Prevent the reinstallation of node modules at every changes in the source code
-COPY package.json yarn.lock ./
+COPY source/package.json source/yarn.lock ./
 RUN yarn install
 
-COPY . ./
+COPY source/. ./
 
 CMD yarn start
