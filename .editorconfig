@@ -19,6 +19,10 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 
+[*.js]
+indent_style = space
+indent_size = 2
+
 [*.json]
 indent_style = space
 indent_size = 2
@@ -38,14 +42,38 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
-[*.yaml]
+[*.{yaml,yml}]
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = false
 
-[Dockerfile]
+[.gitmodules]
 indent_style = tab
 indent_size = 4
+
+[.php_cs{,.dist}]
+indent_style = space
+indent_size = 4
+
+[.travis.yml]
+indent_style = space
+indent_size = 2
+
+[composer.json]
+indent_style = space
+indent_size = 4
+
+[docker-compose{,.override}.{yaml,yml}]
+indent_style = space
+indent_size = 2
+
+[Dockerfile*]
+indent_style = tab
+indent_size = 4
+
+[package.json]
+indent_style = space
+indent_size = 2
 
 [phpunit.xml{,.dist}]
 indent_style = space

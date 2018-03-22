@@ -57,7 +57,7 @@ COPY . ./
 RUN mkdir -p var/cache var/logs var/sessions \
 	&& composer dump-autoload --classmap-authoritative --no-dev \
 	&& composer run-script --no-dev post-install-cmd \
-	&& chmod +x bin/console \
+	&& chmod +x bin/console && sync \
 	&& chown -R www-data var
 VOLUME /srv/api/var
 

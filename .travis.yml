@@ -8,7 +8,9 @@ addons:
     packages:
       - docker-ce
 
-before_install:
+install: true
+
+before_script:
   - sudo service postgresql stop
   - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.6.1
   # wait for postgresql to shutdown
@@ -31,3 +33,14 @@ script:
   - curl -k https://localhost:444 # Admin (HTTP/2)
   - curl -k https://localhost:8443 # API (HTTP/2)
   - curl -k https://localhost:8444 # Varnish (HTTP/2)
+
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
+
+deploy:
+  provider: script
+  script: docker-compose push
+  skip_cleanup: true
+  on:
+    repo: api-platform/api-platform
+    branch: master
