@@ -1,0 +1,112 @@
+version: '3.2'
+
+services:
+  php:
+    image: ${CONTAINER_REGISTRY_BASE}/php
+    build:
+      context: ./api
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/php
+    depends_on:
+      - db
+    env_file:
+      - ./api/.env
+    # Comment out these volumes in production
+    volumes:
+      - ./api:/srv/api:rw,cached
+      # If you develop on Linux, uncomment the following line to use a bind-mounted host directory instead
+      # - ./api/var:/srv/api/var:rw
+
+  api:
+    image: ${CONTAINER_REGISTRY_BASE}/nginx
+    build:
+      context: ./api
+      dockerfile: Dockerfile.nginx
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/nginx
+    depends_on:
+      - php
+    volumes:
+      - ./api/public:/srv/api/public:ro
+    ports:
+      - "8080:80"
+
+  cache-proxy:
+    image: ${CONTAINER_REGISTRY_BASE}/varnish
+    build:
+      context: ./api
+      dockerfile: Dockerfile.varnish
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/varnish
+    depends_on:
+      - api
+    # Comment out this volume in production
+    volumes:
+      - ./api/docker/varnish/conf:/etc/varnish:ro
+    ports:
+      - "8081:80"
+
+  db:
+    # In production, you may want to use a managed database service
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_DB=api
+      - POSTGRES_USER=api-platform
+      # You should definitely change the password in production
+      - POSTGRES_PASSWORD=!ChangeMe!
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+
+  client:
+    # Use a static website hosting service in production
+    # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+    image: ${CONTAINER_REGISTRY_BASE}/client
+    build:
+      context: ./client
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/client
+    env_file:
+      - ./client/.env
+    volumes:
+      - ./client:/usr/src/client:rw,cached
+      - /usr/src/client/node_modules
+    ports:
+      - "80:3000"
+
+  admin:
+    # Use a static website hosting service in production
+    # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+    image: ${CONTAINER_REGISTRY_BASE}/admin
+    build:
+      context: ./admin
+      cache_from:
+        - ${CONTAINER_REGISTRY_BASE}/admin
+    env_file:
+      - ./admin/.env
+    volumes:
+      - ./admin:/usr/src/admin:rw,cached
+      - /usr/src/admin/node_modules
+    ports:
+      - "81:3000"
+
+  h2-proxy:
+    # Don't use this proxy in prod
+    build:
+      context: ./h2-proxy
+    depends_on:
+      - client
+      - admin
+      - api
+      - cache-proxy
+    ports:
+      - "443:443"
+      - "444:444"
+      - "8443:8443"
+      - "8444:8444"
+
+volumes:
+  db-data: {}
