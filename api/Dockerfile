@@ -6,6 +6,7 @@ RUN apk add --no-cache \
 		git
 
 ARG APCU_VERSION=5.1.11
+RUN apk update
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
