@@ -41,9 +41,6 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/api
 
-# Prevent Symfony Flex from generating a project ID at build time
-ARG SYMFONY_SKIP_REGISTRATION=1
-
 # Build for production
 ARG APP_ENV=prod
 
