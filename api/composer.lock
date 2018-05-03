@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65dc82b63f66cd763ec6c03b17d144c9",
+    "content-hash": "3b1c553dc8fa5c13690f9e8db0ba0c89",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -2299,16 +2299,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.0.78",
+            "version": "v1.0.80",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "eead30b31db70691cd1fd1e7225190c818a1a5f6"
+                "reference": "729aee08d62b47224e85b83c97e2824ff7d1735e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/eead30b31db70691cd1fd1e7225190c818a1a5f6",
-                "reference": "eead30b31db70691cd1fd1e7225190c818a1a5f6",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/729aee08d62b47224e85b83c97e2824ff7d1735e",
+                "reference": "729aee08d62b47224e85b83c97e2824ff7d1735e",
                 "shasum": ""
             },
             "require": {
@@ -2341,7 +2341,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-03-27T10:04:58+00:00"
+            "time": "2018-05-02T19:08:56+00:00"
         },
         {
             "name": "symfony/framework-bundle",

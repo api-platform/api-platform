@@ -17,9 +17,9 @@ before_script:
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
 script:
-  - if jq '.extra.symfony.id != ""' api/composer.json -e; then { echo 'symfony.id must be empty'; echo 'Hint - use $ SYMFONY_SKIP_REGISTRATION=1 composer update ...'; } 1>&2 && false; fi
+  - if jq '.extra.symfony.id != null' api/composer.json -e > /dev/null; then echo 'composer.json must not have symfony.id' 1>&2 && false; fi
   - docker-compose build
-  - docker-compose run --no-deps -T php sh -c 'SYMFONY_SKIP_REGISTRATION=1 composer validate --no-check-publish'
+  - docker-compose run --no-deps -T php sh -c 'composer validate --no-check-publish'
   - helm lint api/helm/api/
   - docker-compose up -d
   - sleep 30
