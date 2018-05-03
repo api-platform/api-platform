@@ -8,13 +8,13 @@ secret: ChangeMe
 corsAllowOrigin: http://example.com
 
 php:
-  repository: gcr.io/test-api-platform/php
+  repository: quay.io/api-platform/php
   tag: latest
   pullPolicy: Always
   replicaCount: 1
 
 nginx:
-  repository: gcr.io/test-api-platform/nginx
+  repository: quay.io/api-platform/nginx
   tag: latest
   pullPolicy: Always
   replicaCount: 1
@@ -22,7 +22,7 @@ nginx:
 varnish:
   enabled: true
   #url: https://example.com
-  repository: gcr.io/test-api-platform/varnish
+  repository: quay.io/api-platform/varnish
   tag: latest
   pullPolicy: Always
   replicaCount: 1
@@ -40,14 +40,14 @@ ingress:
 postgresql:
   enabled: true
   # If bringing your own PostgreSQL, the full uri to use
-  #url: pgsql://api-platform:!ChangeMe!@example.com/api?serverVersion=10.1
+  #url: postgres://api-platform:!ChangeMe!@example.com/api
   postgresUser: api-platform
   postgresPassword: ChangeMe
   postgresDatabase: api
   # Persistent Volume Storage configuration.
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
   persistence:
-    enabled: false
+    enabled: true
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

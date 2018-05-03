@@ -1,10 +1,11 @@
-version: '3.2'
+version: '3.4'
 
 services:
   php:
     image: ${CONTAINER_REGISTRY_BASE}/php
     build:
       context: ./api
+      target: api_platform_php
       cache_from:
         - ${CONTAINER_REGISTRY_BASE}/php
     depends_on:
@@ -21,11 +22,12 @@ services:
     image: ${CONTAINER_REGISTRY_BASE}/nginx
     build:
       context: ./api
-      dockerfile: Dockerfile.nginx
+      target: api_platform_nginx
       cache_from:
         - ${CONTAINER_REGISTRY_BASE}/nginx
     depends_on:
       - php
+    # Comment out this volume in production
     volumes:
       - ./api/public:/srv/api/public:ro
     ports:
@@ -35,14 +37,13 @@ services:
     image: ${CONTAINER_REGISTRY_BASE}/varnish
     build:
       context: ./api
-      dockerfile: Dockerfile.varnish
+      target: api_platform_varnish
       cache_from:
         - ${CONTAINER_REGISTRY_BASE}/varnish
     depends_on:
       - api
-    # Comment out this volume in production
     volumes:
-      - ./api/docker/varnish/conf:/etc/varnish:ro
+      - ./api/docker/varnish/conf:/usr/local/etc/varnish:ro
     ports:
       - "8081:80"
 

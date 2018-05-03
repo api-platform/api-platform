@@ -8,7 +8,7 @@
 **/.gitattributes
 **/.gitignore
 **/.gitmodules
-**/Dockerfile*
+**/Dockerfile
 **/Thumbs.db
 .editorconfig
 .env*

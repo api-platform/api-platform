@@ -67,7 +67,7 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[Dockerfile*]
+[Dockerfile]
 indent_style = tab
 indent_size = 4
 
