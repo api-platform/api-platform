@@ -19,7 +19,7 @@ before_script:
 script:
   - if jq '.extra.symfony.id != null' api/composer.json -e > /dev/null; then echo 'composer.json must not have symfony.id' 1>&2 && false; fi
   - docker-compose build
-  - docker-compose run --no-deps -T php sh -c 'composer validate --no-check-publish'
+  - docker-compose run --no-deps -T php composer validate --no-check-publish
   - helm lint api/helm/api/
   - docker-compose up -d
   - sleep 30
