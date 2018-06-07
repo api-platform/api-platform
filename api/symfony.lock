@@ -17,6 +17,9 @@
     "composer/semver": {
         "version": "1.4.2"
     },
+    "composer/xdebug-handler": {
+        "version": "1.1.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -196,6 +199,9 @@
     },
     "symfony/options-resolver": {
         "version": "v4.0.3"
+    },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
