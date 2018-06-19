@@ -10,7 +10,7 @@ RUN openssl req -new -passout pass:NotSecure -key cert.key -out cert.csr \
     -subj '/C=SS/ST=SS/L=Gotham City/O=API Platform Dev/CN=localhost'
 RUN openssl x509 -req -sha256 -days 365 -in cert.csr -signkey cert.key -out cert.crt
 
-FROM nginx:1.13-alpine
+FROM nginx:1.15-alpine
 
 RUN mkdir -p /etc/nginx/ssl/
 COPY --from=0 cert.key cert.crt /etc/nginx/ssl/
