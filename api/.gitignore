@@ -7,7 +7,6 @@
 ###< symfony/framework-bundle ###
 
 /helm/api/charts
-/helm/api/requirements.lock
 
 ###> friendsofphp/php-cs-fixer ###
 .php_cs

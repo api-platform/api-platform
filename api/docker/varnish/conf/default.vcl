@@ -16,7 +16,7 @@ backend default {
 }
 
 # Hosts allowed to send BAN requests
-acl ban {
+acl invalidators {
   "localhost";
   "php";
 }
@@ -42,7 +42,7 @@ sub vcl_recv {
 
   # To allow API Platform to ban by cache tags
   if (req.method == "BAN") {
-    if (client.ip !~ ban) {
+    if (client.ip !~ invalidators) {
       return(synth(405, "Not allowed"));
     }
 

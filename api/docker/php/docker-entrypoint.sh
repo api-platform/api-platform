@@ -7,15 +7,18 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
-	mkdir -p var/cache var/log var/sessions
+	mkdir -p var/cache var/log
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
 	if [ "$APP_ENV" != 'prod' ]; then
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
+		>&2 echo "Waiting for Postgres to be ready..."
+		until pg_isready --timeout=0 --dbname="${DATABASE_URL}"; do
+			sleep 1
+		done
 		bin/console doctrine:schema:update --force --no-interaction
 	fi
-
-	# Permissions hack because setfacl does not work on Mac and Windows
-	chown -R www-data var
 fi
 
 exec docker-php-entrypoint "$@"

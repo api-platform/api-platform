@@ -8,11 +8,13 @@ addons:
     packages:
       - docker-ce
 
+before_install:
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.9.0
+
 install: true
 
 before_script:
   - sudo service postgresql stop
-  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.6.1
   # wait for postgresql to shutdown
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
@@ -20,7 +22,6 @@ script:
   - if jq '.extra.symfony.id != null' api/composer.json -e > /dev/null; then echo 'composer.json must not have symfony.id' 1>&2 && false; fi
   - docker-compose build
   - docker-compose run --no-deps -T php composer validate --no-check-publish
-  - helm lint api/helm/api/
   - docker-compose up -d
   - sleep 30
   - docker-compose exec -T php composer req sensiolabs/security-checker
@@ -33,6 +34,7 @@ script:
   - curl -k https://localhost:444 # Admin (HTTP/2)
   - curl -k https://localhost:8443 # API (HTTP/2)
   - curl -k https://localhost:8444 # Varnish (HTTP/2)
+  - helm lint ./api/helm/api/
 
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
