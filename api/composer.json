@@ -5,7 +5,6 @@
         "php": "^7.1.3",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
-        "api-platform/core": "^2.3",
         "guzzlehttp/guzzle": "^6.3",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
