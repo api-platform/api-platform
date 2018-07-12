@@ -44,6 +44,8 @@ services:
       - api
     volumes:
       - ./api/docker/varnish/conf:/usr/local/etc/varnish:ro
+    tmpfs:
+      - /usr/local/var/varnish:exec
     ports:
       - "8081:80"
 
