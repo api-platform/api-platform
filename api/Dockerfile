@@ -95,6 +95,6 @@ WORKDIR /srv/api
 
 COPY --from=api_platform_php /srv/api/public public/
 
-FROM cooptilleuls/varnish:${VARNISH_VERSION} AS api_platform_varnish
+FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish
 
 COPY docker/varnish/conf/default.vcl /usr/local/etc/varnish/default.vcl
