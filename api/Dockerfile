@@ -1,11 +1,12 @@
 # the different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/compose/compose-file/#target
 
+ARG BUILD_ENV=prod
 ARG PHP_VERSION=7.2
 ARG NGINX_VERSION=1.15
 ARG VARNISH_VERSION=6.0
 
-FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
+FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php_prod
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -50,6 +51,15 @@ RUN set -eux; \
 	apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
+
+FROM api_platform_php_prod as api_platform_php_dev
+
+ARG XDEBUG_VERSION=2.6.0
+RUN apk add --no-cache $PHPIZE_DEPS; \
+    pecl install xdebug-$XDEBUG_VERSION; \
+    docker-php-ext-enable xdebug
+
+FROM api_platform_php_${BUILD_ENV} as api_platform_php
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY docker/php/php.ini /usr/local/etc/php/php.ini
