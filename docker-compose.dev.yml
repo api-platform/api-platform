@@ -1,0 +1,23 @@
+# To use this file rename it to `docker-compose.override.yml` or use it with the following command:
+# `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d`
+# See https://docs.docker.com/compose/reference/overview/#specifying-multiple-compose-files
+version: '3.4'
+
+services:
+  php:
+    build:
+      args:
+        BUILD_ENV: dev
+    environment:
+      # See https://docs.docker.com/docker-for-mac/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host
+      # The `remote_host` above may optionally be replaced with `remote_connect_back`
+      #
+      # Choose some other port than `9000`, as this one is already occupied by FPM
+      # Make sure to also change your listening port in the IDE to this value
+      XDEBUG_CONFIG: remote_enable=1
+        remote_host=host.docker.internal
+        remote_port=9999
+        idekey=PHPSTORM
+      # This should correspond to the server declared in PHPStorm `Preferences | Languages & Frameworks | PHP | Servers`
+      # Then PHPStorm will use the corresponding path mappings
+      PHP_IDE_CONFIG: serverName=api-platform
