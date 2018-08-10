@@ -16,7 +16,7 @@ RUN apk add --no-cache \
 		postgresql-client \
 	;
 
-ARG APCU_VERSION=5.1.11
+ARG APCU_VERSION=5.1.12
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
