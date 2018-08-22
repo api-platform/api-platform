@@ -53,6 +53,9 @@
     "doctrine/doctrine-cache-bundle": {
         "version": "1.3.2"
     },
+    "doctrine/event-manager": {
+        "version": "v1.0.0"
+    },
     "doctrine/inflector": {
         "version": "v1.3.0"
     },
@@ -64,6 +67,12 @@
     },
     "doctrine/orm": {
         "version": "v2.6.0"
+    },
+    "doctrine/persistence": {
+        "version": "v1.0.0"
+    },
+    "doctrine/reflection": {
+        "version": "v1.0.0"
     },
     "easyrdf/easyrdf": {
         "version": "0.9.1"
