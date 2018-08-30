@@ -84,7 +84,7 @@ services:
       - ./client:/usr/src/client:rw,cached
       - /usr/src/client/node_modules
     ports:
-      - "80:3000"
+      - "8092:3000"
 
   admin:
     # Use a static website hosting service in production
