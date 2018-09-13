@@ -1,4 +1,4 @@
-FROM node:10.9-alpine
+FROM node:10.10-alpine
 
 RUN mkdir -p /usr/src/admin
 

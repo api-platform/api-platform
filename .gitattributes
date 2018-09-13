@@ -19,3 +19,4 @@ bin/console text eol=lf
 .travis.yml export-ignore
 LICENSE export-ignore
 README.md export-ignore
+update-deps.sh export-ignore
