@@ -13,10 +13,14 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 
 	if [ "$APP_ENV" != 'prod' ]; then
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
-		>&2 echo "Waiting for Postgres to be ready..."
-		until pg_isready --timeout=0 --dbname="${DATABASE_URL}"; do
-			sleep 1
-		done
+	fi
+
+	>&2 echo "Waiting for Postgres to be ready..."
+	until pg_isready --timeout=0 --dbname="${DATABASE_URL}"; do
+		sleep 1
+	done
+
+	if [ "$APP_ENV" != 'prod' ]; then
 		bin/console doctrine:schema:update --force --no-interaction
 	fi
 fi
