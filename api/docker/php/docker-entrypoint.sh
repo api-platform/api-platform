@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+if [ "$APP_ENV" != 'prod' ]; then
+	cp -f ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
+fi
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
