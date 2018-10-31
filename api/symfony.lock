@@ -203,9 +203,6 @@
     "symfony/inflector": {
         "version": "v4.0.3"
     },
-    "symfony/lts": {
-        "version": "4-dev"
-    },
     "symfony/options-resolver": {
         "version": "v4.0.3"
     },
