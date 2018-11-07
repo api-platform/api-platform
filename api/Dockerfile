@@ -52,7 +52,7 @@ RUN set -eux; \
 	apk del .build-deps
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/api-platform.ini $PHP_INI_DIR/conf.d/
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser

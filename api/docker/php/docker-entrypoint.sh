@@ -2,7 +2,7 @@
 set -e
 
 if [ "$APP_ENV" != 'prod' ]; then
-	cp -f ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
+	ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
 fi
 
 # first arg is `-f` or `--some-option`
