@@ -1,10 +1,6 @@
 #!/bin/sh
 set -e
 
-if [ "$APP_ENV" != 'prod' ]; then
-	ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
-fi
-
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
@@ -16,6 +12,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
 	if [ "$APP_ENV" != 'prod' ]; then
+		ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
 	fi
 
