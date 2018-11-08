@@ -12,7 +12,10 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'bin/console' ]; then
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
 	if [ "$APP_ENV" != 'prod' ]; then
+		ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
 		composer install --prefer-dist --no-progress --no-suggest --no-interaction
+	else
+		ln -sf ${PHP_INI_DIR}/php.ini-production ${PHP_INI_DIR}/php.ini
 	fi
 
 	>&2 echo "Waiting for Postgres to be ready..."
