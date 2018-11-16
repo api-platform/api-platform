@@ -8,7 +8,7 @@ and flexibility:
 * **Expose in minutes a hypermedia REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
   filters and error handling...
 * Benefit from Content Negotiation: [GraphQL](http://graphql.org), [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com),
-  [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
+  [HAL](http://stateless.co/hal_specification.html), [JSONAPI](https://jsonapi.org/), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
 * Enjoy the **beautiful automatically generated API documentation** (Swagger/OpenAPI)
 * Add [**a convenient Material Design administration interface**](https://github.com/api-platform/admin) built with [React](https://facebook.github.io/react/)
   without writing a line of code
