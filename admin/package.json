@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@api-platform/admin": "^0.5.0",
+    "@api-platform/api-doc-parser": "^0.6.0",
     "@babel/runtime": "7.0.0-beta.55",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
