@@ -12,8 +12,6 @@ services:
         - ${CONTAINER_REGISTRY_BASE}/varnish
     depends_on:
       - db
-    env_file:
-      - ./api/.env
     # Comment out these volumes in production
     volumes:
       - ./api:/srv/api:rw,cached
@@ -94,8 +92,6 @@ services:
       context: ./admin
       cache_from:
         - ${CONTAINER_REGISTRY_BASE}/admin
-    env_file:
-      - ./admin/.env
     volumes:
       - ./admin:/usr/src/admin:rw,cached
       - /usr/src/admin/node_modules

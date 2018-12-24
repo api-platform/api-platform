@@ -137,6 +137,9 @@
     "psr/simple-cache": {
         "version": "1.0.0"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "symfony/asset": {
         "version": "v4.0.3"
     },
@@ -155,6 +158,9 @@
             "ref": "9f94d3ea453cd8a3b95db7f82592d7344fe3a76a"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/debug": {
         "version": "v4.0.3"
     },
@@ -163,6 +169,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.0.3"
+    },
+    "symfony/dotenv": {
+        "version": "v4.2.1"
     },
     "symfony/event-dispatcher": {
         "version": "v4.0.3"
@@ -236,9 +245,6 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
-    "symfony/security": {
-        "version": "v4.0.3"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -248,20 +254,23 @@
             "ref": "34eb245ce4194e7ae713558084180e2c532e7afd"
         }
     },
+    "symfony/security-core": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-guard": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-http": {
+        "version": "v4.2.1"
+    },
     "symfony/serializer": {
         "version": "v4.0.3"
     },
     "symfony/stopwatch": {
         "version": "v4.0.3"
-    },
-    "symfony/translation": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
-        }
     },
     "symfony/twig-bridge": {
         "version": "v4.0.3"
@@ -280,6 +289,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.1.1"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

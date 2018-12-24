@@ -3,13 +3,15 @@
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
+        "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
-        "symfony/console": "^4.0",
-        "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/console": "4.2.*",
+        "symfony/dotenv": "4.2.*",
+        "symfony/flex": "^1.1",
+        "symfony/framework-bundle": "4.2.*",
+        "symfony/yaml": "4.2.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
@@ -32,6 +34,7 @@
         }
     },
     "replace": {
+        "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
         "symfony/polyfill-php71": "*",
@@ -41,7 +44,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -55,7 +58,8 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false
+            "allow-contrib": false,
+            "require": "4.2.*"
         }
     }
 }

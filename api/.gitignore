@@ -1,12 +1,12 @@
+/helm/api/charts
 
 ###> symfony/framework-bundle ###
-.env
+/.env.local
+/.env.*.local
 /public/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-/helm/api/charts
 
 ###> friendsofphp/php-cs-fixer ###
 .php_cs
