@@ -31,7 +31,7 @@ const Welcome = () => (
                 <div className="main__before-starting">
                     <p>
                         This container will host your <b>Progressive Web App</b>{' '}
-                        ({'http:' === document.location.protocol ? <a href="https://localhost">HTTPS</a> : <a href="http://localhost">HTTP</a>}).
+                        ({'http:' === document.location.protocol ? <a href={`https://${document.domain}`}>HTTPS</a> : <a href={`http://${document.domain}`}>HTTP</a>}).
                         Learn how to create your first API and generate a PWA:
                     </p>
                     <a
@@ -52,13 +52,13 @@ const Welcome = () => (
                         <div className="other__content">
                             <h3>API</h3>
                             <ButtonsGroup
-                                httpLink="http://localhost:8080"
-                                httpsLink="https://localhost:8443"
+                                httpLink={`http://${document.domain}:8080`}
+                                httpsLink={`https://${document.domain}:8443`}
                             />
                             <h3>Cached API</h3>
                             <ButtonsGroup
-                                httpLink="http://localhost:8081"
-                                httpsLink="https://localhost:8444"
+                                httpLink={`http://${document.domain}:8081`}
+                                httpsLink={`https://${document.domain}:8444`}
                             />
                         </div>
                     </div>
@@ -69,8 +69,8 @@ const Welcome = () => (
                         <div className="other__content">
                             <h3>Admin</h3>
                             <ButtonsGroup
-                                httpLink="http://localhost:81"
-                                httpsLink="https://localhost:444"
+                                httpLink={`http://${document.domain}:81`}
+                                httpsLink={`https://${document.domain}:444`}
                             />
                         </div>
                     </div>
