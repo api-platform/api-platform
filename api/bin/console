@@ -15,10 +15,8 @@ if (!class_exists(Application::class)) {
 }
 
 $input = new ArgvInput();
-if (null !== $_ENV['APP_ENV'] = $input->getParameterOption(['--env', '-e'], null, true)) {
-    putenv('APP_ENV='.$_ENV['APP_ENV']);
-    // force loading .env files when --env is defined
-    $_SERVER['APP_ENV'] = null;
+if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
+    putenv('APP_ENV='.$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
 }
 
 if ($input->hasParameterOption('--no-debug', true)) {
