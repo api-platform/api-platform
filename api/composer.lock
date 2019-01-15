@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.3.5",
+            "version": "v2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "a73d407dd74f269fe38ee7c97b003f092a471818"
+                "reference": "f12aa2ae9ee67e7c948cd3161ad980d35210bed7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/a73d407dd74f269fe38ee7c97b003f092a471818",
-                "reference": "a73d407dd74f269fe38ee7c97b003f092a471818",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/f12aa2ae9ee67e7c948cd3161ad980d35210bed7",
+                "reference": "f12aa2ae9ee67e7c948cd3161ad980d35210bed7",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2018-12-24T16:23:04+00:00"
+            "time": "2019-01-15T16:10:35+00:00"
         },
         {
             "name": "doctrine/annotations",
