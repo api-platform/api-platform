@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "196d8c2e29d370c76cb8aab7c2c7a156",
+    "content-hash": "18d8ee6487deade158c0fb93b277d9a1",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "dev-master",
+            "version": "v2.4.0-beta.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "0e76323e458a26f327f7577ea73c2615a45b3c05"
+                "reference": "8c4357b9416e95e910ed9536b120f4f2896110bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/0e76323e458a26f327f7577ea73c2615a45b3c05",
-                "reference": "0e76323e458a26f327f7577ea73c2615a45b3c05",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/8c4357b9416e95e910ed9536b120f4f2896110bd",
+                "reference": "8c4357b9416e95e910ed9536b120f4f2896110bd",
                 "shasum": ""
             },
             "require": {
@@ -82,9 +82,11 @@
                 "doctrine/annotations": "^1.2",
                 "doctrine/doctrine-bundle": "^1.8",
                 "doctrine/doctrine-cache-bundle": "^1.3.5",
+                "doctrine/mongodb-odm": "^2.0.0@beta",
+                "doctrine/mongodb-odm-bundle": "^4.0.0@beta",
                 "doctrine/orm": "^2.6.3",
                 "elasticsearch/elasticsearch": "^6.0",
-                "friendsofsymfony/user-bundle": "^2.1",
+                "friendsofsymfony/user-bundle": "dev-fix-mongodb-mapping",
                 "guzzlehttp/guzzle": "^6.0",
                 "justinrainbow/json-schema": "^5.0",
                 "nelmio/api-doc-bundle": "^2.13.3",
@@ -92,7 +94,7 @@
                 "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
                 "phpdocumentor/type-resolver": "^0.3 || ^0.4",
                 "phpspec/prophecy": "^1.8",
-                "phpunit/phpunit": "^7.5.1",
+                "phpunit/phpunit": "^7.5.2",
                 "psr/log": "^1.0",
                 "ramsey/uuid": "^3.7",
                 "ramsey/uuid-doctrine": "^1.4",
@@ -121,6 +123,7 @@
                 "webonyx/graphql-php": ">=0.13 <1.0"
             },
             "suggest": {
+                "doctrine/mongodb-odm-bundle": "To support MongoDB.",
                 "elasticsearch/elasticsearch": "To support Elasticsearch.",
                 "friendsofsymfony/user-bundle": "To use the FOSUserBundle bridge.",
                 "guzzlehttp/guzzle": "To use the HTTP cache invalidation system.",
@@ -170,7 +173,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2019-01-14T17:22:57+00:00"
+            "time": "2019-01-18T16:29:51+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -5479,7 +5482,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/core": 20
+        "api-platform/core": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
