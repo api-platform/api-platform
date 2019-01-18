@@ -10,7 +10,7 @@ api_platform:
         paths: ['%kernel.project_dir%/src/Entity']
     title: Hello API Platform
     version: 1.0.0
-    # Enable the Varnish integration
+    # Varnish integration, remove if unwanted
     http_cache:
         invalidation:
             enabled: true
@@ -19,3 +19,6 @@ api_platform:
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
         public: true
+    # Mercure integration, remove if unwanted
+    mercure:
+        hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
