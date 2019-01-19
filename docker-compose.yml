@@ -68,6 +68,22 @@ services:
     ports:
       - "5432:5432"
 
+#  Uncomment the following lines to use the MongoDB image. Remove them if you don't use MongoDB.
+#  db-mongodb:
+#      # In production, you may want to use a managed database service
+#      image: mongo
+#      environment:
+#          - MONGO_INITDB_DATABASE=api
+#          - MONGO_INITDB_ROOT_USERNAME=api-platform
+#          # You should definitely change the password in production
+#          - MONGO_INITDB_ROOT_PASSWORD=!ChangeMe!
+#      volumes:
+#          - db-data:/var/lib/mongodb/data:rw
+#          # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+#          # - ./docker/db/data:/var/lib/mongodb/data:rw
+#      ports:
+#          - "27017:27017"
+
   mercure:
     # In production, you may want to use the managed version of Mercure, https://mercure.rocks
     image: dunglas/mercure
