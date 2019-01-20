@@ -6,6 +6,14 @@
 parameters:
     env(MERCURE_PUBLISH_URL): ''
     env(MERCURE_JWT_SECRET): ''
+    # Adds fallbacks for MONGODB_URL and MONGODB_DB
+    # if the env vars are not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change these values.
+    # You can remove them if you are not using MongoDB.
+    env(MONGODB_URL): 'mongodb://api-platform'
+    env(MONGODB_DB): ''
 
 services:
     # default configuration for services in *this* file
