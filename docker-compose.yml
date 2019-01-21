@@ -83,7 +83,7 @@ services:
 
   client:
     # Use a static website hosting service in production
-    # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+    # See https://facebook.github.io/create-react-app/docs/deployment
     image: ${CONTAINER_REGISTRY_BASE}/client
     build:
       context: ./client
@@ -99,7 +99,7 @@ services:
 
   admin:
     # Use a static website hosting service in production
-    # See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment
+    # See https://facebook.github.io/create-react-app/docs/deployment
     image: ${CONTAINER_REGISTRY_BASE}/admin
     build:
       context: ./admin
