@@ -16,8 +16,8 @@ RUN apk add --no-cache \
 	;
 
 ARG APCU_VERSION=5.1.16
-ARG MONGODB=0
-ENV MONGODB=$MONGODB
+ARG MONGODB_ENABLED=0
+ENV MONGODB_ENABLED=$MONGODB_ENABLED
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -35,13 +35,13 @@ RUN set -eux; \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \
-		${MONGODB:+mongodb} \
+		${MONGODB_ENABLED:+mongodb} \
 	; \
 	pecl clear-cache; \
 	docker-php-ext-enable \
 		apcu \
 		opcache \
-		${MONGODB:+mongodb} \
+		${MONGODB_ENABLED:+mongodb} \
 	; \
 	\
 	runDeps="$( \
