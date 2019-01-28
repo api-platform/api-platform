@@ -13,7 +13,7 @@ services:
     build:
       context: ./api
       target: api_platform_php
-      << : *cache
+      <<: *cache
     depends_on:
       - db
     # Comment out these volumes in production
@@ -27,7 +27,7 @@ services:
     build:
       context: ./api
       target: api_platform_nginx
-      << : *cache
+      <<: *cache
     depends_on:
       - php
     # Comment out this volume in production
@@ -41,7 +41,7 @@ services:
     build:
       context: ./api
       target: api_platform_varnish
-      << : *cache
+      <<: *cache
     depends_on:
       - api
     volumes:
