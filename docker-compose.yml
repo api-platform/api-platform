@@ -34,7 +34,7 @@ services:
     volumes:
       - ./api/public:/srv/api/public:ro
     ports:
-      - "8080:80"
+      - "8083:80"
 
   cache-proxy:
     image: ${CONTAINER_REGISTRY_BASE}/varnish
