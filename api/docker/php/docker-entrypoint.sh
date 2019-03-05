@@ -27,6 +27,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	done
 
 	if [ "$APP_ENV" != 'prod' ]; then
+	    bin/console doctrine:database:create --no-interaction --if-not-exists
 		bin/console doctrine:schema:update --force --no-interaction
 	fi
 fi
