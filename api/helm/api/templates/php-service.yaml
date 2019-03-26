@@ -3,14 +3,15 @@ kind: Service
 metadata:
   name: php
   labels:
-    app: {{ template "name" . }}-php
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "name" . }}-php
+    app.kubernetes.io/part-of: {{ include "name" . }}
+    helm.sh/chart: {{ include "chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: ClusterIP
   ports:
     - port: 9000
   selector:
-    app: {{ template "name" . }}-php
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "name" . }}-php
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,19 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "name" . }}-nginx
+  name: {{ template "fullname" . }}-nginx
   labels:
-    app: {{ template "name" . }}-nginx
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "name" . }}-nginx
+    app.kubernetes.io/part-of: {{ include "name" . }}
+    helm.sh/chart: {{ include "chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.nginx.replicaCount }}
   template:
     metadata:
       labels:
-        app: {{ template "name" . }}-nginx
-        release: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ include "name" . }}-nginx
+        app.kubernetes.io/part-of: {{ include "name" . }}
+        helm.sh/chart: {{ include "chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
       containers:
         - name: {{ .Chart.Name }}-nginx
