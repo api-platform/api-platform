@@ -41,7 +41,7 @@
         "version": "v1.8.0"
     },
     "doctrine/collections": {
-        "version": "v1.5.0"
+        "version": "v1.6.1"
     },
     "doctrine/common": {
         "version": "v2.10.0"
@@ -181,7 +181,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.3",
-            "ref": "0fa049c19069a65f52c1c181d64be3de672c1504"
+            "ref": "07cb31124ffe1562ceb6f571b7d3c45d310f205a"
         },
         "files": [
             "bin/console",
@@ -233,7 +233,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.2",
-            "ref": "9aafbc8edf7558dfe213e9d51d0217cbd78acc5a"
+            "ref": "c42353260b4eb5b92aeed2119a2be5c1f944f8e3"
         },
         "files": [
             "config/bootstrap.php",
@@ -392,7 +392,7 @@
         "version": "v4.2.4"
     },
     "twig/twig": {
-        "version": "v2.7.3"
+        "version": "v2.7.4"
     },
     "webmozart/assert": {
         "version": "1.4.0"
