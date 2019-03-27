@@ -1,10 +1,15 @@
 # the different stages of this Dockerfile are meant to be built into separate images
+# https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
 
-ARG PHP_VERSION=7.2
+
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG PHP_VERSION=7.3
 ARG NGINX_VERSION=1.15
 ARG VARNISH_VERSION=6.0
 
+
+# "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
 
 # persistent / runtime deps
@@ -57,7 +62,9 @@ COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 # install Symfony Flex globally to speed up download of Composer packages (parallelized prefetching)
-RUN composer global require "symfony/flex" --prefer-dist --no-progress --no-suggest --classmap-authoritative
+RUN set -eux; \
+	composer global require "symfony/flex" --prefer-dist --no-progress --no-suggest --classmap-authoritative; \
+	composer clear-cache
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/api
@@ -92,6 +99,9 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
+
+# "nginx" stage
+# depends on the "php" stage above
 FROM nginx:${NGINX_VERSION}-alpine AS api_platform_nginx
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
@@ -100,6 +110,9 @@ WORKDIR /srv/api
 
 COPY --from=api_platform_php /srv/api/public public/
 
+
+# "varnish" stage
+# does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
 FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish
 
 COPY docker/varnish/conf/default.vcl /usr/local/etc/varnish/default.vcl
