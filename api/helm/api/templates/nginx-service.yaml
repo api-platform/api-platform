@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: api
   labels:
-    app: {{ template "name" . }}-nginx
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "name" . }}-nginx
+    app.kubernetes.io/part-of: {{ include "name" . }}
+    helm.sh/chart: {{ include "chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: NodePort
   ports:
@@ -14,5 +15,5 @@ spec:
       targetPort: 80
       protocol: TCP
   selector:
-    app: {{ template "name" . }}-nginx
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "name" . }}-nginx
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,6 +1,9 @@
 dependencies:
 - name: postgresql
   repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 0.18.1
-digest: sha256:d3a1c2738398c0657d885ca0451349f83086936b7a853aeca3d117f93260516d
-generated: 2018-10-01T22:29:12.850677078+07:00
+  version: 3.9.5
+- name: mercure
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.0.0
+digest: sha256:6466d376987cc08b70fe36945dd93474836aab05edc155955951bcb0774a0896
+generated: 2019-03-26T18:14:32.4074+01:00

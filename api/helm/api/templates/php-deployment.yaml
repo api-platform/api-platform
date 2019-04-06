@@ -1,19 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "name" . }}-php
+  name: {{ template "fullname" . }}-php
   labels:
-    app: {{ template "name" . }}-php
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "name" . }}-php
+    app.kubernetes.io/part-of: {{ include "name" . }}
+    helm.sh/chart: {{ include "chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.php.replicaCount }}
   template:
     metadata:
       labels:
-        app: {{ template "name" . }}-php
-        release: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ include "name" . }}-php
+        app.kubernetes.io/part-of: {{ include "name" . }}
+        helm.sh/chart: {{ include "chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
     spec:
       containers:
         - name: {{ .Chart.Name }}-php
@@ -22,6 +26,16 @@ spec:
           ports:
             - containerPort: 9000
           env:
+            - name: TRUSTED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: trusted-hosts
+            - name: TRUSTED_PROXIES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: trusted-proxies
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
@@ -52,6 +66,21 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: database-url
+            - name: MERCURE_PUBLISH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: mercure-publish-url
+            - name: MERCURE_SUBSCRIBE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: mercure-subscribe-url
+            - name: MERCURE_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: mercure-jwt-secret
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

@@ -2,16 +2,22 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-env: prod
-debug: '0'
-secret: ChangeMe
-corsAllowOrigin: http://example.com
-
 php:
   repository: quay.io/api-platform/php
   tag: latest
   pullPolicy: Always
   replicaCount: 1
+  mercure:
+    jwtSecret: ""
+  env: prod
+  debug: '0'
+  secret: ""
+  corsAllowOrigin: "^https?://.*?\\.example\\.com$"
+  trustedHosts: "^.*\\.example\\.com$"
+  trustedProxies:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
 
 nginx:
   repository: quay.io/api-platform/nginx
@@ -27,28 +33,51 @@ varnish:
   pullPolicy: Always
   replicaCount: 1
 
-ingress:
-  annotations:
-    # kubernetes.io/ingress.class: gce
-    # kubernetes.io/tls-acme: "true"
-  tls:
-    # Secrets must be manually created in the namespace.
-    # - secretName: chart-example-tls
-    #   hosts:
-    #     - chart-example.local
-
 postgresql:
   enabled: true
   imageTag: 10-alpine
   # If bringing your own PostgreSQL, the full uri to use
-  #url: postgres://api-platform:!ChangeMe!@example.com/api
-  postgresUser: api-platform
-  postgresPassword: ChangeMe
-  postgresDatabase: api
+  #url: pgsql://api-platform:!ChangeMe!@example.com/api?serverVersion=10.1
+  postgresqlUsername: "example"
+  postgresqlPassword: "!ChangeMe!"
+  postgresqlDatabase: "api"
   # Persistent Volume Storage configuration.
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
   persistence:
-    enabled: true
+    enabled: false
+  pullPolicy: IfNotPresent
+#  image:
+#    repository: postgres
+#    tag: alpine
+
+mercure:
+  enabled: true
+  publishUrl: http://mercure/hub
+  subscribeUrl: https://mercure.example.com/hub
+  allowAnonymous: "1"
+  corsAllowedOrigins: "^https?://.*?\\.example\\.com$"
+  acmeHosts: "" # TODO: Fix the Mercure chart
+  service:
+    type: NodePort
+    port: 80
+
+ingress:
+  annotations:
+    # kubernetes.io/ingress.global-static-ip-name: chart-ip
+    # kubernetes.io/ingress.class: gce
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    # Secrets must be manually created in the namespace, you can also use cert-manager.
+    # - hosts:
+      # - example.com
+      # - mercure.example.com
+  hosts:
+    api:
+      host: example.com
+      serviceName: varnish
+    mercure:
+      host: mercure.example.com
+      serviceName: mercure
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
