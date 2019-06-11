@@ -1,4 +1,4 @@
 framework:
     validation:
         # As of Symfony 4.3 you can disable the NotCompromisedPassword Validator
-        # disable_not_compromised_password: true
+        # not_compromised_password: false
