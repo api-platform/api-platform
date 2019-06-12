@@ -11,7 +11,7 @@
 **/Dockerfile
 **/Thumbs.db
 .editorconfig
-.env*
+.env.*
 .php_cs.cache
 bin/*
 !bin/console
