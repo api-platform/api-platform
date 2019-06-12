@@ -27,5 +27,6 @@ sed -i.bak "s/driver: 'pdo_mysql'$/driver: 'pdo_pgsql'/" config/packages/doctrin
 sed -i.bak "s/server_version: '5.7'$/server_version: '10'/" config/packages/doctrine.yaml
 sed -i.bak "/utf8mb4/d" config/packages/doctrine.yaml
 sed -i.bak "/default_table_options:$/d" config/packages/doctrine.yaml
+rm config/packages/doctrine.yaml.bak
 
 echo 'Run `docker-compose up --build --force-recreate` now and check that everything is fine!'

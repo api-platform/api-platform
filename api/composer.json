@@ -7,12 +7,12 @@
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
-        "symfony/console": "4.2.*",
-        "symfony/dotenv": "4.2.*",
+        "symfony/console": "4.3.*",
+        "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.1",
-        "symfony/framework-bundle": "4.2.*",
+        "symfony/framework-bundle": "4.3.*",
         "symfony/mercure-bundle": "*",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.3.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
@@ -60,7 +60,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.2.*"
+            "require": "4.3.*"
         }
     }
 }
