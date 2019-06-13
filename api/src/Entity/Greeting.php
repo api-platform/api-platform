@@ -27,6 +27,7 @@ class Greeting
      * @var string A nice person
      *
      * @ORM\Column
+     * @Assert\NotBlank
      */
     public $name = '';
 
