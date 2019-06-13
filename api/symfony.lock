@@ -133,6 +133,9 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
+    "nikic/php-parser": {
+        "version": "v4.2.2"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
@@ -251,6 +254,15 @@
     },
     "symfony/inflector": {
         "version": "v4.3.1"
+    },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
     },
     "symfony/mercure": {
         "version": "v0.1.0"
