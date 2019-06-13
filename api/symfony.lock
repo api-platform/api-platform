@@ -160,20 +160,17 @@
     "psr/log": {
         "version": "1.1.0"
     },
-    "psr/simple-cache": {
-        "version": "1.0.1"
-    },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
     "symfony/asset": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/cache": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/config": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/console": {
         "version": "3.3",
@@ -192,28 +189,28 @@
         "version": "v1.1.3"
     },
     "symfony/debug": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/dependency-injection": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/doctrine-bridge": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/dotenv": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/event-dispatcher": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/expression-language": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/filesystem": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/finder": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/flex": {
         "version": "1.0",
@@ -247,13 +244,13 @@
         ]
     },
     "symfony/http-foundation": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/http-kernel": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/inflector": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/mercure": {
         "version": "v0.1.0"
@@ -270,8 +267,14 @@
             "config/packages/mercure.yaml"
         ]
     },
+    "symfony/mime": {
+        "version": "v4.3.1"
+    },
     "symfony/options-resolver": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.11.0"
@@ -279,17 +282,20 @@
     "symfony/polyfill-php72": {
         "version": "v1.11.0"
     },
+    "symfony/polyfill-php73": {
+        "version": "v1.11.0"
+    },
     "symfony/process": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.4"
     },
     "symfony/property-access": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/property-info": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -319,25 +325,25 @@
         ]
     },
     "symfony/security-core": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/security-csrf": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/security-guard": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/security-http": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/serializer": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/stopwatch": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/twig-bridge": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/twig-bundle": {
         "version": "3.3",
@@ -354,12 +360,12 @@
         ]
     },
     "symfony/validator": {
-        "version": "4.1",
+        "version": "4.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.1",
-            "ref": "21ab70175caf1e4b273791364fb30d27f1153546"
+            "version": "4.3",
+            "ref": "48a8e5ef925e82aa7d665c887cd1fa60f8b7921d"
         },
         "files": [
             "config/packages/test/validator.yaml",
@@ -367,13 +373,13 @@
         ]
     },
     "symfony/var-dumper": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/var-exporter": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/web-link": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
@@ -390,7 +396,7 @@
         ]
     },
     "symfony/yaml": {
-        "version": "v4.2.9"
+        "version": "v4.3.1"
     },
     "twig/twig": {
         "version": "v2.11.2"
