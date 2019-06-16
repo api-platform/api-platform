@@ -118,6 +118,7 @@ services:
       - admin
       - api
       - cache-proxy
+      - mercure
     ports:
       - "443:443"
       - "444:444"
