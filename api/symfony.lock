@@ -100,7 +100,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "2.2",
-            "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
+            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
         },
         "files": [
             ".php_cs.dist"
@@ -233,7 +233,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.2",
-            "ref": "f64037a414de7d861f68e9b5b5c0e4f7425e2002"
+            "ref": "0dfae0b1cd8349ae47659b35602f772b4a7e2280"
         },
         "files": [
             "config/bootstrap.php",
@@ -245,6 +245,9 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v4.3.1"
     },
     "symfony/http-foundation": {
         "version": "v4.3.1"
@@ -265,7 +268,7 @@
         }
     },
     "symfony/mercure": {
-        "version": "v0.1.0"
+        "version": "v0.2.0"
     },
     "symfony/mercure-bundle": {
         "version": "0.1",
@@ -377,7 +380,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.3",
-            "ref": "48a8e5ef925e82aa7d665c887cd1fa60f8b7921d"
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
         },
         "files": [
             "config/packages/test/validator.yaml",
@@ -411,7 +414,7 @@
         "version": "v4.3.1"
     },
     "twig/twig": {
-        "version": "v2.11.2"
+        "version": "v2.11.3"
     },
     "webmozart/assert": {
         "version": "1.4.0"
