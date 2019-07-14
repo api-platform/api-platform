@@ -22,12 +22,12 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 
 	echo "Waiting for db to be ready..."
-	until bin/console doctrine:query:sql "SELECT 1" > /dev/null 2>&1; do
+	until php bin/console doctrine:query:sql "SELECT 1" > /dev/null 2>&1; do
 		sleep 1
 	done
 
 	if [ "$APP_ENV" != 'prod' ]; then
-		bin/console doctrine:schema:update --force --no-interaction
+		php bin/console doctrine:schema:update --force --no-interaction
 	fi
 fi
 
