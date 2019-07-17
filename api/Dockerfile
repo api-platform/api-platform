@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=7.3
-ARG NGINX_VERSION=1.15
+ARG NGINX_VERSION=1.17
 ARG VARNISH_VERSION=6.2
 
 
