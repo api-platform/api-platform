@@ -109,9 +109,9 @@ FROM nginx:${NGINX_VERSION}-alpine AS api_platform_nginx
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /srv/api
+WORKDIR /srv/api/public
 
-COPY --from=api_platform_php /srv/api/public public/
+COPY --from=api_platform_php /srv/api/public ./
 
 
 # "varnish" stage

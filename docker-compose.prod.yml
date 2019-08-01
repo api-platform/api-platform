@@ -1,0 +1,88 @@
+version: '3.4'
+
+services:
+  php:
+    image: ${PHP_IMAGE:?PHP_IMAGE is not set or empty}
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - APP_DEBUG=${APP_DEBUG:-0}
+      - APP_ENV=${APP_ENV:-prod}
+      - APP_SECRET=${APP_SECRET:?APP_SECRET is not set or empty}
+      - CORS_ALLOW_ORIGIN=${CORS_ALLOW_ORIGIN:?CORS_ALLOW_ORIGIN is not set or empty}
+      - DATABASE_URL=${DATABASE_URL:?DATABASE_URL is not set or empty}
+      - MERCURE_JWT_SECRET=${MERCURE_JWT_SECRET:?MERCURE_JWT_SECRET is not set or empty}
+      - MERCURE_SUBSCRIBE_URL=${MERCURE_SUBSCRIBE_URL:?MERCURE_SUBSCRIBE_URL is not set or empty}
+      - TRUSTED_HOSTS=${TRUSTED_HOSTS:?TRUSTED_HOSTS is not set or empty}
+      - TRUSTED_PROXIES=${TRUSTED_PROXIES:-10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
+
+  api:
+    image: ${NGINX_IMAGE:?NGINX_IMAGE is not set or empty}
+    restart: always
+    depends_on:
+      - php
+
+  cache-proxy:
+    image: ${VARNISH_IMAGE:?VARNISH_IMAGE is not set or empty}
+    restart: always
+    depends_on:
+      - api
+    environment:
+      - VIRTUAL_HOST=${API_HOST:?API_HOST is not set or empty}
+    tmpfs:
+      - /usr/local/var/varnish:exec
+
+  db:
+    # in production, we may want to use a managed database service
+    image: postgres:10-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-api}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set or empty}
+      - POSTGRES_USER=${POSTGRES_USER:-api-platform}
+    volumes:
+      # use a bind-mounted host directory, because we never want to lose our data!
+      - ./api/docker/db/data:/var/lib/postgresql/data:rw
+
+  mercure:
+    # in production, we may want to use the managed version of Mercure
+    # https://github.com/dunglas/mercure#managed-version
+    image: dunglas/mercure
+    restart: always
+    environment:
+      - ALLOW_ANONYMOUS=${MERCURE_ALLOW_ANONYMOUS:?MERCURE_ALLOW_ANONYMOUS is not set or empty}
+      - CORS_ALLOWED_ORIGINS=${MERCURE_CORS_ALLOWED_ORIGINS:?MERCURE_CORS_ALLOWED_ORIGINS is not set or empty}
+      - JWT_KEY=${MERCURE_JWT_KEY:?MERCURE_JWT_KEY is not set or empty}
+      - VIRTUAL_HOST=${MERCURE_HOST:?MERCURE_HOST is not set or empty}
+
+  client:
+    # in production, we may want to use a static website hosting service
+    # https://facebook.github.io/create-react-app/docs/deployment
+    image: ${CLIENT_IMAGE:?CLIENT_IMAGE is not set or empty}
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${CLIENT_HOST:?CLIENT_HOST is not set or empty}
+
+  admin:
+    # in production, we may want to use a static website hosting service
+    # https://facebook.github.io/create-react-app/docs/deployment
+    image: ${ADMIN_IMAGE:?ADMIN_IMAGE is not set or empty}
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${ADMIN_HOST:?ADMIN_HOST is not set or empty}
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    restart: always
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+      - target: 443
+        published: 443
+        protocol: tcp
+    volumes:
+      - ./docker/nginx-proxy/certs:/etc/nginx/certs:ro
+      - ./docker/nginx-proxy/vhost.d:/etc/nginx/vhost.d:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro

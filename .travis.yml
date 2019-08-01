@@ -1,48 +1,90 @@
-sudo: required
+language: php
 
-services:
-  - docker
-
-addons:
-  apt:
-    packages:
-      - docker-ce
-
-before_install:
-  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.9.0
-
-install: true
-
-before_script:
-  - sudo service postgresql stop
-  # wait for postgresql to shutdown
-  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
-
-script:
-  - if jq '.extra.symfony.id != null' api/composer.json -e > /dev/null; then echo 'composer.json must not have symfony.id' 1>&2 && false; fi
-  - docker-compose pull --ignore-pull-failures
-  - docker-compose build --pull
-  - docker-compose up -d
-  - sleep 30
-  - docker-compose exec -T php composer req sensiolabs/security-checker
-  - docker-compose exec -T php bin/console security:check
-  - curl -f http://localhost # Client
-  - curl -f http://localhost:81 # Admin
-  - curl -f http://localhost:8080 # API
-  - curl -f http://localhost:8081 # Varnish
-  - curl -fk https://localhost # Client (HTTP/2)
-  - curl -fk https://localhost:444 # Admin (HTTP/2)
-  - curl -fk https://localhost:8443 # API (HTTP/2)
-  - curl -fk https://localhost:8444 # Varnish (HTTP/2)
-  - helm lint ./api/helm/api/
-
-before_deploy:
-  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-
-deploy:
-  provider: script
-  script: docker-compose push
-  skip_cleanup: true
-  on:
-    repo: api-platform/api-platform
-    branch: master
+jobs:
+  include:
+    - services:
+        - docker
+      addons:
+        apt:
+          packages:
+            - docker-ce
+      before_install:
+        - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash -s -- --version v2.9.0
+      install: true
+      before_script:
+        - docker --version
+        - docker-compose --version
+        - sudo service postgresql stop
+        # wait for postgresql to shutdown
+        - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+      script:
+        - if jq '.extra.symfony.id != null' api/composer.json -e > /dev/null; then echo 'composer.json must not have symfony.id' 1>&2 && false; fi
+        - docker-compose pull --ignore-pull-failures
+        - docker-compose build --pull
+        - docker-compose run --no-deps -T php composer validate --no-check-publish
+        - docker-compose up -d
+        - sleep 30
+        - docker-compose exec -T php composer req sensiolabs/security-checker
+        - docker-compose exec -T php bin/console security:check
+        - curl -f http://localhost # Client
+        - curl -f http://localhost:81 # Admin
+        - curl -f http://localhost:8080 # API
+        - curl -fk https://localhost # Client (HTTP/2)
+        - curl -fk https://localhost:444 # Admin (HTTP/2)
+        - curl -fk https://localhost:8443 # API (HTTP/2)
+        - helm lint ./api/helm/api/
+      before_deploy:
+        - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
+      deploy:
+        provider: script
+        script: docker-compose push
+        skip_cleanup: true
+        on:
+          repo: api-platform/api-platform
+          branch: master
+    - env: >-
+        ADMIN_HOST=admin.127.0.0.1.xip.io
+        ADMIN_IMAGE=quay.io/api-platform/admin
+        API_HOST=api.127.0.0.1.xip.io
+        APP_SECRET=3c857494cfcc42c700dfb7a6
+        CLIENT_HOST=127.0.0.1.xip.io,www.127.0.0.1.xip.io
+        CLIENT_IMAGE=quay.io/api-platform/client
+        CORS_ALLOW_ORIGIN='^http://(?:\w+\.)?127\.0\.0\.1\.xip\.io$'
+        DATABASE_URL=postgres://api-platform:4e3bc2766fe81df300d56481@db/api
+        MERCURE_ALLOW_ANONYMOUS=0
+        MERCURE_CORS_ALLOWED_ORIGINS=http://127.0.0.1.xip.io,http://admin.127.0.0.1.xip.io
+        MERCURE_HOST=mercure.127.0.0.1.xip.io
+        MERCURE_JWT_KEY=4121344212538417de3e2118
+        MERCURE_JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
+        MERCURE_SUBSCRIBE_URL=http://mercure.127.0.0.1.xip.io/hub
+        NGINX_IMAGE=quay.io/api-platform/nginx
+        PHP_IMAGE=quay.io/api-platform/php
+        POSTGRES_PASSWORD=4e3bc2766fe81df300d56481
+        REACT_APP_API_ENTRYPOINT=http://api.127.0.0.1.xip.io
+        TRUSTED_HOSTS='^localhost|api|api\.127\.0\.0\.1\.xip\.io/$'
+        VARNISH_IMAGE=quay.io/api-platform/varnish
+      services:
+        - docker
+      addons:
+        apt:
+          packages:
+            - docker-ce
+      before_install: true
+      install: true
+      before_script:
+        - docker --version
+        - docker-compose --version
+        - sudo service postgresql stop
+        # wait for postgresql to shutdown
+        - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+      script:
+        - docker-compose -f docker-compose.prod-build.yml pull --ignore-pull-failures
+        - docker-compose -f docker-compose.prod-build.yml build --pull
+        - mkdir -p docker/nginx-proxy/vhost.d
+        - echo 'return 301 http://127.0.0.1.xip.io$request_uri;' > docker/nginx-proxy/vhost.d/www.127.0.0.1.xip.io
+        - docker-compose -f docker-compose.prod.yml up -d
+        - sleep 30
+        - curl -f http://127.0.0.1.xip.io
+        - curl -f http://www.127.0.0.1.xip.io
+        - curl -f http://admin.127.0.0.1.xip.io
+        - curl -f http://api.127.0.0.1.xip.io

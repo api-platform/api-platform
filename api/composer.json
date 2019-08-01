@@ -1,17 +1,18 @@
 {
-    "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
+        "api-platform/core": "^2.5@beta",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.3.*",
-        "symfony/mercure-bundle": "*",
+        "symfony/mercure-bundle": "^0.1.2",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
@@ -19,11 +20,16 @@
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0"
     },
-    "config": {
-        "preferred-install": {
-            "*": "dist"
-        },
-        "sort-packages": true
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php56": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php71": "*"
     },
     "autoload": {
         "psr-4": {
@@ -35,13 +41,11 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "replace": {
-        "paragonie/random_compat": "2.*",
-        "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
     },
     "scripts": {
         "auto-scripts": {
@@ -55,14 +59,10 @@
             "@auto-scripts"
         ]
     },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
     "extra": {
         "symfony": {
             "allow-contrib": false,
             "require": "4.3.*"
         }
-    },
-    "minimum-stability": "beta"
+    }
 }

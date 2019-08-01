@@ -7,8 +7,14 @@
 **/.gitattributes
 **/.gitignore
 **/.gitmodules
-**/Dockerfile*
+**/docker-compose.*.yaml
+**/docker-compose.*.yml
+**/docker-compose.yaml
+**/docker-compose.yml
+**/Dockerfile
 **/Thumbs.db
-.env*
+.editorconfig
+.env.*.local
+.env.local
 build/
 node_modules/
