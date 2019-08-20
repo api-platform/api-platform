@@ -1,4 +1,4 @@
 framework:
     router:
-        strict_requirements: ~
+        strict_requirements: null
         utf8: true

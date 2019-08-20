@@ -71,7 +71,7 @@ services:
     image: dunglas/mercure
     environment:
       # You should definitely change all these values in production
-      - JWT_KEY=!UnsecureChangeMe!
+      - JWT_KEY=!ChangeMe!
       - ALLOW_ANONYMOUS=1
       - CORS_ALLOWED_ORIGINS=*
       - PUBLISH_ALLOWED_ORIGINS=http://localhost:1337,https://localhost:1338
