@@ -76,11 +76,11 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: mercure-subscribe-url
-            - name: MERCURE_JWT_SECRET
+            - name: MERCURE_JWT_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
-                  key: mercure-jwt-secret
+                  key: mercure-jwt-token
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

@@ -8,7 +8,7 @@ php:
   pullPolicy: Always
   replicaCount: 1
   mercure:
-    jwtSecret: ""
+    jwtToken: ""
   env: prod
   debug: '0'
   secret: ""
