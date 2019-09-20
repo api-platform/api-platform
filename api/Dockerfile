@@ -59,6 +59,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
 
+# Workaround to allow using PHPUnit 8 with Symfony 4.3
+ENV SYMFONY_PHPUNIT_VERSION=8.3
+
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 # install Symfony Flex globally to speed up download of Composer packages (parallelized prefetching)
