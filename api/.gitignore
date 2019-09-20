@@ -1,3 +1,4 @@
+/docker/db/data
 /helm/api/charts
 
 ###> symfony/framework-bundle ###

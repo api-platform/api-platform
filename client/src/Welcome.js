@@ -55,11 +55,6 @@ const Welcome = () => (
                                 httpLink={`http://${document.domain}:8080`}
                                 httpsLink={`https://${document.domain}:8443`}
                             />
-                            <h3>Cached API</h3>
-                            <ButtonsGroup
-                                httpLink={`http://${document.domain}:8081`}
-                                httpsLink={`https://${document.domain}:8444`}
-                            />
                         </div>
                     </div>
                     <div className="other__bloc">

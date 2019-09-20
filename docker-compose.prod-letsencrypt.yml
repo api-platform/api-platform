@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  letsencrypt:
+    image: adferrand/letsencrypt-dns
+    restart: always
+    environment:
+      - DEPLOY_HOOK=create-nginx-certs
+      - LETSENCRYPT_STAGING=${LETSENCRYPT_STAGING:-false}
+      - LETSENCRYPT_USER_MAIL=${LETSENCRYPT_USER_MAIL:?LETSENCRYPT_USER_MAIL is not set or empty}
+      # if you don't use Cloudflare as your DNS provider, change these as necessary
+      # https://github.com/adferrand/docker-letsencrypt-dns#configuring-dns-provider-and-authentication-to-dns-api
+      - LEXICON_CLOUDFLARE_AUTH_TOKEN=${LEXICON_CLOUDFLARE_AUTH_TOKEN:?LEXICON_CLOUDFLARE_AUTH_TOKEN is not set or empty}
+      - LEXICON_CLOUDFLARE_AUTH_USERNAME=${LEXICON_CLOUDFLARE_AUTH_USERNAME:?LEXICON_CLOUDFLARE_AUTH_USERNAME is not set or empty}
+      - LEXICON_PROVIDER=cloudflare
+    volumes:
+      - ./docker/letsencrypt/create-nginx-certs.sh:/usr/local/bin/create-nginx-certs
+      - ./docker/letsencrypt/data:/etc/letsencrypt:rw
+      - ./docker/letsencrypt/domains.conf:/etc/letsencrypt/domains.conf:ro
+      - ./docker/nginx-proxy/certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
