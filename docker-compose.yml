@@ -112,6 +112,9 @@ services:
       - target: 8443
         published: 8443
         protocol: tcp
+      - target: 1338
+        published: 1338
+        protocol: tcp
 
 volumes:
   db-data: {}
