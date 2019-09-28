@@ -43,25 +43,25 @@ jobs:
           repo: api-platform/api-platform
           branch: master
     - env: >-
-        ADMIN_HOST=admin.127.0.0.1.xip.io
+        ADMIN_HOST=admin.127-0-0-1.sslip.io
         ADMIN_IMAGE=quay.io/api-platform/admin
-        API_HOST=api.127.0.0.1.xip.io
+        API_HOST=api.127-0-0-1.sslip.io
         APP_SECRET=3c857494cfcc42c700dfb7a6
-        CLIENT_HOST=127.0.0.1.xip.io,www.127.0.0.1.xip.io
+        CLIENT_HOST=127-0-0-1.sslip.io,www.127-0-0-1.sslip.io
         CLIENT_IMAGE=quay.io/api-platform/client
-        CORS_ALLOW_ORIGIN='^http://(?:\w+\.)?127\.0\.0\.1\.xip\.io$'
+        CORS_ALLOW_ORIGIN='^http://(?:\w+\.)?127-0-0-1\.sslip\.io$'
         DATABASE_URL=postgres://api-platform:4e3bc2766fe81df300d56481@db/api
         MERCURE_ALLOW_ANONYMOUS=0
-        MERCURE_CORS_ALLOWED_ORIGINS=http://127.0.0.1.xip.io,http://admin.127.0.0.1.xip.io
-        MERCURE_HOST=mercure.127.0.0.1.xip.io
+        MERCURE_CORS_ALLOWED_ORIGINS=http://127-0-0-1.sslip.io,http://admin.127-0-0-1.sslip.io
+        MERCURE_HOST=mercure.127-0-0-1.sslip.io
         MERCURE_JWT_KEY=4121344212538417de3e2118
         MERCURE_JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
-        MERCURE_SUBSCRIBE_URL=http://mercure.127.0.0.1.xip.io/hub
+        MERCURE_SUBSCRIBE_URL=http://mercure.127-0-0-1.sslip.io/hub
         NGINX_IMAGE=quay.io/api-platform/nginx
         PHP_IMAGE=quay.io/api-platform/php
         POSTGRES_PASSWORD=4e3bc2766fe81df300d56481
-        REACT_APP_API_ENTRYPOINT=http://api.127.0.0.1.xip.io
-        TRUSTED_HOSTS='^localhost|api|api\.127\.0\.0\.1\.xip\.io/$'
+        REACT_APP_API_ENTRYPOINT=http://api.127-0-0-1.sslip.io
+        TRUSTED_HOSTS='^(?:localhost|api|api\.127-0-0-1\.sslip\.io)$'
         VARNISH_IMAGE=quay.io/api-platform/varnish
       services:
         - docker
@@ -81,10 +81,10 @@ jobs:
         - docker-compose -f docker-compose.prod-build.yml pull --ignore-pull-failures
         - docker-compose -f docker-compose.prod-build.yml build --pull
         - mkdir -p docker/nginx-proxy/vhost.d
-        - echo 'return 301 http://127.0.0.1.xip.io$request_uri;' > docker/nginx-proxy/vhost.d/www.127.0.0.1.xip.io
+        - echo 'return 301 http://127-0-0-1.sslip.io$request_uri;' > docker/nginx-proxy/vhost.d/www.127-0-0-1.sslip.io
         - docker-compose -f docker-compose.prod.yml up -d
         - sleep 30
-        - curl -f http://127.0.0.1.xip.io
-        - curl -f http://www.127.0.0.1.xip.io
-        - curl -f http://admin.127.0.0.1.xip.io
-        - curl -f http://api.127.0.0.1.xip.io
+        - curl -f http://127-0-0-1.sslip.io
+        - curl -f http://www.127-0-0-1.sslip.io
+        - curl -f http://admin.127-0-0-1.sslip.io
+        - curl -f http://api.127-0-0-1.sslip.io
