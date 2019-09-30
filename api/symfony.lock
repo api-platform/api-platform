@@ -3,12 +3,12 @@
         "version": "v1.2.0"
     },
     "api-platform/core": {
-        "version": "2.1",
+        "version": "2.5",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "2.1",
-            "ref": "18727d8f229306860b46955f438e1897421da689"
+            "version": "2.5",
+            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
         },
         "files": [
             "config/packages/api_platform.yaml",
@@ -96,7 +96,7 @@
         "version": "2.1.1"
     },
     "doctrine/orm": {
-        "version": "v2.6.3"
+        "version": "v2.6.4"
     },
     "doctrine/persistence": {
         "version": "1.1.1"
@@ -457,7 +457,7 @@
         "version": "v2.3.1"
     },
     "zendframework/zend-code": {
-        "version": "3.3.1"
+        "version": "3.3.2"
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"
