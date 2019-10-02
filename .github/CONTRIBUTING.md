@@ -51,7 +51,7 @@ When you send a PR, just make sure that:
   so he/she will get a notification.
 * Squash your commits into one commit. (see the next chapter)
 
-All Pull Requests must include the following header:
+Fill in the following header from the pull request template:
 
 ```markdown
 | Q             | A
@@ -97,7 +97,7 @@ git push --force
 # License and Copyright Attribution
 
 When you open a Pull Request to the API Platform project, you agree to license your code under the [MIT license](LICENSE)
-and to transfer the copyright on the submitted code to Kévin Dunglas.
+and to transfer the copyright on the submitted code to [Kévin Dunglas](https://github.com/dunglas).
 
 Be sure to you have the right to do that (if you are a professional, ask your company)!
 
