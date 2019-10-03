@@ -1,4 +1,4 @@
-| Question             | Answer
+| Q             | A
 | ------------- | ---
 | Bug fix?      | yes/no
 | New feature?  | yes/no
