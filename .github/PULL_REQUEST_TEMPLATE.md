@@ -5,8 +5,8 @@
 | BC breaks?    | no
 | Deprecations? | no
 | Tests pass?   | yes
-| Fixed tickets | #abcd, #xxxx
+| Fixed tickets | #1234, #5678
 | License       | MIT
-| Doc PR        | api-platform/docs#xxxx
+| Doc PR        | api-platform/doc#1234
 
-<!-- Please note that commits may need to be squashed before the PR is made -->
+<!-- Please note that commits need to be squashed before the PR is made -->
