@@ -78,11 +78,12 @@ jobs:
         # wait for postgresql to shutdown
         - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
       script:
-        - docker-compose -f docker-compose.prod-build.yml pull --ignore-pull-failures
-        - docker-compose -f docker-compose.prod-build.yml build --pull
-        - mkdir -p docker/nginx-proxy/vhost.d
-        - echo 'return 301 http://127-0-0-1.sslip.io$request_uri;' > docker/nginx-proxy/vhost.d/www.127-0-0-1.sslip.io
-        - docker-compose -f docker-compose.prod.yml up -d
+        - git submodule add https://github.com/api-platform/docker-compose-prod
+        - docker-compose -f docker-compose-prod/docker-compose.build.yml pull --ignore-pull-failures
+        - docker-compose -f docker-compose-prod/docker-compose.build.yml build --pull
+        - mkdir -p docker-compose-prod/docker/nginx-proxy/vhost.d
+        - echo 'return 301 http://127-0-0-1.sslip.io$request_uri;' > docker-compose-prod/docker/nginx-proxy/vhost.d/www.127-0-0-1.sslip.io
+        - docker-compose -f docker-compose-prod/docker-compose.yml up -d
         - sleep 30
         - curl -f http://127-0-0-1.sslip.io
         - curl -f http://www.127-0-0-1.sslip.io
