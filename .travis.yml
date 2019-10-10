@@ -78,7 +78,7 @@ jobs:
         # wait for postgresql to shutdown
         - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
       script:
-        - git submodule add https://github.com/api-platform/docker-compose-prod
+        - wget -O - https://github.com/api-platform/docker-compose-prod/archive/master.tar.gz | tar -xzf - && mv docker-compose-prod-master docker-compose-prod
         - docker-compose -f docker-compose-prod/docker-compose.build.yml pull --ignore-pull-failures
         - docker-compose -f docker-compose-prod/docker-compose.build.yml build --pull
         - mkdir -p docker-compose-prod/docker/nginx-proxy/vhost.d
