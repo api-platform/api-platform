@@ -2,7 +2,7 @@
 
 First of all, thank you for contributing, you're awesome!
 
-To have your code integrated in the API Platform project, there is some rules to follow, but don't panic, it's easy!
+To have your code integrated in the API Platform project, there are some rules to follow, but don't panic, it's easy!
 
 ## Reporting Bugs
 
@@ -16,7 +16,7 @@ Then, if it appears that it's a real bug, you may report it using Github by foll
   * A clear title to resume the issue
   * A description of the workflow needed to reproduce the bug,
 
-> _NOTE:_ Don’t hesitate giving as much information as you can (OS, PHP version extensions...)
+> _NOTE:_ Don’t hesitate to give as much information as you can (OS, PHP version extensions...)
 
 ## Pull Requests
 
