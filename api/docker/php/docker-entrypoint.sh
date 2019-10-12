@@ -22,8 +22,16 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 
 	echo "Waiting for db to be ready..."
+	REPEAT=0
 	until bin/console doctrine:query:sql "SELECT 1" > /dev/null 2>&1; do
+		echo -ne '.'
+		REPEAT=$((REPEAT + 1))
 		sleep 1
+
+		if [ $REPEAT -eq 15 ]; then
+   			echo "Database connection failed!"
+    	    exit 1;
+  		fi
 	done
 
 	if ls -A src/Migrations/*.php > /dev/null 2>&1; then
