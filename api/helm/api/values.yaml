@@ -90,3 +90,5 @@ resources: {}
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
+imagePullSecrets:
+  # See https://github:com/helm/helm/pull/5271/files This is for work with private repositories.
