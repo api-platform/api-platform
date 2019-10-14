@@ -26,7 +26,6 @@ and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 [![Codecov](https://codecov.io/gh/api-platform/core/branch/master/graph/badge.svg)](https://codecov.io/gh/api-platform/core/branch/master)
 [![SymfonyInsight](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93/mini.svg)](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
-[![GNU license](https://img.shields.io/github/license/api-platform/api-platform)](https://github.com/api-platform/api-platform/blob/master/LICENSE)
 
 The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
