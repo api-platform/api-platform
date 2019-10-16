@@ -28,7 +28,7 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		REPEAT=$((REPEAT + 1))
 		sleep 1
 
-		if [ $REPEAT -eq 15 ]; then
+		if [ $REPEAT -eq 180 ]; then
    			echo "Database connection failed!"
     	    exit 1;
   		fi
