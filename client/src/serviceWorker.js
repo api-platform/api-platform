@@ -24,12 +24,13 @@ export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
+    if (publicUrl.origin !== window.location.origin)
+      return;
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      return;
-    }
+      
+    
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
@@ -46,10 +47,11 @@ export function register(config) {
               'worker. To learn more, visit http://bit.ly/CRA-PWA'
           );
         });
-      } else {
+      } else 
+          registerValidSW(swUrl, config);
         // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
+        
+      
     });
   }
 }
@@ -75,9 +77,9 @@ function registerValidSW(swUrl, config) {
               );
 
               // Execute callback
-              if (config && config.onUpdate) {
+              if (config && config.onUpdate) 
                 config.onUpdate(registration);
-              }
+              
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
@@ -85,9 +87,9 @@ function registerValidSW(swUrl, config) {
               console.log('Content is cached for offline use.');
 
               // Execute callback
-              if (config && config.onSuccess) {
+              if (config && config.onSuccess) 
                 config.onSuccess(registration);
-              }
+              
             }
           }
         };
@@ -114,10 +116,11 @@ function checkValidServiceWorker(swUrl, config) {
             window.location.reload();
           });
         });
-      } else {
-        // Service worker found. Proceed as normal.
+      } else 
         registerValidSW(swUrl, config);
-      }
+        // Service worker found. Proceed as normal.
+        
+      
     })
     .catch(() => {
       console.log(
