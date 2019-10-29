@@ -1,5 +1,13 @@
 <h1 align="center"><a href="https://api-platform.com"><img src="https://api-platform.com/logo-250x250.png" alt="API Platform"></a></h1>
 
+[![Travis CI](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
+[![CircleCI](https://circleci.com/gh/api-platform/core/tree/master.svg?style=shield)](https://circleci.com/gh/api-platform/core/tree/master)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/grwuyprts3wdqx5l/branch/master?svg=true)](https://ci.appveyor.com/project/dunglas/dunglasapibundle/branch/master)
+[![Codecov](https://codecov.io/gh/api-platform/core/branch/master/graph/badge.svg)](https://codecov.io/gh/api-platform/core/branch/master)
+[![SymfonyInsight](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93/mini.svg)](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/api-platform/api-platform/blob/master/.github/CONTRIBUTING.md)
+
 API Platform is a next-generation web framework designed to easily create API-first projects without compromising extensibility
 and flexibility:
 
@@ -19,13 +27,6 @@ thanks to [the client generator](https://api-platform.com/docs/client-generator)
 and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 * Easily add **[JSON Web Token](https://api-platform.com/docs/core/jwt) or [OAuth](https://oauth.net/) authentication**.
 * Create specs and tests with a **developer friendly API testing tool** on top of [Behat](https://behat.org/).
-
-[![Travis CI](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
-[![CircleCI](https://circleci.com/gh/api-platform/core/tree/master.svg?style=shield)](https://circleci.com/gh/api-platform/core/tree/master)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/grwuyprts3wdqx5l/branch/master?svg=true)](https://ci.appveyor.com/project/dunglas/dunglasapibundle/branch/master)
-[![Codecov](https://codecov.io/gh/api-platform/core/branch/master/graph/badge.svg)](https://codecov.io/gh/api-platform/core/branch/master)
-[![SymfonyInsight](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93/mini.svg)](https://insight.symfony.com/projects/92d78899-946c-4282-89a3-ac92344f9a93)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
 
 The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
