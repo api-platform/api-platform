@@ -63,7 +63,6 @@ HEALTHCHECK --interval=10s --timeout=3s \
 	REQUEST_METHOD=GET \
 	cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1
 
-
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
