@@ -13,6 +13,11 @@ services:
       target: api_platform_php
       <<: *api-cache-from
     image: ${PHP_IMAGE:-quay.io/api-platform/php}
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
     depends_on:
       - db
     volumes:
