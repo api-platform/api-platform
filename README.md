@@ -1,12 +1,11 @@
 <h1 align="center"><a href="https://api-platform.com"><img src="https://api-platform.com/logo-250x250.png" alt="API Platform"></a></h1>
 
-API Platform is a next-generation web framework designed to easily create API-first projects without compromising extensibility
-and flexibility:
+API Platform is a next-generation web-based framework designed to easily create API-first projects without compromising with extensibility and flexibility:
 
-* Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator)
+* Build your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator)
   from the [Schema.org](https://schema.org/) vocabulary.
 * **Expose in minutes a hypermedia REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
-  filters and error handling...
+  filters and error handling.
 * Benefit from Content Negotiation: [GraphQL](https://graphql.org), [JSON-LD](https://json-ld.org), [Hydra](https://hydra-cg.com),
   [HAL](https://github.com/mikekelly/hal_specification/blob/master/hal_specification.md), [JSONAPI](https://jsonapi.org/), [YAML](https://yaml.org/), [JSON](https://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box.
 * Enjoy the **beautiful automatically generated API documentation** ([Swagger](https://swagger.io/)/[OpenAPI](https://www.openapis.org/)).
@@ -30,7 +29,7 @@ and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
 API Platform embraces open web standards (OpenAPI, JSON-LD, GraphQL, Hydra, HAL, JSONAPI, JWT, OAuth, HTTP...) and the
-[Linked Data](https://www.w3.org/standards/semanticweb/data) movement. Your API will automatically expose structured data
+[Linked Data](https://www.w3.org/standards/semanticweb/data) movement. Your API will be automatically exposed to structured data
 in Schema.org / JSON-LD. It means that your API Platform application is usable **out of the box** with technologies of
 the semantic web.
 
