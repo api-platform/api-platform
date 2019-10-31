@@ -18,6 +18,7 @@ RUN apk add --no-cache \
 		file \
 		gettext \
 		git \
+		fcgi \
 	;
 
 ARG APCU_VERSION=5.1.17
@@ -54,6 +55,14 @@ RUN set -eux; \
 	apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
+	
+HEALTHCHECK --interval=10s --timeout=3s \
+	CMD \
+	SCRIPT_NAME=/ping \
+	SCRIPT_FILENAME=/ping \
+	REQUEST_METHOD=GET \
+	cgi-fcgi -bind -connect 127.0.0.1:9000 || exit 1
+
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
