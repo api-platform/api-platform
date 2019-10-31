@@ -5,8 +5,8 @@ and flexibility:
 
 * Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator)
   from the [Schema.org](https://schema.org/) vocabulary.
-* **Expose in minutes a hypermedia REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
-  filters and error handling...
+* **Expose a hypermedia REST or a GraphQL API in minutes** with pagination, data validation, access control, relation embedding,
+  filters and error handling.
 * Benefit from Content Negotiation: [GraphQL](https://graphql.org), [JSON-LD](https://json-ld.org), [Hydra](https://hydra-cg.com),
   [HAL](https://github.com/mikekelly/hal_specification/blob/master/hal_specification.md), [JSONAPI](https://jsonapi.org/), [YAML](https://yaml.org/), [JSON](https://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box.
 * Enjoy the **beautiful automatically generated API documentation** ([Swagger](https://swagger.io/)/[OpenAPI](https://www.openapis.org/)).
@@ -15,7 +15,7 @@ and flexibility:
 * **Scaffold fully functional Progressive-Web-Apps and mobile apps** built with [React](https://api-platform.com/docs/client-generator/react),
 [Vue.js](https://api-platform.com/docs/client-generator/vuejs) or [React Native](https://api-platform.com/docs/client-generator/react-native)
 thanks to [the client generator](https://api-platform.com/docs/client-generator) (a Vue.js generator is also available).
-* Install a development environment and deploy your project in production using **[Docker](https://api-platform.com/docs/distribution)**
+* Install a development enviroment and deploy your project in production using **[Docker](https://api-platform.com/docs/distribution)**
 and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 * Easily add **[JSON Web Token](https://api-platform.com/docs/core/jwt) or [OAuth](https://oauth.net/) authentication**.
 * Create specs and tests with a **developer friendly API testing tool** on top of [Behat](https://behat.org/).
@@ -29,7 +29,7 @@ and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 
 The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
-API Platform embraces open web standards (OpenAPI, JSON-LD, GraphQL, Hydra, HAL, JSONAPI, JWT, OAuth, HTTP...) and the
+API Platform embraces Open Web Standards (OpenAPI, JSON-LD, GraphQL, Hydra, HAL, JSONAPI, JWT, OAuth, HTTP...) and the
 [Linked Data](https://www.w3.org/standards/semanticweb/data) movement. Your API will automatically expose structured data
 in Schema.org / JSON-LD. It means that your API Platform application is usable **out of the box** with technologies of
 the semantic web.
