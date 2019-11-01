@@ -57,6 +57,7 @@ mercure:
   allowAnonymous: "1"
   corsAllowedOrigins: "^https?://.*?\\.example\\.com$"
   acmeHosts: "" # TODO: Fix the Mercure chart
+  jwtKey: ""
   service:
     type: NodePort
     port: 80
