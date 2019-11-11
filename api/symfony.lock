@@ -55,7 +55,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.6",
-            "ref": "5e476e8edf3fa8e7f045ad034f89bb464424f5c1"
+            "ref": "05802762c395b1e9f0f2645ebbd6128a87942f09"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -143,7 +143,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.5",
-            "ref": "6e1f64cc0f55362be49764634e8f14ce34a033c6"
+            "ref": "6388de23860284db9acce0a7a5d9d13153bcb571"
         },
         "files": [
             "config/packages/nelmio_cors.yaml"
@@ -246,7 +246,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.0",
-            "ref": "dc3fc2e0334a4137c47cfd5a3ececc601fa61a0b"
+            "ref": "19fa03bacd9a6619583d1e4939da4388df22984d"
         },
         "files": [
             ".env"
@@ -304,7 +304,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "0.1",
-            "ref": "b65571fe6fac82e00e212a525bc138896b78b81d"
+            "ref": "4cf58c53479f26331d6f2ac13b08618e01c4eff9"
         },
         "files": [
             "config/packages/mercure.yaml"
@@ -346,12 +346,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.2",
-            "ref": "4c107a8d23a16b997178fbd4103b8d2f54f688b7"
+            "ref": "683dcb08707ba8d41b7e34adb0344bfd68d248a7"
         },
         "files": [
-            "config/packages/dev/routing.yaml",
+            "config/packages/prod/routing.yaml",
             "config/packages/routing.yaml",
-            "config/packages/test/routing.yaml",
             "config/routes.yaml"
         ]
     },
@@ -400,7 +399,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.3",
-            "ref": "369b5b29dc52b2c190002825ae7ec24ab6f962dd"
+            "ref": "7e5911186d596214c14dd28305485a3c143ee746"
         },
         "files": [
             "config/packages/twig.yaml",

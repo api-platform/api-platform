@@ -1,8 +1,12 @@
 doctrine:
     dbal:
         # configure these for your database server
-        driver: 'pdo_pgsql'
-        server_version: '10'
+        # use mysql for MySQL
+        # use sqlite for SQLite
+        driver: 'mysql'
+        server_version: '12'
+
+        # only needed for MySQL
 
         url: '%env(resolve:DATABASE_URL)%'
     orm:
