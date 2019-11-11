@@ -37,7 +37,7 @@ services:
         protocol: tcp
 
   db:
-    image: postgres:10-alpine
+    image: postgres:12-alpine
     environment:
       - POSTGRES_DB=api
       - POSTGRES_PASSWORD=!ChangeMe!
