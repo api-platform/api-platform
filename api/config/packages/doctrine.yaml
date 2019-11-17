@@ -1,14 +1,11 @@
 doctrine:
     dbal:
-        # configure these for your database server
-        # use mysql for MySQL
-        # use sqlite for SQLite
-        driver: 'mysql'
-        server_version: '12'
-
-        # only needed for MySQL
-
         url: '%env(resolve:DATABASE_URL)%'
+
+        # IMPORTANT: You MUST configure your db driver and server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        driver: 'postgresql'
+        server_version: '12'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
