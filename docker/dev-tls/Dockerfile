@@ -1,7 +1,11 @@
 # use this self-generated certificate only in dev, IT IS NOT SECURE!
 
 
-FROM alpine:latest
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG NGINX_VERSION=1.17
+
+
+FROM nginx:${NGINX_VERSION}-alpine
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -19,3 +23,11 @@ RUN set -eux; \
 	cat localhost.key localhost.crt > server.pem
 
 VOLUME /certs
+
+# add redirect from http://localhost to https://localhost
+RUN set -eux; \
+	{ \
+		echo 'server {'; \
+		echo '    return 301 https://$host$request_uri;'; \
+		echo '}'; \
+	} | tee /etc/nginx/conf.d/default.conf

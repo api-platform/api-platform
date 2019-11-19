@@ -124,6 +124,10 @@ services:
       context: ./docker/dev-tls
     volumes:
       - dev-certs:/certs:rw
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
 
 volumes:
   db-data: {}
