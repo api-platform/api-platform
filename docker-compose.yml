@@ -31,9 +31,21 @@ services:
       - php
     volumes:
       - ./api/public:/srv/api/public:ro
+
+  vulcain:
+    image: dunglas/vulcain
+    environment:
+      - UPSTREAM=http://api
+      - CERT_FILE=/cert/cert.crt
+      - KEY_FILE=/cert/cert.key
+    depends_on:
+      - tls
+      - api
+    volumes:
+      - cert:/cert:ro
     ports:
-      - target: 80
-        published: 8080
+      - target: 443
+        published: 8443
         protocol: tcp
 
   db:
@@ -54,13 +66,19 @@ services:
   mercure:
     image: dunglas/mercure
     environment:
+      - CERT_FILE=/cert/cert.crt
+      - KEY_FILE=/cert/cert.key
       - ALLOW_ANONYMOUS=1
       - CORS_ALLOWED_ORIGINS=*
       - DEMO=1
       - JWT_KEY=!ChangeMe!
-      - PUBLISH_ALLOWED_ORIGINS=http://localhost:1337,https://localhost:1338 # required for publishing from demo page
+      - PUBLISH_ALLOWED_ORIGINS=https://localhost:1337 # required for publishing from the demo page
+    depends_on:
+      - tls
+    volumes:
+      - cert:/cert:ro
     ports:
-      - target: 80
+      - target: 443
         published: 1337
         protocol: tcp
 
@@ -74,11 +92,14 @@ services:
     environment:
       - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
       - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
+    depends_on:
+      - tls
     volumes:
       - ./client:/usr/src/client:rw,cached
+      - cert:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
-        published: 80
+        published: 443
         protocol: tcp
 
   admin:
@@ -88,34 +109,23 @@ services:
       cache_from:
         - ${ADMIN_IMAGE:-quay.io/api-platform/admin}
     image: ${ADMIN_IMAGE:-quay.io/api-platform/admin}
+    depends_on:
+      - tls
     volumes:
       - ./admin:/usr/src/admin:rw,cached
+      - cert:/usr/src/admin/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
-        published: 81
-        protocol: tcp
-
-  h2-proxy:
-    # do not use in production!
-    build:
-      context: ./h2-proxy
-    depends_on:
-      - client
-      - admin
-      - api
-    ports:
-      - target: 443
-        published: 443
-        protocol: tcp
-      - target: 444
         published: 444
         protocol: tcp
-      - target: 8443
-        published: 8443
-        protocol: tcp
-      - target: 1338
-        published: 1338
-        protocol: tcp
+
+  tls:
+    build:
+      context: ./
+      dockerfile: Dockerfile.tls
+    volumes:
+      - cert:/cert:rw
 
 volumes:
   db-data: {}
+  cert: {}
