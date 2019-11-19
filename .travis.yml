@@ -53,7 +53,7 @@ jobs:
         MERCURE_HOST=mercure.127-0-0-1.sslip.io
         MERCURE_JWT_KEY=4121344212538417de3e2118
         MERCURE_JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
-        MERCURE_SUBSCRIBE_URL=http://mercure.127-0-0-1.sslip.io/hub
+        MERCURE_SUBSCRIBE_URL=http://mercure.127-0-0-1.sslip.io/.well-known/mercure
         NGINX_IMAGE=quay.io/api-platform/nginx
         PHP_IMAGE=quay.io/api-platform/php
         POSTGRES_PASSWORD=4e3bc2766fe81df300d56481
