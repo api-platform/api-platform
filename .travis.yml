@@ -26,12 +26,9 @@ jobs:
         - sleep 30
         - docker-compose exec -T php composer req sensiolabs/security-checker
         - docker-compose exec -T php bin/console security:check
-        - curl -f http://localhost # Client
-        - curl -f http://localhost:81 # Admin
-        - curl -f http://localhost:8080 # API
-        - curl -fk https://localhost # Client (HTTP/2)
-        - curl -fk https://localhost:444 # Admin (HTTP/2)
-        - curl -fk https://localhost:8443 # API (HTTP/2)
+        - curl -fk https://localhost # Client
+        - curl -fk https://localhost:444 # Admin
+        - curl -fk https://localhost:8443 # API
         - helm lint ./api/helm/api/
       before_deploy:
         - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"

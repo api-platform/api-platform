@@ -35,14 +35,14 @@ services:
   vulcain:
     image: dunglas/vulcain
     environment:
+      - CERT_FILE=/certs/localhost.crt
+      - KEY_FILE=/certs/localhost.key
       - UPSTREAM=http://api
-      - CERT_FILE=/cert/cert.crt
-      - KEY_FILE=/cert/cert.key
     depends_on:
-      - tls
       - api
+      - dev-tls
     volumes:
-      - cert:/cert:ro
+      - dev-certs:/certs:ro
     ports:
       - target: 443
         published: 8443
@@ -66,17 +66,17 @@ services:
   mercure:
     image: dunglas/mercure
     environment:
-      - CERT_FILE=/cert/cert.crt
-      - KEY_FILE=/cert/cert.key
       - ALLOW_ANONYMOUS=1
+      - CERT_FILE=/certs/localhost.crt
       - CORS_ALLOWED_ORIGINS=*
       - DEMO=1
       - JWT_KEY=!ChangeMe!
+      - KEY_FILE=/certs/localhost.key
       - PUBLISH_ALLOWED_ORIGINS=https://localhost:1337 # required for publishing from the demo page
     depends_on:
-      - tls
+      - dev-tls
     volumes:
-      - cert:/cert:ro
+      - dev-certs:/certs:ro
     ports:
       - target: 443
         published: 1337
@@ -93,10 +93,10 @@ services:
       - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
       - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
     depends_on:
-      - tls
+      - dev-tls
     volumes:
       - ./client:/usr/src/client:rw,cached
-      - cert:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
+      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
         published: 443
@@ -110,22 +110,21 @@ services:
         - ${ADMIN_IMAGE:-quay.io/api-platform/admin}
     image: ${ADMIN_IMAGE:-quay.io/api-platform/admin}
     depends_on:
-      - tls
+      - dev-tls
     volumes:
       - ./admin:/usr/src/admin:rw,cached
-      - cert:/usr/src/admin/node_modules/webpack-dev-server/ssl:ro
+      - dev-certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
         published: 444
         protocol: tcp
 
-  tls:
+  dev-tls:
     build:
-      context: ./
-      dockerfile: Dockerfile.tls
+      context: ./docker/dev-tls
     volumes:
-      - cert:/cert:rw
+      - dev-certs:/certs:rw
 
 volumes:
   db-data: {}
-  cert: {}
+  dev-certs: {}
