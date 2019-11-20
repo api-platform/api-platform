@@ -32,6 +32,9 @@ sub vcl_recv {
 
   # Remove the "Forwarded" HTTP header if exists (security)
   unset req.http.forwarded;
+  # Remove "Preload" and "Fields" HTTP header to improve Vulcain's performance
+  unset req.http.preload;
+  unset req.http.fields;
 
   # To allow API Platform to ban by cache tags
   if (req.method == "BAN") {
