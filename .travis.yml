@@ -26,12 +26,9 @@ jobs:
         - sleep 30
         - docker-compose exec -T php composer req sensiolabs/security-checker
         - docker-compose exec -T php bin/console security:check
-        - curl -f http://localhost # Client
-        - curl -f http://localhost:81 # Admin
-        - curl -f http://localhost:8080 # API
-        - curl -fk https://localhost # Client (HTTP/2)
-        - curl -fk https://localhost:444 # Admin (HTTP/2)
-        - curl -fk https://localhost:8443 # API (HTTP/2)
+        - curl -fk https://localhost # Client
+        - curl -fk https://localhost:444 # Admin
+        - curl -fk https://localhost:8443 # API
         - helm lint ./api/helm/api/
       before_deploy:
         - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
@@ -56,7 +53,7 @@ jobs:
         MERCURE_HOST=mercure.127-0-0-1.sslip.io
         MERCURE_JWT_KEY=4121344212538417de3e2118
         MERCURE_JWT_SECRET=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
-        MERCURE_SUBSCRIBE_URL=http://mercure.127-0-0-1.sslip.io/hub
+        MERCURE_SUBSCRIBE_URL=http://mercure.127-0-0-1.sslip.io/.well-known/mercure
         NGINX_IMAGE=quay.io/api-platform/nginx
         PHP_IMAGE=quay.io/api-platform/php
         POSTGRES_PASSWORD=4e3bc2766fe81df300d56481

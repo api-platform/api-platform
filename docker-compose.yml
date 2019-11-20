@@ -31,9 +31,21 @@ services:
       - php
     volumes:
       - ./api/public:/srv/api/public:ro
+
+  vulcain:
+    image: dunglas/vulcain
+    environment:
+      - CERT_FILE=/certs/localhost.crt
+      - KEY_FILE=/certs/localhost.key
+      - UPSTREAM=http://api
+    depends_on:
+      - api
+      - dev-tls
+    volumes:
+      - dev-certs:/certs:ro
     ports:
-      - target: 80
-        published: 8080
+      - target: 443
+        published: 8443
         protocol: tcp
 
   db:
@@ -55,12 +67,18 @@ services:
     image: dunglas/mercure
     environment:
       - ALLOW_ANONYMOUS=1
+      - CERT_FILE=/certs/localhost.crt
       - CORS_ALLOWED_ORIGINS=*
       - DEMO=1
       - JWT_KEY=!ChangeMe!
-      - PUBLISH_ALLOWED_ORIGINS=http://localhost:1337,https://localhost:1338 # required for publishing from demo page
+      - KEY_FILE=/certs/localhost.key
+      - PUBLISH_ALLOWED_ORIGINS=https://localhost:1337 # required for publishing from the demo page
+    depends_on:
+      - dev-tls
+    volumes:
+      - dev-certs:/certs:ro
     ports:
-      - target: 80
+      - target: 443
         published: 1337
         protocol: tcp
 
@@ -74,11 +92,14 @@ services:
     environment:
       - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
       - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
+    depends_on:
+      - dev-tls
     volumes:
       - ./client:/usr/src/client:rw,cached
+      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
-        published: 80
+        published: 443
         protocol: tcp
 
   admin:
@@ -88,34 +109,26 @@ services:
       cache_from:
         - ${ADMIN_IMAGE:-quay.io/api-platform/admin}
     image: ${ADMIN_IMAGE:-quay.io/api-platform/admin}
+    depends_on:
+      - dev-tls
     volumes:
       - ./admin:/usr/src/admin:rw,cached
+      - dev-certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
-        published: 81
-        protocol: tcp
-
-  h2-proxy:
-    # do not use in production!
-    build:
-      context: ./h2-proxy
-    depends_on:
-      - client
-      - admin
-      - api
-    ports:
-      - target: 443
-        published: 443
-        protocol: tcp
-      - target: 444
         published: 444
         protocol: tcp
-      - target: 8443
-        published: 8443
-        protocol: tcp
-      - target: 1338
-        published: 1338
+
+  dev-tls:
+    build:
+      context: ./docker/dev-tls
+    volumes:
+      - dev-certs:/certs:rw
+    ports:
+      - target: 80
+        published: 80
         protocol: tcp
 
 volumes:
   db-data: {}
+  dev-certs: {}

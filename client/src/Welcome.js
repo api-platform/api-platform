@@ -30,8 +30,8 @@ const Welcome = () => (
                 </h1>
                 <div className="main__before-starting">
                     <p>
-                        This container will host your <b>Progressive Web App</b>{' '}
-                        ({'http:' === document.location.protocol ? <a href={`https://${document.domain}`}>HTTPS</a> : <a href={`http://${document.domain}`}>HTTP</a>}).
+                        This container will host your{' '}
+                        <a href={`https://${document.domain}`}><b>Progressive Web App</b></a>.
                         Learn how to create your first API and generate a PWA:
                     </p>
                     <a
@@ -50,11 +50,7 @@ const Welcome = () => (
                             <Api />
                         </div>
                         <div className="other__content">
-                            <h3>API</h3>
-                            <ButtonsGroup
-                                httpLink={`http://${document.domain}:8080`}
-                                httpsLink={`https://${document.domain}:8443`}
-                            />
+                          <h3><a href={`https://${document.domain}:8443`}>API</a></h3>
                         </div>
                     </div>
                     <div className="other__bloc">
@@ -62,11 +58,7 @@ const Welcome = () => (
                             <Admin />
                         </div>
                         <div className="other__content">
-                            <h3>Admin</h3>
-                            <ButtonsGroup
-                                httpLink={`http://${document.domain}:81`}
-                                httpsLink={`https://${document.domain}:444`}
-                            />
+                          <h3><a href={`https://${document.domain}:444`}>Admin</a></h3>
                         </div>
                     </div>
                 </div>
@@ -85,28 +77,6 @@ const Welcome = () => (
                 title="Chat with the community on Slack!"
             />
         </div>
-    </div>
-);
-
-const ButtonsGroup = ({ httpLink, httpsLink }) => (
-    <div className="buttons__group">
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={httpLink}
-            className="other__button"
-        >
-            http
-        </a>
-        <div className="buttons__or" />
-        <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={httpsLink}
-            className="other__button"
-        >
-            https
-        </a>
     </div>
 );
 
