@@ -3,8 +3,8 @@ version: '3.4'
 x-cache-from:
   - &api-cache-from
     cache_from:
-      - ${NGINX_IMAGE:-quay.io/api-platform/nginx}
-      - ${PHP_IMAGE:-quay.io/api-platform/php}
+      - ${NGINX_IMAGE:-docker.pkg.github.com/api-platform/api-platform/nginx}
+      - ${PHP_IMAGE:-docker.pkg.github.com/api-platform/api-platform/php}
 
 services:
   php:
@@ -12,7 +12,7 @@ services:
       context: ./api
       target: api_platform_php
       <<: *api-cache-from
-    image: ${PHP_IMAGE:-quay.io/api-platform/php}
+    image: ${PHP_IMAGE:-docker.pkg.github.com/api-platform/api-platform/php}
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -31,7 +31,7 @@ services:
       context: ./api
       target: api_platform_nginx
       <<: *api-cache-from
-    image: ${NGINX_IMAGE:-quay.io/api-platform/nginx}
+    image: ${NGINX_IMAGE:-docker.pkg.github.com/api-platform/api-platform/nginx}
     depends_on:
       - php
     volumes:
@@ -92,8 +92,8 @@ services:
       context: ./client
       target: api_platform_client_development
       cache_from:
-        - ${CLIENT_IMAGE:-quay.io/api-platform/client}
-    image: ${CLIENT_IMAGE:-quay.io/api-platform/client}
+        - ${CLIENT_IMAGE:-docker.pkg.github.com/api-platform/api-platform/client}
+    image: ${CLIENT_IMAGE:-docker.pkg.github.com/api-platform/api-platform/client}
     environment:
       - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
       - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
@@ -112,8 +112,8 @@ services:
       context: ./admin
       target: api_platform_admin_development
       cache_from:
-        - ${ADMIN_IMAGE:-quay.io/api-platform/admin}
-    image: ${ADMIN_IMAGE:-quay.io/api-platform/admin}
+        - ${ADMIN_IMAGE:-docker.pkg.github.com/api-platform/api-platform/admin}
+    image: ${ADMIN_IMAGE:-docker.pkg.github.com/api-platform/api-platform/admin}
     depends_on:
       - dev-tls
     volumes:
