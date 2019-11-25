@@ -50,12 +50,12 @@
         "version": "v2.10.0"
     },
     "doctrine/doctrine-bundle": {
-        "version": "1.6",
+        "version": "1.12",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.6",
-            "ref": "ae7f137d0cacaf8f259f4e05af59e326f065ba5e"
+            "version": "1.12",
+            "ref": "4e8d245ef06b4a268249fa86066d36422e29abce"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -96,7 +96,7 @@
         "version": "2.2.0"
     },
     "doctrine/orm": {
-        "version": "v2.6.4"
+        "version": "v2.7.0"
     },
     "doctrine/persistence": {
         "version": "1.2.0"
@@ -451,7 +451,7 @@
         "version": "v2.12.2"
     },
     "webmozart/assert": {
-        "version": "1.5.0"
+        "version": "1.6.0"
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
