@@ -4,6 +4,11 @@ on:
   push:
   pull_request:
 
+env:
+  DOCKER_BUILDX_VERSION: '0.3.1'
+  DOCKER_COMPOSE_VERSION: '1.25.1-rc1'
+  DOCKER_REGISTRY: quay.io
+
 jobs:
   docker-build-test-deploy:
     name: Docker build/test/deploy (Docker ${{ matrix.docker }})
@@ -45,15 +50,11 @@ jobs:
             curl \
             jq \
       - name: Install Docker Buildx
-        env:
-          DOCKER_BUILDX_VERSION: '0.3.1'
         run: |
           mkdir -p ~/.docker/cli-plugins
           curl -fsSL -o ~/.docker/cli-plugins/docker-buildx "https://github.com/docker/buildx/releases/download/v${DOCKER_BUILDX_VERSION}/buildx-v${DOCKER_BUILDX_VERSION}.linux-amd64"
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
-        env:
-          DOCKER_COMPOSE_VERSION: '1.25.0'
         run: |
           docker create --name docker_compose "docker/compose:${DOCKER_COMPOSE_VERSION}-alpine"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
@@ -93,7 +94,7 @@ jobs:
           curl -fk -H 'Host: localhost' https://docker:8443 # API
       - name: Login to registry
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
-        run: echo '${{ secrets.GITHUB_TOKEN }}' | docker login --username '${{ github.actor }}' --password-stdin docker.pkg.github.com
+        run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login --username '${{ secrets.DOCKER_USERNAME }}' --password-stdin "$DOCKER_REGISTRY"
       - name: Push images
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
         run: |
@@ -136,11 +137,11 @@ jobs:
     timeout-minutes: 10
     env:
       ADMIN_HOST: admin.127-0-0-1.sslip.io
-      ADMIN_IMAGE: docker.pkg.github.com/api-platform/api-platform/admin
+      ADMIN_IMAGE: quay.io/api-platform/admin
       API_HOST: api.127-0-0-1.sslip.io
       APP_SECRET: 3c857494cfcc42c700dfb7a6
       CLIENT_HOST: 127-0-0-1.sslip.io,www.127-0-0-1.sslip.io
-      CLIENT_IMAGE: docker.pkg.github.com/api-platform/api-platform/client
+      CLIENT_IMAGE: quay.io/api-platform/client
       CORS_ALLOW_ORIGIN: ^http://(?:\w+\.)?127-0-0-1\.sslip\.io$
       DATABASE_URL: postgres://api-platform:4e3bc2766fe81df300d56481@db/api
       MERCURE_ALLOW_ANONYMOUS: '0'
@@ -149,12 +150,12 @@ jobs:
       MERCURE_JWT_KEY: 4121344212538417de3e2118
       MERCURE_JWT_SECRET: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
       MERCURE_SUBSCRIBE_URL: http://mercure.127-0-0-1.sslip.io/.well-known/mercure
-      NGINX_IMAGE: docker.pkg.github.com/api-platform/api-platform/nginx
-      PHP_IMAGE: docker.pkg.github.com/api-platform/api-platform/php
+      NGINX_IMAGE: quay.io/api-platform/nginx
+      PHP_IMAGE: quay.io/api-platform/php
       POSTGRES_PASSWORD: 4e3bc2766fe81df300d56481
       REACT_APP_API_ENTRYPOINT: http://api.127-0-0-1.sslip.io
       TRUSTED_HOSTS: ^(?:localhost|api|api\.127-0-0-1\.sslip\.io)$
-      VARNISH_IMAGE: docker.pkg.github.com/api-platform/api-platform/varnish
+      VARNISH_IMAGE: quay.io/api-platform/varnish
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -163,15 +164,11 @@ jobs:
           apk add \
             curl \
       - name: Install Docker Buildx
-        env:
-          DOCKER_BUILDX_VERSION: '0.3.1'
         run: |
           mkdir -p ~/.docker/cli-plugins
           curl -fsSL -o ~/.docker/cli-plugins/docker-buildx "https://github.com/docker/buildx/releases/download/v${DOCKER_BUILDX_VERSION}/buildx-v${DOCKER_BUILDX_VERSION}.linux-amd64"
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
-        env:
-          DOCKER_COMPOSE_VERSION: '1.25.0'
         run: |
           docker create --name docker_compose "docker/compose:${DOCKER_COMPOSE_VERSION}-alpine"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
@@ -208,7 +205,7 @@ jobs:
           curl -fk -H 'Host: api.127-0-0-1.sslip.io' http://docker
       - name: Login to registry
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
-        run: echo '${{ secrets.GITHUB_TOKEN }}' | docker login --username '${{ github.actor }}' --password-stdin docker.pkg.github.com
+        run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login --username '${{ secrets.DOCKER_USERNAME }}' --password-stdin "$DOCKER_REGISTRY"
       - name: Push images
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
         run: |
