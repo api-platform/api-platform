@@ -103,8 +103,8 @@ jobs:
             client \
             php \
 
-  docker-build-test-prod:
-    name: Docker build/test (Docker ${{ matrix.docker }}) (production)
+  docker-build-test-deploy-prod:
+    name: Docker build/test/deploy (Docker ${{ matrix.docker }}) (production)
     runs-on: ubuntu-latest
     container:
       image: docker:${{ matrix.docker }}
@@ -212,7 +212,7 @@ jobs:
       - name: Push images
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
         run: |
-          docker-compose -f docker-compose-prod/docker-compose.yml push \
+          docker-compose -f docker-compose-prod/docker-compose.build.yml push \
             cache-proxy \
 
   ct-lint:
