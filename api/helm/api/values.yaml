@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 php:
-  repository: docker.pkg.github.com/api-platform/api-platform/php
+  repository: quay.io/api-platform/php
   tag: latest
   pullPolicy: Always
   replicaCount: 1
@@ -20,7 +20,7 @@ php:
     - 192.168.0.0/16
 
 nginx:
-  repository: docker.pkg.github.com/api-platform/api-platform/nginx
+  repository: quay.io/api-platform/nginx
   tag: latest
   pullPolicy: Always
   replicaCount: 1
@@ -28,7 +28,7 @@ nginx:
 varnish:
   enabled: true
   #url: https://example.com
-  repository: docker.pkg.github.com/api-platform/api-platform/varnish
+  repository: quay.io/api-platform/varnish
   tag: latest
   pullPolicy: Always
   replicaCount: 1
