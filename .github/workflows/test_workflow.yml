@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Install docker-composer
+        run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
       - name: 'Validate composer.json'
         working-directory: 'api/'
         run: composer validate
