@@ -8,9 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: 'Validate composer.json'
+        working-directory: 'api/'
         run: composer validate
       - name: 'Install deps'
+        working-directory: 'api/'
         run: composer install
+        
