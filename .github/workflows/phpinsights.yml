@@ -5,5 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+     - name: Composer install
+       run: docker-compose run --no-deps --rm -T php composer install --no-check-publish
      - name: PhpInsights
        uses: stefanzweifel/phpinsights-action@v1.0.0
