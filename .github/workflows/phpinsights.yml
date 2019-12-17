@@ -1,16 +1,11 @@
-workflow "phpinsights" {
-  on = "push"
-  resolves = [
-    "phpinsights"
-  ]
-}
+name : Check Code Quality
+on: [push]
 
-action "composer install" {
-  uses = "MilesChou/composer-action@master"
-  args = "install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist"
-}
-
-action "phpinsights" {
-  needs = ["composer install"]
-  uses = "stefanzweifel/phpinsights-action@v1.0.0"
-}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: 'Composer install'
+       uses: MilesChou/composer-action@master
+     - name: PhpInsights
+       uses: stefanzweifel/phpinsights-action@v1.0.0
