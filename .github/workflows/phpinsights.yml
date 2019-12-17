@@ -1,0 +1,16 @@
+workflow "phpinsights" {
+  on = "push"
+  resolves = [
+    "phpinsights"
+  ]
+}
+
+action "composer install" {
+  uses = "MilesChou/composer-action@master"
+  args = "install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist"
+}
+
+action "phpinsights" {
+  needs = ["composer install"]
+  uses = "stefanzweifel/phpinsights-action@v1.0.0"
+}
