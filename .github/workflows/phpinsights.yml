@@ -5,7 +5,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - name: 'Composer install'
-       uses: MilesChou/composer-action@master
      - name: PhpInsights
        uses: stefanzweifel/phpinsights-action@v1.0.0
