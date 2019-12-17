@@ -12,7 +12,8 @@
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.3.*",
         "symfony/mercure-bundle": "^0.2",
-        "symfony/yaml": "4.3.*"
+        "symfony/yaml": "4.3.*",
+        "nunomaduro/phpinsights" : "*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
