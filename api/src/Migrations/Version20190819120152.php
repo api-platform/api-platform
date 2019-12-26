@@ -16,17 +16,17 @@ final class Version20190819120152 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
+        $platformName = $this->connection->getDatabasePlatform()->getName();
+        $this->skipIf('postgresql' !== $platformName && 'mysql' !== $platformName, 'Migration can only be executed safely on \'postgresql\' or \'mysql\'.');
 
-        $this->addSql('CREATE SEQUENCE greeting_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE greeting (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE greeting (id SERIAL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
     }
 
     public function down(Schema $schema): void
     {
-        $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
+        $platformName = $this->connection->getDatabasePlatform()->getName();
+        $this->skipIf('postgresql' !== $platformName && 'mysql' !== $platformName, 'Migration can only be executed safely on \'postgresql\' or \'mysql\'.');
 
-        $this->addSql('DROP SEQUENCE greeting_id_seq CASCADE');
         $this->addSql('DROP TABLE greeting');
     }
 }
