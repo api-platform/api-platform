@@ -43,7 +43,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install system packages
         run: |
           apk add \
@@ -158,7 +158,7 @@ jobs:
       VARNISH_IMAGE: quay.io/api-platform/varnish
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install system packages
         run: |
           apk add \
@@ -225,6 +225,6 @@ jobs:
     timeout-minutes: 1
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Lint
         run: ct lint --all --chart-dirs api/helm/api
