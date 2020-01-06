@@ -1,3 +1,9 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+api:
+    resource: '.'
+    type: 'api_platform'
+    prefix: 'api'
+api_login_check:
+    path: /api/login_check

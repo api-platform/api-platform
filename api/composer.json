@@ -7,16 +7,18 @@
         "api-platform/api-pack": "^1.1",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
+        "lexik/jwt-authentication-bundle": "^2.6",
+        "ramsey/uuid-doctrine": "^1.5",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "4.3.*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.3.*",
         "symfony/mercure-bundle": "^0.2",
-        "symfony/yaml": "4.3.*",
-        "nunomaduro/phpinsights" : "*"
+        "symfony/yaml": "4.3.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
+        "nunomaduro/phpinsights": "^1.11",
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0"
     },
@@ -50,7 +52,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "security-checker security:check": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
