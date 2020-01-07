@@ -1,13 +1,12 @@
 security:
     encoders:
         App\Entity\User:
-            algorithm: bcrypt
-            cost: 12
+            algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         db_provider:
             entity:
-                class: App\Entity\User
+                class: App\Model\User
                 property: username
     firewalls:
         dev:
@@ -20,11 +19,12 @@ security:
             json_login:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
         api:
             pattern: ^/api
             stateless: true
             anonymous: true
+
             guard: 
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator

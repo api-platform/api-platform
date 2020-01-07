@@ -5,6 +5,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/api-pack": "^1.1",
+        "beberlei/assert": "^3.2",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "lexik/jwt-authentication-bundle": "^2.6",
@@ -14,12 +15,15 @@
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.3.*",
         "symfony/mercure-bundle": "^0.2",
+        "symfony/messenger": "4.3.*",
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
         "nunomaduro/phpinsights": "^1.11",
+        "symfony/browser-kit": "4.3.*",
         "symfony/maker-bundle": "^1.11",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/profiler-pack": "^1.0"
     },
     "conflict": {

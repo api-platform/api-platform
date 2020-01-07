@@ -52,29 +52,21 @@ final class CreateUserCommand extends Command
 
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
+        $firstname = $input->getArgument('firstname');
+        $lastname = $input->getArgument('lastname');
         $role = $input->getArgument('role') ?? 'ROLE_USER';
 
-        $user = $this->userRepository->findOneBy(['username' => $username]);
-        if ($user instanceof User) {
-            $output->writeln('Username already taken!');
-            return;
-        }
 
+        $command = \App\Domain\User\Command\CreateUserCommand::fromParams(
+            $username, $password, $firstname, $lastname, [$role]
+        );
+        $command->withAddedMetadata('is_admin', true);
         try {
-            /** @var User $user */
-            $user = new User($username, $password, [$role]);
-        } catch (\InvalidArgumentException $e) {
+            $this->messageBus->dispatch($command);
+        } catch (\Exception $e) {
             $output->writeln($e->getMessage());
             return;
         }
-
-        $encryptedPassword = $this->passwordEncoder->encodePassword($user, $password);
-        $user->setPassword($encryptedPassword);
-
-        $entityManager = $this->userRepository->getEm();
-        $entityManager->persist($user);
-        $entityManager->flush();
-
         $output->writeln('User successfully generated!');
     }
 }

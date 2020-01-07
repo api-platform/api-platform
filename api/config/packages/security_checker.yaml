@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    SensioLabs\Security\SecurityChecker: null
+
+    SensioLabs\Security\Command\SecurityCheckerCommand: null

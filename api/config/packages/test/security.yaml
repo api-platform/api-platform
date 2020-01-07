@@ -1,0 +1,3 @@
+security:
+    encoders:
+        App\Model\User: plaintext
