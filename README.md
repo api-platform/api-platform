@@ -3,6 +3,7 @@
 API Platform is a next-generation web framework designed to easily create API-first projects without compromising extensibility
 and flexibility:
 
+
 * Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator)
   from the [Schema.org](https://schema.org/) vocabulary.
 * **Expose in minutes a hypermedia REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
@@ -19,6 +20,7 @@ thanks to [the client generator](https://api-platform.com/docs/client-generator)
 and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 * Easily add **[JSON Web Token](https://api-platform.com/docs/core/jwt) or [OAuth](https://oauth.net/) authentication**.
 * Create specs and tests with a **developer friendly API testing tool** on top of [Behat](https://behat.org/).
+
 
 [![GitHub Actions](https://github.com/api-platform/core/workflows/CI/badge.svg)](https://github.com/api-platform/core/actions?workflow=CI)
 [![Travis CI](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
@@ -54,3 +56,4 @@ It means that you can:
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.fr). Commercial support available at [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
