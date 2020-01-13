@@ -7,12 +7,12 @@
         "api-platform/api-pack": "^1.1",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
-        "symfony/console": "4.3.*",
-        "symfony/dotenv": "4.3.*",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
         "symfony/flex": "^1.1",
-        "symfony/framework-bundle": "4.3.*",
+        "symfony/framework-bundle": "4.4.*",
         "symfony/mercure-bundle": "^0.2",
-        "symfony/yaml": "4.3.*"
+        "symfony/yaml": "4.4.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^2.1",
@@ -61,7 +61,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.3.*"
+            "require": "4.4.*"
         }
     }
 }
