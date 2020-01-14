@@ -101,7 +101,7 @@ services:
       - dev-tls
     volumes:
       - ./client:/usr/src/client:rw,cached
-      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
+      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:rw
     ports:
       - target: 3000
         published: 443
@@ -118,7 +118,7 @@ services:
       - dev-tls
     volumes:
       - ./admin:/usr/src/admin:rw,cached
-      - dev-certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:ro
+      - dev-certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:rw
     ports:
       - target: 3000
         published: 444

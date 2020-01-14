@@ -17,10 +17,10 @@
         ]
     },
     "api-platform/schema-generator": {
-        "version": "v2.1.0"
+        "version": "v2.2.2"
     },
     "composer/semver": {
-        "version": "1.5.0"
+        "version": "1.5.1"
     },
     "composer/xdebug-handler": {
         "version": "1.4.0"
@@ -44,7 +44,7 @@
         "version": "1.6.4"
     },
     "doctrine/common": {
-        "version": "v2.11.0"
+        "version": "2.12.0"
     },
     "doctrine/dbal": {
         "version": "v2.10.1"
@@ -93,16 +93,16 @@
         "version": "1.2.0"
     },
     "doctrine/migrations": {
-        "version": "2.2.0"
+        "version": "2.2.1"
     },
     "doctrine/orm": {
         "version": "v2.7.0"
     },
     "doctrine/persistence": {
-        "version": "1.3.3"
+        "version": "1.3.5"
     },
     "doctrine/reflection": {
-        "version": "v1.0.0"
+        "version": "v1.1.0"
     },
     "easyrdf/easyrdf": {
         "version": "0.9.1"
@@ -165,7 +165,7 @@
         "version": "1.5.1"
     },
     "ocramius/proxy-manager": {
-        "version": "2.2.3"
+        "version": "2.6.0"
     },
     "php": {
         "version": "7.4"
@@ -463,7 +463,7 @@
         "version": "v4.4.2"
     },
     "twig/twig": {
-        "version": "v2.12.3"
+        "version": "v3.0.1"
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"
