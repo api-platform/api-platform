@@ -11,3 +11,8 @@ jobs:
        run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
      - name: Start services
        run: docker-compose up -d
+     - name: Run Test
+       run: docker-compose exec -T php bin/phpunit
+     - name: Check Code Qualite
+       run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=90 --min-architecture=75 --min-style=95
+
