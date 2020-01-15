@@ -71,7 +71,6 @@ class User implements UserInterface
      */
     public function __construct(string $username, string $password, array $roles = [], bool $enabled = true)
     {
-
         if (strlen($username) < 5) {
             throw new \InvalidArgumentException('Username too short, length must be >= 5 !');
         }

@@ -54,7 +54,8 @@ final class MessageBoxController
             Assertion::string($messageName, 'Message name has to be a string');
             Assertion::keyExists($this->availableCommands, $messageName, sprintf(
                 'MessageName: %s not in the list of available commands. Available commands are: %s.',
-                $messageName, implode(', ', array_keys($this->availableCommands))
+                $messageName,
+                implode(', ', array_keys($this->availableCommands))
             ));
             Assertion::keyExists($body, 'payload', 'Parameter payload not set.');
             $payload = $body['payload'];
@@ -68,15 +69,15 @@ final class MessageBoxController
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
-        $command->withAddedMetadata('userId',$user->getId()->toString());
-        $command->withAddedMetadata('is_admin',in_array('ROLE_ADMIN',$user->getRoles()));
+        $command->withAddedMetadata('userId', $user->getId()->toString());
+        $command->withAddedMetadata('is_admin', in_array('ROLE_ADMIN', $user->getRoles()));
 
         try {
             $this->commandBus->dispatch($command);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }
 
         return new JsonResponse([], 202);
-}
+    }
 }

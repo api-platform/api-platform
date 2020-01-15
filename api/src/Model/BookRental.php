@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 namespace App\Model;
+
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+
 /**
  * @ORM\Entity()
  * @ORM\Table(name="book_rentals")

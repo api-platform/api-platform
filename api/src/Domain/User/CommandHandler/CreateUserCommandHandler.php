@@ -3,7 +3,6 @@
 
 namespace App\Domain\User\CommandHandler;
 
-
 use App\Domain\User\Command\CreateUserCommand;
 use App\Model\User;
 use Doctrine\ORM\EntityManagerInterface;

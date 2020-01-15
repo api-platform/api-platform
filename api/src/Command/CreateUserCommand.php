@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class CreateUserCommand extends Command
 {
-
     protected static $defaultName = 'app:create-user';
 
     /** @var UserRepository */
@@ -49,7 +48,6 @@ final class CreateUserCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
         $firstname = $input->getArgument('firstname');
@@ -58,7 +56,11 @@ final class CreateUserCommand extends Command
 
 
         $command = \App\Domain\User\Command\CreateUserCommand::fromParams(
-            $username, $password, $firstname, $lastname, [$role]
+            $username,
+            $password,
+            $firstname,
+            $lastname,
+            [$role]
         );
         $command->withAddedMetadata('is_admin', true);
         try {

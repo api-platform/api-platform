@@ -124,5 +124,4 @@ class BookInventory
     {
         $this->totalNumberRented -= 1;
     }
-
 }
