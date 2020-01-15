@@ -11,6 +11,10 @@ jobs:
        run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
      - name: Start services
        run: docker-compose up -d
+     - name: Fix Code Style
+       uses: StephaneBour/actions-php-cs-fixer@1.0
+       with:
+          dir: api/src/*
      - name: Check Code Qualite
        run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=90 --min-architecture=75 --min-style=95
      - name: Run Test
