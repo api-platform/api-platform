@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_BUILDX_VERSION: '0.3.1'
-  DOCKER_COMPOSE_VERSION: '1.25.1'
+  DOCKER_COMPOSE_VERSION: '1.25.2'
   DOCKER_REGISTRY: quay.io
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
         run: |
-          docker create --name docker_compose "docker/compose:${DOCKER_COMPOSE_VERSION}-alpine"
+          docker create --name docker_compose "docker/compose:alpine-v${DOCKER_COMPOSE_VERSION}"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
           docker rm docker_compose
       - name: Pull images
@@ -170,7 +170,7 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
         run: |
-          docker create --name docker_compose "docker/compose:${DOCKER_COMPOSE_VERSION}-alpine"
+          docker create --name docker_compose "docker/compose:alpine-v${DOCKER_COMPOSE_VERSION}"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
           docker rm docker_compose
       - name: Fetch production setup
