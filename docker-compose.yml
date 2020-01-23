@@ -87,25 +87,25 @@ services:
         published: 1337
         protocol: tcp
 
-  client:
-    build:
-      context: ./client
-      target: api_platform_client_development
-      cache_from:
-        - ${CLIENT_IMAGE:-quay.io/api-platform/client}
-    image: ${CLIENT_IMAGE:-quay.io/api-platform/client}
-    environment:
-      - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
-      - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
-    depends_on:
-      - dev-tls
-    volumes:
-      - ./client:/usr/src/client:rw,cached
-      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
-    ports:
-      - target: 3000
-        published: 444
-        protocol: tcp
+ # client:
+ #   build:
+ #     context: ./client
+  #    target: api_platform_client_development
+ #     cache_from:
+ #        - ${CLIENT_IMAGE:-quay.io/api-platform/client}
+  #  image: ${CLIENT_IMAGE:-quay.io/api-platform/client}
+   # environment:
+    #  - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
+  #    - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
+  #  depends_on:
+  #    - dev-tls
+  #  volumes:
+  #    - ./client:/usr/src/client:rw,cached
+  #    - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
+  #  ports:
+  #    - target: 3000
+  #      published: 444
+  #      protocol: tcp
 
   admin:
     build:
