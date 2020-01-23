@@ -49,8 +49,8 @@ services:
     volumes:
       - dev-certs:/certs:ro
     ports:
-      - target: 443
-        published: 8443
+      - target: 444
+        published: 8444
         protocol: tcp
 
   db:
@@ -83,7 +83,7 @@ services:
     volumes:
       - dev-certs:/certs:ro
     ports:
-      - target: 443
+      - target: 444
         published: 1337
         protocol: tcp
 
@@ -104,7 +104,7 @@ services:
       - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:ro
     ports:
       - target: 3000
-        published: 443
+        published: 444
         protocol: tcp
 
   admin:
@@ -130,8 +130,8 @@ services:
     volumes:
       - dev-certs:/certs:rw
     ports:
-      - target: 80
-        published: 80
+      - target: 81
+        published: 81
         protocol: tcp
 
 volumes:
