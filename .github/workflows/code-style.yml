@@ -13,4 +13,5 @@ jobs:
         run : docker-compose up -d api db
       - name: PHP Insights
         run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
-
+      - name: PHP Cs Fixer
+        run: php-cs-fixer fix api/src/
