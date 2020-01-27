@@ -5,16 +5,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-     - name: Checkout
-       uses: actions/checkout@v1
      - name: Validate composer.json
        run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
      - name: Start services
        run: docker-compose up -d
-     - name: Fix Code Style
-       uses: StephaneBour/actions-php-cs-fixer@1.0
-       with:
-          dir: api/src/
      - name: Run Test
        run: docker-compose exec -T php bin/phpunit
      - name: Check Code Qualite
