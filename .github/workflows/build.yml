@@ -14,7 +14,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Validate composer.json
-        run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
       - name: Start Api
-        run: docker-compose up -d api db
+        uses: ./.github/actions/build_enviorement
