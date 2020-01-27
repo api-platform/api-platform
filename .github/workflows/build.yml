@@ -1,16 +1,53 @@
-name: Build environment
-on: [push]
-
+# GitHub Action for Symfony with PostgreSQL
+name: Testing Symfony with PostgreSQL
+on: [push, pull_request]
 jobs:
-  build:
+  symfony:
+    name: Symfony (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ['7.3', '7.4']
     steps:
-     - name: Validate composer.json
-       run: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
-     - name: Start services
-       run: docker-compose up -d
-     - name: Run Test
-       run: docker-compose exec -T php bin/phpunit
-     - name: Check Code Qualite
-       run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=75 --min-style=80
-  
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v1 #https://github.com/shivammathur/setup-php
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, pgsql
+          coverage: xdebug #optional
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          # Use composer.json for key, if composer.lock is not committed.
+          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: |
+          composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+      - name: Run Migration
+        run: |
+          composer require symfony/orm-pack
+          php bin/console doctrine:schema:update --force || echo "No migrations found or schema update failed"
+          php bin/console doctrine:migrations:migrate || echo "No migrations found or migration failed"
+        env:
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/postgres?charset=UTF-8
+      - name: Run Tests
+        run: php bin/phpunit --coverage-text
