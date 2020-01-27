@@ -14,6 +14,6 @@ jobs:
       - name: Install PHP Cs Fixer
         run: sudo curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o /php-cs-fixer
       - name: PHP Cs Fixer
-        run: /php-cs-fixer fix api/src/
+        run: sudo /php-cs-fixer fix api/src/
       - name: PHP Insights
         run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
