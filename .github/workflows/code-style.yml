@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build Enviorement
-       run : docker-compose up -d api db
+        run : docker-compose up -d api db
       - name: PHP Insights
         run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
 
