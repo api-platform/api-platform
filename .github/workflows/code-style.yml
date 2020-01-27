@@ -1,0 +1,10 @@
+name: Code Style
+
+on: [push]
+
+jobs:
+  check_code_quality:
+    steps:
+      - name: PHP Insights
+        run: sudo docker-compose exec php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
+

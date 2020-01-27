@@ -18,3 +18,4 @@ jobs:
         uses: docker-compose run --no-deps --rm -T php composer validate --no-check-publish
       - name: Start Api
         uses: docker-compose up -d api db
+      
