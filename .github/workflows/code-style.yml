@@ -11,9 +11,7 @@ jobs:
         uses: actions/checkout@v2
 #      - name: Build Enviorement
 #        run : docker-compose up -d api 
-      - name: Install PHP Cs Fixer
-        run: curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o /php-cs-fixer
-      - name: PHP Cs Fixer
-        run: php-cs-fixer fix api/src/
+      - name: PHP CS Fixer
+        uses: ./.github/actions/phpcsfixer
       - name: PHP Insights
         run: docker-compose exec -T php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80

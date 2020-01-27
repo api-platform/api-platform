@@ -1,0 +1,15 @@
+name: 'PHP Code Style Fixer (php-cs-fixer)'
+description: 'php code style fixer (php-cs-fixer)'
+branding:
+    icon: 'check-circle'
+    color: 'green'
+inputs:
+    dir:
+        description: 'Folder to check code style'
+        required: false
+        default: '.'
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.dir }}
