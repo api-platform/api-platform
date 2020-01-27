@@ -9,8 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-#      - name: Build Enviorement
-#        run : docker-compose up -d api 
+      - name: Build Enviorement
+        run : docker-compose up -d api 
       - name: PHP CS Fixer
         uses: ./.github/actions/phpcsfixer
       - name: PHP Insights
