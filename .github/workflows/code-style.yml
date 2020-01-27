@@ -6,6 +6,8 @@ jobs:
   check_code_quality:
     runs-on: ubuntu-latest
     steps:
+      - name: Build Enviorement
+        run : docker-compose up -d api db
       - name: PHP Insights
-        run: sudo docker-compose exec php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
+        run: docker-compose exec php ./vendor/bin/phpinsights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
 
