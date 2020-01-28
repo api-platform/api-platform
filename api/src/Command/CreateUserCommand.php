@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\User;
-
 use App\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -41,9 +40,11 @@ final class CreateUserCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     *
      * @return int|void|null
+     *
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -53,7 +54,6 @@ final class CreateUserCommand extends Command
         $firstname = $input->getArgument('firstname');
         $lastname = $input->getArgument('lastname');
         $role = $input->getArgument('role') ?? 'ROLE_USER';
-
 
         $command = \App\Domain\User\Command\CreateUserCommand::fromParams(
             $username,
@@ -67,6 +67,7 @@ final class CreateUserCommand extends Command
             $this->messageBus->dispatch($command);
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
+
             return;
         }
         $output->writeln('User successfully generated!');

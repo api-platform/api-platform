@@ -63,10 +63,12 @@ class User implements UserInterface
 
     /**
      * User constructor.
+     *
      * @param string $username
      * @param string $password
-     * @param array $roles
-     * @param bool $enabled
+     * @param array  $roles
+     * @param bool   $enabled
+     *
      * @throws \Exception
      */
     public function __construct(string $username, string $password, array $roles = [], bool $enabled = true)
@@ -82,7 +84,7 @@ class User implements UserInterface
         $this->roles = $roles;
         $this->profile = [
             'firstname' => '',
-            'lastname' => ''
+            'lastname' => '',
         ];
     }
 

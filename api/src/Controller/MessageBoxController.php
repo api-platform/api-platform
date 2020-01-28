@@ -1,17 +1,16 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Domain\User\Command\CreateUserCommand;
 use App\Model\Command;
 use App\Model\User;
 use Assert\Assertion;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class MessageBoxController
 {
@@ -40,7 +39,9 @@ final class MessageBoxController
 
     /**
      * @Route("/api/messagebox", name="messagebox", methods={"POST"})
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse

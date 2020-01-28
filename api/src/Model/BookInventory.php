@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="book_inventory")
  * Class BookInventory
- * @package App\Model
  */
 class BookInventory
 {
@@ -45,13 +43,13 @@ class BookInventory
      */
     private $totalNumberRented;
 
-
     /**
      * User constructor.
+     *
      * @param string $isbn
      * @param string $name
      * @param string $description
-     * @param int $numberOfPurchasedBooks
+     * @param int    $numberOfPurchasedBooks
      */
     public function __construct(string $isbn, string $name, string $description, int $numberOfPurchasedBooks)
     {
@@ -66,34 +64,42 @@ class BookInventory
     {
         return $this->isbn;
     }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function setName(string $name): void
     {
         $this->name = $name;
     }
+
     public function getDescription(): string
     {
         return $this->description;
     }
+
     public function setDescription(string $description): void
     {
         $this->description = $description;
     }
+
     public function getTotalNumberInInventory(): int
     {
         return $this->totalNumberInInventory;
     }
+
     public function getTotalNumberInLibrary(): int
     {
         return $this->totalNumberInInventory - $this->totalNumberRented;
     }
+
     public function getTotalNumberRented(): int
     {
         return $this->totalNumberRented;
     }
+
     public function addBooksToInventory(int $numberOfBooks): void
     {
         $this->totalNumberInInventory += $numberOfBooks;
@@ -101,6 +107,7 @@ class BookInventory
 
     /**
      * @param int $numberOfBooks
+     *
      * @throws \Exception
      */
     public function removeBooksFromInventory(int $numberOfBooks): void
@@ -110,6 +117,7 @@ class BookInventory
         }
         $this->totalNumberInInventory -= $numberOfBooks;
     }
+
     /**
      * @throws \Exception
      */
@@ -118,10 +126,11 @@ class BookInventory
         if ($this->totalNumberInInventory - $this->totalNumberRented <= 1) {
             throw new \Exception('There has to stay at least one book in inventory.');
         }
-        $this->totalNumberRented += 1;
+        ++$this->totalNumberRented;
     }
+
     public function returnBook(): void
     {
-        $this->totalNumberRented -= 1;
+        --$this->totalNumberRented;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Domain\User\CommandHandler;
 
 use App\Domain\User\Command\CreateUserCommand;
@@ -23,11 +22,12 @@ final class CreateUserCommandHandler
 
     /**
      * @param CreateUserCommand $command
+     *
      * @throws \Exception
      */
     public function __invoke(CreateUserCommand $command)
     {
-        # only admins can do that
+        // only admins can do that
         if (!$command->metadata()['is_admin']) {
             throw new \Exception('Only admins can do that');
         }

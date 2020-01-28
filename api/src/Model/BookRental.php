@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -36,10 +38,13 @@ class BookRental
      * @ORM\Column(name="returned", type="datetime_immutable", nullable=true)
      */
     private $returned;
+
     /**
      * User constructor.
+     *
      * @param string $userId
      * @param string $isbn
+     *
      * @throws \Exception
      */
     public function __construct(string $userId, string $isbn)
@@ -48,6 +53,7 @@ class BookRental
         $this->isbn = $isbn;
         $this->issued = new \DateTimeImmutable('now');
     }
+
     /**
      * @return Uuid
      */
@@ -55,6 +61,7 @@ class BookRental
     {
         return $this->userId;
     }
+
     /**
      * @return string
      */
@@ -62,6 +69,7 @@ class BookRental
     {
         return $this->isbn;
     }
+
     /**
      * @return \DateTimeImmutable
      */
@@ -69,6 +77,7 @@ class BookRental
     {
         return $this->issued;
     }
+
     /**
      * @return \DateTimeImmutable|null
      */
@@ -76,6 +85,7 @@ class BookRental
     {
         return $this->returned;
     }
+
     /**
      * @throws \Exception
      */

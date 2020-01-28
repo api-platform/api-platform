@@ -20,6 +20,7 @@ abstract class Command
 
     /**
      * @param array $payload
+     *
      * @throws \Exception
      */
     abstract public static function assertIsValidPayload(array $payload);

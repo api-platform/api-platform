@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Domain\User\Command;
 
@@ -18,22 +18,27 @@ final class CreateUserCommand extends Command
     private function __construct()
     {
     }
+
     public function username(): string
     {
         return $this->username;
     }
+
     public function password(): string
     {
         return $this->password;
     }
+
     public function firstname(): string
     {
         return $this->firstname;
     }
+
     public function lastname(): string
     {
         return $this->lastname;
     }
+
     public function roles(): array
     {
         return $this->roles;
@@ -48,11 +53,12 @@ final class CreateUserCommand extends Command
         $self->firstname = $payload['firstname'];
         $self->lastname = $payload['lastname'];
         $self->roles = $payload['roles'];
+
         return $self;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function assertIsValidPayload(array $payload)
     {
@@ -68,7 +74,8 @@ final class CreateUserCommand extends Command
      * @param string $password
      * @param string $firstname
      * @param string $lastname
-     * @param array $roles
+     * @param array  $roles
+     *
      * @return CreateUserCommand
      */
     public static function fromParams(string $username, string $password, string $firstname, string $lastname, array $roles): self
@@ -79,6 +86,7 @@ final class CreateUserCommand extends Command
         $self->firstname = $firstname;
         $self->lastname = $lastname;
         $self->roles = $roles;
+
         return $self;
     }
 }
