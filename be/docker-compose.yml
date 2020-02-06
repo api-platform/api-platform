@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:5.7
+    ports: ['3306:3306']
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=task
+      - MYSQL_USER=symfony
+      - MYSQL_PASSWORD=password
+  php:
+    build: ./docker/php
+    ports: ['9000:9001']
+    links:
+      - mysql
+    volumes:
+      - ./symfony/:/var/www/symfony:cached
+  nginx:
+    build: ./docker/nginx
+    ports: ['80:80']
+    links:
+      - php
+    volumes:
+      - ./symfony/:/var/www/symfony:cached
