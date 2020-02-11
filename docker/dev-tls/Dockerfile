@@ -10,6 +10,7 @@ FROM nginx:${NGINX_VERSION}-alpine
 # persistent / runtime deps
 RUN apk add --no-cache \
 		nss-tools \
+		ca-certificates \
 	;
 
 WORKDIR /certs
@@ -18,11 +19,15 @@ ARG MKCERT_VERSION=1.4.1
 RUN set -eux; \
 	wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v$MKCERT_VERSION/mkcert-v$MKCERT_VERSION-linux-amd64; \
 	chmod +x /usr/local/bin/mkcert; \
-	mkcert --cert-file localhost.crt --key-file localhost.key localhost; \
+	mkcert -install; \
+	mkcert --cert-file localhost.crt --key-file localhost.key localhost mercure; \
+	update-ca-certificates; \
 	# the file must be named server.pem - the default certificate path in webpack-dev-server
 	cat localhost.key localhost.crt > server.pem
 
 VOLUME /certs
+VOLUME /etc/ssl/certs
+VOLUME /usr/local/share/ca-certificates
 
 # add redirect from http://localhost to https://localhost
 RUN set -eux; \

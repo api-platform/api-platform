@@ -20,9 +20,13 @@ services:
       start_period: 30s
     depends_on:
       - db
+      - dev-tls
     volumes:
       - ./api:/srv/api:rw,cached
       - ./api/docker/php/conf.d/api-platform.dev.ini/:/usr/local/etc/php/conf.d/api-platform.ini
+      - dev-localshare-ca-certificates:/usr/local/share/ca-certificates:ro
+      - dev-share-ca-certificates:/usr/share/ca-certificates:ro
+      - dev-ssl-ca-certificates:/etc/ssl/certs:ro
       # if you develop on Linux, you may use a bind-mounted host directory instead
       # - ./api/var:/srv/api/var:rw
 
@@ -124,11 +128,15 @@ services:
         published: 444
         protocol: tcp
 
+  # These certificates MUST NOT be used in production
   dev-tls:
     build:
       context: ./docker/dev-tls
     volumes:
       - dev-certs:/certs:rw
+      - dev-ssl-ca-certificates:/etc/ssl/certs:ro
+      - dev-share-ca-certificates:/usr/share/ca-certificates:ro
+      - dev-localshare-ca-certificates:/usr/local/share/ca-certificates:ro
     ports:
       - target: 80
         published: 80
@@ -137,3 +145,6 @@ services:
 volumes:
   db-data: {}
   dev-certs: {}
+  dev-ssl-ca-certificates: {}
+  dev-share-ca-certificates: {}
+  dev-localshare-ca-certificates: {}
