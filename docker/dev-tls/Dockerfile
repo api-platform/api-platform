@@ -18,9 +18,11 @@ ARG MKCERT_VERSION=1.4.1
 RUN set -eux; \
 	wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v$MKCERT_VERSION/mkcert-v$MKCERT_VERSION-linux-amd64; \
 	chmod +x /usr/local/bin/mkcert; \
-	mkcert --cert-file localhost.crt --key-file localhost.key localhost; \
+	mkcert --cert-file localhost.crt --key-file localhost.key localhost 127.0.0.1 ::1 mercure; \
 	# the file must be named server.pem - the default certificate path in webpack-dev-server
-	cat localhost.key localhost.crt > server.pem
+	cat localhost.key localhost.crt > server.pem; \
+	# export the root CA cert, but not the root CA key
+	cp "$(mkcert -CAROOT)/rootCA.pem" /certs/localCA.crt
 
 VOLUME /certs
 
