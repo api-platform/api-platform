@@ -18,6 +18,5 @@ composer.lock text eol=lf merge=ours
 
 .github export-ignore
 .travis.yml export-ignore
-LICENSE export-ignore
 README.md export-ignore
 update-deps.sh export-ignore
