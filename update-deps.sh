@@ -20,6 +20,7 @@ sed -i.bak 's;^#TRUSTED_PROXIES=127.0.0.1,127.0.0.2$;TRUSTED_PROXIES=10.0.0.0/8,
 sed -i.bak "s/^#TRUSTED_HOSTS='\^localhost\|example\\\.com\$'$/TRUSTED_HOSTS='^localhost|api$'/" .env
 sed -i.bak 's;^# For a PostgreSQL database, use: "postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=11"$;# For a MySQL database, use: "mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7";' .env
 sed -i.bak 's;^DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7$;DATABASE_URL=postgres://api-platform:!ChangeMe!@db/api?server_version=12;' .env
+sed -i.bak 's;^MERCURE_PUBLISH_URL=http://mercure/.well-known/mercure$;MERCURE_PUBLISH_URL=https://mercure/.well-known/mercure;' .env
 
 rm .env.bak
 
