@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_BUILDX_VERSION: '0.3.1'
-  DOCKER_COMPOSE_VERSION: '1.25.2'
+  DOCKER_COMPOSE_VERSION: '1.25.4'
   DOCKER_REGISTRY: quay.io
 
 jobs:
@@ -56,19 +56,25 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
         run: |
-          docker create --name docker_compose "docker/compose:alpine-v${DOCKER_COMPOSE_VERSION}"
+          docker create --name docker_compose "docker/compose:alpine-${DOCKER_COMPOSE_VERSION}"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
           docker rm docker_compose
-      - name: Pull images
-        run: docker-compose pull --ignore-pull-failures
+      - name: Create builder instance
+        run: |
+          docker context create default_tls
+          docker buildx create --driver docker-container --driver-opt image=moby/buildkit:master,network=host --use default_tls
       - name: Build images
         run: |
           docker buildx bake \
             --pull \
             --set admin.args.BUILDKIT_INLINE_CACHE=1 \
+            --set admin.output=type=docker \
             --set api.args.BUILDKIT_INLINE_CACHE=1 \
+            --set api.output=type=docker \
             --set client.args.BUILDKIT_INLINE_CACHE=1 \
+            --set client.output=type=docker \
             --set php.args.BUILDKIT_INLINE_CACHE=1 \
+            --set php.output=type=docker \
       - name: Validate composer.json
         run: |
           if jq -e '.extra.symfony.id != null' api/composer.json > /dev/null; then
@@ -176,23 +182,31 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-buildx
       - name: Install Docker Compose
         run: |
-          docker create --name docker_compose "docker/compose:alpine-v${DOCKER_COMPOSE_VERSION}"
+          docker create --name docker_compose "docker/compose:alpine-${DOCKER_COMPOSE_VERSION}"
           docker cp docker_compose:/usr/local/bin/docker-compose /usr/local/bin/docker-compose
           docker rm docker_compose
+      - name: Create builder instance
+        run: |
+          docker context create default_tls
+          docker buildx create --driver docker-container --driver-opt image=moby/buildkit:master,network=host --use default_tls
       - name: Fetch production setup
         run: wget -O - https://github.com/api-platform/docker-compose-prod/archive/master.tar.gz | tar -xzf - && mv docker-compose-prod-master docker-compose-prod
-      - name: Pull images
-        run: docker-compose -f docker-compose-prod/docker-compose.build.yml pull --ignore-pull-failures
       - name: Build images
         run: |
           docker-compose -f docker-compose-prod/docker-compose.build.yml config > docker-compose.bake.yml
-          docker buildx bake -f docker-compose.bake.yml \
+          docker buildx bake \
+            -f docker-compose.bake.yml \
             --pull \
             --set admin.args.BUILDKIT_INLINE_CACHE=1 \
+            --set admin.output=type=docker \
             --set api.args.BUILDKIT_INLINE_CACHE=1 \
+            --set api.output=type=docker \
             --set cache-proxy.args.BUILDKIT_INLINE_CACHE=1 \
+            --set cache-proxy.output=type=docker \
             --set client.args.BUILDKIT_INLINE_CACHE=1 \
+            --set client.output=type=docker \
             --set php.args.BUILDKIT_INLINE_CACHE=1 \
+            --set php.output=type=docker \
       - name: Add HTTP redirect
         run: |
           mkdir -p docker-compose-prod/docker/nginx-proxy/vhost.d
