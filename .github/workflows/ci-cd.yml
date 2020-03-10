@@ -62,7 +62,13 @@ jobs:
       - name: Pull images
         run: docker-compose pull --ignore-pull-failures
       - name: Build images
-        run: docker buildx bake --pull
+        run: |
+          docker buildx bake \
+            --pull \
+            --set admin.args.BUILDKIT_INLINE_CACHE=1 \
+            --set api.args.BUILDKIT_INLINE_CACHE=1 \
+            --set client.args.BUILDKIT_INLINE_CACHE=1 \
+            --set php.args.BUILDKIT_INLINE_CACHE=1 \
       - name: Validate composer.json
         run: |
           if jq -e '.extra.symfony.id != null' api/composer.json > /dev/null; then
@@ -180,7 +186,13 @@ jobs:
       - name: Build images
         run: |
           docker-compose -f docker-compose-prod/docker-compose.build.yml config > docker-compose.bake.yml
-          docker buildx bake -f docker-compose.bake.yml --pull
+          docker buildx bake -f docker-compose.bake.yml \
+            --pull \
+            --set admin.args.BUILDKIT_INLINE_CACHE=1 \
+            --set api.args.BUILDKIT_INLINE_CACHE=1 \
+            --set cache-proxy.args.BUILDKIT_INLINE_CACHE=1 \
+            --set client.args.BUILDKIT_INLINE_CACHE=1 \
+            --set php.args.BUILDKIT_INLINE_CACHE=1 \
       - name: Add HTTP redirect
         run: |
           mkdir -p docker-compose-prod/docker/nginx-proxy/vhost.d
