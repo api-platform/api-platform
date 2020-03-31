@@ -1,17 +1,16 @@
+{{- $name := "php" -}}
+{{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: php
+  # /!\ To be reachable by NGINX, the service name MUST be hardcoded.
+  # /!\ To deploy several instances in the same namespace you MUST rename the service here and in api/docker/nginx/conf.d/default.conf
+  name: {{ $name }}
   labels:
-    app.kubernetes.io/name: {{ include "name" . }}-php
-    app.kubernetes.io/part-of: {{ include "name" . }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "api.labels" $data | nindent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.php.service.type }}
   ports:
-    - port: 9000
+    - port: {{ .Values.php.service.port }}
   selector:
-    app.kubernetes.io/name: {{ include "name" . }}-php
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "api.selectorLabels" $data | nindent 4 }}

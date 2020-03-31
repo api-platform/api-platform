@@ -1,28 +1,33 @@
 {{- if .Values.varnish.enabled -}}
-apiVersion: extensions/v1beta1
+{{- $name := "varnish" -}}
+{{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}-varnish
+  name: {{ include "api.fullname" . }}-{{ $name }}
   labels:
-    app.kubernetes.io/name: {{ include "name" . }}-varnish
-    app.kubernetes.io/part-of: {{ include "name" . }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "api.labels" $data | nindent 4 }}
 spec:
   replicas: {{ .Values.varnish.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "api.selectorLabels" $data | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "name" . }}-varnish
-        helm.sh/chart: {{ include "chart" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        {{- include "api.selectorLabels" $data | nindent 8 }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-varnish
-          image: "{{ .Values.varnish.repository }}:{{ .Values.varnish.tag }}"
-          imagePullPolicy: {{ .Values.varnish.pullPolicy }}
+        - name: {{ .Chart.Name }}-{{ $name }}
+          image: "{{ .Values.varnish.image.repository }}:{{ .Values.varnish.image.tag }}"
+          imagePullPolicy: {{ .Values.varnish.image.pullPolicy }}
           command: ["varnishd"]
           args: ["-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]
           ports:
