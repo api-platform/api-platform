@@ -1,9 +1,10 @@
 {{- $name := "nginx" -}}
 {{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
+{{- $fullName := include "api.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "api.fullname" . }}-{{ $name }}
+  name: {{ $fullName }}-{{ $name }}
   labels:
     {{- include "api.labels" $data | nindent 4 }}
 spec:
@@ -29,6 +30,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
+          env:
+            - name: UPSTREAM
+              value: "{{ $fullName }}-php:{{ .Values.php.service.port }}"
           ports:
             - name: http
               containerPort: 80
