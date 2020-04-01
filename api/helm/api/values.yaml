@@ -34,8 +34,8 @@ nginx:
     port: 80
 
 varnish:
-  enabled: true
-  url: https://example.com
+  enabled: false
+  #url: https://example.com
   image:
     repository: quay.io/api-platform/varnish
     tag: latest

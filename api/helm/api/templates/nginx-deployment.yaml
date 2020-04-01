@@ -32,18 +32,18 @@ spec:
           imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
           env:
             - name: UPSTREAM
-              value: "{{ $fullName }}-php:{{ .Values.php.service.port }}"
+              value: "{{ $fullName }}-php.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.php.service.port }}"
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /nginx-health
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /nginx-health
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

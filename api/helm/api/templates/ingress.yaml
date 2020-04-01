@@ -33,12 +33,12 @@ spec:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              {{- if .Values.varnish.enabled }}
+              {{- if $.Values.varnish.enabled }}
               serviceName: {{ $fullName }}-varnish
-              servicePort: {{ .Values.varnish.service.port }}
+              servicePort: {{ $.Values.varnish.service.port }}
               {{- else }}
               serviceName: {{ $fullName }}-nginx
-              servicePort: {{ .Values.nginx.service.port }}
+              servicePort: {{ $.Values.nginx.service.port }}
               {{- end }}
         {{- end }}
   {{- end }}
