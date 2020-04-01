@@ -6,7 +6,7 @@ php:
   image:
     repository: quay.io/api-platform/php
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 1
   mercure:
     jwtToken: ""
@@ -27,7 +27,7 @@ nginx:
   image:
     repository: quay.io/api-platform/nginx
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 1
   service:
     type: ClusterIP
@@ -39,7 +39,7 @@ varnish:
   image:
     repository: quay.io/api-platform/varnish
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 1
   service:
     type: ClusterIP
@@ -58,7 +58,7 @@ postgresql:
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
   persistence:
     enabled: false
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # Full configuration: https://github.com/helm/charts/tree/master/stable/mercure
 mercure:
