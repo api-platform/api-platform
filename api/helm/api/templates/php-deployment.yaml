@@ -85,7 +85,16 @@ spec:
                   key: mercure-jwt-token
           ports:
             - containerPort: 9000
-          # TODO: add livenessProbe and readinessProbe using the cgi-fcgi command
+          readinessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 10
+            periodSeconds: 3
+          livenessProbe:
+            tcpSocket:
+              port: 9000
+            initialDelaySeconds: 10
+            periodSeconds: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
