@@ -1,33 +1,61 @@
-apiVersion: extensions/v1beta1
+{{- $name := "nginx" -}}
+{{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
+{{- $fullName := include "api.fullname" . -}}
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}-nginx
+  name: {{ $fullName }}-{{ $name }}
   labels:
-    app.kubernetes.io/name: {{ include "name" . }}-nginx
-    app.kubernetes.io/part-of: {{ include "name" . }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "api.labels" $data | nindent 4 }}
 spec:
   replicas: {{ .Values.nginx.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "api.selectorLabels" $data | nindent 6 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "name" . }}-nginx
-        app.kubernetes.io/part-of: {{ include "name" . }}
-        helm.sh/chart: {{ include "chart" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        {{- include "api.selectorLabels" $data | nindent 8 }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-nginx
-          image: "{{ .Values.nginx.repository }}:{{ .Values.nginx.tag }}"
-          imagePullPolicy: {{ .Values.nginx.pullPolicy }}
+        - name: {{ .Chart.Name }}-{{ $name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
+          env:
+            - name: UPSTREAM
+              value: "{{ $fullName }}-php.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.php.service.port }}"
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /nginx-health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /nginx-health
+              port: http
           resources:
-{{ toYaml .Values.resources | indent 12 }}
-    {{- if .Values.nodeSelector }}
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
     {{- end }}

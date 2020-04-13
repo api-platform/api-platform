@@ -1,0 +1,16 @@
+{{- $fullName := include "api.fullname" . -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: $fullName-test-connection
+  labels:
+    {{- include "api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ if .Values.varnish.enabled }}{{ $fullName }}-varnish:{{ .Values.varnish.service.port }}{{ else }}{{ $fullName }}-nginx:{{ .Values.nginx.service.port }}{{ end }}']
+  restartPolicy: Never

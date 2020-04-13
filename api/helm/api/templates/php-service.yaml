@@ -1,17 +1,14 @@
+{{- $name := "php" -}}
+{{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: php
+  name: {{ include "api.fullname" . }}-{{ $name }}
   labels:
-    app.kubernetes.io/name: {{ include "name" . }}-php
-    app.kubernetes.io/part-of: {{ include "name" . }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "api.labels" $data | nindent 4 }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.php.service.type }}
   ports:
-    - port: 9000
+    - port: {{ .Values.php.service.port }}
   selector:
-    app.kubernetes.io/name: {{ include "name" . }}-php
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "api.selectorLabels" $data | nindent 4 }}

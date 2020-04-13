@@ -1,19 +1,19 @@
+{{- $name := "nginx" -}}
+{{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: api
+  # /!\ To be reachable by Varnish, the service name MUST be hardcoded.
+  # /!\ To deploy several instances in the same namespace you MUST rename the service here and in api/docker/varnish/conf/default.vcl
+  name: {{ if .Values.varnish.enabled }}api{{ else }}{{ include "api.fullname" . }}-{{ $name }}{{ end }}
   labels:
-    app.kubernetes.io/name: {{ include "name" . }}-nginx
-    app.kubernetes.io/part-of: {{ include "name" . }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "api.labels" $data | nindent 4 }}
 spec:
-  type: NodePort
+  type: {{ .Values.nginx.service.type }}
   ports:
-    - port: 80
-      targetPort: 80
+    - port: {{ .Values.nginx.service.port }}
+      targetPort: http
       protocol: TCP
+      name: http
   selector:
-    app.kubernetes.io/name: {{ include "name" . }}-nginx
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "api.selectorLabels" $data | nindent 4 }}
