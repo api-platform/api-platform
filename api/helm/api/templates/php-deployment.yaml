@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $fullName-{{ $name }}
+  name: {{ $fullName }}-{{ $name }}
   labels:
     {{- include "api.labels" $data | nindent 4 }}
 spec:
@@ -32,57 +32,57 @@ spec:
             - name: TRUSTED_HOSTS
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: trusted-hosts
             - name: TRUSTED_PROXIES
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: trusted-proxies
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: env
             - name: APP_DEBUG
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: debug
             - name: CORS_ALLOW_ORIGIN
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: cors-allow-origin
             - name: VARNISH_URL
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: varnish-url
             - name: APP_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: secret
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: database-url
             - name: MERCURE_PUBLISH_URL
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: mercure-publish-url
             - name: MERCURE_SUBSCRIBE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: mercure-subscribe-url
             - name: MERCURE_JWT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: $fullName
+                  name: {{ $fullName }}
                   key: mercure-jwt-token
           ports:
             - containerPort: 9000
