@@ -81,7 +81,7 @@ jobs:
             echo 'api/composer.json must not have extra.symfony.id' 1>&2
             exit 1
           fi
-          docker-compose run --no-deps --rm -T php composer validate --no-check-publish
+          docker-compose run --no-deps --entrypoint '' --rm -T php composer validate --no-check-publish
       - name: Start services
         run: docker-compose up -d
       - name: Wait for services
