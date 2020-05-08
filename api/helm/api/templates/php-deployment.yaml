@@ -26,7 +26,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: init-php
-          image: {{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}
+          image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
           command: ['/bin/bash', '-c']
           args: ['bin/console doctrine:migrations:migrate --no-interaction']
           env:
