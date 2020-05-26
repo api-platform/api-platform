@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- include "api.labels" $data | nindent 4 }}
 spec:
-  replicas: {{ .Values.nginx.replicaCount }}
+  replicas: {{ .Values.php.replicaCount }}
   selector:
     matchLabels:
       {{- include "api.selectorLabels" $data | nindent 6 }}
