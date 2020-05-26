@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  DOCKER_BUILDX_VERSION: '0.3.1'
+  DOCKER_BUILDX_VERSION: '0.4.1'
   DOCKER_COMPOSE_VERSION: '1.25.4'
   DOCKER_REGISTRY: quay.io
 
