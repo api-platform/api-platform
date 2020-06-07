@@ -27,7 +27,7 @@ spec:
       initContainers:
         - name: init-php
           image: "{{ .Values.php.image.repository }}:{{ .Values.php.image.tag | default .Chart.AppVersion }}"
-          command: ['/bin/bash', '-c']
+          command: ['/bin/sh', '-c']
           args: ['bin/console doctrine:migrations:migrate --no-interaction']
           env:
             - name: APP_DEBUG
