@@ -1,3 +1,5 @@
+import React from "react";
+
 const API_ENTRYPOINT =
   process.env.REACT_APP_API_ENTRYPOINT || "https://localhost:8443";
 

@@ -7,7 +7,8 @@
     "dev:ssl": "npx nodemon -L server.js",
     "build": "next build",
     "start": "next start",
-    "start:ssl": "NODE_ENV=production node server.js"
+    "start:ssl": "NODE_ENV=production node server.js",
+    "test": "jest"
   },
   "dependencies": {
     "@api-platform/admin": "^2.2.1",
@@ -31,6 +32,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "@testing-library/jest-dom": "^5.10.1",
+    "@testing-library/react": "^10.4.3",
+    "babel-jest": "^26.1.0",
+    "jest": "^26.1.0",
     "nodemon": "^2.0.4"
   }
 }
