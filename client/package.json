@@ -1,11 +1,13 @@
 {
-  "name": "front",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:ssl": "npx nodemon -L server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start:ssl": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@api-platform/admin": "^2.2.1",
@@ -27,5 +29,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

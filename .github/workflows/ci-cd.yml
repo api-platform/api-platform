@@ -67,8 +67,6 @@ jobs:
         run: |
           docker buildx bake \
             --pull \
-            --set admin.args.BUILDKIT_INLINE_CACHE=1 \
-            --set admin.output=type=docker \
             --set api.args.BUILDKIT_INLINE_CACHE=1 \
             --set api.output=type=docker \
             --set client.args.BUILDKIT_INLINE_CACHE=1 \
@@ -102,7 +100,6 @@ jobs:
       - name: Check HTTP reachability
         run: | # we have to connect to the "docker" hostname because of Docker-in-Docker
           curl -fk -H 'Host: localhost' https://docker # Client
-          curl -fk -H 'Host: localhost' https://docker:444 # Admin
           curl -fk -H 'Host: localhost' https://docker:8443 # API
       - name: Login to registry
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
@@ -111,7 +108,6 @@ jobs:
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
         run: |
           docker-compose push \
-            admin \
             api \
             client \
             php \
@@ -148,8 +144,6 @@ jobs:
       fail-fast: false
     timeout-minutes: 10
     env:
-      ADMIN_HOST: admin.127-0-0-1.sslip.io
-      ADMIN_IMAGE: quay.io/api-platform/admin
       API_HOST: api.127-0-0-1.sslip.io
       APP_SECRET: 3c857494cfcc42c700dfb7a6
       CLIENT_HOST: 127-0-0-1.sslip.io,www.127-0-0-1.sslip.io
@@ -157,7 +151,7 @@ jobs:
       CORS_ALLOW_ORIGIN: ^http://(?:\w+\.)?127-0-0-1\.sslip\.io$
       DATABASE_URL: postgres://api-platform:4e3bc2766fe81df300d56481@db/api
       MERCURE_ALLOW_ANONYMOUS: '0'
-      MERCURE_CORS_ALLOWED_ORIGINS: http://127-0-0-1.sslip.io,http://admin.127-0-0-1.sslip.io
+      MERCURE_CORS_ALLOWED_ORIGINS: http://127-0-0-1.sslip.io,http://client.127-0-0-1.sslip.io
       MERCURE_HOST: mercure.127-0-0-1.sslip.io
       MERCURE_JWT_KEY: 4121344212538417de3e2118
       MERCURE_JWT_SECRET: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InN1YnNjcmliZSI6WyJmb28iLCJiYXIiXSwicHVibGlzaCI6WyJmb28iXX19.B0MuTRMPLrut4Nt3wxVvLtfWB_y189VEpWMlSmIQABQ
@@ -197,8 +191,6 @@ jobs:
           docker buildx bake \
             -f docker-compose.bake.yml \
             --pull \
-            --set admin.args.BUILDKIT_INLINE_CACHE=1 \
-            --set admin.output=type=docker \
             --set api.args.BUILDKIT_INLINE_CACHE=1 \
             --set api.output=type=docker \
             --set cache-proxy.args.BUILDKIT_INLINE_CACHE=1 \
@@ -227,7 +219,6 @@ jobs:
         run: | # we have to connect to the "docker" hostname because of Docker-in-Docker
           curl -fk -H 'Host: 127-0-0-1.sslip.io' http://docker
           curl -fk -H 'Host: www.127-0-0-1.sslip.io' http://docker
-          curl -fk -H 'Host: admin.127-0-0-1.sslip.io' http://docker
           curl -fk -H 'Host: api.127-0-0-1.sslip.io' http://docker
       - name: Login to registry
         if: github.event_name == 'push' && github.repository == 'api-platform/api-platform' && github.ref == 'refs/heads/master'
