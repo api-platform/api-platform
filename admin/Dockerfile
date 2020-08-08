@@ -10,7 +10,9 @@ ARG NGINX_VERSION=1.17
 # "development" stage
 FROM node:${NODE_VERSION}-alpine AS api_platform_admin_development
 
-WORKDIR /usr/src/admin
+# create and define the node_modules's cache directory
+RUN mkdir -p /usr/src/cache
+WORKDIR /usr/src/cache
 
 # prevent the reinstallation of node modules at every changes in the source code
 COPY package.json yarn.lock ./
@@ -23,13 +25,16 @@ RUN set -eux; \
 	yarn install; \
 	apk del .gyp
 
-COPY . ./
+WORKDIR /usr/src/admin
 
-VOLUME /usr/src/admin/node_modules
+COPY . ./
 
 ENV HTTPS true
 
-CMD ["yarn", "start"]
+COPY docker/node/start-cmd.sh /usr/local/bin/start-cmd
+RUN chmod +x /usr/local/bin/start-cmd
+
+CMD ["start-cmd"]
 
 
 # "build" stage
