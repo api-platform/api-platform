@@ -94,6 +94,7 @@ RUN composer dump-env prod; \
 # copy only specifically what we need
 COPY bin bin/
 COPY config config/
+COPY migrations migrations/
 COPY public public/
 COPY src src/
 
