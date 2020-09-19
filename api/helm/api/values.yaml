@@ -4,7 +4,7 @@
 
 php:
   image:
-    repository: quay.io/api-platform/php
+    repository: "quay.io/api-platform/php"
     tag: latest
     pullPolicy: Always
   replicaCount: 1
@@ -25,7 +25,7 @@ php:
 
 nginx:
   image:
-    repository: quay.io/api-platform/nginx
+    repository: "quay.io/api-platform/nginx"
     tag: latest
     pullPolicy: Always
   replicaCount: 1
@@ -37,7 +37,7 @@ varnish:
   enabled: false
   #url: https://example.com
   image:
-    repository: quay.io/api-platform/varnish
+    repository: "quay.io/api-platform/varnish"
     tag: latest
     pullPolicy: Always
   replicaCount: 1
@@ -48,7 +48,6 @@ varnish:
 # Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
 postgresql:
   enabled: true
-  imageTag: 12-alpine
   # If bringing your own PostgreSQL, the full uri to use
   url: pgsql://api-platform:!ChangeMe!@example.com/api?serverVersion=10.1
   postgresqlUsername: "example"
@@ -59,6 +58,9 @@ postgresql:
   persistence:
     enabled: false
   pullPolicy: Always
+  image:
+    repository: bitnami/postgresql
+    tag: 12
 
 # Full configuration: https://github.com/helm/charts/tree/master/stable/mercure
 mercure:
@@ -68,6 +70,9 @@ mercure:
   allowAnonymous: "1"
   corsAllowedOrigins: "^https?://.*?\\.example\\.com$"
   jwtKey: ""
+  service:
+    type: ClusterIP
+    port: 80
   ingress:
     enabled: false
     hosts:

@@ -3,9 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  # /!\ To be reachable by Varnish, the service name MUST be hardcoded.
-  # /!\ To deploy several instances in the same namespace you MUST rename the service here and in api/docker/varnish/conf/default.vcl
-  name: {{ if .Values.varnish.enabled }}api{{ else }}{{ include "api.fullname" . }}-{{ $name }}{{ end }}
+  name: {{ include "api.fullname" . }}-{{ $name }}
   labels:
     {{- include "api.labels" $data | nindent 4 }}
 spec:
