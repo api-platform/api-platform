@@ -1,4 +1,5 @@
 {{- if .Values.varnish.enabled -}}
+{{- $fullName := include "api.fullname" . -}}
 {{- $name := "varnish" -}}
 {{- $data := dict "name" $name "Chart" .Chart "Release" .Release "Values" .Values -}}
 apiVersion: apps/v1
@@ -28,18 +29,23 @@ spec:
         - name: {{ .Chart.Name }}-{{ $name }}
           image: "{{ .Values.varnish.image.repository }}:{{ .Values.varnish.image.tag }}"
           imagePullPolicy: {{ .Values.varnish.image.pullPolicy }}
-          command: ["varnishd"]
-          args: ["-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]
+          env:
+            - name: UPSTREAM
+              value: "{{ $fullName }}-php"
+            - name: BACKEND
+              value: "{{ $fullName }}-nginx"
           ports:
-            - containerPort: 80
+            - name: http
+              containerPort: 80
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: http
           readinessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}

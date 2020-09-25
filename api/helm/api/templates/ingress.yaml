@@ -27,19 +27,23 @@ spec:
 {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    {{ $host := .host }}
+    - host: {{ $host | quote }}
       http:
         paths:
         {{- range .paths }}
           - path: {{ . }}
             backend:
-              {{- if $.Values.varnish.enabled }}
-              serviceName: {{ $fullName }}-varnish
-              servicePort: {{ $.Values.varnish.service.port }}
+              {{- if contains "mercure" $host }}
+                serviceName: {{ printf "%s-mercure" $.Release.Name }}
+                servicePort: {{ $.Values.mercure.service.port }}
+              {{- else }}{{- if $.Values.varnish.enabled }}
+                serviceName: {{ $fullName }}-varnish
+                servicePort: {{ $.Values.varnish.service.port }}
               {{- else }}
-              serviceName: {{ $fullName }}-nginx
-              servicePort: {{ $.Values.nginx.service.port }}
-              {{- end }}
+                serviceName: {{ $fullName }}-nginx
+                servicePort: {{ $.Values.nginx.service.port }}
+              {{- end }}{{- end }}
         {{- end }}
   {{- end }}
 {{- end }}

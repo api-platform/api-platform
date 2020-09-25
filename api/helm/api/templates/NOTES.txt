@@ -1,8 +1,8 @@
 {{- $serviceName := "varnish" -}}
 {{- $service := .Values.varnish.service -}}
 {{- if not .Values.varnish.enabled -}}
-    {{- $serviceName = print (include "api.fullname" .) "-" "nginx" -}}
-    {{- $service = .Values.nginx.service -}}
+    {{- $serviceName := print (include "api.fullname" .) "-" "nginx" -}}
+    {{- $service := .Values.nginx.service -}}
 {{- end -}}
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}

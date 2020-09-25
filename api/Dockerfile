@@ -134,6 +134,20 @@ COPY --from=api_platform_php /srv/api/public ./
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
 FROM varnish:${VARNISH_VERSION} AS api_platform_varnish
 
-COPY docker/varnish/conf/default.vcl /etc/varnish/default.vcl
+ENV BACKEND=api
+ENV UPSTREAM=php
+
+COPY docker/varnish/conf/default.tmpl /usr/local/etc/varnish/default.tmpl
+
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y gettext-base; \
+	apt-get clean; \
+	rm -rf /var/lib/apt/lists/*
+
+COPY docker/varnish/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
 
 CMD ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]

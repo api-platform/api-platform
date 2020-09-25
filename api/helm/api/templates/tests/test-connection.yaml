@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: $fullName-test-connection
+  name: {{ $fullName }}-test-connection
   labels:
     {{- include "api.labels" . | nindent 4 }}
   annotations:
