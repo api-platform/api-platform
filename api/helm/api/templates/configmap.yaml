@@ -13,4 +13,4 @@ data:
   trusted-hosts: {{ .Values.php.trustedHosts | quote }}
   trusted-proxies: {{ join "," .Values.php.trustedProxies }}
   mercure-publish-url: {{ printf "http://%s-mercure/.well-known/mercure" .Release.Name | quote }}
-  mercure-subscribe-url: {{ printf "https://%s/.well-known/mercure" (index .Values.ingress.hosts 1).host | quote }}
+  mercure-subscribe-url: {{ .Values.mercure.subscribeUrl | quote }}
