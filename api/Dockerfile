@@ -5,9 +5,9 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=7.4
+ARG APCU_VERSION=5.1.19
 ARG OPENRESTY_VERSION=1.17.8.2
-ARG VARNISH_VERSION=6.4
-
+ARG VARNISH_VERSION=6.5
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
@@ -21,7 +21,6 @@ RUN apk add --no-cache \
 		git \
 	;
 
-ARG APCU_VERSION=5.1.18
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
