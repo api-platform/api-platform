@@ -6,7 +6,7 @@ on:
 
 env:
   DOCKER_BUILDX_VERSION: '0.4.2'
-  DOCKER_COMPOSE_VERSION: '1.27.4'
+  DOCKER_COMPOSE_VERSION: '1.27.2' # Wait for https://github.com/docker/compose/issues/7773 before bumping the version
   DOCKER_REGISTRY: quay.io
 
 jobs:
