@@ -3,8 +3,8 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG NODE_VERSION=13
-ARG NGINX_VERSION=1.17
+ARG NODE_VERSION=14
+ARG NGINX_VERSION=1.19
 
 
 # "common" stage

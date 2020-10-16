@@ -5,8 +5,8 @@ on:
   pull_request:
 
 env:
-  DOCKER_BUILDX_VERSION: '0.4.1'
-  DOCKER_COMPOSE_VERSION: '1.25.4'
+  DOCKER_BUILDX_VERSION: '0.4.2'
+  DOCKER_COMPOSE_VERSION: '1.27.4'
   DOCKER_REGISTRY: quay.io
 
 jobs:
@@ -237,7 +237,7 @@ jobs:
     strategy:
       matrix:
         ct:
-          - '2.4.0'
+          - '3.1.1'
       fail-fast: false
     timeout-minutes: 1
     steps:
