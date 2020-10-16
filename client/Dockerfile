@@ -55,6 +55,6 @@ FROM nginx:${NGINX_VERSION}-alpine AS api_platform_client_nginx
 
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/src/client/build
+WORKDIR /usr/src/client/out
 
-COPY --from=api_platform_client_build /usr/src/client/build ./
+COPY --from=api_platform_client_build /usr/src/client/out ./
