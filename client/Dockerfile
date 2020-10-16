@@ -18,11 +18,11 @@ RUN yarn global add @api-platform/client-generator
 
 # prevent the reinstallation of node modules at every changes in the source code
 COPY package.json yarn.lock ./
-COPY . ./
-
 RUN set -eux; \
 	yarn; \
 	npx next telemetry disable
+
+COPY . ./
 
 VOLUME /usr/src/client/node_modules
 
