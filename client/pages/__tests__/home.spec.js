@@ -1,8 +1,7 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import Home from "../index";
 
-test("renders deploy link", () => {
+test("renders home page", () => {
   const { baseElement } = render(<Home />);
   expect(baseElement).toBeTruthy();
 });

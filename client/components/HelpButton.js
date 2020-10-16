@@ -1,5 +1,3 @@
-import React from "react";
-
 const HelpButton = ({ Image, url, title }) => (
   <a
     target="_blank"

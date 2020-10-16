@@ -1,8 +1,7 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import Admon from "../admin";
+import Admin from "../admin";
 
-test("renders deploy link", () => {
-  const { baseElement } = render(<Admon />);
+test("renders admin page", () => {
+  const { baseElement } = render(<Admin />);
   expect(baseElement).toBeTruthy();
 });
