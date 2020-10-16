@@ -184,7 +184,7 @@ jobs:
           docker context create default_tls
           docker buildx create --driver docker-container --driver-opt image=moby/buildkit:master,network=host --use default_tls
       - name: Fetch production setup
-        run: wget -O - https://github.com/api-platform/docker-compose-prod/archive/master.tar.gz | tar -xzf - && mv docker-compose-prod-master docker-compose-prod
+        run: wget -O - https://github.com/api-platform/docker-compose-prod/archive/feat/next.tar.gz | tar -xzf - && mv docker-compose-prod-feat-next docker-compose-prod
       - name: Build images
         run: |
           docker-compose -f docker-compose-prod/docker-compose.build.yml config > docker-compose.bake.yml
