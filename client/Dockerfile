@@ -14,14 +14,14 @@ EXPOSE 3000
 
 WORKDIR /usr/src/client
 
-RUN npm i -g @api-platform/client-generator
+RUN yarn global add @api-platform/client-generator
 
 # prevent the reinstallation of node modules at every changes in the source code
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 COPY . ./
 
 RUN set -eux; \
-	npm install --unsafe-perm; \
+	yarn; \
 	npx next telemetry disable
 
 VOLUME /usr/src/client/node_modules
@@ -33,7 +33,7 @@ ENV HTTPS true
 # depends on the "common" stage above
 FROM api_platform_client_common AS api_platform_client_development
 
-CMD ["npm", "run", "dev:ssl", "--unsafe-perm"]
+CMD ["yarn", "dev:ssl"]
 
 
 # "build" stage
@@ -44,9 +44,9 @@ ENV NODE_ENV production
 ARG REACT_APP_API_ENTRYPOINT
 
 RUN set -eux; \
-	npm run build
+	yarn build
 
-CMD ["npm", "run", "start:ssl"]
+CMD ["yarn", "start:ssl"]
 
 
 # "nginx" stage
