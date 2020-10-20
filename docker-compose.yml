@@ -99,33 +99,14 @@ services:
     tty: true # https://github.com/facebook/create-react-app/issues/8688
     environment:
       - API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=http://api
-      - API_PLATFORM_CLIENT_GENERATOR_OUTPUT=src
     depends_on:
       - dev-tls
     volumes:
       - ./client:/usr/src/client:rw,cached
-      - dev-certs:/usr/src/client/node_modules/webpack-dev-server/ssl:rw,nocopy
+      - dev-certs:/usr/src/client/certs:rw,nocopy
     ports:
       - target: 3000
         published: 443
-        protocol: tcp
-
-  admin:
-    build:
-      context: ./admin
-      target: api_platform_admin_development
-      cache_from:
-        - ${ADMIN_IMAGE:-quay.io/api-platform/admin}
-    image: ${ADMIN_IMAGE:-quay.io/api-platform/admin}
-    tty: true # https://github.com/facebook/create-react-app/issues/8688
-    depends_on:
-      - dev-tls
-    volumes:
-      - ./admin:/usr/src/admin:rw,cached
-      - dev-certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:rw,nocopy
-    ports:
-      - target: 3000
-        published: 444
         protocol: tcp
 
   dev-tls:

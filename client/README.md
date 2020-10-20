@@ -1,7 +1,7 @@
 # Client
 
-The Progressive Web App will be here.
+Contains a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Refer to the [API Platform Client Generator documentation](https://api-platform.com/docs/client-generator) and to the [Create
-React App guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md)
-for more information.
+The `admin` page contains an API Platform Admin project (refer to its [documentation](https://api-platform.com/docs/admin)).
+
+You can also generate your web app here by using the API Platform Client Generator (refer to its [documentation](https://api-platform.com/docs/client-generator)).
