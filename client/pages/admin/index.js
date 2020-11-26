@@ -1,5 +1,5 @@
 const API_ENTRYPOINT =
-  process.env.REACT_APP_API_ENTRYPOINT || "https://localhost:8443";
+  process.env.REACT_APP_API_ENTRYPOINT || "https://localhost";
 
 export default () => {
   if (typeof window !== "undefined") {

@@ -70,7 +70,7 @@ const Welcome = () => (
                   <a
                     href="//"
                     onClick={() => {
-                      window.location.port = 8443;
+                      window.location.port = 443;
                     }}
                   >
                     API

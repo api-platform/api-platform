@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:ssl": "npx nodemon -L server.js",
+    "dev:https": "npx nodemon -L server.js",
     "build": "next build && next export",
     "start": "next start",
-    "start:ssl": "NODE_ENV=production node server.js",
+    "start:https": "NODE_ENV=production node server.js",
     "test": "jest"
   },
   "dependencies": {

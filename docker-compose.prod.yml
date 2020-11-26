@@ -1,0 +1,14 @@
+version: "3.4"
+
+# Production environment override
+services:
+  php:
+    environment:
+      APP_ENV: prod
+      APP_SECRET: ${APP_SECRET}
+
+  caddy:
+    environment:
+      MERCURE_DEMO: # Disable the demo
+      MERCURE_PUBLISHER_JWT: ${MERCURE_PUBLISHER_JWT}
+      MERCURE_SUBSCRIBER_JWT: ${MERCURE_SUBSCRIBER_JWT}

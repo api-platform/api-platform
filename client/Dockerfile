@@ -4,8 +4,6 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG NODE_VERSION=14
-ARG NGINX_VERSION=1.19
-
 
 # "common" stage
 FROM node:${NODE_VERSION}-alpine AS api_platform_client_common
@@ -26,14 +24,12 @@ COPY . ./
 
 VOLUME /usr/src/client/node_modules
 
-ENV HTTPS true
-
 
 # "development" stage
 # depends on the "common" stage above
 FROM api_platform_client_common AS api_platform_client_development
 
-CMD ["yarn", "dev:ssl"]
+CMD ["yarn", "dev:https"]
 
 
 # "build" stage
@@ -46,15 +42,4 @@ ARG REACT_APP_API_ENTRYPOINT
 RUN set -eux; \
 	yarn build
 
-CMD ["yarn", "start:ssl"]
-
-
-# "nginx" stage
-# depends on the "build" stage above
-FROM nginx:${NGINX_VERSION}-alpine AS api_platform_client_nginx
-
-COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-
-WORKDIR /usr/src/client/out
-
-COPY --from=api_platform_client_build /usr/src/client/out ./
+CMD ["yarn", "start:https"]
