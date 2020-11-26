@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "bcf2a46307febf4cf7f0288e7eed2b7c8c23ab66"
+                "reference": "c984ab607524e09c751af61963fd75e1e1e2f738"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/bcf2a46307febf4cf7f0288e7eed2b7c8c23ab66",
-                "reference": "bcf2a46307febf4cf7f0288e7eed2b7c8c23ab66",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/c984ab607524e09c751af61963fd75e1e1e2f738",
+                "reference": "c984ab607524e09c751af61963fd75e1e1e2f738",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-24T12:28:42+00:00"
+            "time": "2020-11-26T09:07:26+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
