@@ -6,11 +6,11 @@
 ARG NODE_VERSION=14
 
 # "common" stage
-FROM node:${NODE_VERSION}-alpine AS api_platform_client_common
+FROM node:${NODE_VERSION}-alpine AS api_platform_pwa_common
 
 EXPOSE 3000
 
-WORKDIR /usr/src/client
+WORKDIR /usr/src/pwa
 
 RUN yarn global add @api-platform/client-generator
 
@@ -22,19 +22,19 @@ RUN set -eux; \
 
 COPY . ./
 
-VOLUME /usr/src/client/node_modules
+VOLUME /usr/src/pwa/node_modules
 
 
 # "development" stage
 # depends on the "common" stage above
-FROM api_platform_client_common AS api_platform_client_development
+FROM api_platform_pwa_common AS api_platform_pwa_dev
 
-CMD ["yarn", "dev:https"]
+CMD ["yarn", "dev"]
 
 
 # "build" stage
 # depends on the "common" stage above
-FROM api_platform_client_common AS api_platform_client_build
+FROM api_platform_pwa_common AS api_platform_pwa_prod
 
 ENV NODE_ENV production
 ARG REACT_APP_API_ENTRYPOINT
@@ -42,4 +42,4 @@ ARG REACT_APP_API_ENTRYPOINT
 RUN set -eux; \
 	yarn build
 
-CMD ["yarn", "start:https"]
+CMD ["yarn", "start"]

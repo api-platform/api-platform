@@ -6,6 +6,16 @@
 
 log
 
+@pwa {
+    # Pass the request to the API for typical API media types.
+    # `application/xml` is not in the list on purpose:
+    # it is part of the default Accept header sent by browsers.
+    not header_regexp Accept (?i)(?:\bjson\b|text/(?:csv|xml)|application/x-yaml)
+
+    # Explicitly list routes always handled by the API.
+    not path /docs* /graphql* /bundles/* /_profiler* 
+}
+
 route {
     root * /srv/api/public
     mercure {
@@ -22,6 +32,7 @@ route {
     }
     vulcain
     push
+    reverse_proxy @pwa http://pwa:3000
     php_fastcgi php:9000
     encode gzip
     file_server

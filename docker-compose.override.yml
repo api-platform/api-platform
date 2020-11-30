@@ -11,6 +11,13 @@ services:
     environment:
       APP_ENV: dev
 
+  pwa:
+    build:
+      context: ./pwa
+      target: api_platform_pwa_dev
+    volumes:
+      - ./pwa:/usr/src/pwa:rw,cached 
+
   caddy:
     volumes:
       - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
@@ -21,11 +28,3 @@ services:
       - target: 5432
         published: 5432
         protocol: tcp
-
-  client:
-    build:
-      context: ./client
-      target: api_platform_client_development
-    volumes:
-      - caddy_data:/data
-      - ./client:/usr/src/client:rw,cached
