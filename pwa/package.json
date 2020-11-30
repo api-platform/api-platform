@@ -1,0 +1,38 @@
+{
+  "name": "pwa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@api-platform/admin": "^2.2.0",
+    "next": "^9.5.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.10.0",
+    "@testing-library/react": "^11.1.0",
+    "babel-jest": "^26.1.0",
+    "jest": "^26.1.0"
+  }
+}

@@ -1,0 +1,30 @@
+version: "3.4"
+
+# Development environment override
+services:
+  php:
+    volumes:
+      - ./api:/srv/api:rw,cached
+      - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
+      # if you develop on Linux, you may use a bind-mounted host directory instead
+      # - ./api/var:/srv/api/var:rw
+    environment:
+      APP_ENV: dev
+
+  pwa:
+    build:
+      context: ./pwa
+      target: api_platform_pwa_dev
+    volumes:
+      - ./pwa:/usr/src/pwa:rw,cached 
+
+  caddy:
+    volumes:
+      - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./api/public:/srv/api/public:ro
+
+  database:
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp

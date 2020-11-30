@@ -17,13 +17,8 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
-	if [ "$APP_ENV" != 'prod' ] && [ -f /certs/localCA.crt ]; then
-		ln -sf /certs/localCA.crt /usr/local/share/ca-certificates/localCA.crt
-		update-ca-certificates
-	fi
-
 	if [ "$APP_ENV" != 'prod' ]; then
-		composer install --prefer-dist --no-progress --no-suggest --no-interaction
+		composer install --ignore-platform-req=php --prefer-dist --no-progress --no-interaction
 	fi
 
 	echo "Waiting for db to be ready..."

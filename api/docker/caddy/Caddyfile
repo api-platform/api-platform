@@ -1,0 +1,39 @@
+{
+    experimental_http3
+}
+
+{$SERVER_NAME}
+
+log
+
+@pwa {
+    # Pass the request to the API for typical API media types.
+    # `application/xml` is not in the list on purpose:
+    # it is part of the default Accept header sent by browsers.
+    not header_regexp Accept (?i)(?:\bjson\b|text/(?:csv|xml)|application/x-yaml)
+
+    # Explicitly list routes always handled by the API.
+    not path /docs* /graphql* /bundles/* /_profiler* /_wdt*
+}
+
+route {
+    root * /srv/api/public
+    mercure {
+        # Enable the demo endpoint (disable it in production!)
+        {$MERCURE_DEMO}
+        # Publisher JWT key
+        publisher_jwt {$MERCURE_PUBLISHER_JWT}
+        # Subscriber JWT key
+        subscriber_jwt {$MERCURE_SUBSCRIBER_JWT}
+        # Allow anonymous subscribers (double-check that it's what you want)
+        anonymous
+        # Enable the subscription API (double-check that it's what you want)
+        subscriptions
+    }
+    vulcain
+    push
+    reverse_proxy @pwa http://pwa:3000
+    php_fastcgi php:9000
+    encode gzip
+    file_server
+}

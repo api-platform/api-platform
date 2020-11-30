@@ -5,7 +5,7 @@
         "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "api-platform/core": "^2.5",
+        "api-platform/core": "dev-master as 2.6.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",
@@ -65,9 +65,7 @@
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+        "symfony/polyfill-php71": "*"
     },
     "scripts": {
         "auto-scripts": {
