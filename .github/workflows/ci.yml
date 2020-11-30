@@ -28,8 +28,10 @@ jobs:
                   done
                   exit 1
             - name: Check HTTP reachability
-              run: curl http://localhost
+              run: curl -v -o /dev/null http://localhost
             - name: Check HTTPS reachability
-              run: curl -k https://localhost
+              run: curl  -vk -o /dev/null https://localhost
             - name: PHPUnit
-              run: vendor/bin/simple-phpunit
+              run: docker-compose exec -T php vendor/bin/simple-phpunit
+            - name: Jest
+              run: docker-compose exec -T pwa yarn test --passWithNoTests

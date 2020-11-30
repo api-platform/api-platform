@@ -13,7 +13,7 @@ log
     not header_regexp Accept (?i)(?:\bjson\b|text/(?:csv|xml)|application/x-yaml)
 
     # Explicitly list routes always handled by the API.
-    not path /docs* /graphql* /bundles/* /_profiler* 
+    not path /docs* /graphql* /bundles/* /_profiler* /_wdt*
 }
 
 route {
