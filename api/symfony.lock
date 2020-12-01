@@ -399,9 +399,6 @@
     "symfony/polyfill-php70": {
         "version": "v1.20.0"
     },
-    "symfony/polyfill-php80": {
-        "version": "v1.18.1"
-    },
     "symfony/process": {
         "version": "v5.1.3"
     },
