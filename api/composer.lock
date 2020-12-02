@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce15734953259214ea0b829fa7b14a3b",
+    "content-hash": "fccaa043a1f3b0848f2e07dc5d51d266",
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "dev-master",
+            "version": "v2.6.0-alpha.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "74d8eed8d5114ea12087d0ea8c5b722093d43c6a"
+                "reference": "f53bb64825950bf1da2b91e12673b465d3d5312b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/74d8eed8d5114ea12087d0ea8c5b722093d43c6a",
-                "reference": "74d8eed8d5114ea12087d0ea8c5b722093d43c6a",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/f53bb64825950bf1da2b91e12673b465d3d5312b",
+                "reference": "f53bb64825950bf1da2b91e12673b465d3d5312b",
                 "shasum": ""
             },
             "require": {
@@ -114,7 +114,6 @@
                 "symfony/web-profiler-bundle": "To use the data collector.",
                 "webonyx/graphql-php": "To support GraphQL."
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -155,7 +154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/master"
+                "source": "https://github.com/api-platform/core/tree/v2.6.0-alpha.1"
             },
             "funding": [
                 {
@@ -163,7 +162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-12-01T23:12:27+00:00"
+            "time": "2020-12-02T22:13:43+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -8446,17 +8445,10 @@
             "time": "2020-10-28T21:46:03+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "api-platform/core",
-            "version": "9999999-dev",
-            "alias": "2.6.0",
-            "alias_normalized": "2.6.0.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/core": 20
+        "api-platform/core": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
