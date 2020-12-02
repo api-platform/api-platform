@@ -1,12 +1,24 @@
+import Head from "next/head";
+
 const API_ENTRYPOINT =
   process.env.REACT_APP_API_ENTRYPOINT || "https://localhost";
 
-const Admin = () => {
+const AdminLoader = () => {
   if (typeof window !== "undefined") {
     const { HydraAdmin } = require("@api-platform/admin");
     return <HydraAdmin entrypoint={API_ENTRYPOINT} />;
   }
 
-  return <div>Loading</div>;
+  return <></>;
 };
+
+const Admin = () => (
+  <>
+    <Head>
+      <title>API Platform Admin</title>
+    </Head>
+
+    <AdminLoader />
+  </>
+);
 export default Admin;
