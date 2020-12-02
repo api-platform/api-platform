@@ -7,6 +7,8 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
+    defaults:
+        stateless: true
     # Mercure integration, remove if unwanted
     mercure:
         hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
