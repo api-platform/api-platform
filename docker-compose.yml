@@ -8,6 +8,8 @@ services:
     depends_on:
       - database
     restart: unless-stopped
+    volumes:
+      - php_socket:/var/run/php
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -34,11 +36,13 @@ services:
       - php
       - pwa
     environment:
+      PWA_UPSTREAM: pwa:3000
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
-      MERCURE_PUBLISHER_JWT: ${MERCURE_PUBLISHER_JWT:-!ChangeMe!}
-      MERCURE_SUBSCRIBER_JWT: ${MERCURE_SUBSCRIBER_JWT:-!ChangeMe!}
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY:-!ChangeMe!}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY:-!ChangeMe!}
     restart: unless-stopped
     volumes:
+      - php_socket:/var/run/php
       - caddy_data:/data
       - caddy_config:/config
     ports:
@@ -48,6 +52,7 @@ services:
       - target: 443
         published: 443
         protocol: tcp
+      # HTTP/3
       - target: 443
         published: 443
         protocol: udp
@@ -64,6 +69,7 @@ services:
       # - ./api/docker/db/data:/var/lib/postgresql/data:rw
 
 volumes:
+  php_socket:
   db_data:
   caddy_data:
   caddy_config:
