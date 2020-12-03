@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  */
-#[ApiResource]
+#[ApiResource(mercure: true)]
 class Greeting
 {
     /**
