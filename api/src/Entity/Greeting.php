@@ -15,23 +15,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Greeting
 {
     /**
-     * @var int The entity Id
+     * The entity ID
      *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string A nice person
+     * A nice person
      *
      * @ORM\Column
      * @Assert\NotBlank
      */
-    public $name = '';
+    public string $name = '';
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
