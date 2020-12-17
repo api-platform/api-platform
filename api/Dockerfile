@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.0
-ARG CADDY_VERSION=2
+ARG CADDY_VERSION=2.3.0-rc.1
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
@@ -122,7 +122,6 @@ FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
 WORKDIR /srv/api
 
-ENV MERCURE_DEMO="demo /srv/mercure-assets/"
 COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
 COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=api_platform_php /srv/api/public public/

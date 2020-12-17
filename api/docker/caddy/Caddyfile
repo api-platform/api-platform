@@ -1,5 +1,12 @@
 {
-    experimental_http3
+    # Debug
+    {$DEBUG}
+    # HTTP/3 support
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
 }
 
 {$SERVER_NAME}
@@ -21,25 +28,25 @@ route {
     root * /srv/api/public
     mercure {
         # Transport to use (default to Bolt)
-        transport_url bolt:///data/mercure.db
-        # Enable the demo endpoint (disable it in production!)
-        {$MERCURE_DEMO}
+        transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
         # Publisher JWT key
-        publisher_jwt {$MERCURE_PUBLISHER_JWT_KEY}
+        publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
         # Subscriber JWT key
-        subscriber_jwt {$MERCURE_SUBSCRIBER_JWT_KEY}
+        subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
         # Allow anonymous subscribers (double-check that it's what you want)
         anonymous
         # Enable the subscription API (double-check that it's what you want)
         subscriptions
+        # Extra directives
+        {$MERCURE_EXTRA_DIRECTIVES}
     }
     vulcain
     push
-    
+
     # Comment the following line if you don't want Next.js to catch requests for HTML documents.
     # In this case, they will be handled by the PHP app.
     reverse_proxy @pwa http://{$PWA_UPSTREAM}
     php_fastcgi unix//var/run/php/php-fpm.sock
-    encode gzip
+    encode zstd gzip
     file_server
 }

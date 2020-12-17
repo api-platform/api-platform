@@ -22,6 +22,8 @@ services:
     volumes:
       - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./api/public:/srv/api/public:ro
+    environment:
+      MERCURE_EXTRA_DIRECTIVES: demo /srv/mercure-assets/
     ports:
       - target: 80
         published: 80
