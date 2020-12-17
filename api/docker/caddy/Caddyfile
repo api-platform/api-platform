@@ -25,9 +25,9 @@ route {
         # Enable the demo endpoint (disable it in production!)
         {$MERCURE_DEMO}
         # Publisher JWT key
-        publisher_jwt {$MERCURE_PUBLISHER_JWT}
+        publisher_jwt {$MERCURE_PUBLISHER_JWT_KEY}
         # Subscriber JWT key
-        subscriber_jwt {$MERCURE_SUBSCRIBER_JWT}
+        subscriber_jwt {$MERCURE_SUBSCRIBER_JWT_KEY}
         # Allow anonymous subscribers (double-check that it's what you want)
         anonymous
         # Enable the subscription API (double-check that it's what you want)
@@ -38,8 +38,8 @@ route {
     
     # Comment the following line if you don't want Next.js to catch requests for HTML documents.
     # In this case, they will be handled by the PHP app.
-    reverse_proxy @pwa http://pwa:3000
-    php_fastcgi php:9000
+    reverse_proxy @pwa http://{$PWA_UPSTREAM}
+    php_fastcgi unix//var/run/php/php-fpm.sock
     encode gzip
     file_server
 }
