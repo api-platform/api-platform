@@ -38,8 +38,6 @@ spec:
               value: :80
             - name: PWA_UPSTREAM
               value: {{ include "api-platform.fullname" . }}-pwa:3000
-            - name: MERCURE_SUBSCRIBER_DEMO
-              value: # Disable Mercure's demo
             - name: MERCURE_PUBLISHER_JWT_KEY
               valueFrom:
                 secretKeyRef:

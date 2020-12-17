@@ -9,6 +9,5 @@ services:
 
   caddy:
     environment:
-      MERCURE_DEMO: # Disable the demo
       MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_PUBLISHER_JWT_KEY}
       MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_SUBSCRIBER_JWT_KEY}
