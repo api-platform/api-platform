@@ -7,12 +7,12 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
-    # Good cache defaults
-    http_cache:
-        vary: ['Content-Type', 'Authorization', 'Origin']
     # Mercure integration, remove if unwanted
     mercure:
         hub_url: '%env(MERCURE_SUBSCRIBE_URL)%'
     # Good defaults value for REST APIs
     defaults:
         stateless: true
+        # Good cache defaults
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
