@@ -125,6 +125,9 @@
             ".php_cs.dist"
         ]
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.1"
+    },
     "guzzlehttp/guzzle": {
         "version": "7.2.0"
     },
@@ -166,9 +169,6 @@
     },
     "ocramius/package-versions": {
         "version": "1.9.0"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.10.0"
     },
     "php": {
         "version": "7.4"
@@ -520,9 +520,6 @@
     },
     "twig/twig": {
         "version": "v3.1.1"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"
