@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 const Welcome = () => (
   <>
@@ -58,7 +59,7 @@ const Welcome = () => (
               </div>
               <div className="other__content">
                 <h3>
-                  <a href="/docs">API</a>
+                  <Link href="/docs">API</Link>
                 </h3>
               </div>
             </div>
@@ -68,7 +69,7 @@ const Welcome = () => (
               </div>
               <div className="other__content">
                 <h3>
-                  <a href="/admin">Admin</a>
+                  <Link href="/admin">Admin</Link>
                 </h3>
               </div>
             </div>
