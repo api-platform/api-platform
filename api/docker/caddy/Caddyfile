@@ -20,6 +20,7 @@ log
         && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|.+\\.(?:json|html$|csv$|ya?ml$|xml$))") \
     ) \
     || {path}.startsWith("/_next") \
+    || {path}.startsWith("/manifest.json") \
     || {path}.startsWith("/favicon.ico") \
     || {path}.startsWith("/robots.txt")
 
