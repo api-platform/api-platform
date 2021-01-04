@@ -15,10 +15,6 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.feature]
-indent_style = space
-indent_size = 2
-
 [*.{js,html}]
 indent_style = space
 indent_size = 2
@@ -38,11 +34,7 @@ indent_size = 4
 indent_style = tab
 indent_size = 4
 
-[*.vcl]
-indent_style = space
-indent_size = 2
-
-[*.xml]
+[*.xml{,.dist}]
 indent_style = space
 indent_size = 4
 
@@ -81,12 +73,4 @@ indent_size = 2
 
 [Dockerfile]
 indent_style = tab
-indent_size = 4
-
-[package.json]
-indent_style = space
-indent_size = 2
-
-[phpunit.xml{,.dist}]
-indent_style = space
 indent_size = 4
