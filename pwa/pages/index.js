@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 const Welcome = () => (
   <>
@@ -38,7 +39,8 @@ const Welcome = () => (
               <a href="https://nextjs.org/">
                 <b>Next.js</b>
               </a>{" "}
-              application. Learn how to create your first API and generate a PWA:
+              application. Learn how to create your first API and generate a
+              PWA:
             </p>
             <a
               target="_blank"
@@ -68,7 +70,9 @@ const Welcome = () => (
               </div>
               <div className="other__content">
                 <h3>
-                  <a href="/admin">Admin</a>
+                  <Link href="/admin">
+                    <a>Admin</a>
+                  </Link>
                 </h3>
               </div>
             </div>
@@ -1950,7 +1954,7 @@ const WebbyWelcome = () => (
     width="400"
     height="400"
     viewBox="0 0 300 300"
-    >
+  >
     <style jsx>
       {`
         .webbyWelcome {
