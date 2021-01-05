@@ -22,7 +22,8 @@ log
     || {path}.startsWith("/_next") \
     || {path}.startsWith("/manifest.json") \
     || {path}.startsWith("/favicon.ico") \
-    || {path}.startsWith("/robots.txt")
+    || {path}.startsWith("/robots.txt") \
+    || {path}.startsWith("/sitemap")
 
 route {
     root * /srv/api/public
