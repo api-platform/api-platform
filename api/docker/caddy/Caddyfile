@@ -20,10 +20,10 @@ log
         && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|.+\\.(?:json|html$|csv$|ya?ml$|xml$))") \
     ) \
     || {path}.startsWith("/_next") \
-    || {path}.startsWith("/manifest.json") \
+    || {path}.startsWith("/sitemap") \
     || {path}.startsWith("/favicon.ico") \
-    || {path}.startsWith("/robots.txt") \
-    || {path}.startsWith("/sitemap")
+    || {path}.startsWith("/manifest.json") \
+    || {path}.startsWith("/robots.txt")
 
 route {
     root * /srv/api/public
