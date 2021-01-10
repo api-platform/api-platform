@@ -29,7 +29,6 @@ jobs:
                     esac
                   done
                   exit 1
-            - run: docker-compose logs caddy
             - name: Check HTTP reachability
               run: curl -v -o /dev/null http://localhost
             - name: Check HTTPS reachability
