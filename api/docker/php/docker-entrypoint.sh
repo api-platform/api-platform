@@ -24,14 +24,15 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	if grep -q DATABASE_URL= .env; then
 		echo "Waiting for database to be ready..."
 		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
-		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || bin/console doctrine:query:sql "SELECT 1" >/dev/null 2>&1; do
+		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(bin/console doctrine:query:sql -q "SELECT 1" 2>&1); do
 			sleep 1
 			ATTEMPTS_LEFT_TO_REACH_DATABASE=$((ATTEMPTS_LEFT_TO_REACH_DATABASE - 1))
-			echo "Still waiting for database to be ready... Or maybe the database is not reachable. $ATTEMPTS_LEFT_TO_REACH_DATABASE attempts left"
+			echo "Still waiting for database to be ready... Or maybe the database is not reachable. $ATTEMPTS_LEFT_TO_REACH_DATABASE attempts left."
 		done
 
 		if [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ]; then
-			echo "The database is not up or not reachable"
+			echo "The database is not up or not reachable:"
+			echo "$DATABASE_ERROR"
 			exit 1
 		else
 			echo "The database is now ready and reachable"

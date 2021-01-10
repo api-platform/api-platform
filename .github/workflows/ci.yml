@@ -21,7 +21,11 @@ jobs:
                     case $status in
                       starting) sleep 1;;
                       healthy) exit 0;;
-                      unhealthy) exit 1;;
+                      unhealthy)
+                        docker-compose ps
+                        docker-compose logs
+                        exit 1
+                      ;;
                     esac
                   done
                   exit 1
@@ -31,6 +35,6 @@ jobs:
             - name: Check HTTPS reachability
               run: curl  -vk -o /dev/null https://localhost
             - name: PHPUnit
-              run: docker-compose exec -T php vendor/bin/simple-phpunit
+              run: docker-compose exec -T php bin/phpunit
             - name: Jest
               run: docker-compose exec -T pwa yarn test --passWithNoTests
