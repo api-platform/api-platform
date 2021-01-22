@@ -5,7 +5,7 @@ docker-compose pull
 docker-compose build
 
 # Update deps
-docker-compose run php composer update --ignore-platform-req=php
+docker-compose run php composer update
 docker-compose run pwa /bin/sh -c 'yarn install && yarn upgrade'
 
 # Update the Symfony skeleton

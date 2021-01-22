@@ -5,7 +5,7 @@
         "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "api-platform/core": "^2.6.0@beta",
+        "api-platform/core": "^2.6",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",
@@ -31,7 +31,7 @@
         "symfony/yaml": "5.2.*"
     },
     "require-dev": {
-        "api-platform/schema-generator": "^2.2",
+        "api-platform/schema-generator": "^3.0",
         "symfony/browser-kit": "5.2.*",
         "symfony/css-selector": "5.2.*",
         "symfony/debug-bundle": "5.2.*",
