@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "5cb0508dd86c15fcbf8ef8b9c3012a2c445f4d6f"
+                "reference": "4b293b0c004597bcf5f6b653d7d464fa71e9d064"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/5cb0508dd86c15fcbf8ef8b9c3012a2c445f4d6f",
-                "reference": "5cb0508dd86c15fcbf8ef8b9c3012a2c445f4d6f",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/4b293b0c004597bcf5f6b653d7d464fa71e9d064",
+                "reference": "4b293b0c004597bcf5f6b653d7d464fa71e9d064",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v2.6.0"
+                "source": "https://github.com/api-platform/core/tree/v2.6.1"
             },
             "funding": [
                 {
@@ -162,7 +162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T12:29:40+00:00"
+            "time": "2021-01-24T21:00:50+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
