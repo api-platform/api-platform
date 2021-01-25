@@ -27,6 +27,7 @@ VOLUME /usr/src/pwa/node_modules
 # depends on the "common" stage above
 FROM api_platform_pwa_common AS api_platform_pwa_dev
 
+ENV API_PLATFORM_CLIENT_GENERATOR_OUTPUT .
 RUN yarn global add @api-platform/client-generator
 
 CMD ["yarn", "dev"]
