@@ -53,12 +53,13 @@
   dependencies:
     cross-fetch "3.0.6"
 
-"@api-platform/admin@^2.2.0":
-  version "2.5.8"
-  resolved "https://registry.yarnpkg.com/@api-platform/admin/-/admin-2.5.8.tgz#0009503805a4e261c3a0fb9f31e8c8ab4bb477b5"
-  integrity sha512-hEIyTnNt30SgVmEFJn8kLEWx0tc5eh7gRpouskYAaqvshPZCR7sDzI8oNzOFTyjFfIjNHHqLCdIpqmIBm9u4qA==
+"@api-platform/admin@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@api-platform/admin/-/admin-2.6.0.tgz#667c4f01012603814710043909e2bba789ac4b85"
+  integrity sha512-l0i+KUYY2gGdxECWVGWrk9T6bqSWSZpMrI94dS+eUgj5PavUYB/ZmzisBYRbes41S0BjJMmqwciM2bsnr/6wUQ==
   dependencies:
     "@api-platform/api-doc-parser" "^0.12.0"
+    final-form-submit-errors "^0.1.0"
     history "^4.7.2"
     jsonld "^3.2.0"
     lodash.isplainobject "^4.0.6"
@@ -3021,6 +3022,11 @@ final-form-arrays@^3.0.1:
   resolved "https://registry.yarnpkg.com/final-form-arrays/-/final-form-arrays-3.0.2.tgz#9f3bef778dec61432357744eb6f3abef7e7f3847"
   integrity sha512-TfO8aZNz3RrsZCDx8GHMQcyztDNpGxSSi9w4wpSNKlmv2PfFWVVM8P7Yj5tj4n0OWax+x5YwTLhT5BnqSlCi+w==
 
+final-form-submit-errors@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/final-form-submit-errors/-/final-form-submit-errors-0.1.0.tgz#d841cb53110b4368526732cde20f494a44af4372"
+  integrity sha512-xRqK1Ro1Dcn6k0UzykvajCU9SZwkiwGuSNKgsdwyrRyx0tpZdPRsYid5TyuFb10BhZjWmoz4fA+xh0jO9cuu5g==
+
 final-form@^4.18.5:
   version "4.20.1"
   resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.20.1.tgz#525a7f7f27f55c28d8994b157b24d6104fc560e9"
@@ -3278,9 +3284,9 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.2.4
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
 graphql@^15.0.0:
-  version "15.4.0"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.4.0.tgz#e459dea1150da5a106486ba7276518b5295a4347"
-  integrity sha512-EB3zgGchcabbsU9cFe1j+yxdzKQKAbGUWRb13DsrsMN1yyfmmIq+2+L5MqVWcDCE4V89R5AyUOi7sMOGxdsYtA==
+  version "15.5.0"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.0.tgz#39d19494dbe69d1ea719915b578bf920344a69d5"
+  integrity sha512-OmaM7y0kaK31NKG31q4YbD2beNYa6jBBKtMFT6gLYJljHLJr42IqJ8KX08u3Li/0ifzTU5HjmoOOrwa5BRLeDA==
 
 growly@^1.3.0:
   version "1.3.0"
