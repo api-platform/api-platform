@@ -27,8 +27,8 @@ class Greeting
      * A nice person
      *
      * @ORM\Column
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
     public string $name = '';
 
     public function getId(): ?int
