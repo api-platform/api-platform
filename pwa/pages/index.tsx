@@ -2671,7 +2671,6 @@ const Sto = () => (
         width={25}
         height={25}
         viewBox="0 0 120 120"
-        style={{ enableBackground: "new 0 0 120 120" }}
     >
         <style jsx>
             {`
