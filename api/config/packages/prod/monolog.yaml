@@ -8,8 +8,9 @@ monolog:
             buffer_size: 50 # How many messages should be saved? Prevent memory leaks
         nested:
             type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            path: php://stderr
             level: debug
+            formatter: monolog.formatter.json
         console:
             type: console
             process_psr_3_messages: false
