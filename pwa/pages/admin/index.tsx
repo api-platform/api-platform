@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 const API_ENTRYPOINT =
-  process.env.REACT_APP_API_ENTRYPOINT || "https://localhost";
+  process.env.NEXT_PUBLIC_REACT_APP_API_ENTRYPOINT || "https://localhost";
 
 const AdminLoader = () => {
   if (typeof window !== "undefined") {
