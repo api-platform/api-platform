@@ -44,10 +44,14 @@ route {
     vulcain
     push
 
-    # Set headers for protection against XSS, clickjacking and MIME-sniffing.
-    header / {
+    header {
+        # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
+        ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
+
+        # Set security headers
+
         # Enable HTTP Strict Transport Security (HSTS) to force clients to always connect via HTTPS
-        Strict-Transport-Security "max-age=31536000;"
+        Strict-Transport-Security "max-age=31536000; preload"
         # Enable cross-site filter (XSS) and tell browser to block detected attacks
         X-XSS-Protection "1; mode=block"
         # Prevent some browsers from MIME-sniffing a response away from the declared Content-Type
@@ -55,10 +59,7 @@ route {
         # Disallow the site to be rendered within a frame (clickjacking protection)
         X-Frame-Options "DENY"
     }
-    
-    # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
-    header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
-    
+
     # Comment the following line if you don't want Next.js to catch requests for HTML documents.
     # In this case, they will be handled by the PHP app.
     reverse_proxy @pwa http://{$PWA_UPSTREAM}
