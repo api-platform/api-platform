@@ -17,7 +17,9 @@ RUN apk add --no-cache \
 		file \
 		gettext \
 		git \
+		gnu-libiconv \
 	;
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 ARG APCU_VERSION=5.1.19
 RUN set -eux; \
