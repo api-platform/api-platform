@@ -121,7 +121,9 @@ CMD ["php-fpm"]
 FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
 RUN xcaddy build \
+    --with github.com/dunglas/mercure \
     --with github.com/dunglas/mercure/caddy \
+    #--with github.com/dunglas/vulcain \
     --with github.com/dunglas/vulcain/caddy
 
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
