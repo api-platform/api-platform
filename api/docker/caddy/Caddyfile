@@ -41,7 +41,7 @@ route {
         # Extra directives
         {$MERCURE_EXTRA_DIRECTIVES}
     }
-    #vulcain
+    vulcain
     push
 
     header {
