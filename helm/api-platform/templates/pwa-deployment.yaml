@@ -33,6 +33,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.pwa.image.repository }}:{{ .Values.pwa.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.pwa.image.pullPolicy }}
+          env:
+            - name: NEXT_PUBLIC_ENTRYPOINT
+              value: http://{{ include "api-platform.fullname" . }}
           ports:
             - name: http
               containerPort: 3000

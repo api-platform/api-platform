@@ -1,6 +1,4 @@
 /docker/db/data
-/helm/api/charts
-/helm/api/Chart.lock
 
 ###> symfony/framework-bundle ###
 /.env.local

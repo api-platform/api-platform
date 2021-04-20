@@ -16,7 +16,7 @@ services:
       context: ./pwa
       target: api_platform_pwa_dev
     volumes:
-      - ./pwa:/usr/src/pwa:rw,cached 
+      - ./pwa:/usr/src/pwa:rw,cached
 
   caddy:
     volumes:

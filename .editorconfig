@@ -15,7 +15,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{js,html}]
+[*.{js,html,ts,tsx}]
 indent_style = space
 indent_size = 2
 
@@ -43,7 +43,7 @@ indent_style = space
 indent_size = 4
 trim_trailing_whitespace = false
 
-[api/helm/api/**.yaml]
+[helm/api-platform/**.yaml]
 indent_style = space
 indent_size = 2
 
