@@ -9,6 +9,6 @@ data:
   php-app-debug: {{ .Values.php.appDebug | quote }}
   php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
   php-trusted-hosts: {{ .Values.php.trustedHosts | quote }}
-  php-trusted-proxies: {{ join "," .Values.php.trustedProxies }}
-  mercure-publish-url: {{ .Values.mercure.publishUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
-  mercure-subscribe-url: {{ .Values.mercure.subscribeUrl | quote }}
+  php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
+  mercure-url: "http://{{ include "api-platform.fullname" . }}/.well-known/mercure"
+  mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}

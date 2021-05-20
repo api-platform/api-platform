@@ -42,12 +42,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
-                  key: mercure-publisher-jwt-key
+                  key: mercure-jwt-secret
             - name: MERCURE_SUBSCRIBER_JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
-                  key: mercure-subscriber-jwt-key
+                  key: mercure-jwt-secret
           ports:
             - name: http
               containerPort: 80
@@ -115,21 +115,21 @@ spec:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
                   key: database-url
-            - name: MERCURE_PUBLISH_URL
+            - name: MERCURE_URL
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "api-platform.fullname" . }}
-                  key: mercure-publish-url
-            - name: MERCURE_SUBSCRIBE_URL
+                  key: mercure-url
+            - name: MERCURE_PUBLIC_URL
               valueFrom:
                 configMapKeyRef:
                   name: {{ include "api-platform.fullname" . }}
-                  key: mercure-subscribe-url
-            - name: MERCURE_JWT_TOKEN
+                  key: mercure-public-url
+            - name: MERCURE_JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
-                  key: mercure-jwt-token
+                  key: mercure-jwt-secret
           volumeMounts:
             - mountPath: /var/run/php
               name: php-socket
