@@ -1,6 +1,8 @@
 apiVersion: v2
 name: api-platform
 description: A Helm chart for an API Platform project
+home: https://api-platform.com
+icon: https://api-platform.com/logo-250x250.png
 
 # A chart can be either an 'application' or a 'library' chart.
 #

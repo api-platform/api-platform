@@ -1,6 +1,6 @@
 # Contributing to API Platform
 
-First of all, thank you for contributing, you're awesome!
+First, thank you for contributing, you're awesome!
 
 To have your code integrated in the API Platform project, there are some rules to follow, but don't panic, it's easy!
 
@@ -22,9 +22,7 @@ Then, if it appears that it's a real bug, you may report it using Github by foll
 
 ### Writing a Pull Request
 
-First of all, you must decide on what branch your changes will be based. If the changes your are going to make are
-fully backward-compatible, you should base your changes on the latest stable branch (`2.0` at the moment).
-Otherwise, you should base your changes on the `master` branch.
+You should base your changes on the `main` branch.
 
 ### Matching Coding Standards
 

@@ -38,14 +38,10 @@ caddy:
 
 # You may prefer using the managed version in production: https://mercure.rocks
 mercure:
-  publishUrl: ""
-  subscribeUrl: https://chart-example.local/.well-known/mercure
+  publicUrl: https://chart-example.local/.well-known/mercure
   # Change me!
-  jwtToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOltdfX0.Oo0yg7y4yMa1vr_bziltxuTCqb8JVHKxp-f_FwwOim0"
-  # Change me!
-  publisherJwtKey: "!ChangeMe!"
-  # Change me!
-  subscriberJwtKey: "!ChangeMe!"
+  jwtSecret: "!ChangeMe!"
+  corsAllowedOrigins: "^https?://.*?\\.chart-example\\.local$"
 
 # Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
 postgresql:
