@@ -5707,16 +5707,16 @@
         },
         {
             "name": "symfony/security-guard",
-            "version": "v5.2.4",
+            "version": "v5.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-guard.git",
-                "reference": "a191352047f2ea0d927c62e1a2f261cf906d1bde"
+                "reference": "8137325674edfdecf7367e40804d8ee9525b87e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-guard/zipball/a191352047f2ea0d927c62e1a2f261cf906d1bde",
-                "reference": "a191352047f2ea0d927c62e1a2f261cf906d1bde",
+                "url": "https://api.github.com/repos/symfony/security-guard/zipball/8137325674edfdecf7367e40804d8ee9525b87e0",
+                "reference": "8137325674edfdecf7367e40804d8ee9525b87e0",
                 "shasum": ""
             },
             "require": {
@@ -5754,7 +5754,7 @@
             "description": "Symfony Security Component - Guard",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-guard/tree/v5.2.4"
+                "source": "https://github.com/symfony/security-guard/tree/v5.2.8"
             },
             "funding": [
                 {
@@ -5770,7 +5770,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T10:15:41+00:00"
+            "time": "2021-05-12T13:14:35+00:00"
         },
         {
             "name": "symfony/security-http",
