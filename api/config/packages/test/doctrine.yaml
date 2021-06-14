@@ -1,4 +1,4 @@
 doctrine:
     dbal:
         # "TEST_TOKEN" is typically set by ParaTest
-        dbname: 'main_test%env(default::TEST_TOKEN)%'
+        dbname_suffix: '_test%env(default::TEST_TOKEN)%'
