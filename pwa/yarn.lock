@@ -44,16 +44,16 @@
   integrity sha512-kixrYn4JwfAVPa0f2yfzc2AWti6WRRyO3XjWW5PJAvtE11qhSayrrcrEnee05KAtNaPC+EwehE8Qt1UedEVB8w==
 
 "@babel/core@^7.1.0", "@babel/core@^7.7.5":
-  version "7.14.5"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.14.5.tgz#d281f46a9905f07d1b3bf71ead54d9c7d89cb1e3"
-  integrity sha512-RN/AwP2DJmQTZSfiDaD+JQQ/J99KsIpOCfBE5pL+5jJSt7nI3nYGoAXZu+ffYSQ029NLs2DstZb+eR81uuARgg==
+  version "7.14.6"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.14.6.tgz#e0814ec1a950032ff16c13a2721de39a8416fcab"
+  integrity sha512-gJnOEWSqTk96qG5BoIrl5bVtc23DCycmIePPYnamY9RboYdI4nFy5vAQMSl81O5K/W0sLDWfGysnOECC+KUUCA==
   dependencies:
     "@babel/code-frame" "^7.14.5"
     "@babel/generator" "^7.14.5"
     "@babel/helper-compilation-targets" "^7.14.5"
     "@babel/helper-module-transforms" "^7.14.5"
-    "@babel/helpers" "^7.14.5"
-    "@babel/parser" "^7.14.5"
+    "@babel/helpers" "^7.14.6"
+    "@babel/parser" "^7.14.6"
     "@babel/template" "^7.14.5"
     "@babel/traverse" "^7.14.5"
     "@babel/types" "^7.14.5"
@@ -180,10 +180,10 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-option/-/helper-validator-option-7.14.5.tgz#6e72a1fff18d5dfcb878e1e62f1a021c4b72d5a3"
   integrity sha512-OX8D5eeX4XwcroVW45NMvoYaIuFI+GQpA2a8Gi+X/U/cDUIRsV37qQfF905F0htTRCREQIB4KqPeaveRJUl3Ow==
 
-"@babel/helpers@^7.14.5":
-  version "7.14.5"
-  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.14.5.tgz#4870f8d9a6fdbbd65e5674a3558b4ff7fef0d9b2"
-  integrity sha512-xtcWOuN9VL6nApgVHtq3PPcQv5qFBJzoSZzJ/2c0QK/IP/gxVcoWSNQwFEGvmbQsuS9rhYqjILDGGXcTkA705Q==
+"@babel/helpers@^7.14.6":
+  version "7.14.6"
+  resolved "https://registry.yarnpkg.com/@babel/helpers/-/helpers-7.14.6.tgz#5b58306b95f1b47e2a0199434fa8658fa6c21635"
+  integrity sha512-yesp1ENQBiLI+iYHSJdoZKUtRpfTlL1grDIX9NRlAVppljLw/4tTyYupIB7uIYmC3stW/imAv8EqaKaS/ibmeA==
   dependencies:
     "@babel/template" "^7.14.5"
     "@babel/traverse" "^7.14.5"
@@ -198,10 +198,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.14.5":
-  version "7.14.5"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.14.5.tgz#4cd2f346261061b2518873ffecdf1612cb032829"
-  integrity sha512-TM8C+xtH/9n1qzX+JNHi7AN2zHMTiPUtspO0ZdHflW8KaskkALhMmuMHb4bCmNdv9VAPzJX3/bXqkVLnAvsPfg==
+"@babel/parser@^7.1.0", "@babel/parser@^7.14.5", "@babel/parser@^7.14.6":
+  version "7.14.6"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.14.6.tgz#d85cc68ca3cac84eae384c06f032921f5227f4b2"
+  integrity sha512-oG0ej7efjEXxb4UgE+klVx+3j4MVo+A2vCzm7OUN4CLo6WhQ+vSOD2yJ8m7B+DghObxtLxt3EfgMWpq+AsWehQ==
 
 "@babel/plugin-syntax-async-generators@^7.8.4":
   version "7.8.4"
@@ -288,9 +288,9 @@
     "@babel/helper-plugin-utils" "^7.14.5"
 
 "@babel/runtime-corejs3@^7.10.2":
-  version "7.14.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.14.5.tgz#0d9bf00d59c0b73185c462c323efffd0f4c37283"
-  integrity sha512-cBbwXj3F2xjnQJ0ERaFRLjxhUSBYsQPXJ7CERz/ecx6q6hzQ99eTflAPFC3ks4q/IG4CWupNVdflc4jlFBJVsg==
+  version "7.14.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.14.6.tgz#066b966eda40481740180cb3caab861a3f208cd3"
+  integrity sha512-Xl8SPYtdjcMoCsIM4teyVRg7jIcgl8F2kRtoCcXuHzXswt9UxZCS6BzRo8fcnCuP6u2XtPgvyonmEPF57Kxo9Q==
   dependencies:
     core-js-pure "^3.14.0"
     regenerator-runtime "^0.13.4"
@@ -303,9 +303,9 @@
     regenerator-runtime "^0.13.4"
 
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
-  version "7.14.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.5.tgz#665450911c6031af38f81db530f387ec04cd9a98"
-  integrity sha512-121rumjddw9c3NCQ55KGkyE1h/nzWhU/owjhw0l4mQrkzz4x9SGS1X8gFLraHwX7td3Yo4QTL+qj0NcIzN87BA==
+  version "7.14.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.6.tgz#535203bc0892efc7dec60bdc27b2ecf6e409062d"
+  integrity sha512-/PCB2uJ7oM44tz8YhC4Z/6PeOKXp4K588f+5M3clr1M4zbqztlo0XEfJ2LEzj/FgwfgGcIdl8n7YYjTCI0BYwg==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -4679,10 +4679,10 @@ querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
   integrity sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==
 
-ra-core@^3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.16.1.tgz#784cc3c4a37b2d756fef359c49f991ba9c9af274"
-  integrity sha512-taS6SbQYOjzsCbCIhoXyvmilU45iCnmfSyO1YzHL4iDySIBpa2IVM1O1iilzEvO/5vnegNKhU2zevOlRALmUfw==
+ra-core@^3.16.2:
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.16.2.tgz#e961b9ac9868164d3813c578e82fce8bee06551f"
+  integrity sha512-akovJTEmWs3+nLALvOveevE5YabOUpTXSTm83HqJAgfl2Z+F+FrqXqr9447D38/p9fmsYJ6BH54GhXDBJtIS3A==
   dependencies:
     classnames "~2.2.5"
     date-fns "^1.29.0"
@@ -4693,25 +4693,25 @@ ra-core@^3.16.1:
     query-string "^5.1.1"
     reselect "~3.0.0"
 
-ra-i18n-polyglot@^3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.16.1.tgz#2269b50565e38a2cad09d67a71331b420a52bdc2"
-  integrity sha512-h75aTK2JiwuBO+g9ZIG6qjGVXRl8ES8GRhhwdehvV9baK5M1+KsPvrtdyMshYvNvO6ZM6Tj0pdrKyK2KJMynAQ==
+ra-i18n-polyglot@^3.16.2:
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.16.2.tgz#84e1a600b5a5a3dc7b80c5551fefb3766346259f"
+  integrity sha512-561FZxP8+pfZ2VeS8hcnecL2Dh+7f25t6s5pWuIdvRk3K3FMcfdTNcsvPgNCTt9FD6HflWaWVXPpHFPnAjGTKA==
   dependencies:
     node-polyglot "^2.2.2"
-    ra-core "^3.16.1"
+    ra-core "^3.16.2"
 
-ra-language-english@^3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.16.1.tgz#89b88e511a2ecf922d6070cf227456c949712177"
-  integrity sha512-Jcmaxj64+hxM55hdADsY7KjzVvLkKBSfSyCBEWdyBFy328hM0rCTbxL9YMYokx0jOgZbmS7W+t68FfsPRu6SRg==
+ra-language-english@^3.16.2:
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.16.2.tgz#87db4504ae3b60ca3a2fc98e356d85fcf93ecc88"
+  integrity sha512-f93kQ3+fxmt9oz06LGvGeBmU0zomiMMxtLTF38fci8n7YfpNO16qrkXeAur9mH/jg6N1gD/40prVZsJ3B/pyrA==
   dependencies:
-    ra-core "^3.16.1"
+    ra-core "^3.16.2"
 
-ra-ui-materialui@^3.16.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.16.1.tgz#9ad9aa46276d761c24ee27037eaeb4b661b67fc8"
-  integrity sha512-5Q5dRZDJui6OE4zw/P2QwUQROHrZp3s2Z17uZDjI1i0Tto4NC2uGQLNgx9VT4uK03+WguJ5i8iz154BYza2FQg==
+ra-ui-materialui@^3.16.2:
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.16.2.tgz#9fbd1a7104cd1a291801101d01212c47e1a724c6"
+  integrity sha512-OxXYBFETN89thmfqbR0iYWWloMqIO6njHNc47i5CGq5Bd5ZKZv7D87eHJrZ8+c73aczspNc9vBDYxGKv1VS4DQ==
   dependencies:
     autosuggest-highlight "^3.1.1"
     classnames "~2.2.5"
@@ -4767,9 +4767,9 @@ rdf-canonize@^3.0.0:
     setimmediate "^1.0.5"
 
 react-admin@^3.0.0:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.16.1.tgz#ad5209d50694c71b54465253a4cd67f067bdeb42"
-  integrity sha512-tDl34ZYpTNVjVUNMspUbRAv5SHKCs6zOhtrybls+mmB3P3afCvSgrZMxuDcq8bag/08CSlyb7bsqBTPSHXNVJA==
+  version "3.16.2"
+  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.16.2.tgz#0d4fdca5ef7515029ae93716d33db763faba15d9"
+  integrity sha512-CCk8gTBk77MOKSLRjF/4LE+GHhunOCn2aeTjoEzxGR65NifJgfswzBHEUdMdh+hutoiiS1r9Zg8ZPo3ezsDoKA==
   dependencies:
     "@material-ui/core" "^4.11.2"
     "@material-ui/icons" "^4.11.2"
@@ -4777,10 +4777,10 @@ react-admin@^3.0.0:
     connected-react-router "^6.5.2"
     final-form "^4.20.2"
     final-form-arrays "^3.0.2"
-    ra-core "^3.16.1"
-    ra-i18n-polyglot "^3.16.1"
-    ra-language-english "^3.16.1"
-    ra-ui-materialui "^3.16.1"
+    ra-core "^3.16.2"
+    ra-i18n-polyglot "^3.16.2"
+    ra-language-english "^3.16.2"
+    ra-ui-materialui "^3.16.2"
     react-final-form "^6.5.2"
     react-final-form-arrays "^3.1.3"
     react-redux "^7.1.0"
