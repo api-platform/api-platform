@@ -2,16 +2,19 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!**/*.d.ts",
-    "!**/node_modules/**",
+    "!**/.yarn/**",
   ],
   setupFilesAfterEnv: ["./setupTests.js"],
-  testPathIgnorePatterns: ["/node_modules/", "/.next/"],
+  testPathIgnorePatterns: [
+    "/.yarn/",
+    "/.next/"
+  ],
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "./node_modules/babel-jest",
+    "^.+\\.[jt]sx?$": "babel-jest",
     "^.+\\.css$": "./config/jest/cssTransform.js",
   },
   transformIgnorePatterns: [
-    "/node_modules/",
+    "^.+\\.pnp\\.[^\\/]+$",
     "^.+\\.module\\.(css|sass|scss)$",
   ],
   moduleNameMapper: {
