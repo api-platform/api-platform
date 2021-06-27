@@ -18,7 +18,7 @@ thanks to [the client generator](https://api-platform.com/docs/client-generator/
 * Install a development environment and deploy your project in production using **[Docker](https://api-platform.com/docs/distribution)**
 and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 * Easily add **[OAuth](https://oauth.net/) authentication**.
-* Create specs and tests with **[a developer friendly API testing tool](https://api-platform.com/docs/distribution/testing/)*.
+* Create specs and tests with **[a developer friendly API testing tool](https://api-platform.com/docs/distribution/testing/)**.
 
 [![GitHub Actions](https://github.com/api-platform/core/workflows/CI/badge.svg)](https://github.com/api-platform/core/actions?workflow=CI)
 [![Codecov](https://codecov.io/gh/api-platform/core/branch/master/graph/badge.svg)](https://codecov.io/gh/api-platform/core/branch/master)
