@@ -9,6 +9,21 @@ api_platform:
         versions: [3]
     # Mercure integration, remove if unwanted
     mercure: ~
+
+    http_cache:
+        # To make all responses public by default.
+        public: ~
+
+        invalidation:
+            # To enable the tags-based cache invalidation system.
+            enabled: true
+
+            # URLs of the Varnish servers to purge using cache tags when a resource is updated.
+            varnish_urls: ['varnish:80']
+
+            # To pass options to the client charged with the request.
+            #request_options: [ ]
+                
     # Good cache defaults for REST APIs
     defaults:
         stateless: true
