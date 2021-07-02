@@ -1,4 +1,6 @@
 {
+    auto_https disable_redirects
+
     # Debug
     {$DEBUG}
     # HTTP/3 support
@@ -9,7 +11,16 @@
     }
 }
 
-{$SERVER_NAME}
+
+localhost:443, localhost:80  {
+        log
+        reverse_proxy varnish:80
+}
+
+#{$SERVER_NAME}
+
+:2368
+{
 
 log
 
@@ -51,9 +62,11 @@ route {
 
     # Comment the following line if you don't want Next.js to catch requests for HTML documents.
     # In this case, they will be handled by the PHP app.
-    reverse_proxy @pwa http://{$PWA_UPSTREAM}
+    #reverse_proxy @pwa http://{$PWA_UPSTREAM}
 
     php_fastcgi unix//var/run/php/php-fpm.sock
     encode zstd gzip
     file_server
+}
+
 }

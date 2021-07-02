@@ -55,6 +55,16 @@ services:
         published: 443
         protocol: udp
 
+  varnish:
+    build:
+      context: api/
+      target: api_platform_varnish
+    depends_on: 
+      - caddy
+    environment:
+      BACKEND_PORT: 6081
+    restart: unless-stopped
+
   database:
     image: postgres:13-alpine
     environment:
