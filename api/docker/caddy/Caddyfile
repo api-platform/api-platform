@@ -1,0 +1,59 @@
+{
+    # Debug
+    {$DEBUG}
+    # HTTP/3 support
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+}
+
+{$SERVER_NAME}
+
+log
+
+# Matches requests for HTML documents, for static files and for Next.js files,
+# except for known API paths and paths with extensions handled by API Platform
+@pwa expression `(
+        {header.Accept}.matches("\\btext/html\\b")
+        && !{path}.matches("(?i)(?:^/docs|^/graphql|^/bundles/|^/_profiler|^/_wdt|\\.(?:json|html$|csv$|ya?ml$|xml$))")
+    )
+    || {path} == "/favicon.ico"
+    || {path} == "/manifest.json"
+    || {path} == "/robots.txt"
+    || {path}.startsWith("/_next")
+    || {path}.startsWith("/sitemap")`
+
+route {
+    root * /srv/api/public
+    mercure {
+        # Transport to use (default to Bolt)
+        transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
+        # Publisher JWT key
+        publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+        # Subscriber JWT key
+        subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+        # Allow anonymous subscribers (double-check that it's what you want)
+        anonymous
+        # Enable the subscription API (double-check that it's what you want)
+        subscriptions
+        # Extra directives
+        {$MERCURE_EXTRA_DIRECTIVES}
+    }
+    vulcain
+    push
+
+    # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
+    header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
+    # Disable Google FLOC tracking if not enabled explicitly: https://plausible.io/blog/google-floc
+    header ?Permissions-Policy "interest-cohort=()"
+
+    # Comment the following line if you don't want Next.js to catch requests for HTML documents.
+    # In this case, they will be handled by the PHP app.
+    reverse_proxy @pwa http://{$PWA_UPSTREAM}
+
+    php_fastcgi unix//var/run/php/php-fpm.sock
+    encode zstd gzip
+    file_server
+}
