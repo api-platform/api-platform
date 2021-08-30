@@ -8,7 +8,6 @@ php:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
-  replicaCount: 1
   appEnv: prod
   appDebug: "0"
   appSecret: ""
@@ -33,8 +32,6 @@ caddy:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
-  # If you use Mercure, you need the managed or the On Premise version to deploy more than one pod: https://mercure.rocks/docs/hub/cluster
-  replicaCount: 1
 
 # You may prefer using the managed version in production: https://mercure.rocks
 mercure:
@@ -114,6 +111,9 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+# If you use Mercure, you need the managed or the On Premise version to deploy more than one pod: https://mercure.rocks/docs/hub/cluster
+replicaCount: 1
 
 autoscaling:
   enabled: false
