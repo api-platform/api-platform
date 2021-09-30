@@ -3,7 +3,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG NODE_VERSION=14
+ARG NODE_VERSION=16
 
 # "common" stage
 FROM node:${NODE_VERSION}-alpine AS api_platform_pwa_common

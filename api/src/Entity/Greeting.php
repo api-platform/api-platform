@@ -8,26 +8,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This is a dummy entity. Remove it!
- *
- * @ORM\Entity
  */
 #[ApiResource(mercure: true)]
+#[ORM\Entity]
 class Greeting
 {
     /**
      * The entity ID
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
     private ?int $id = null;
 
     /**
      * A nice person
-     *
-     * @ORM\Column
      */
+    #[ORM\Column]
     #[Assert\NotBlank]
     public string $name = '';
 
