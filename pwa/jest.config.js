@@ -7,7 +7,10 @@ module.exports = {
   setupFilesAfterEnv: ["./setupTests.js"],
   testPathIgnorePatterns: ["/node_modules/", "/.next/"],
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "./node_modules/babel-jest",
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      './node_modules/babel-jest',
+      { configFile: './babel.jest.config.js' },
+    ],
     "^.+\\.css$": "./config/jest/cssTransform.js",
   },
   transformIgnorePatterns: [
