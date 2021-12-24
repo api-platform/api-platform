@@ -51,15 +51,15 @@ services:
     ports:
       # HTTP
       - target: 80
-        published: 80
+        published: ${HTTP_PORT:-80}
         protocol: tcp
       # HTTPS
       - target: 443
-        published: 443
+        published: ${HTTPS_PORT:-443}
         protocol: tcp
       # HTTP/3
       - target: 443
-        published: 443
+        published: ${HTTP3_PORT:-443}
         protocol: udp
 
   database:
@@ -74,8 +74,16 @@ services:
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./api/docker/db/data:/var/lib/postgresql/data:rw
 
+# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
+###> symfony/mercure-bundle ###
+###< symfony/mercure-bundle ###
+
 volumes:
   php_socket:
-  db_data:
   caddy_data:
   caddy_config:
+###> doctrine/doctrine-bundle ###
+  db_data:
+###< doctrine/doctrine-bundle ###
+###> symfony/mercure-bundle ###
+###< symfony/mercure-bundle ###
