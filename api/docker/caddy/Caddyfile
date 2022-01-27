@@ -46,8 +46,8 @@ route {
 
     # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
     header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
-    # Disable Google FLOC tracking if not enabled explicitly: https://plausible.io/blog/google-floc
-    header ?Permissions-Policy "interest-cohort=()"
+    # Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
+    header ?Permissions-Policy "browsing-topics=()"
 
     # Comment the following line if you don't want Next.js to catch requests for HTML documents.
     # In this case, they will be handled by the PHP app.
