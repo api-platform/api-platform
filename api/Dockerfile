@@ -6,6 +6,8 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
+ARG DATABASE_ENGINE=postgresql
+# ARG DATABASE_ENGINE=mysql
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
@@ -66,7 +68,7 @@ RUN if [ "$DATABASE_ENGINE" = "postgresql" ] ; then \
 	apk del .pgsql-deps ; \
 	fi
 
-RUN if [ "$DATABASE_ENGINE" = "postgresql" ] ; then \
+RUN if [ "$DATABASE_ENGINE" = "mysql" ] ; then \
 	docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql; \
     docker-php-ext-enable mysqli ; \
 	fi
