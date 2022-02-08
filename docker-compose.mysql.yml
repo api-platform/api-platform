@@ -6,7 +6,7 @@ services:
     depends_on:
       - database
     environment:
-      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?serverVersion=${MYSQL_VERSION}
+      DATABASE_URL: mysql://${MYSQL_USER:-api-platform}:${MYSQL_PASSWORD:-!ChangeMe!}@${MYSQL_HOST:-127.0.0.1}:${MYSQL_PORT:-3306}/${MYSQL_DATABASE:-api}?serverVersion=${MYSQL_VERSION:-8}
 
 ###> doctrine/doctrine-bundle ###
   database:
@@ -16,9 +16,9 @@ services:
           condition: on-failure
       environment:
         MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE:-api}
+        MYSQL_USER: ${MYSQL_USER:-api-platform}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD:-!ChangeMe!}
       volumes:
         - db_data:/var/lib/mysql:rw
       ports:
