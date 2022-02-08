@@ -1,0 +1,30 @@
+version: "3.4"
+
+# To run mysql as part of Docker
+services:
+  php:
+    depends_on:
+      - database
+
+###> doctrine/doctrine-bundle ###
+  database:
+      image: mysql:8
+      deploy:
+        restart_policy:
+          condition: on-failure
+      environment:
+        - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${DATABASE_NAME}
+        - MYSQL_USER=${DATABASE_USER}
+        - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      volumes:
+        # is this correct?
+        - db_data:/var/lib/mysql:rw
+      ports:
+        - 3306:3306
+###< doctrine/doctrine-bundle ###
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  db_data:
+###< doctrine/doctrine-bundle ###
