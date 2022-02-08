@@ -15,7 +15,7 @@ services:
         restart_policy:
           condition: on-failure
       environment:
-        MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-!ChangeMeRoot!}
         MYSQL_DATABASE: ${MYSQL_DATABASE:-api}
         MYSQL_USER: ${MYSQL_USER:-api-platform}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD:-!ChangeMe!}
