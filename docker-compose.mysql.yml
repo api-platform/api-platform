@@ -6,7 +6,7 @@ services:
     depends_on:
       - database
     environment:
-      DATABASE_URL: mysql://${MYSQL_USER:-api-platform}:${MYSQL_PASSWORD:-!ChangeMe!}@database:${MYSQL_PORT:-3306}/${MYSQL_DATABASE:-api}?serverVersion=${MYSQL_VERSION:-8}
+      DATABASE_URL: mysql://${MYSQL_USER:-api-platform}:${MYSQL_PASSWORD:-!ChangeMe!}@database:3306/${MYSQL_DATABASE:-api}?serverVersion=${MYSQL_VERSION:-8}
 
 ###> doctrine/doctrine-bundle ###
   database:
