@@ -1,0 +1,12 @@
+version: "3.4"
+
+# Development environment override
+services:
+
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+###< doctrine/doctrine-bundle ###
