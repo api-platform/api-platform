@@ -5,6 +5,8 @@ services:
   php:
     depends_on:
       - database
+    environment:
+      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?serverVersion=${MYSQL_VERSION}
 
 ###> doctrine/doctrine-bundle ###
   database:
@@ -13,12 +15,11 @@ services:
         restart_policy:
           condition: on-failure
       environment:
-        - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
-        - MYSQL_DATABASE=${DATABASE_NAME}
-        - MYSQL_USER=${DATABASE_USER}
-        - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       volumes:
-        # is this correct?
         - db_data:/var/lib/mysql:rw
       ports:
         - 3306:3306
