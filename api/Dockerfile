@@ -62,7 +62,7 @@ RUN set -eux; \
 ARG DATABASE_ENGINE=postgresql
 
 RUN if [ "$DATABASE_ENGINE" = "postgresql" ] ; then \
-    apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
+	apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 	docker-php-ext-install -j$(nproc) pdo_pgsql; \
 	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
 	apk del .pgsql-deps ; \
@@ -70,7 +70,7 @@ RUN if [ "$DATABASE_ENGINE" = "postgresql" ] ; then \
 
 RUN if [ "$DATABASE_ENGINE" = "mysql" ] ; then \
 	docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql; \
-    docker-php-ext-enable mysqli ; \
+	docker-php-ext-enable mysqli ; \
 	fi
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
