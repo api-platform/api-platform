@@ -23,6 +23,12 @@ services:
         - db_data:/var/lib/mysql:rw
       ports:
         - 3306:3306
+      entrypoint:
+        - /bin/bash
+        - -c
+        - |
+          echo 'GRANT ALL on `api_test`.* to `api-platform`@`%`;' > /docker-entrypoint-initdb.d/init.sql;
+          /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 ###< doctrine/doctrine-bundle ###
 
 volumes:
