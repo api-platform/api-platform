@@ -42,7 +42,6 @@ route {
         {$MERCURE_EXTRA_DIRECTIVES}
     }
     vulcain
-    push
 
     # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
     header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
