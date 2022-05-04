@@ -1,9 +1,11 @@
 #!/bin/sh
 set -e
 
+USER_ID=$(stat -c "%u" ./composer.json)
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
-	set -- php-fpm "$@"
+	set -- su-exec $USER_ID php-fpm "$@"
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
@@ -14,11 +16,12 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini"
 
 	mkdir -p var/cache var/log
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+	setfacl -R -m u:www-data:rwX -m u:"$USER_ID":rwX var /var/run/php
+	setfacl -dR -m u:www-data:rwX -m u:"$USER_ID":rwX var /var/run/php
+	chown $USER_ID /proc/self/fd/1 /proc/self/fd/2
 
 	if [ "$APP_ENV" != 'prod' ]; then
-		composer install --prefer-dist --no-progress --no-interaction
+		su-exec $USER_ID composer install --prefer-dist --no-progress --no-interaction
 	fi
 
 	if grep -q DATABASE_URL= .env; then
@@ -44,9 +47,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 
 		if [ "$( find ./migrations -iname '*.php' -print -quit )" ]; then
-			php bin/console doctrine:migrations:migrate --no-interaction
+			su-exec $USER_ID php bin/console doctrine:migrations:migrate --no-interaction
 		fi
 	fi
 fi
 
-exec docker-php-entrypoint "$@"
+exec su-exec $USER_ID docker-php-entrypoint "$@"

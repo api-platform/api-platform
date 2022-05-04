@@ -63,6 +63,8 @@ RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+RUN apk add --no-cache su-exec
+
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
 
