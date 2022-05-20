@@ -48,19 +48,19 @@ services:
       - php_socket:/var/run/php
       - caddy_data:/data
       - caddy_config:/config
-    ports:
-      # HTTP
-      - target: 80
-        published: ${HTTP_PORT:-80}
-        protocol: tcp
-      # HTTPS
-      - target: 443
-        published: ${HTTPS_PORT:-443}
-        protocol: tcp
-      # HTTP/3
-      - target: 443
-        published: ${HTTP3_PORT:-443}
-        protocol: udp
+#    ports:
+#      # HTTP
+#      - target: 80
+#        published: ${HTTP_PORT:-80}
+#        protocol: tcp
+#      # HTTPS
+#      - target: 443
+#        published: ${HTTPS_PORT:-443}
+#        protocol: tcp
+#      # HTTP/3
+#      - target: 443
+#        published: ${HTTP3_PORT:-443}
+#        protocol: udp
 
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
