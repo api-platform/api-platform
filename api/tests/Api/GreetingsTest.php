@@ -6,7 +6,7 @@ use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 
 class GreetingsTest extends ApiTestCase
 {
-    public function testCreateGreeting()
+    public function testCreateGreeting(): void
     {
         static::createClient()->request('POST', '/greetings', ['json' => [
             'name' => 'Kévin',

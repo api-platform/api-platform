@@ -2,7 +2,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^3.0@rc",
