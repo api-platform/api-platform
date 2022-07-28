@@ -8,7 +8,7 @@ fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	if [ "$APP_ENV" != 'prod' ]; then
-		ln -sf "$PHP_INI_RECOMMENDED" "$PHP_INI_DIR/php.ini-development"
+		ln -sf "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 	fi
 
 	mkdir -p var/cache var/log
