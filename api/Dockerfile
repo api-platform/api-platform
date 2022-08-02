@@ -7,7 +7,7 @@
 ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
 
-# "php" stage
+# prod stage
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
 
 # persistent / runtime deps
@@ -19,7 +19,6 @@ RUN apk add --no-cache \
 		git \
 	;
 
-ARG APCU_VERSION=5.1.21
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -35,7 +34,7 @@ RUN set -eux; \
 		zip \
 	; \
 	pecl install \
-		apcu-${APCU_VERSION} \
+		apcu \
 	; \
 	pecl clear-cache; \
 	docker-php-ext-enable \
@@ -65,7 +64,8 @@ RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.ini
+COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
+COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.prod.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
@@ -115,6 +115,22 @@ ENV SYMFONY_PHPUNIT_VERSION=9
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
+
+# dev stage
+FROM api_platform_php AS api_platform_php_dev
+ENV APP_ENV=dev
+
+RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
+	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
+	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+COPY docker/php/conf.d/api-platform.dev.ini $PHP_INI_DIR/conf.d/api-platform.dev.ini
+
+RUN set -eux; \
+	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
+	pecl install xdebug; \
+	docker-php-ext-enable xdebug; \
+	apk del .build-deps
 
 # "caddy" stage
 # depends on the "php" stage above
