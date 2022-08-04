@@ -7,8 +7,12 @@
 ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
 
-# prod stage
+# Prod image
 FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
+
+ENV APP_ENV=prod
+
+WORKDIR /srv/api
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -61,47 +65,12 @@ RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
 COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.prod.ini
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-
-VOLUME /var/run/php
-
-# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH="${PATH}:/root/.composer/vendor/bin"
-
-WORKDIR /srv/api
-
-# build for production
-ARG APP_ENV=prod
-
-# prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock ./
-RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-scripts --no-progress; \
-	composer clear-cache
-
-# copy only specifically what we need
-COPY .env ./
-COPY bin bin/
-COPY config config/
-COPY migrations migrations/
-COPY public public/
-COPY src src/
-COPY templates templates/
-
-RUN set -eux; \
-	mkdir -p var/cache var/log; \
-	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer dump-env prod; \
-	composer run-script --no-dev post-install-cmd; \
-	chmod +x bin/console; sync
-VOLUME /srv/api/var
+RUN mkdir -p /var/run/php
 
 COPY docker/php/docker-healthcheck.sh /usr/local/bin/docker-healthcheck
 RUN chmod +x /usr/local/bin/docker-healthcheck
@@ -111,14 +80,37 @@ HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 COPY docker/php/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
-ENV SYMFONY_PHPUNIT_VERSION=9
-
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
-# dev stage
+# https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PATH="${PATH}:/root/.composer/vendor/bin"
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# prevent the reinstallation of vendors at every changes in the source code
+COPY composer.json composer.lock symfony.lock ./
+RUN set -eux; \
+	composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
+	composer clear-cache
+
+# copy sources
+COPY . .
+RUN rm -Rf docker/
+
+RUN set -eux; \
+	mkdir -p var/cache var/log; \
+	composer dump-autoload --classmap-authoritative --no-dev; \
+	composer dump-env prod; \
+	composer run-script --no-dev post-install-cmd; \
+	chmod +x bin/console; sync
+
+# Dev image
 FROM api_platform_php AS api_platform_php_dev
+
 ENV APP_ENV=dev
+VOLUME /srv/api/var/
 
 RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
@@ -132,17 +124,16 @@ RUN set -eux; \
 	docker-php-ext-enable xdebug; \
 	apk del .build-deps
 
-# "caddy" stage
-# depends on the "php" stage above
+# Build Caddy with the Mercure and Vulcain modules
 FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
 
-# install Mercure and Vulcain modules
 RUN xcaddy build \
     --with github.com/dunglas/mercure \
     --with github.com/dunglas/mercure/caddy \
     --with github.com/dunglas/vulcain \
     --with github.com/dunglas/vulcain/caddy
 
+# Caddy image
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
 WORKDIR /srv/api

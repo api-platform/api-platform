@@ -63,16 +63,16 @@ services:
         protocol: udp
 
   database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
+    image: postgres:${POSTGRES_VERSION:-14}-alpine
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-api}
       # You should definitely change the password in production
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
       - POSTGRES_USER=${POSTGRES_USER:-api-platform}
     volumes:
-      - db_data:/var/lib/postgresql/data:rw
+      - db_data:/var/lib/postgresql/data
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./api/docker/db/data:/var/lib/postgresql/data:rw
+      # - ./api/docker/db/data:/var/lib/postgresql/data
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
