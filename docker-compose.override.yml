@@ -3,25 +3,32 @@ version: "3.4"
 # Development environment override
 services:
   php:
+    build:
+      target: api_platform_php_dev
     volumes:
-      - ./api:/srv/api:rw,cached
-      - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.ini
-      # if you develop on Linux, you may use a bind-mounted host directory instead
-      # - ./api/var:/srv/api/var:rw
+      - ./api:/srv/app
+      - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.dev.ini:ro
+      # If you develop on Mac or Windows you can remove the vendor/ directory 
+      #  from the bind-mount for better performance by enabling the next line:
+      #- /srv/app/vendor
     environment:
-      APP_ENV: dev
+      # See https://xdebug.org/docs/all_settings#mode 
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+    extra_hosts:
+      # Ensure that host.docker.internal is correctly defined on Linux
+      - host.docker.internal:host-gateway
 
   pwa:
     build:
       context: ./pwa
       target: api_platform_pwa_dev
     volumes:
-      - ./pwa:/usr/src/pwa:rw,cached
+      - ./pwa:/usr/src/pwa
 
   caddy:
     volumes:
+      - ./api/public:/srv/app/public:ro
       - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./api/public:/srv/api/public:ro
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo
 
