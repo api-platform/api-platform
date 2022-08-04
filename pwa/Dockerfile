@@ -20,6 +20,8 @@ RUN yarn
 
 COPY . ./
 
+VOLUME /usr/src/pwa/node_modules
+
 
 # "development" stage
 # depends on the "common" stage above
