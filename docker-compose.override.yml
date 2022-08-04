@@ -4,7 +4,7 @@ version: "3.4"
 services:
   php:
     build:
-      target: api_platform_php_dev
+      target: app_php_dev
     volumes:
       - ./api:/srv/app
       - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.dev.ini:ro
@@ -21,7 +21,7 @@ services:
   pwa:
     build:
       context: ./pwa
-      target: api_platform_pwa_dev
+      target: app_pwa_dev
     volumes:
       - ./pwa:/usr/src/pwa
 

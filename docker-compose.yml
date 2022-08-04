@@ -4,7 +4,7 @@ services:
   php:
     build:
       context: ./api
-      target: api_platform_php
+      target: app_php
     depends_on:
       - database
     restart: unless-stopped
@@ -26,7 +26,7 @@ services:
   pwa:
     build:
       context: ./pwa
-      target: api_platform_pwa_prod
+      target: app_pwa_prod
     environment:
       API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT: http://caddy
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
@@ -34,7 +34,7 @@ services:
   caddy:
     build:
       context: api/
-      target: api_platform_caddy
+      target: app_caddy
     depends_on:
       - php
       - pwa
