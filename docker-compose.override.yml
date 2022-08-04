@@ -6,7 +6,7 @@ services:
     build:
       target: api_platform_php_dev
     volumes:
-      - ./api:/srv/api
+      - ./api:/srv/app
       - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory 
       #  from the bind-mount for better performance by enabling the next line:
@@ -27,7 +27,7 @@ services:
 
   caddy:
     volumes:
-      - ./api/public:/srv/api/public:ro
+      - ./api/public:/srv/app/public:ro
       - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo

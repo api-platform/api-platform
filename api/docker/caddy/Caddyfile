@@ -26,7 +26,7 @@ log
     || {path}.startsWith("/sitemap")`
 
 route {
-    root * /srv/api/public
+    root * /srv/app/public
     mercure {
         # Transport to use (default to Bolt)
         transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}

@@ -12,7 +12,7 @@ FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
 
 ENV APP_ENV=prod
 
-WORKDIR /srv/api
+WORKDIR /srv/app
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -110,7 +110,7 @@ RUN set -eux; \
 FROM api_platform_php AS api_platform_php_dev
 
 ENV APP_ENV=dev
-VOLUME /srv/api/var/
+VOLUME /srv/app/var/
 
 RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
@@ -136,8 +136,8 @@ RUN xcaddy build \
 # Caddy image
 FROM caddy:${CADDY_VERSION} AS api_platform_caddy
 
-WORKDIR /srv/api
+WORKDIR /srv/app
 
 COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=api_platform_php /srv/api/public public/
+COPY --from=api_platform_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
