@@ -8,7 +8,7 @@ ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
 
 # Prod image
-FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
+FROM php:${PHP_VERSION}-fpm-alpine AS app_php
 
 ENV APP_ENV=prod
 
@@ -52,7 +52,7 @@ RUN set -eux; \
 			| sort -u \
 			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
 	)"; \
-	apk add --no-cache --virtual .api-phpexts-rundeps $runDeps; \
+	apk add --no-cache --virtual .app-phpexts-rundeps $runDeps; \
 	\
 	apk del .build-deps
 
@@ -66,8 +66,8 @@ RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 ###< recipes ###
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
-COPY docker/php/conf.d/api-platform.prod.ini $PHP_INI_DIR/conf.d/api-platform.prod.ini
+COPY docker/php/conf.d/app.ini $PHP_INI_DIR/conf.d/
+COPY docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
 COPY docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 RUN mkdir -p /var/run/php
@@ -90,7 +90,7 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY composer.json composer.lock symfony.lock ./
+COPY composer.* symfony.* ./
 RUN set -eux; \
 	composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
 	composer clear-cache
@@ -107,16 +107,16 @@ RUN set -eux; \
 	chmod +x bin/console; sync
 
 # Dev image
-FROM api_platform_php AS api_platform_php_dev
+FROM app_php AS app_php_dev
 
-ENV APP_ENV=dev
+ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /srv/app/var/
 
-RUN rm $PHP_INI_DIR/conf.d/api-platform.prod.ini; \
+RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-COPY docker/php/conf.d/api-platform.dev.ini $PHP_INI_DIR/conf.d/api-platform.dev.ini
+COPY docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
@@ -124,20 +124,22 @@ RUN set -eux; \
 	docker-php-ext-enable xdebug; \
 	apk del .build-deps
 
+RUN rm -f .env.local.php
+
 # Build Caddy with the Mercure and Vulcain modules
-FROM caddy:${CADDY_VERSION}-builder-alpine AS api_platform_caddy_builder
+FROM caddy:${CADDY_VERSION}-builder-alpine AS app_caddy_builder
 
 RUN xcaddy build \
-    --with github.com/dunglas/mercure \
-    --with github.com/dunglas/mercure/caddy \
-    --with github.com/dunglas/vulcain \
-    --with github.com/dunglas/vulcain/caddy
+	--with github.com/dunglas/mercure \
+	--with github.com/dunglas/mercure/caddy \
+	--with github.com/dunglas/vulcain \
+	--with github.com/dunglas/vulcain/caddy
 
 # Caddy image
-FROM caddy:${CADDY_VERSION} AS api_platform_caddy
+FROM caddy:${CADDY_VERSION} AS app_caddy
 
 WORKDIR /srv/app
 
-COPY --from=api_platform_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=api_platform_php /srv/app/public public/
+COPY --from=app_caddy_builder /usr/bin/caddy /usr/bin/caddy
+COPY --from=app_php /srv/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
