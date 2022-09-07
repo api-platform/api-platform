@@ -26,9 +26,9 @@ services:
   pwa:
     build:
       context: ./pwa
-      target: app_pwa_prod
+      target: prod
     environment:
-      API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT: http://caddy
+      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://caddy
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
 
   caddy:

@@ -44,5 +44,3 @@ jobs:
         run: docker compose exec -T php bin/phpunit
       - name: Doctrine Schema Validator
         run: docker compose exec -T php bin/console doctrine:schema:validate --skip-sync
-      - name: Jest
-        run: docker compose exec -T pwa yarn test --ci --passWithNoTests
