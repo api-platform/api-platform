@@ -21,9 +21,9 @@ services:
   pwa:
     build:
       context: ./pwa
-      target: app_pwa_dev
+      target: dev 
     volumes:
-      - ./pwa:/usr/src/pwa
+      - ./pwa:/srv/app
 
   caddy:
     volumes:

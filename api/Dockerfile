@@ -1,14 +1,7 @@
-# the different stages of this Dockerfile are meant to be built into separate images
-# https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
-# https://docs.docker.com/compose/compose-file/#target
-
-
-# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=8.1
-ARG CADDY_VERSION=2
+# Adapted from https://github.com/dunglas/symfony-docker
 
 # Prod image
-FROM php:${PHP_VERSION}-fpm-alpine AS app_php
+FROM php:8.1-fpm-alpine AS app_php
 
 ENV APP_ENV=prod
 
@@ -127,7 +120,7 @@ RUN set -eux; \
 RUN rm -f .env.local.php
 
 # Build Caddy with the Mercure and Vulcain modules
-FROM caddy:${CADDY_VERSION}-builder-alpine AS app_caddy_builder
+FROM caddy:2-builder-alpine AS app_caddy_builder
 
 RUN xcaddy build \
 	--with github.com/dunglas/mercure \
@@ -136,7 +129,7 @@ RUN xcaddy build \
 	--with github.com/dunglas/vulcain/caddy
 
 # Caddy image
-FROM caddy:${CADDY_VERSION} AS app_caddy
+FROM caddy:2-alpine AS app_caddy
 
 WORKDIR /srv/app
 
