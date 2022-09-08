@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@api-platform/admin": "^3.4.3",
+    "@api-platform/admin": "^3.3.5",
+    "@fontsource/open-sans": "^4.5.11",
+    "@fontsource/roboto-slab": "^4.5.9",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.10.2",
     "formik": "^2.2.9",
