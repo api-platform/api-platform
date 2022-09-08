@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@api-platform/admin": "^3.3.1",
+    "@fontsource/open-sans": "^4.5.11",
+    "@fontsource/roboto-slab": "^4.5.9",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
     "formik": "^2.2.9",

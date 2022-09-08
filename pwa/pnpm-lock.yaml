@@ -3,6 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@api-platform/admin': ^3.3.1
   '@babel/core': ^7.19.0
+  '@fontsource/open-sans': ^4.5.11
+  '@fontsource/roboto-slab': ^4.5.9
   '@popperjs/core': ^2.11.6
   '@types/node': ^18.7.15
   '@types/react': ^18.0.18
@@ -21,6 +23,8 @@ specifiers:
 
 dependencies:
   '@api-platform/admin': 3.3.1_q3lhx7j73grdkfcigv3e6242um
+  '@fontsource/open-sans': 4.5.11
+  '@fontsource/roboto-slab': 4.5.9
   bootstrap: 5.2.0_@popperjs+core@2.11.6
   bootstrap-icons: 1.9.1
   formik: 2.2.9_react@18.2.0
@@ -440,6 +444,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/open-sans/4.5.11:
+    resolution: {integrity: sha512-nG0gmbx4pSr8wltdG/ZdlS6OrsMK40Wt6iyuLTKHEf0TQfzKRMlWaskZHdeuWCwS6WUgqHKMf9KSwGdxPfapOg==}
+    dev: false
+
+  /@fontsource/roboto-slab/4.5.9:
+    resolution: {integrity: sha512-NTb8uSQSYqN5duI1EPZSigqrOeWkddQxixR1PhUemIXIIrmn+A3EoWOzcBlO0ZabTvHaoUSQo5bh9JOYMknjzQ==}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}
