@@ -7,7 +7,8 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /srv/app
 
 RUN corepack enable && \
-	corepack prepare --activate pnpm@latest
+	corepack prepare --activate pnpm@latest && \
+    pnpm config set store-dir /.pnpm-store
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
@@ -31,7 +32,7 @@ FROM deps as dev
 EXPOSE 3000
 ENV PORT 3000
 
-CMD ["pnpm", "run", "dev"]
+CMD ["sh", "-c", "pnpm install -r --offline; pnpm dev"]
 
 
 FROM builder_base AS builder
