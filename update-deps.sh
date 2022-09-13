@@ -6,7 +6,7 @@ docker compose build
 
 # Update deps
 docker compose run php composer update
-docker compose run pwa /bin/sh -c 'yarn install && yarn upgrade'
+docker compose run pwa /bin/sh -c 'pnpm install; pnpm update'
 
 # Update the Symfony skeleton
 cd api
