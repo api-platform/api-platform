@@ -34,8 +34,10 @@ jobs:
           exit 1
       - name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
-      - name: Check HTTPS reachability
-        run: curl  -vk -o /dev/null https://localhost
+      - name: Check API reachability
+        run: curl -vk -o /dev/null https://localhost
+      - name: Check PWA reachability
+        run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost"
       - name: Create test database
         run: |
           docker compose exec -T php bin/console -e test doctrine:database:create
