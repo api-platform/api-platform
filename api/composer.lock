@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0b67c6db9ac2936d5cbebdac48b3807",
+    "content-hash": "a17da350851a4f0e41aaf8cc6165da0b",
     "packages": [
         {
             "name": "api-platform/core",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "6e753998e6e7b2bc06b83b3ef54002d5aca9cbf1"
+                "reference": "bbba5d826ed6da94384edecafb772db4b618e179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/6e753998e6e7b2bc06b83b3ef54002d5aca9cbf1",
-                "reference": "6e753998e6e7b2bc06b83b3ef54002d5aca9cbf1",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/bbba5d826ed6da94384edecafb772db4b618e179",
+                "reference": "bbba5d826ed6da94384edecafb772db4b618e179",
                 "shasum": ""
             },
             "require": {
@@ -171,7 +171,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-08T12:18:29+00:00"
+            "time": "2022-09-13T07:54:25+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -414,16 +414,16 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "3fe77330f5591108bbf1315da7377a7e704ed8a0"
+                "reference": "09dde3eb237756190f2de738d3c97cff10a8407b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/3fe77330f5591108bbf1315da7377a7e704ed8a0",
-                "reference": "3fe77330f5591108bbf1315da7377a7e704ed8a0",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/09dde3eb237756190f2de738d3c97cff10a8407b",
+                "reference": "09dde3eb237756190f2de738d3c97cff10a8407b",
                 "shasum": ""
             },
             "require": {
@@ -478,9 +478,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/1.7.2"
+                "source": "https://github.com/doctrine/collections/tree/1.7.3"
             },
-            "time": "2022-08-27T16:08:58+00:00"
+            "time": "2022-09-01T19:34:23+00:00"
         },
         {
             "name": "doctrine/common",
@@ -2091,16 +2091,16 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.6.0",
+            "version": "4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e"
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/16ec7577ff315d53ac2e1b1f03a344d8fe680a6e",
-                "reference": "16ec7577ff315d53ac2e1b1f03a344d8fe680a6e",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/0337d9265bc2e6376babad8c511500821620cb30",
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30",
                 "shasum": ""
             },
             "require": {
@@ -2153,7 +2153,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-07-28T22:46:52+00:00"
+            "time": "2022-09-13T10:33:30+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -8060,21 +8060,21 @@
         },
         {
             "name": "nette/php-generator",
-            "version": "v4.0.2",
+            "version": "v4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "f19b7975c7c4d729be5b64fce7eb72f0d4aac6fc"
+                "reference": "ce449138b73ee788e818afeb41af51df3ec03710"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/f19b7975c7c4d729be5b64fce7eb72f0d4aac6fc",
-                "reference": "f19b7975c7c4d729be5b64fce7eb72f0d4aac6fc",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/ce449138b73ee788e818afeb41af51df3ec03710",
+                "reference": "ce449138b73ee788e818afeb41af51df3ec03710",
                 "shasum": ""
             },
             "require": {
                 "nette/utils": "^3.2.7 || ^4.0",
-                "php": ">=8.0 <8.2"
+                "php": ">=8.0 <8.3"
             },
             "require-dev": {
                 "nette/tester": "^2.4",
@@ -8122,26 +8122,26 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/php-generator/issues",
-                "source": "https://github.com/nette/php-generator/tree/v4.0.2"
+                "source": "https://github.com/nette/php-generator/tree/v4.0.3"
             },
-            "time": "2022-06-17T12:20:08+00:00"
+            "time": "2022-09-12T23:43:02+00:00"
         },
         {
             "name": "nette/utils",
-            "version": "v3.2.7",
+            "version": "v3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/0af4e3de4df9f1543534beab255ccf459e7a2c99",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
+                "url": "https://api.github.com/repos/nette/utils/zipball/02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
+                "reference": "02a54c4c872b99e4ec05c4aec54b5a06eb0f6368",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2 <8.2"
+                "php": ">=7.2 <8.3"
             },
             "conflict": {
                 "nette/di": "<3.0.6"
@@ -8207,9 +8207,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.7"
+                "source": "https://github.com/nette/utils/tree/v3.2.8"
             },
-            "time": "2022-01-24T11:29:14+00:00"
+            "time": "2022-09-12T23:36:20+00:00"
         },
         {
             "name": "nikic/php-parser",
