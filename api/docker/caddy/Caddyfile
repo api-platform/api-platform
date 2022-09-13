@@ -19,7 +19,7 @@ log
         header({'Accept': '*text/html*'})
         && !path(
             '/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
-            '*.json', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
+            '*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
         )
     )
     || path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
