@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import React from "react";
 
 const Welcome = () => (
   <>
@@ -2442,7 +2443,7 @@ const Flag = () => (
   </svg>
 );
 
-const HelpButton = ({Image, url, title}) => (
+const HelpButton = ({Image, url, title}: {Image: React.FunctionComponent, url: string, title: string}) => (
   <a
     target="_blank"
     rel="noopener noreferrer"
