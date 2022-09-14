@@ -1,15 +1,14 @@
 import "../styles/globals.css"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
+import Layout from "../components/common/Layout"
 import type { AppProps } from "next/app"
-import { QueryClient, QueryClientProvider, useQuery } from "react-query"
+import type { DehydratedState } from "react-query"
 
-const queryClient = new QueryClient()
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return <QueryClientProvider client={queryClient}>
+function MyApp({ Component, pageProps }: AppProps<{dehydratedState: DehydratedState}>) {
+  return <Layout dehydratedState={pageProps.dehydratedState}>
     <Component {...pageProps} />
-  </QueryClientProvider>
+  </Layout>
 }
 
 export default MyApp
