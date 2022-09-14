@@ -7,7 +7,7 @@ services:
       target: app_php_dev
     volumes:
       - ./api:/srv/app
-      - ./api/docker/php/conf.d/api-platform.dev.ini:/usr/local/etc/php/conf.d/api-platform.dev.ini:ro
+      - ./api/docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory 
       #  from the bind-mount for better performance by enabling the next line:
       #- /srv/app/vendor
@@ -24,6 +24,9 @@ services:
       target: dev 
     volumes:
       - ./pwa:/srv/app
+    environment:
+      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://caddy
+      API_PLATFORM_CREATE_CLIENT_OUTPUT: .
 
   caddy:
     volumes:
