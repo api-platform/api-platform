@@ -32,7 +32,7 @@
         "symfony/yaml": "6.1.*"
     },
     "require-dev": {
-        "api-platform/schema-generator": "^4.0",
+        "api-platform/schema-generator": "^5.0",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
         "symfony/debug-bundle": "6.1.*",
