@@ -1,9 +1,6 @@
 {
     # Debug
     {$DEBUG}
-    # HTTP/3 support
-    servers {
-    }
 }
 
 {$SERVER_NAME}
