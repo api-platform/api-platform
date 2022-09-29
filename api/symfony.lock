@@ -108,12 +108,6 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
-    "easyrdf/easyrdf": {
-        "version": "1.1.1"
-    },
-    "fig/link-util": {
-        "version": "1.2.0"
-    },
     "friendsofphp/php-cs-fixer": {
         "version": "3.4",
         "recipe": {
