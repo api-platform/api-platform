@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        font-family: Poppins;
+    }
+
+    a {
+        @apply no-underline text-cyan-700;
+    }
+}
+
+@layer utilities {
+    .bg-spider-cover {
+        @apply bg-cyan-700 bg-center bg-no-repeat;
+        background-image: url("../public/api-platform/web.svg");
+        background-size: 110%;
+    }
+    .ribbon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(13.397459%, -100%) rotate(30deg); /* translateX: 100%*(1-cos(angleRotation) */
+        transform-origin: bottom left;
+  }
+}
