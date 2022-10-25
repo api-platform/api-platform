@@ -29,6 +29,8 @@ services:
       target: prod
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
+      # you may want to comment this for better performances on linux-based systems
+      WATCHPACK_POLLING: true
 
   caddy:
     build:
