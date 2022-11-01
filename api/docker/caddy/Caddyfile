@@ -1,6 +1,6 @@
 {
     # Debug
-    {$DEBUG}
+    {$CADDY_DEBUG}
 }
 
 {$SERVER_NAME}
