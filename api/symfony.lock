@@ -15,9 +15,6 @@
     "api-platform/schema-generator": {
         "version": "v4.0.0"
     },
-    "composer/package-versions-deprecated": {
-        "version": "1.11.99.4"
-    },
     "composer/pcre": {
         "version": "1.0.0"
     },
@@ -397,20 +394,8 @@
             "tests/bootstrap.php"
         ]
     },
-    "symfony/polyfill-intl-grapheme": {
-        "version": "v1.24.0"
-    },
-    "symfony/polyfill-intl-normalizer": {
-        "version": "v1.24.0"
-    },
-    "symfony/polyfill-mbstring": {
-        "version": "v1.24.0"
-    },
     "symfony/polyfill-php70": {
         "version": "v1.20.0"
-    },
-    "symfony/polyfill-php81": {
-        "version": "v1.24.0"
     },
     "symfony/process": {
         "version": "v6.0.2"
