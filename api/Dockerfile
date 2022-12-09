@@ -8,6 +8,9 @@ ENV APP_ENV=prod
 
 WORKDIR /srv/app
 
+# install linux headers package
+RUN apk add --update linux-headers
+
 # persistent / runtime deps
 RUN apk add --no-cache \
 		acl \
