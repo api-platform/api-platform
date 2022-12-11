@@ -10,13 +10,13 @@ WORKDIR /srv/app
 
 # persistent / runtime deps
 RUN apk add --no-cache \
-                linux-headers \
-                acl \
-                fcgi \
-                file \
-                gettext \
-                git \
-        ;
+        linux-headers \
+        acl \
+        fcgi \
+        file \
+        gettext \
+        git \
+    ;
 
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
