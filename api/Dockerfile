@@ -2,7 +2,7 @@
 # Adapted from https://github.com/dunglas/symfony-docker
 
 # Prod image
-FROM php:8.1-fpm-alpine AS app_php
+FROM php:8.2-fpm-alpine AS app_php
 
 ENV APP_ENV=prod
 
@@ -113,7 +113,7 @@ RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 RUN set -eux; \
-	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
+	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers; \
 	pecl install xdebug; \
 	docker-php-ext-enable xdebug; \
 	apk del .build-deps
