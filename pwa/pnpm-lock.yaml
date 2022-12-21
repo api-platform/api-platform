@@ -1,26 +1,26 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@api-platform/admin': ^3.3.5
-  '@babel/core': ^7.20.2
+  '@api-platform/admin': ^3.4.3
+  '@babel/core': ^7.20.5
   '@fontsource/poppins': ^4.5.10
   '@popperjs/core': ^2.11.6
   '@tailwindcss/forms': ^0.5.3
-  '@types/node': ^18.11.9
-  '@types/react': ^18.0.25
+  '@types/node': ^18.11.17
+  '@types/react': ^18.0.26
   '@types/react-dom': ^18.0.9
-  autoprefixer: ^10.4.12
-  eslint: ^8.27.0
-  eslint-config-next: ^12.3.3
+  autoprefixer: ^10.4.13
+  eslint: ^8.30.0
+  eslint-config-next: ^12.3.4
   formik: ^2.2.9
   isomorphic-unfetch: ^3.1.0
-  next: ^12.3.3
-  postcss: ^8.4.18
+  next: ^12.3.4
+  postcss: ^8.4.20
   react: ^18.2.0
   react-dom: ^18.2.0
   react-query: ^3.39.2
-  tailwindcss: ^3.2.0
-  typescript: ^4.8.4
+  tailwindcss: ^3.2.4
+  typescript: ^4.9.4
 
 dependencies:
   '@api-platform/admin': 3.4.3_bkycudvrb3j3gvocoupj7qjewi
