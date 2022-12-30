@@ -9,7 +9,7 @@ WORKDIR /srv/app
 
 RUN corepack enable && \
 	corepack prepare --activate pnpm@latest && \
-    pnpm config set store-dir /.pnpm-store
+	echo "store-dir=/.pnpm-store\n" > /etc/npmrc
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
