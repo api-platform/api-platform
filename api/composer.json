@@ -1,6 +1,8 @@
 {
     "type": "project",
     "license": "MIT",
+    "name": "olecarl/api-platform",
+    "description": "API-Platform distribution",
     "require": {
         "php": ">=8.1",
         "ext-ctype": "*",
@@ -31,15 +33,16 @@
         "symfony/yaml": "6.1.*"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "api-platform/schema-generator": "^5.0",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
         "symfony/debug-bundle": "6.1.*",
-        "symfony/maker-bundle": "^1.44",
         "symfony/phpunit-bridge": "6.1.*",
         "symfony/stopwatch": "6.1.*",
         "symfony/var-dumper": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*"
+        "symfony/web-profiler-bundle": "6.1.*",
+        "symfony/maker-bundle": "^1.44"
     },
     "config": {
         "optimize-autoloader": true,
