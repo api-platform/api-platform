@@ -34,6 +34,7 @@
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",
+        "phpmetrics/phpmetrics": "^2.8",
         "psalm/plugin-symfony": "^5.0",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "6.1.*",
