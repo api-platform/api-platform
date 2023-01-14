@@ -49,12 +49,12 @@
         "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
-        "version": "2.7",
+        "version": "2.8",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "2.4",
-            "ref": "26746c8a894657a866f60473f855048b6aaf251f"
+            "version": "2.8",
+            "ref": "c38df294eea859b4e2d5f252d4e973f55a264f84"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -304,12 +304,12 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "6.1",
+        "version": "6.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "5.4",
-            "ref": "3cd216a4d007b78d8554d44a5b1c0a446dab24fb"
+            "version": "6.2",
+            "ref": "af47254c5e4cd543e6af3e4508298ffebbdaddd3"
         },
         "files": [
             "config/packages/cache.yaml",
@@ -407,12 +407,12 @@
         "version": "v6.0.2"
     },
     "symfony/routing": {
-        "version": "6.1",
+        "version": "6.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "6.1",
-            "ref": "a44010c0d06989bd4f154aa07d2542d47caf5b83"
+            "version": "6.2",
+            "ref": "e0a11b4ccb8c9e70b574ff5ad3dfdcd41dec5aa6"
         },
         "files": [
             "config/packages/routing.yaml",
