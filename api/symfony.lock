@@ -54,7 +54,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.4",
-            "ref": "5b7882dd9d05ef9b7e71fceed66af1ea573a70d4"
+            "ref": "26746c8a894657a866f60473f855048b6aaf251f"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -380,12 +380,12 @@
         "version": "v6.0.2"
     },
     "symfony/phpunit-bridge": {
-        "version": "5.3",
+        "version": "6.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "5.3",
-            "ref": "97cb3dc7b0f39c7cfc4b7553504c9d7b7795de96"
+            "ref": "819d3d2ffa4590eba0b8f4f3e5e89415ee4e45c3"
         },
         "files": [
             ".env.test",
