@@ -6,40 +6,39 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^3.0",
-        "doctrine/annotations": "^1.13",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
         "guzzlehttp/guzzle": "^7.4",
         "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
-        "symfony/asset": "6.1.*",
-        "symfony/console": "6.1.*",
-        "symfony/dotenv": "6.1.*",
-        "symfony/expression-language": "6.1.*",
+        "symfony/asset": "6.2.*",
+        "symfony/console": "6.2.*",
+        "symfony/dotenv": "6.2.*",
+        "symfony/expression-language": "6.2.*",
         "symfony/flex": "^2.2",
-        "symfony/framework-bundle": "6.1.*",
+        "symfony/framework-bundle": "6.2.*",
         "symfony/mercure-bundle": "^0.3.5",
         "symfony/monolog-bundle": "^3.8",
-        "symfony/property-access": "6.1.*",
-        "symfony/property-info": "6.1.*",
-        "symfony/runtime": "6.1.*",
-        "symfony/security-bundle": "6.1.*",
-        "symfony/serializer": "6.1.*",
-        "symfony/twig-bundle": "6.1.*",
-        "symfony/validator": "6.1.*",
-        "symfony/yaml": "6.1.*"
+        "symfony/property-access": "6.2.*",
+        "symfony/property-info": "6.2.*",
+        "symfony/runtime": "6.2.*",
+        "symfony/security-bundle": "6.2.*",
+        "symfony/serializer": "6.2.*",
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/validator": "6.2.*",
+        "symfony/yaml": "6.2.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",
-        "symfony/browser-kit": "6.1.*",
-        "symfony/css-selector": "6.1.*",
-        "symfony/debug-bundle": "6.1.*",
+        "symfony/browser-kit": "6.2.*",
+        "symfony/css-selector": "6.2.*",
+        "symfony/debug-bundle": "6.2.*",
         "symfony/maker-bundle": "^1.44",
-        "symfony/phpunit-bridge": "6.1.*",
-        "symfony/stopwatch": "6.1.*",
-        "symfony/var-dumper": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*"
+        "symfony/phpunit-bridge": "6.2.*",
+        "symfony/stopwatch": "6.2.*",
+        "symfony/var-dumper": "6.2.*",
+        "symfony/web-profiler-bundle": "6.2.*"
     },
     "config": {
         "optimize-autoloader": true,
@@ -70,12 +69,10 @@
         "symfony/polyfill-intl-grapheme": "*",
         "symfony/polyfill-intl-normalizer": "*",
         "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php82": "*",
         "symfony/polyfill-php81": "*",
         "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php74": "*",
-        "symfony/polyfill-php73": "*",
-        "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php71": "*"
+        "symfony/polyfill-php72": "*"
     },
     "scripts": {
         "auto-scripts": {
@@ -95,7 +92,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.1.*",
+            "require": "6.2.*",
             "docker": false
         }
     }
