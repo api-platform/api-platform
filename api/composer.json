@@ -33,16 +33,17 @@
         "symfony/yaml": "6.1.*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "api-platform/schema-generator": "^5.0",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
         "symfony/debug-bundle": "6.1.*",
+        "symfony/maker-bundle": "^1.44",
         "symfony/phpunit-bridge": "6.1.*",
+        "symfony/requirements-checker": "^2.0",
         "symfony/stopwatch": "6.1.*",
         "symfony/var-dumper": "6.1.*",
-        "symfony/web-profiler-bundle": "6.1.*",
-        "symfony/maker-bundle": "^1.44"
+        "symfony/web-profiler-bundle": "6.1.*"
     },
     "config": {
         "optimize-autoloader": true,
@@ -83,7 +84,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "requirements-checker": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
