@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v3.0.9",
+            "version": "v3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "c39c3e8c1b775926215a750ecef6a03bb569ef40"
+                "reference": "14a317529895206af074df28e0eded580ecea899"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/c39c3e8c1b775926215a750ecef6a03bb569ef40",
-                "reference": "c39c3e8c1b775926215a750ecef6a03bb569ef40",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/14a317529895206af074df28e0eded580ecea899",
+                "reference": "14a317529895206af074df28e0eded580ecea899",
                 "shasum": ""
             },
             "require": {
@@ -166,7 +166,7 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v3.0.9"
+                "source": "https://github.com/api-platform/core/tree/v3.0.10"
             },
             "funding": [
                 {
@@ -174,7 +174,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-14T08:20:58+00:00"
+            "time": "2023-01-16T08:40:14+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -7526,16 +7526,16 @@
         },
         {
             "name": "sweetrdf/easyrdf",
-            "version": "1.7.1",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sweetrdf/easyrdf.git",
-                "reference": "19ba21288e0aa344227267cab7f8f9c565eee426"
+                "reference": "2c57de7380ed16f5017e95810bcd08c0dffae640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sweetrdf/easyrdf/zipball/19ba21288e0aa344227267cab7f8f9c565eee426",
-                "reference": "19ba21288e0aa344227267cab7f8f9c565eee426",
+                "url": "https://api.github.com/repos/sweetrdf/easyrdf/zipball/2c57de7380ed16f5017e95810bcd08c0dffae640",
+                "reference": "2c57de7380ed16f5017e95810bcd08c0dffae640",
                 "shasum": ""
             },
             "require": {
@@ -7551,12 +7551,13 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.0",
+                "laminas/laminas-http": "^2",
                 "ml/json-ld": "^1.0",
                 "phpstan/phpstan": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^7.5|^8.5|^9.5",
                 "semsol/arc2": "^2.4",
-                "zendframework/zend-http": "^2.3"
+                "zendframework/zend-http": "^2"
             },
             "type": "library",
             "autoload": {
@@ -7599,9 +7600,9 @@
             ],
             "support": {
                 "issues": "https://github.com/sweetrdf/easyrdf/issues",
-                "source": "https://github.com/sweetrdf/easyrdf/tree/1.7.1"
+                "source": "https://github.com/sweetrdf/easyrdf/tree/1.8.0"
             },
-            "time": "2022-11-08T08:13:50+00:00"
+            "time": "2023-01-16T11:43:21+00:00"
         },
         {
             "name": "symfony/browser-kit",
