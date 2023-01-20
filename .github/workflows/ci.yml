@@ -42,6 +42,8 @@ jobs:
         run: |
           docker compose exec -T php bin/console -e test doctrine:database:create
           docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
+      - name: Psalm
+        run: docker compose exec -T vendor/bin/psalm
       - name: PHPUnit
         run: docker compose exec -T php bin/phpunit
       - name: Doctrine Schema Validator

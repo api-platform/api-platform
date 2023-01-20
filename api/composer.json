@@ -33,7 +33,6 @@
         "symfony/yaml": "6.1.*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "api-platform/schema-generator": "^5.0",
         "phpmetrics/phpmetrics": "^2.8",
         "psalm/plugin-symfony": "^5.0",
