@@ -29,6 +29,7 @@
         "symfony/security-bundle": "6.1.*",
         "symfony/serializer": "6.1.*",
         "symfony/twig-bundle": "6.1.*",
+        "symfony/uid": "6.1.*",
         "symfony/validator": "6.1.*",
         "symfony/yaml": "6.1.*"
     },
@@ -87,8 +88,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "requirements-checker": "script"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
