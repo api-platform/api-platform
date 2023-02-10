@@ -1,11 +1,30 @@
 {
+    order cache before rewrite
     # Debug
     {$CADDY_DEBUG}
+    cache {
+        allowed_http_verbs GET POST
+        api {
+            souin
+        }
+        cdn {
+            dynamic
+            provider default
+        }
+        ttl 1000s
+        timeout {
+            backend 10s
+            cache 100ms
+        }
+        default_cache_control public
+    }
 }
 
 {$SERVER_NAME}
 
 log
+
+cache
 
 # Matches requests for HTML documents, for static files and for Next.js files,
 # except for known API paths and paths with extensions handled by API Platform
