@@ -4,7 +4,16 @@ api_platform:
     # Mercure integration, remove if unwanted
     mercure: ~
     # Good cache defaults for REST APIs
+    http_cache:
+        public: true
+        invalidation:
+            enabled: true
+            purger: 'api_platform.http_cache.purger.souin'
+            urls: ['%env(SOUIN_API_URL)%']
+
     defaults:
         stateless: true
         cache_headers:
+            max_age: 0
+            shared_max_age: 3600
             vary: ['Content-Type', 'Authorization', 'Origin']
