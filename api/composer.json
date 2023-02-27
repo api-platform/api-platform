@@ -35,6 +35,7 @@
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",
+        "hautelook/alice-bundle": "^2.11",
         "phpmetrics/phpmetrics": "^2.8",
         "psalm/plugin-symfony": "^5.0",
         "roave/security-advisories": "dev-latest",

@@ -1,0 +1,3 @@
+App\Entity\Greeting:
+    greeting_{1..100}:
+        name: <name()>
