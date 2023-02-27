@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches:
+      - master
       - develop
   pull_request: ~
   workflow_dispatch: ~
@@ -32,6 +33,10 @@ jobs:
             esac
           done
           exit 1
+      - name: Composer Validate
+        run: docker compose exec -T php composer validate
+      - name: Symfony Requirement Checker
+        run: docker compose exec -T php vendor/bin/requirements-checker check 
       - name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
       - name: Check API reachability
