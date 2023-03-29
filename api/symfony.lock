@@ -49,12 +49,12 @@
         "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
-        "version": "2.8",
+        "version": "2.9",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.8",
-            "ref": "c38df294eea859b4e2d5f252d4e973f55a264f84"
+            "ref": "6b43b7b6ff6bf2551f2933ebeb66721fa3db8fbc"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -331,7 +331,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.3",
-            "ref": "7c7e63c36530052a174f28a6be4e451c4709be83"
+            "ref": "851667ac03fd113c5bd2215fb743974f6709bc62"
         },
         "files": [
             "config/packages/mercure.yaml"

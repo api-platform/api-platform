@@ -7,13 +7,20 @@ on:
   pull_request: ~
   workflow_dispatch: ~
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Pull images
         run: docker compose pull --ignore-pull-failures || true
       - name: Start services
@@ -45,4 +52,4 @@ jobs:
       - name: PHPUnit
         run: docker compose exec -T php bin/phpunit
       - name: Doctrine Schema Validator
-        run: docker compose exec -T php bin/console doctrine:schema:validate --skip-sync
+        run: docker compose exec -T php bin/console doctrine:schema:validate

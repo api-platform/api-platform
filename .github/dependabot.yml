@@ -1,0 +1,22 @@
+version: 2
+
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: composer
+    directory: /api
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+    open-pull-requests-limit: 0 # open Pull Requests for security updates only
+  - package-ecosystem: npm
+    directory: /pwa
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+    open-pull-requests-limit: 0 # open Pull Requests for security updates only

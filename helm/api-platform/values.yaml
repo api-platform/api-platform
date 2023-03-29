@@ -37,25 +37,35 @@ caddy:
 mercure:
   publicUrl: https://chart-example.local/.well-known/mercure
   # Change me!
-  jwtSecret: "!ChangeMe!"
-  corsAllowedOrigins: "^https?://.*?\\.chart-example\\.local$"
+  jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
+  extraDirectives: cors_origins http://chart-example.local https://chart-example.local
 
 # Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
 postgresql:
   enabled: true
   # If bringing your own PostgreSQL, the full uri to use
-  url: postgresql://api-platform:!ChangeMe!@database:5432/api?serverVersion=13&charset=utf8
-  postgresqlUsername: "example"
-  postgresqlPassword: "!ChangeMe!"
-  postgresqlDatabase: "api"
+  #url: postgresql://api-platform:!ChangeMe!@database:5432/api?serverVersion=13&charset=utf8
+  global:
+    postgresql:
+      auth:
+        username: "example"
+        password: "!ChangeMe!"
+        database: "api"
   # Persistent Volume Storage configuration.
   # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
-  persistence:
-    enabled: false
-  pullPolicy: IfNotPresent
-  image:
-    repository: bitnami/postgresql
-    tag: 13
+  primary:
+    persistence:
+      enabled: false
+      storageClass: standard
+      size: 1Gi
+    pullPolicy: IfNotPresent
+    image:
+      repository: bitnami/postgresql
+      tag: 14
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 1m
 
 imagePullSecrets: []
 nameOverride: ""
