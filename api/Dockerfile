@@ -9,6 +9,7 @@
 # Builder images
 FROM composer/composer:2-bin AS composer
 
+# hadolint ignore=DL3007
 FROM mlocati/php-extension-installer:latest AS php_extension_installer
 
 # Build Caddy with the Mercure and Vulcain modules
@@ -30,6 +31,7 @@ WORKDIR /srv/app
 COPY --from=php_extension_installer --link /usr/bin/install-php-extensions /usr/local/bin/
 
 # persistent / runtime deps
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
 		acl \
 		fcgi \
