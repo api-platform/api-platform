@@ -6,11 +6,6 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
 
-# Builder images
-FROM composer/composer:2-bin AS composer
-
-# hadolint ignore=DL3007
-FROM mlocati/php-extension-installer:latest AS php_extension_installer
 
 # Build Caddy with the Mercure and Vulcain modules
 # Temporary fix for https://github.com/dunglas/mercure/issues/770
@@ -28,7 +23,7 @@ ENV APP_ENV=prod
 WORKDIR /srv/app
 
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer
-COPY --from=php_extension_installer --link /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer:latest --link /usr/bin/install-php-extensions /usr/local/bin/
 
 # persistent / runtime deps
 # hadolint ignore=DL3018
@@ -77,7 +72,7 @@ CMD ["php-fpm"]
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
-COPY --from=composer --link /composer /usr/bin/composer
+COPY --from=composer/composer:2-bin --link /composer /usr/bin/composer
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY --link composer.* symfony.* ./
