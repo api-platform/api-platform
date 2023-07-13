@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "api-platform.labels" . | nindent 4 }}
 data:
+  host: {{ (first .Values.ingress.hosts).host | quote }}
   php-app-env: {{ .Values.php.appEnv | quote }}
   php-app-debug: {{ .Values.php.appDebug | quote }}
   php-cors-allow-origin: {{ .Values.php.corsAllowOrigin | quote }}
@@ -12,3 +13,17 @@ data:
   php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
   mercure-url: "http://{{ include "api-platform.fullname" . }}/.well-known/mercure"
   mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
+  caddy-global-options: {{ .Values.caddy.globalOptions | quote }}
+  oidc-server-url: "https://{{ (first .Values.ingress.hosts).host }}/oidc/realms/api-platform"
+  oidc-server-url-internal: "http://{{ include "api-platform.fullname" . }}/oidc/realms/api-platform"
+  next-auth-url: "https://{{ (first .Values.ingress.hosts).host }}/api/auth"
+  pwa-client-id: {{ .Values.pwa.oidcClientId | quote }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-realm
+data:
+  {{ (.Files.Glob "keycloak/config/*").AsConfig | indent 2 }}

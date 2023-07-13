@@ -1,0 +1,38 @@
+{
+  "realm": "api-platform",
+  "displayName": "API Platform",
+  "enabled": true,
+  "registrationAllowed": false,
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Chuck",
+      "lastName": "NORRIS",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Pa55w0rd"
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "api-platform-swagger",
+      "enabled": true,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
+      "publicClient": true
+    },
+    {
+      "clientId": "api-platform-pwa",
+      "enabled": true,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
+      "publicClient": true
+    }
+  ]
+}

@@ -25,6 +25,8 @@ pwa:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
+  appSecret: ""
+  oidcClientId: api-platform-pwa
 
 caddy:
   image:
@@ -32,6 +34,7 @@ caddy:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
+  globalOptions: ""
 
 # You may prefer using the managed version in production: https://mercure.rocks
 mercure:
@@ -61,11 +64,70 @@ postgresql:
     pullPolicy: IfNotPresent
     image:
       repository: bitnami/postgresql
-      tag: 14
+      tag: 15
     resources:
       requests:
         memory: 50Mi
         cpu: 1m
+
+# Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/keycloak
+keycloak:
+  enabled: true
+  image:
+    tag: 22-debian-11
+  service:
+    type: ClusterIP
+  extraEnvVars:
+    # Must set KC_HOSTNAME_URL to force https + relative path
+    - name: KC_HOSTNAME_URL
+      value: "https://chart-example.local/oidc/"
+    # Must set KC_HOSTNAME_ADMIN because of relative path
+    - name: KC_HOSTNAME_ADMIN_URL
+      value: "https://chart-example.local/oidc/"
+    - name: KEYCLOAK_PRODUCTION
+      value: "true"
+  # must finish with a trailing slash (https://github.com/bitnami/charts/issues/10885#issuecomment-1414279144)
+  httpRelativePath: /oidc/
+  proxy: edge
+  tls:
+    enabled: false
+  startupProbe:
+    enabled: true
+  readinessProbe:
+    initialDelaySeconds: 0
+  livenessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 10
+  keycloakConfigCli:
+    enabled: true
+    existingConfigmap: "keycloak-realm"
+    # https://github.com/bitnami/charts/issues/14279
+    command:
+      - java
+      - -jar
+      - /opt/bitnami/keycloak-config-cli/keycloak-config-cli.jar
+    image:
+      tag: 5-debian-11
+  postgresql:
+    enabled: true
+    nameOverride: postgresql-keycloak
+    primary:
+      persistence:
+        enabled: true
+        storageClass: standard
+        size: 1Gi
+      pullPolicy: IfNotPresent
+      image:
+        repository: bitnami/postgresql
+        tag: 15
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 1m
+  auth:
+    createAdminUser: true
+    adminUser: admin
+    adminPassword: "!ChangeMe!"
 
 imagePullSecrets: []
 nameOverride: ""

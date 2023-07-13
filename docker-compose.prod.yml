@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.8"
 
 # Production environment override
 services:
@@ -11,9 +11,11 @@ services:
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
 
   pwa:
-     build:
+    build:
       context: ./pwa
       target: prod
+    environment:
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
 
   caddy:
     build:
@@ -26,3 +28,13 @@ services:
   database:
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  keycloak-database:
+    environment:
+      POSTGRES_PASSWORD: ${KEYCLOAK_POSTGRES_PASSWORD}
+
+  keycloak:
+    environment:
+      KEYCLOAK_PRODUCTION: "true"
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+
