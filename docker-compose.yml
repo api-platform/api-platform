@@ -5,7 +5,7 @@ services:
     image: api-platform-php
     build:
       context: ./api
-      target: app_php
+      target: app_php_prod
     depends_on:
       - database
     restart: unless-stopped

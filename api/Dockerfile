@@ -19,8 +19,6 @@ FROM curlimages/curl:8.1.2 AS curl_base
 # Prod image
 FROM php_base AS app_php_base
 
-ENV APP_ENV=prod
-
 WORKDIR /srv/app
 
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer
@@ -80,7 +78,8 @@ FROM app_php_base AS app_php_dev
 ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /srv/app/var/
 
-COPY --link $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 RUN set -eux; \
@@ -89,16 +88,17 @@ RUN set -eux; \
     ;
 
 # Prod image
-FROM app_php_base AS app_php
+FROM app_php_base AS app_php_prod
 
-COPY --link $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+ENV APP_ENV=prod
+
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --link docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY --link composer.* symfony.* ./
 RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress; \
-	composer clear-cache
+	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
 
 # copy sources
 COPY --link . ./
@@ -133,4 +133,4 @@ WORKDIR /srv/app
 
 COPY --from=caddy_downloader --chmod=500 /downloads/caddy /usr/bin/caddy
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
-COPY --from=app_php --link /srv/app/public public/
+COPY --from=app_php_prod --link /srv/app/public public/
