@@ -33,6 +33,7 @@ FROM deps as dev
 
 EXPOSE 3000
 ENV PORT 3000
+ENV HOSTNAME localhost
 
 CMD ["sh", "-c", "pnpm install; pnpm dev"]
 
@@ -52,7 +53,8 @@ ENV NODE_ENV production
 # Delete the following line in case you want to enable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs && \
+RUN \
+	addgroup --system --gid 1001 nodejs; \
 	adduser --system --uid 1001 nextjs
 
 COPY --from=builder --link /srv/app/public ./public
@@ -67,5 +69,6 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
+ENV HOSTNAME localhost
 
 CMD ["node", "server.js"]
