@@ -51,9 +51,7 @@ RUN set -eux; \
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --link docker/php/conf.d/app.ini $PHP_INI_DIR/conf.d/
-COPY --link docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
 COPY --link docker/php/php-fpm.d/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 RUN mkdir -p /var/run/php
@@ -82,10 +80,7 @@ FROM app_php_base AS app_php_dev
 ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /srv/app/var/
 
-RUN rm "$PHP_INI_DIR/conf.d/app.prod.ini"; \
-	mv "$PHP_INI_DIR/php.ini" "$PHP_INI_DIR/php.ini-production"; \
-	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-
+COPY --link $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 RUN set -eux; \
@@ -95,6 +90,9 @@ RUN set -eux; \
 
 # Prod image
 FROM app_php_base AS app_php
+
+COPY --link $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+COPY --link docker/php/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY --link composer.* symfony.* ./
