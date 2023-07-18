@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   php:
+    image: api-platform-php
     build:
       context: ./api
       target: app_php
@@ -24,6 +25,7 @@ services:
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
 
   pwa:
+    image: api-platform-pwa
     build:
       context: ./pwa
       target: prod
@@ -31,6 +33,7 @@ services:
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
 
   caddy:
+    image: api-platform-caddy
     build:
       context: api/
       target: app_caddy
