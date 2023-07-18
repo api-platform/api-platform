@@ -8,21 +8,13 @@ FROM php:8.2-fpm-alpine AS php_base
 FROM mlocati/php-extension-installer:2 AS php_extension_installer_base
 FROM composer/composer:2-bin AS composer_base
 FROM caddy:2-alpine AS caddy_base
-FROM caddy:2.7-builder-alpine AS caddy_builder_base
+FROM curlimages/curl:8.1.2 AS curl_base
 
 
 # The different stages of this Dockerfile are meant to be built into separate images
 # https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage
 # https://docs.docker.com/compose/compose-file/#target
 
-
-# Build Caddy with the Mercure and Vulcain modules
-FROM caddy_builder_base AS app_caddy_builder
-
-# Temporary fix for https://github.com/dunglas/mercure/issues/770
-RUN xcaddy build v2.6.4 \
-	--with github.com/dunglas/mercure/caddy \
-	--with github.com/dunglas/vulcain/caddy
 
 # Prod image
 FROM php_base AS app_php
@@ -119,11 +111,25 @@ RUN set -eux; \
 
 RUN rm -f .env.local.php
 
+# Download Caddy with the Mercure and Vulcain modules
+FROM curl_base AS caddy_downloader
+
+WORKDIR /downloads
+
+RUN curl \
+	--url-query "os=$TARGETOS" \
+	--url-query "arg=$TARGETARCH" \
+	--url-query 'p=github.com/dunglas/mercure/caddy' \
+	--url-query 'p=github.com/dunglas/vulcain/caddy' \
+	-o /downloads/caddy \
+	https://caddyserver.com/api/download
+
+
 # Caddy image
 FROM caddy_base AS app_caddy
 
 WORKDIR /srv/app
 
-COPY --from=app_caddy_builder --link /usr/bin/caddy /usr/bin/caddy
-COPY --from=app_php --link /srv/app/public public/
+COPY --from=caddy_downloader --chmod=500 /downloads/caddy /usr/bin/caddy
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
+COPY --from=app_php --link /srv/app/public public/
