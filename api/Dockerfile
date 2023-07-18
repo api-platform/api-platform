@@ -16,7 +16,7 @@ FROM curlimages/curl:8.1.2 AS curl_base
 # https://docs.docker.com/compose/compose-file/#target
 
 
-# Prod image
+# Base image
 FROM php_base AS app_php_base
 
 WORKDIR /srv/app
@@ -80,12 +80,12 @@ VOLUME /srv/app/var/
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
-
 RUN set -eux; \
 	install-php-extensions \
     	xdebug \
     ;
+
+COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
 # Prod image
 FROM app_php_base AS app_php_prod
