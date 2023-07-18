@@ -52,7 +52,7 @@ ENV NODE_ENV production
 # Delete the following line in case you want to enable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 nodejs \
+RUN addgroup --system --gid 1001 nodejs && \
 	adduser --system --uid 1001 nextjs
 
 COPY --from=builder --link /srv/app/public ./public
