@@ -3,9 +3,6 @@ version: "3.4"
 services:
   php:
     image: app-php
-    build:
-      context: ./api
-      target: app_php_prod
     depends_on:
       - database
     restart: unless-stopped
@@ -26,17 +23,11 @@ services:
 
   pwa:
     image: app-pwa
-    build:
-      context: ./pwa
-      target: prod
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://caddy
 
   caddy:
     image: app-caddy
-    build:
-      context: api/
-      target: app_caddy
     depends_on:
       - php
       - pwa

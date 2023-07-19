@@ -4,10 +4,10 @@
 
 
 # Versions
-FROM php:8.2-fpm-alpine AS php_base
-FROM mlocati/php-extension-installer:2 AS php_extension_installer_base
-FROM composer/composer:2-bin AS composer_base
-FROM caddy:2-alpine AS caddy_base
+FROM php:8.2-fpm-alpine AS php_upstream
+FROM mlocati/php-extension-installer:2 AS php_extension_installer_upstream
+FROM composer/composer:2-bin AS composer_upstream
+FROM caddy:2-alpine AS caddy_upstream
 
 
 # The different stages of this Dockerfile are meant to be built into separate images
@@ -15,13 +15,13 @@ FROM caddy:2-alpine AS caddy_base
 # https://docs.docker.com/compose/compose-file/#target
 
 
-# Base image
-FROM php_base AS app_php_base
+# Base PHP image
+FROM php_upstream AS php_base
 
 WORKDIR /srv/app
 
 # php extensions installer: https://github.com/mlocati/docker-php-extension-installer
-COPY --from=php_extension_installer_base --link /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=php_extension_installer_upstream --link /usr/bin/install-php-extensions /usr/local/bin/
 
 # persistent / runtime deps
 # hadolint ignore=DL3018
@@ -68,11 +68,11 @@ CMD ["php-fpm"]
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
-COPY --from=composer_base --link /composer /usr/bin/composer
+COPY --from=composer_upstream --link /composer /usr/bin/composer
 
 
-# Dev image
-FROM app_php_base AS app_php_dev
+# Dev PHP image
+FROM php_base AS php_dev
 
 ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /srv/app/var/
@@ -86,8 +86,8 @@ RUN set -eux; \
 
 COPY --link docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
-# Prod image
-FROM app_php_base AS app_php_prod
+# Prod PHP image
+FROM php_base AS php_prod
 
 ENV APP_ENV=prod
 
@@ -111,8 +111,8 @@ RUN set -eux; \
 	chmod +x bin/console; sync;
 
 
-# Caddy image
-FROM caddy_base AS app_caddy
+# Base Caddy image
+FROM caddy_upstream AS caddy_base
 
 ARG TARGETARCH
 
@@ -122,4 +122,8 @@ WORKDIR /srv/app
 ADD --chmod=500 https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy /usr/bin/caddy
 
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
-COPY --from=app_php_prod --link /srv/app/public public/
+
+# Prod Caddy image
+FROM caddy_base AS caddy_prod
+
+COPY --from=php_prod --link /srv/app/public public/

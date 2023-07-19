@@ -4,7 +4,8 @@ version: "3.4"
 services:
   php:
     build:
-      target: app_php_dev
+      context: ./api
+      target: php_dev
     volumes:
       - ./api:/srv/app
       - ./api/docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
@@ -31,6 +32,9 @@ services:
       WATCHPACK_POLLING: "true"
 
   caddy:
+    build:
+      context: api/
+      target: caddy_base
     volumes:
       - ./api/public:/srv/app/public:ro
       - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
