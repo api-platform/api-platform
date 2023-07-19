@@ -20,9 +20,6 @@ FROM php_upstream AS php_base
 
 WORKDIR /srv/app
 
-# php extensions installer: https://github.com/mlocati/docker-php-extension-installer
-COPY --from=php_extension_installer_upstream --link /usr/bin/install-php-extensions /usr/local/bin/
-
 # persistent / runtime deps
 # hadolint ignore=DL3018
 RUN apk add --no-cache \
@@ -32,6 +29,9 @@ RUN apk add --no-cache \
 		gettext \
 		git \
 	;
+
+# php extensions installer: https://github.com/mlocati/docker-php-extension-installer
+COPY --from=php_extension_installer_upstream --link /usr/bin/install-php-extensions /usr/local/bin/
 
 RUN set -eux; \
     install-php-extensions \
