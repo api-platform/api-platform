@@ -8,7 +8,6 @@ FROM php:8.2-fpm-alpine AS php_base
 FROM mlocati/php-extension-installer:2 AS php_extension_installer_base
 FROM composer/composer:2-bin AS composer_base
 FROM caddy:2-alpine AS caddy_base
-FROM curlimages/curl:8.1.2 AS curl_base
 
 
 # The different stages of this Dockerfile are meant to be built into separate images
@@ -112,25 +111,15 @@ RUN set -eux; \
 	chmod +x bin/console; sync;
 
 
-# Download Caddy with the Mercure and Vulcain modules
-FROM curl_base AS caddy_downloader
-
-WORKDIR /downloads
-
-RUN curl \
-	--url-query "os=$TARGETOS" \
-	--url-query "arg=$TARGETARCH" \
-	--url-query 'p=github.com/dunglas/mercure/caddy' \
-	--url-query 'p=github.com/dunglas/vulcain/caddy' \
-	-o /downloads/caddy \
-	https://caddyserver.com/api/download
-
-
 # Caddy image
 FROM caddy_base AS app_caddy
 
+ARG TARGETARCH
+
 WORKDIR /srv/app
 
-COPY --from=caddy_downloader --chmod=500 /downloads/caddy /usr/bin/caddy
+# Download Caddy compiled with the Mercure and Vulcain modules
+ADD --chmod=500 https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy /usr/bin/caddy
+
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
 COPY --from=app_php_prod --link /srv/app/public public/
