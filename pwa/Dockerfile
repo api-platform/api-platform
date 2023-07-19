@@ -2,11 +2,11 @@
 
 
 # Versions
-FROM node:18-alpine AS node_base
+FROM node:18-alpine AS node_upstream
 
 
 # Base stage for dev and build
-FROM node_base AS builder_base
+FROM node_upstream AS base
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 # hadolint ignore=DL3018
@@ -24,18 +24,8 @@ RUN corepack enable && \
 ENV NEXT_TELEMETRY_DISABLED 1
 
 
-# Deps stage, preserve dependencies in cache as long as the lockfile isn't changed
-FROM builder_base AS deps
-
-COPY --link pnpm-lock.yaml ./
-RUN pnpm fetch
-
-COPY --link . .
-RUN pnpm install --offline --frozen-lockfile
-
-
 # Development image
-FROM deps as dev
+FROM base as dev
 
 EXPOSE 3000
 ENV PORT 3000
@@ -44,23 +34,27 @@ ENV HOSTNAME localhost
 CMD ["sh", "-c", "pnpm install; pnpm dev"]
 
 
-FROM builder_base AS builder
-COPY --link . .
-COPY --from=deps --link /srv/app/node_modules ./node_modules
+FROM base AS builder
 
-RUN pnpm run build
+COPY --link pnpm-lock.yaml ./
+RUN pnpm fetch --prod
+
+COPY --link . .
+
+RUN	pnpm install --frozen-lockfile --offline --prod && \
+	pnpm run build
 
 
 # Production image, copy all the files and run next
-FROM node_base AS prod
+FROM node_upstream AS prod
+
 WORKDIR /srv/app
 
 ENV NODE_ENV production
 # Delete the following line in case you want to enable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN \
-	addgroup --system --gid 1001 nodejs; \
+RUN addgroup --system --gid 1001 nodejs; \
 	adduser --system --uid 1001 nextjs
 
 COPY --from=builder --link /srv/app/public ./public

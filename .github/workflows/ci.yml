@@ -15,51 +15,59 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Pull images
-        run: docker compose pull --ignore-pull-failures || true
-      - name: Start services
-        run: docker compose up --build -d
-      - name: Wait for services
-        run: |
-          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker compose ps -q php)")"; do
-            case $status in
-              starting) sleep 1;;
-              healthy) exit 0;;
-              unhealthy)
-                docker compose ps
-                docker compose logs
-                exit 1
-              ;;
-            esac
-          done
-          exit 1
-      - name: Check HTTP reachability
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build Docker images
+        uses: docker/bake-action@v3
+        with:
+          pull: true
+          load: true
+          files: |
+            docker-compose.yml
+            docker-compose.override.yml
+          set: |
+            *.cache-from=type=gha,scope=${{github.ref}}
+            *.cache-from=type=gha,scope=refs/heads/main
+            *.cache-to=type=gha,scope=${{github.ref}},mode=max
+      -
+        name: Start services
+        run: docker compose up --wait --no-build
+      -
+        name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
-      - name: Check API reachability
+      -
+        name: Check API reachability
         run: curl -vk -o /dev/null https://localhost
-      - name: Check PWA reachability
+      -
+        name: Check PWA reachability
         run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost"
-      - name: Create test database
-        run: |
-          docker compose exec -T php bin/console -e test doctrine:database:create
-          docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
-      - name: PHPUnit
+      -
+        name: Create test database
+        run: docker compose exec -T php bin/console -e test doctrine:database:create
+      -
+        name: Run migrations
+        run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
+      -
+        name: Run PHPUnit
         run: docker compose exec -T php bin/phpunit
-      - name: Doctrine Schema Validator
-        run: docker compose exec -T php bin/console doctrine:schema:validate
+      -
+        name: Doctrine Schema Validator
+        run: docker compose exec -T php bin/console -e test doctrine:schema:validate
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Lint Dockerfiles
+      -
+        name: Lint Dockerfiles
         uses: hadolint/hadolint-action@v3.1.0
         with:
             recursive: true
