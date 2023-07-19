@@ -1,11 +1,11 @@
-<h1 align="center"><a href="https://api-platform.com"><img src="https://api-platform.com/logo-250x250.png" alt="API Platform"></a></h1>
+<h1 align="center"><a href="https://api-platform.com"><img src="https://api-platform.com/images/logos/Logo_Circle%20webby%20text%20blue.png" alt="API Platform" width="250" height="250"></a></h1>
 
 API Platform is a next-generation web framework designed to easily create API-first projects without compromising extensibility
 and flexibility:
 
 * Design your own data model as plain old PHP classes or [**import an existing ontology**](https://api-platform.com/docs/schema-generator).
 * **Expose in minutes a hypermedia REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
-  filters and error handling...
+  filters, and error handling...
 * Benefit from Content Negotiation: [GraphQL](https://api-platform.com/docs/core/graphql/), [JSON-LD](https://json-ld.org), [Hydra](https://hydra-cg.com),
   [HAL](https://github.com/mikekelly/hal_specification/blob/master/hal_specification.md), [JSON:API](https://jsonapi.org/), [YAML](https://yaml.org/), [JSON](https://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box.
 * Enjoy the **beautiful automatically generated API documentation** ([OpenAPI](https://api-platform.com/docs/core/openapi/)).
@@ -36,8 +36,8 @@ while client components leverage [React](https://reactjs.org/) ([Vue.js](https:/
 It means that you can:
 
 * Use **thousands of Symfony bundles and React components** with API Platform.
-* Integrate API Platform in **any existing Symfony, React or Vue application**.
-* Reuse **all your Symfony and JavaScript skills**, benefit of the incredible amount of documentation available.
+* Integrate API Platform in **any existing Symfony, React, or Vue application**.
+* Reuse **all your Symfony and JavaScript skills**, and benefit from the incredible amount of documentation available.
 * Enjoy the popular [Doctrine ORM](https://www.doctrine-project.org/projects/orm.html) (used by default, but fully optional:
   you can use the data provider you want, including but not limited to MongoDB and Elasticsearch)
 
@@ -47,4 +47,4 @@ It means that you can:
 
 ## Credits
 
-Created by [Kévin Dunglas](https://dunglas.fr). Commercial support available at [Les-Tilleuls.coop](https://les-tilleuls.coop).
+Created by [Kévin Dunglas](https://dunglas.fr). Commercial support is available at [Les-Tilleuls.coop](https://les-tilleuls.coop).
