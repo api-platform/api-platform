@@ -1,11 +1,15 @@
 {
     # Debug
     {$CADDY_DEBUG}
+    order cache before rewrite
+    cache
 }
 
 {$SERVER_NAME}
 
 log
+
+cache
 
 # Matches requests for HTML documents, for static files and for Next.js files,
 # except for known API paths and paths with extensions handled by API Platform
