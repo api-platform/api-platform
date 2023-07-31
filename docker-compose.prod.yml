@@ -17,7 +17,7 @@ services:
 
   caddy:
     build:
-      context: api/
+      context: ./api/
       target: caddy_prod
     environment:
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
