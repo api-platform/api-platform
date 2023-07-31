@@ -32,6 +32,7 @@ services:
       WATCHPACK_POLLING: "true"
 
   caddy:
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
     build:
       context: api/
       target: caddy_base
