@@ -3,7 +3,7 @@ api_platform:
     version: 1.0.0
     # Mercure integration, remove if unwanted
     mercure: ~
-    # Good cache defaults for REST APIs
+    # Good defaults for REST APIs
     defaults:
         stateless: true
         cache_headers:
