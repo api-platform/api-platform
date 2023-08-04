@@ -1,16 +1,14 @@
 #!/bin/sh
 
-# Remove all running containers and caches
+# Remove all running containers
 docker compose down -v
-docker system prune -a --volumes
 
 # Update Docker images
-docker compose pull --include-deps
-docker compose build --no-cache
+docker compose build --no-cache --pull
 
 # Update deps
-docker compose run php composer update
-docker compose run pwa /bin/sh -c 'pnpm install; pnpm update'
+docker compose run php /bin/sh -c 'composer update; composer outdated'
+docker compose run pwa /bin/sh -c 'pnpm install; pnpm update; pnpm outdated'
 
 # Update Symfony recipes
 cd api
