@@ -9,7 +9,7 @@ api_platform:
             enabled: true
             purger: 'api_platform.http_cache.purger.souin'
             urls: ['%env(SOUIN_API_URL)%']
-    # Good cache defaults for REST APIs
+    # Good defaults for REST APIs
     defaults:
         stateless: true
         cache_headers:
