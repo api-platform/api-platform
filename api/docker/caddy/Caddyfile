@@ -2,7 +2,11 @@
     # Debug
     {$CADDY_DEBUG}
     order cache before rewrite
-    cache
+    cache {
+        api {
+            souin
+        }
+    }
 }
 
 {$SERVER_NAME}
