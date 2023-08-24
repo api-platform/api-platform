@@ -1,6 +1,5 @@
 {
-    # Debug
-    {$CADDY_DEBUG}
+    {$CADDY_GLOBAL_OPTIONS}
 }
 
 {$SERVER_NAME}
