@@ -37,12 +37,12 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
       CADDY_GLOBAL_OPTIONS: |
-      order cache before rewrite
-      cache {
-          api {
-              souin
-          }
-      }
+        order cache before rewrite
+        cache {
+            api {
+                souin
+            }
+        }
     restart: unless-stopped
     volumes:
       - php_socket:/var/run/php
