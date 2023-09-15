@@ -1,10 +1,22 @@
 {
-    {$CADDY_GLOBAL_OPTIONS}
+	{$CADDY_GLOBAL_OPTIONS}
 }
 
-{$SERVER_NAME}
+{$SERVER_NAME:localhost}
 
-log
+{$CADDY_EXTRA_CONFIG}
+
+log {
+	# Redact the authorization query parameter that can be set by Mercure
+	format filter {
+		wrap console
+		fields {
+			uri query {
+				replace authorization REDACTED
+			}
+		}
+	}
+}
 
 # Matches requests for HTML documents, for static files and for Next.js files,
 # except for known API paths and paths with extensions handled by API Platform
@@ -18,6 +30,10 @@ log
     || path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
 
 route {
+	# Healthcheck URL
+	respond /healthz 200
+	skip_log /healthz
+
     root * /srv/app/public
     mercure {
         # Transport to use (default to Bolt)
