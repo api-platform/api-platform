@@ -8,11 +8,6 @@ services:
     restart: unless-stopped
     volumes:
       - php_socket:/var/run/php
-    healthcheck:
-      interval: 10s
-      timeout: 3s
-      retries: 3
-      start_period: 30s
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-15}
       TRUSTED_PROXIES: ${TRUSTED_PROXIES:-127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
@@ -29,8 +24,11 @@ services:
   caddy:
     image: ${IMAGES_PREFIX:-}app-caddy
     depends_on:
-      - php
-      - pwa
+      php:
+        condition: service_healthy
+        restart: true
+      pwa:
+        condition: service_started
     environment:
       PWA_UPSTREAM: pwa:3000
       SERVER_NAME: ${SERVER_NAME:-localhost}, caddy:80
