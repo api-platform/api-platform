@@ -118,7 +118,7 @@ WORKDIR /srv/app
 ADD --chmod=500 https://caddyserver.com/api/download?os=linux&arch=$TARGETARCH&p=github.com/dunglas/mercure/caddy&p=github.com/dunglas/vulcain/caddy /usr/bin/caddy
 
 COPY --link docker/caddy/Caddyfile /etc/caddy/Caddyfile
-HEALTHCHECK CMD wget --no-verbose --tries=1 --spider https://localhost/healthz || exit 1
+HEALTHCHECK CMD wget --no-verbose --tries=1 --spider http://localhost:2019/metrics || exit 1
 
 # Prod Caddy image
 FROM caddy_base AS caddy_prod

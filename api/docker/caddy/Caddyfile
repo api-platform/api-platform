@@ -30,10 +30,6 @@ log {
     || path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
 
 route {
-	# Healthcheck URL
-	respond /healthz 200
-	skip_log /healthz
-
     root * /srv/app/public
     mercure {
         # Transport to use (default to Bolt)
