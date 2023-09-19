@@ -10,3 +10,13 @@ api_platform:
             vary: ['Content-Type', 'Authorization', 'Origin']
         extra_properties:
             standard_put: true
+    oauth:
+        enabled: true
+        clientId: '%env(OIDC_SWAGGER_CLIENT_ID)%'
+        pkce: true
+        type: oauth2
+        flow: authorizationCode
+        tokenUrl: '%env(OIDC_SERVER_URL)%/protocol/openid-connect/token'
+        authorizationUrl: '%env(OIDC_SERVER_URL)%/protocol/openid-connect/auth'
+        scopes:
+            openid: (required) Indicates that the application intends to use OIDC to verify the user's identity

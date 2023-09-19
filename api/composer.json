@@ -26,7 +26,9 @@
         "symfony/serializer": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/validator": "6.3.*",
-        "symfony/yaml": "6.3.*"
+        "symfony/yaml": "6.3.*",
+        "web-token/jwt-checker": "^3.2",
+        "web-token/jwt-signature-algorithm-ecdsa": "^3.2"
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",

@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.8"
 
 # Development environment override
 services:
@@ -30,6 +30,8 @@ services:
       API_PLATFORM_CREATE_CLIENT_OUTPUT: .
       # On Linux, you may want to comment the following line for improved performance
       WATCHPACK_POLLING: "true"
+      # Development usage only
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
 
   caddy:
     command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
@@ -52,3 +54,17 @@ services:
 
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
+
+  keycloak-config-cli:
+    image: bitnami/keycloak-config-cli:5-debian-11
+    environment:
+      KEYCLOAK_URL: http://caddy/oidc/
+      KEYCLOAK_USER: ${KEYCLOAK_ADMIN_USER:-admin}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-!ChangeMe!}
+      KEYCLOAK_AVAILABILITYCHECK_ENABLED: true
+      KEYCLOAK_AVAILABILITYCHECK_TIMEOUT: 120s
+      IMPORT_FILES_LOCATIONS: "/config/*"
+    depends_on:
+      - keycloak
+    volumes:
+      - ./helm/api-platform/keycloak/config:/config

@@ -26,6 +26,10 @@ appVersion: 0.1.0
 
 dependencies:
   - name: postgresql
-    version: ~12.1.14
+    version: ~12.4.0
     repository: https://charts.bitnami.com/bitnami/
     condition: postgresql.enabled
+  - name: keycloak
+    version: ~14.4.0
+    repository: https://charts.bitnami.com/bitnami/
+    condition: keycloak.enabled

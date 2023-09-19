@@ -36,6 +36,26 @@ spec:
           env:
             - name: NEXT_PUBLIC_ENTRYPOINT
               value: http://{{ include "api-platform.fullname" . }}
+            - name: NEXTAUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: next-auth-url
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: next-auth-secret
+            - name: OIDC_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: oidc-server-url
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: pwa-client-id
           ports:
             - name: http
               containerPort: 3000

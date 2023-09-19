@@ -40,6 +40,8 @@ spec:
               value: :80
             - name: PWA_UPSTREAM
               value: {{ include "api-platform.fullname" . }}-pwa:3000
+            - name: OIDC_UPSTREAM
+              value: {{ .Release.Name }}-keycloak:80
             - name: MERCURE_PUBLISHER_JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -92,6 +94,16 @@ spec:
                 configMapKeyRef:
                   name: {{ include "api-platform.fullname" . }}
                   key: php-trusted-proxies
+            - name: OIDC_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: oidc-server-url
+            - name: OIDC_SERVER_URL_INTERNAL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: oidc-server-url-internal
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:

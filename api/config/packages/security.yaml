@@ -1,7 +1,4 @@
 security:
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
-    password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory: { memory: null }
@@ -25,15 +22,27 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
+when@prod: &prod
+    security:
+        firewalls:
+            main:
+                access_token:
+                    token_handler:
+                        oidc_user_info:
+                            claim: email
+                            base_uri: '%env(OIDC_SERVER_URL_INTERNAL)%/protocol/openid-connect/userinfo'
+
+when@dev: *prod
+
 when@test:
     security:
-        password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
-            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+        firewalls:
+            main:
+                access_token:
+                    token_handler:
+                        oidc:
+                            claim: email
+                            audience: 'api-platform'
+                            issuers: [ '%env(OIDC_SERVER_URL)%' ]
+                            algorithm: 'ES256'
+                            key: '{"kty": "EC","d": "cT3_vKHaGOAhhmzR0Jbi1ko40dNtpjtaiWzm_7VNwLA","use": "sig","crv": "P-256","x": "n6PnJPqNK5nP-ymwwsOIqZvjiCKFNzRyqWA8KNyBsDo","y": "bQSmMlDXOmtgyS1rhsKUmqlxq-8Kw0Iw9t50cSloTMM","alg": "ES256"}'
