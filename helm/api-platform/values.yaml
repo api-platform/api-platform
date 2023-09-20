@@ -26,13 +26,6 @@ pwa:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
-caddy:
-  image:
-    repository: "chart-example.local/api-platform/caddy"
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
-
 # You may prefer using the managed version in production: https://mercure.rocks
 mercure:
   publicUrl: https://chart-example.local/.well-known/mercure

@@ -5,14 +5,17 @@ services:
   php:
     build:
       context: ./api
-      target: php_dev
+      target: frankenphp_dev
     volumes:
-      - ./api:/srv/app
-      - ./api/docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      - ./api:/app
+      - /app/var
+      - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory
       #  from the bind-mount for better performance by enabling the next line:
-      #- /srv/app/vendor
+      #- /app/vendor
     environment:
+      MERCURE_EXTRA_DIRECTIVES: demo
       # See https://xdebug.org/docs/all_settings#mode
       XDEBUG_MODE: "${XDEBUG_MODE:-off}"
     extra_hosts:
@@ -26,21 +29,10 @@ services:
     volumes:
       - ./pwa:/srv/app
     environment:
-      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://caddy
+      API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
       API_PLATFORM_CREATE_CLIENT_OUTPUT: .
       # On Linux, you may want to comment the following line for improved performance
       WATCHPACK_POLLING: "true"
-
-  caddy:
-    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
-    build:
-      context: api/
-      target: caddy_base
-    volumes:
-      - ./api/public:/srv/app/public:ro
-      - ./api/docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-    environment:
-      MERCURE_EXTRA_DIRECTIVES: demo
 
 ###> doctrine/doctrine-bundle ###
   database:
