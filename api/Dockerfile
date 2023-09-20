@@ -27,6 +27,7 @@ RUN apt-get update && \
 		file \
 		gettext \
 		git \
+    	unzip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
