@@ -5,7 +5,7 @@
 
 # Versions
 # hadolint ignore=DL3007
-FROM dunglas/frankenphp:latest AS frankenphp_upstream
+FROM dunglas/frankenphp:latest-alpine AS frankenphp_upstream
 FROM composer/composer:2-bin AS composer_upstream
 
 
@@ -20,16 +20,13 @@ FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
 
 # persistent / runtime deps
-# hadolint ignore=DL3008
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+# hadolint ignore=DL3018
+RUN apk add --no-cache \
 		acl \
 		file \
 		gettext \
 		git \
-    	unzip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+	;
 
 RUN set -eux; \
     install-php-extensions \
