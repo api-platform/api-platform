@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       -
         name: Build Docker images
-        uses: docker/bake-action@v3
+        uses: docker/bake-action@v4
         with:
           pull: true
           load: true
