@@ -12,6 +12,7 @@
 *.yml text eol=lf
 bin/console text eol=lf
 composer.lock text eol=lf merge=ours
+pnpm-lock.yaml text eol=lf merge=ours
 
 *.ico binary
 *.png binary
