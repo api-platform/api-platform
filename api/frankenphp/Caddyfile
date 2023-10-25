@@ -4,6 +4,11 @@
 	frankenphp {
 		{$FRANKENPHP_CONFIG}
 	}
+
+    # https://caddyserver.com/docs/caddyfile/directives#sorting-algorithm
+	order mercure after encode
+    order vulcain after reverse_proxy
+    order php_server before file_server
 }
 
 {$CADDY_EXTRA_CONFIG}
@@ -21,47 +26,45 @@
     	}
     }
 
-    route {
-        encode zstd gzip
+    root * /app/public
+    encode zstd gzip
 
-        mercure {
-            # Transport to use (default to Bolt)
-            transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
-            # Publisher JWT key
-            publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
-            # Subscriber JWT key
-            subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
-            # Allow anonymous subscribers (double-check that it's what you want)
-            anonymous
-            # Enable the subscription API (double-check that it's what you want)
-            subscriptions
-            # Extra directives
-            {$MERCURE_EXTRA_DIRECTIVES}
-        }
-
-        root * /app/public
-        vulcain
-
-        # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
-        header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
-        # Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
-        header ?Permissions-Policy "browsing-topics=()"
-
-        # Matches requests for HTML documents, for static files and for Next.js files,
-        # except for known API paths and paths with extensions handled by API Platform
-        @pwa expression `(
-                header({'Accept': '*text/html*'})
-                && !path(
-                    '/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
-                    '*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
-                )
-            )
-            || path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
-
-        # Comment the following line if you don't want Next.js to catch requests for HTML documents.
-        # In this case, they will be handled by the PHP app.
-        reverse_proxy @pwa http://{$PWA_UPSTREAM}
-
-        php_server
+    mercure {
+        # Transport to use (default to Bolt)
+        transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
+        # Publisher JWT key
+        publisher_jwt {env.MERCURE_PUBLISHER_JWT_KEY} {env.MERCURE_PUBLISHER_JWT_ALG}
+        # Subscriber JWT key
+        subscriber_jwt {env.MERCURE_SUBSCRIBER_JWT_KEY} {env.MERCURE_SUBSCRIBER_JWT_ALG}
+        # Allow anonymous subscribers (double-check that it's what you want)
+        anonymous
+        # Enable the subscription API (double-check that it's what you want)
+        subscriptions
+        # Extra directives
+        {$MERCURE_EXTRA_DIRECTIVES}
     }
+
+    vulcain
+
+    # Add links to the API docs and to the Mercure Hub if not set explicitly (e.g. the PWA)
+    header ?Link `</docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation", </.well-known/mercure>; rel="mercure"`
+    # Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
+    header ?Permissions-Policy "browsing-topics=()"
+
+    # Matches requests for HTML documents, for static files and for Next.js files,
+    # except for known API paths and paths with extensions handled by API Platform
+    @pwa expression `(
+            header({'Accept': '*text/html*'})
+            && !path(
+                '/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
+                '*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
+            )
+        )
+        || path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
+
+    # Comment the following line if you don't want Next.js to catch requests for HTML documents.
+    # In this case, they will be handled by the PHP app.
+    reverse_proxy @pwa http://{$PWA_UPSTREAM}
+
+    php_server
 }
