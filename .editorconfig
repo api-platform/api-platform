@@ -50,13 +50,12 @@ indent_size = 4
 [composer.json]
 indent_size = 4
 
-[compose{,.*}.{yaml,yml}]
+[{,docker-}compose{,.*}.{yaml,yml}]
 indent_style = space
 indent_size = 2
 
-[docker-compose{,.*}.{yaml,yml}]
-indent_style = space
-indent_size = 2
+[{,*.*}Dockerfile]
+indent_style = tab
 
-[Dockerfile]
+[{,*.*}Caddyfile]
 indent_style = tab
