@@ -16,56 +16,43 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 [*.{js,html,ts,tsx}]
-indent_style = space
 indent_size = 2
 
 [*.json]
-indent_style = space
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
 
-[*.php]
-indent_style = space
-indent_size = 4
-
 [*.sh]
 indent_style = tab
-indent_size = 4
 
 [*.xml{,.dist}]
 indent_style = space
 indent_size = 4
 
 [*.{yaml,yml}]
-indent_style = space
-indent_size = 4
 trim_trailing_whitespace = false
 
 [helm/api-platform/**.yaml]
-indent_style = space
 indent_size = 2
 
 [.github/workflows/*.yml]
-indent_style = space
 indent_size = 2
 
 [.gitmodules]
 indent_style = tab
-indent_size = 4
 
 [.php_cs{,.dist}]
 indent_style = space
 indent_size = 4
 
-[.travis.yml]
+[composer.json]
+indent_size = 4
+
+[compose{,.*}.{yaml,yml}]
 indent_style = space
 indent_size = 2
-
-[composer.json]
-indent_style = space
-indent_size = 4
 
 [docker-compose{,.*}.{yaml,yml}]
 indent_style = space
@@ -73,4 +60,3 @@ indent_size = 2
 
 [Dockerfile]
 indent_style = tab
-indent_size = 4
