@@ -60,3 +60,6 @@ indent_size = 2
 
 [Dockerfile]
 indent_style = tab
+
+[Caddyfile]
+indent_style = tab
