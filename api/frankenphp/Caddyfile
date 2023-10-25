@@ -24,7 +24,7 @@
     route {
         encode zstd gzip
 
-        mercure /.well-known/mercure* {
+        mercure {
             # Transport to use (default to Bolt)
             transport_url {$MERCURE_TRANSPORT_URL:bolt:///data/mercure.db}
             # Publisher JWT key
