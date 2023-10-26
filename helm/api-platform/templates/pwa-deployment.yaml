@@ -34,6 +34,8 @@ spec:
           image: "{{ .Values.pwa.image.repository }}:{{ .Values.pwa.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.pwa.image.pullPolicy }}
           env:
+            - name: HOSTNAME
+              value: 0.0.0.0
             - name: NEXT_PUBLIC_ENTRYPOINT
               value: http://{{ include "api-platform.fullname" . }}
           ports:

@@ -2,7 +2,7 @@
 set -e
 
 if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-	if [ ! -d 'vendor/' ]; then
+	if [ ! -d 'vendor/' ] || [ "$APP_ENV" != 'prod' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 

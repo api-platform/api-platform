@@ -12,3 +12,5 @@ data:
   php-trusted-proxies: "{{ join "," .Values.php.trustedProxies }}"
   mercure-url: "http://{{ include "api-platform.fullname" . }}/.well-known/mercure"
   mercure-public-url: {{ .Values.mercure.publicUrl | default "http://127.0.0.1/.well-known/mercure" | quote }}
+  mercure-extra-directives: {{ .Values.mercure.extraDirectives | quote }}
+  caddy-global-options: {{ .Values.php.caddyGlobalOptions | quote }}
