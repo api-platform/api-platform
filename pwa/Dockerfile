@@ -59,6 +59,10 @@ RUN addgroup --system --gid 1001 nodejs; \
 
 COPY --from=builder --link /srv/app/public ./public
 
+# Set the correct permission for prerender cache
+RUN mkdir .next; \
+	chown nextjs:nodejs .next
+
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --link --chown=1001:1001 /srv/app/.next/standalone ./
@@ -69,6 +73,6 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
-ENV HOSTNAME localhost
+ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]

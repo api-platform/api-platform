@@ -15,8 +15,6 @@ services:
     build:
       context: ./pwa
       target: prod
-    environment:
-      HOSTNAME: 0.0.0.0
 
   database:
     environment:
