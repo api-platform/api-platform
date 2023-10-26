@@ -85,6 +85,11 @@ spec:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
                   key: database-url
+            - name: CADDY_GLOBAL_OPTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: caddy-global-options
             - name: MERCURE_URL
               valueFrom:
                 configMapKeyRef:
@@ -95,6 +100,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "api-platform.fullname" . }}
                   key: mercure-public-url
+            - name: MERCURE_EXTRA_DIRECTIVES
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "api-platform.fullname" . }}
+                  key: mercure-extra-directives
             - name: MERCURE_JWT_SECRET
               valueFrom:
                 secretKeyRef:

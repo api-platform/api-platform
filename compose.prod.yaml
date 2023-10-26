@@ -12,7 +12,7 @@ services:
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET}
 
   pwa:
-     build:
+    build:
       context: ./pwa
       target: prod
 
