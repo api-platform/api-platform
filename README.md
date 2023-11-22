@@ -43,7 +43,7 @@ It means that you can:
 
 ## Install
 
-[Read the official "Getting Started" guide](https://api-platform.com/docs/distribution).
+[Read the official "Getting Started" guide](https://api-platform.com/docs/distribution/).
 
 ## Credits
 
