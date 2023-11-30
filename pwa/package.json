@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@api-platform/admin": "^3.4.4",
+    "@api-platform/admin": "^3.4.5",
     "@fontsource/poppins": "^5.0.8",
     "@tailwindcss/forms": "^0.5.7",
     "formik": "^2.4.5",
@@ -21,10 +21,10 @@
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
+    "@babel/core": "^7.23.5",
     "@popperjs/core": "^2.11.8",
-    "@types/node": "^20.10.0",
-    "@types/react": "^18.2.38",
+    "@types/node": "^20.10.1",
+    "@types/react": "^18.2.39",
     "@types/react-dom": "^18.2.17",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.54.0",
