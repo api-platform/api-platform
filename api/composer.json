@@ -12,33 +12,33 @@
         "nelmio/cors-bundle": "^2.2",
         "phpstan/phpdoc-parser": "^1.16",
         "runtime/frankenphp-symfony": "^0.1.1",
-        "symfony/asset": "6.3.*",
-        "symfony/console": "6.3.*",
-        "symfony/dotenv": "6.3.*",
-        "symfony/expression-language": "6.3.*",
+        "symfony/asset": "6.4.*",
+        "symfony/console": "6.4.*",
+        "symfony/dotenv": "6.4.*",
+        "symfony/expression-language": "6.4.*",
         "symfony/flex": "^2.2",
-        "symfony/framework-bundle": "6.3.*",
+        "symfony/framework-bundle": "6.4.*",
         "symfony/mercure-bundle": "^0.3.5",
         "symfony/monolog-bundle": "^3.8",
-        "symfony/property-access": "6.3.*",
-        "symfony/property-info": "6.3.*",
-        "symfony/runtime": "6.3.*",
-        "symfony/security-bundle": "6.3.*",
-        "symfony/serializer": "6.3.*",
-        "symfony/twig-bundle": "6.3.*",
-        "symfony/validator": "6.3.*",
-        "symfony/yaml": "6.3.*"
+        "symfony/property-access": "6.4.*",
+        "symfony/property-info": "6.4.*",
+        "symfony/runtime": "6.4.*",
+        "symfony/security-bundle": "6.4.*",
+        "symfony/serializer": "6.4.*",
+        "symfony/twig-bundle": "6.4.*",
+        "symfony/validator": "6.4.*",
+        "symfony/yaml": "6.4.*"
     },
     "require-dev": {
         "api-platform/schema-generator": "^5.0",
-        "symfony/browser-kit": "6.3.*",
-        "symfony/css-selector": "6.3.*",
-        "symfony/debug-bundle": "6.3.*",
+        "symfony/browser-kit": "6.4.*",
+        "symfony/css-selector": "6.4.*",
+        "symfony/debug-bundle": "6.4.*",
         "symfony/maker-bundle": "^1.44",
-        "symfony/phpunit-bridge": "6.3.*",
-        "symfony/stopwatch": "6.3.*",
-        "symfony/var-dumper": "6.3.*",
-        "symfony/web-profiler-bundle": "6.3.*"
+        "symfony/phpunit-bridge": "6.4.*",
+        "symfony/stopwatch": "6.4.*",
+        "symfony/var-dumper": "6.4.*",
+        "symfony/web-profiler-bundle": "6.4.*"
     },
     "config": {
         "optimize-autoloader": true,
@@ -91,7 +91,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.3.*",
+            "require": "6.4.*",
             "docker": false
         }
     }

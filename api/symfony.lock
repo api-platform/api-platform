@@ -275,12 +275,12 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "6.2",
+        "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "6.2",
-            "ref": "af47254c5e4cd543e6af3e4508298ffebbdaddd3"
+            "version": "6.4",
+            "ref": "a91c965766ad3ff2ae15981801643330eb42b6a5"
         },
         "files": [
             "config/packages/cache.yaml",
@@ -351,12 +351,12 @@
         "version": "v6.0.2"
     },
     "symfony/phpunit-bridge": {
-        "version": "6.3",
+        "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.3",
-            "ref": "01dfaa98c58f7a7b5a9b30e6edb7074af7ed9819"
+            "ref": "1f5830c331065b6e4c9d5fa2105e322d29fcd573"
         },
         "files": [
             ".env.test",
@@ -394,15 +394,16 @@
         "version": "v6.0.0"
     },
     "symfony/security-bundle": {
-        "version": "6.1",
+        "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "6.0",
-            "ref": "8a5b112826f7d3d5b07027f93786ae11a1c7de48"
+            "version": "6.4",
+            "ref": "2ae08430db28c8eb4476605894296c82a642028f"
         },
         "files": [
-            "config/packages/security.yaml"
+            "config/packages/security.yaml",
+            "config/routes/security.yaml"
         ]
     },
     "symfony/security-core": {
