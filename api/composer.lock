@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v3.2.8",
+            "version": "v3.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "ff1f2825879a3cf21fc65fa1beafee47f9a6dace"
+                "reference": "fe07a7f8196bfbefd2f8d02d0f7cacb6b1fbf527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/ff1f2825879a3cf21fc65fa1beafee47f9a6dace",
-                "reference": "ff1f2825879a3cf21fc65fa1beafee47f9a6dace",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/fe07a7f8196bfbefd2f8d02d0f7cacb6b1fbf527",
+                "reference": "fe07a7f8196bfbefd2f8d02d0f7cacb6b1fbf527",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,6 @@
                 "elasticsearch/elasticsearch": ">=8.0,<8.4",
                 "phpspec/prophecy": "<1.15",
                 "phpunit/phpunit": "<9.5",
-                "sebastian/comparator": ">=5.0",
                 "symfony/var-exporter": "<6.1.1"
             },
             "require-dev": {
@@ -168,9 +167,9 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v3.2.8"
+                "source": "https://github.com/api-platform/core/tree/v3.2.9"
             },
-            "time": "2023-12-20T12:08:00+00:00"
+            "time": "2023-12-20T17:01:35+00:00"
         },
         {
             "name": "doctrine/cache",
