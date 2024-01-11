@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   php:
     image: ${IMAGES_PREFIX:-}app-php
