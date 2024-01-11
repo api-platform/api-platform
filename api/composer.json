@@ -11,7 +11,7 @@
         "doctrine/orm": "^2.12",
         "nelmio/cors-bundle": "^2.2",
         "phpstan/phpdoc-parser": "^1.16",
-        "runtime/frankenphp-symfony": "^0.1.1",
+        "runtime/frankenphp-symfony": "^0.2",
         "symfony/asset": "6.4.*",
         "symfony/console": "6.4.*",
         "symfony/dotenv": "6.4.*",
