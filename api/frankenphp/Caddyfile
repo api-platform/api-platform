@@ -27,7 +27,7 @@
 	}
 
 	root * /app/public
-	encode zstd gzip
+	encode zstd br gzip
 
 	mercure {
 		# Transport to use (default to Bolt)
