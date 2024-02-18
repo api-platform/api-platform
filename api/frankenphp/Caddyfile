@@ -27,7 +27,23 @@
 	}
 
 	root * /app/public
-	encode zstd br gzip
+	encode {
+		zstd 
+		br 
+		gzip
+		
+		match {
+		    header Content-Type text/*
+		    header Content-Type application/json*
+		    header Content-Type application/javascript*
+		    header Content-Type application/xhtml+xml*
+		    header Content-Type application/atom+xml*
+		    header Content-Type application/rss+xml*
+		    header Content-Type image/svg+xml*
+			# Custom formats supported
+		    header Content-Type application/ld+json*
+		}
+	}
 
 	mercure {
 		# Transport to use (default to Bolt)
