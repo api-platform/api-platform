@@ -21,13 +21,13 @@
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.9",
+    "@babel/core": "^7.24.0",
     "@popperjs/core": "^2.11.8",
-    "@types/node": "^20.11.19",
-    "@types/react": "^18.2.57",
+    "@types/node": "^20.11.23",
+    "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "autoprefixer": "^10.4.17",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "^14.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
