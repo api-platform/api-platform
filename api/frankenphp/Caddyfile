@@ -11,7 +11,7 @@
 	order php_server before file_server
 }
 
-{$CADDY_EXTRA_CONFIG} 
+{$CADDY_EXTRA_CONFIG}
 
 {$SERVER_NAME:localhost} {
 	log {
@@ -70,12 +70,13 @@
 	# Matches requests for HTML documents, for static files and for Next.js files,
 	# except for known API paths and paths with extensions handled by API Platform
 	@pwa expression `(
-	header({'Accept': '*text/html*'})
-	&& !path(
-	'/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
-	'*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml')
-	)
-	|| path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
+			header({'Accept': '*text/html*'})
+			&& !path(
+				'/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
+				'*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
+			)
+		)
+		|| path('/favicon.ico', '/manifest.json', '/robots.txt', '/_next*', '/sitemap*')`
 
 	# Comment the following line if you don't want Next.js to catch requests for HTML documents.
 	# In this case, they will be handled by the PHP app.
