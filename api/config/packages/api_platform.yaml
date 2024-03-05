@@ -2,7 +2,8 @@ api_platform:
     title: Hello API Platform
     version: 1.0.0
     # Mercure integration, remove if unwanted
-    mercure: ~
+    mercure: 
+        include_type: true
     formats:
         jsonld: ['application/ld+json']
     docs_formats:

@@ -18,7 +18,8 @@ class Greeting
      */
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
+    #[ORM\SequenceGenerator(sequenceName: 'greeting_id_seq')]
     private ?int $id = null;
 
     /**
