@@ -40,13 +40,13 @@ jobs:
         run: docker compose up --wait --no-build
       -
         name: Check HTTP reachability
-        run: curl -v -o /dev/null http://localhost
+        run: curl -v --fail-with-body http://localhost
       -
         name: Check API reachability
-        run: curl -vk -o /dev/null https://localhost
+        run: curl -vk --fail-with-body https://localhost
       -
         name: Check PWA reachability
-        run: "curl -vk -o /dev/null -H 'Accept: text/html' https://localhost"
+        run: "curl -vk --fail-with-body -H 'Accept: text/html' https://localhost"
       -
         name: Create test database
         run: docker compose exec -T php bin/console -e test doctrine:database:create
