@@ -4,8 +4,7 @@
 
 
 # Versions
-# hadolint ignore=DL3007
-FROM dunglas/frankenphp:latest-alpine AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 
 
 # The different stages of this Dockerfile are meant to be built into separate images
@@ -19,30 +18,30 @@ FROM frankenphp_upstream AS frankenphp_base
 WORKDIR /app
 
 # persistent / runtime deps
-# hadolint ignore=DL3018
-RUN apk add --no-cache \
-		acl \
-		file \
-		gettext \
-		git \
-	;
+# hadolint ignore=DL3008
+RUN apt-get update && apt-get install --no-install-recommends -y \
+	acl \
+	file \
+	gettext \
+	git \
+	&& rm -rf /var/lib/apt/lists/*
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN set -eux; \
-    install-php-extensions \
+	install-php-extensions \
 		@composer \
 		apcu \
 		intl \
 		opcache \
 		zip \
-    ;
+	;
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
 RUN set -eux; \
-    install-php-extensions pdo_pgsql
+	install-php-extensions pdo_pgsql
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
@@ -65,8 +64,8 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 RUN set -eux; \
 	install-php-extensions \
-    	xdebug \
-    ;
+		xdebug \
+	;
 
 COPY --link frankenphp/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
