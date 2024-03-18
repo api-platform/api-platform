@@ -37,7 +37,7 @@ services:
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://php
 
-  ###> doctrine/doctrine-bundle ###
+###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
@@ -58,7 +58,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
-  ###> doctrine/doctrine-bundle ###
+###> doctrine/doctrine-bundle ###
   db_data:
 ###< doctrine/doctrine-bundle ###
 ###> symfony/mercure-bundle ###
