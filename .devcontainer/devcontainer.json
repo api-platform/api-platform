@@ -35,13 +35,7 @@
 	// "postCreateCommand": ". .devcontainer/install-dev-tools.sh",
 
 	// Configure tool-specific properties.
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"xdebug.php-debug"
-			]
-		}
-	}
+	"customizations": {}
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
