@@ -15,7 +15,7 @@ FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
 # Base FrankenPHP image
 FROM frankenphp_upstream AS frankenphp_base
 
-WORKDIR /app
+WORKDIR /srv/api
 
 # persistent / runtime deps
 # hadolint ignore=DL3008
@@ -58,7 +58,7 @@ CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile" ]
 FROM frankenphp_base AS frankenphp_dev
 
 ENV APP_ENV=dev XDEBUG_MODE=off
-VOLUME /app/var/
+VOLUME /srv/api/var/
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 

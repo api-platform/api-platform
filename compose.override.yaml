@@ -5,13 +5,13 @@ services:
       context: ./api
       target: frankenphp_dev
     volumes:
-      - ./api:/app
-      - /app/var
+      - ./api:/srv/api
+      - /srv/api/var
       - ./api/frankenphp/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./api/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       # If you develop on Mac or Windows you can remove the vendor/ directory
       #  from the bind-mount for better performance by enabling the next line:
-      #- /app/vendor
+      #- /srv/api/vendor
     environment:
       MERCURE_EXTRA_DIRECTIVES: demo
       # See https://xdebug.org/docs/all_settings#mode
