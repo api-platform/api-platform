@@ -18,5 +18,6 @@ api_platform:
         extra_properties:
             standard_put: true
             rfc_7807_compliant_errors: true
-    event_listeners_backward_compatibility_layer: false
+    # change this to true if you use controllers
+    use_symfony_listeners: false
     keep_legacy_inflector: false
