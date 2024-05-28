@@ -9,31 +9,32 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@api-platform/admin": "^3.4.6",
-    "@fontsource/poppins": "^5.0.13",
+    "@api-platform/admin": "^3.4.7",
+    "@fontsource/poppins": "^5.0.14",
     "@tailwindcss/forms": "^0.5.7",
-    "formik": "^2.4.5",
+    "formik": "^2.4.6",
     "isomorphic-unfetch": "^4.0.2",
-    "next": "^14.2.1",
+    "next": "^14.2.3",
     "postcss": "^8.4.38",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-query": "^3.39.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
+    "@babel/core": "^7.24.6",
     "@popperjs/core": "^2.11.8",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.78",
-    "@types/react-dom": "^18.2.25",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.1",
+    "eslint-config-next": "^14.2.3",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
   "peerDependencies": {
     "@babel/core": "^7.19.0",
     "@popperjs/core": "^2.11.6"
-  }
+  },
+  "packageManager": "pnpm@9.1.3+sha512.7c2ea089e1a6af306409c4fc8c4f0897bdac32b772016196c469d9428f1fe2d5a21daf8ad6512762654ac645b5d9136bb210ec9a00afa8dbc4677843ba362ecd"
 }
