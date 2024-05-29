@@ -48,3 +48,4 @@ jobs:
           commit-message: 'chore: api-platform ${{ inputs.tag }}'
           branch: api-platform-core
           title: 'chore: api-platform ${{ inputs.tag }}'
+          body: 'Updates api-platform/core to ${{ inputs.tag }}'
