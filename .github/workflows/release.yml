@@ -40,7 +40,7 @@ jobs:
             *.cache-to=type=gha,scope=${{github.ref}},mode=max
       -
         name: Update API Platform
-        run: docker compose run php composer update api-platform:${{ inputs.tag }}
+        run: docker compose run php composer update api-platform/core:${{ inputs.tag }}
       -
         name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
