@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   tests:
-    name: Tests
+    name: Update api-platform/core
     runs-on: ubuntu-latest
     steps:
       -
