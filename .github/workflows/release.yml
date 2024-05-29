@@ -46,6 +46,5 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: 'chore: api-platform ${{ inputs.tag }}'
-          branch: chore/api-platform
-          delete-branch: true
+          branch: api-platform-core
           title: 'chore: api-platform ${{ inputs.tag }}'
