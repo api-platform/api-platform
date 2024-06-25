@@ -18,3 +18,5 @@ pnpm-lock.yaml text eol=lf merge=ours
 *.png binary
 
 update-deps.sh export-ignore
+.github/CONTRIBUTING.md
+.github/workflows/release.yml
