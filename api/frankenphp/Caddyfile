@@ -4,11 +4,6 @@
 	frankenphp {
 		{$FRANKENPHP_CONFIG}
 	}
-
-	# https://caddyserver.com/docs/caddyfile/directives#sorting-algorithm
-	order mercure after encode
-	order vulcain after reverse_proxy
-	order php_server before file_server
 }
 
 {$CADDY_EXTRA_CONFIG}
@@ -17,33 +12,14 @@
 	log {
 		# Redact the authorization query parameter that can be set by Mercure
 		format filter {
-			wrap console
-			fields {
-				uri query {
-					replace authorization REDACTED
-				}
+			request>uri query {
+				replace authorization REDACTED
 			}
 		}
 	}
 
 	root * /app/public
-	encode {
-		zstd
-		br
-		gzip
-
-		match {
-			header Content-Type text/*
-			header Content-Type application/json*
-			header Content-Type application/javascript*
-			header Content-Type application/xhtml+xml*
-			header Content-Type application/atom+xml*
-			header Content-Type application/rss+xml*
-			header Content-Type image/svg+xml*
-			# Custom formats supported
-			header Content-Type application/ld+json*
-		}
-	}
+	encode zstd br gzip
 
 	mercure {
 		# Transport to use (default to Bolt)
