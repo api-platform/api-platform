@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "api-platform/core",
-            "version": "v3.3.7",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "6daec826cf2a26fa6455a0a137c027c71b126f15"
+                "reference": "6c406eceeb823dcfe86e40866e84b0f5dfe54e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/6daec826cf2a26fa6455a0a137c027c71b126f15",
-                "reference": "6daec826cf2a26fa6455a0a137c027c71b126f15",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/6c406eceeb823dcfe86e40866e84b0f5dfe54e60",
+                "reference": "6c406eceeb823dcfe86e40866e84b0f5dfe54e60",
                 "shasum": ""
             },
             "require": {
@@ -190,9 +190,9 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/core/issues",
-                "source": "https://github.com/api-platform/core/tree/v3.3.7"
+                "source": "https://github.com/api-platform/core/tree/v3.3.10"
             },
-            "time": "2024-06-28T09:35:57+00:00"
+            "time": "2024-07-19T15:12:43+00:00"
         },
         {
             "name": "doctrine/cache",
