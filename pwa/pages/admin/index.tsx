@@ -1,25 +1,12 @@
-import Head from "next/head";
-import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 
-const Admin = () => {
-  // Load the admin client-side
-  const [DynamicAdmin, setDynamicAdmin] = useState(<p>Loading...</p>);
-  useEffect(() => {
-    (async () => {
-      const HydraAdmin = (await import("@api-platform/admin")).HydraAdmin;
+// load the admin client-side
+const App = dynamic(() => import("../../components/admin/App"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
-      setDynamicAdmin(<HydraAdmin entrypoint={window.origin}></HydraAdmin>);
-    })();
-  }, []);
+const Admin: NextPage = () => <App />;
 
-  return (
-    <>
-      <Head>
-        <title>API Platform Admin</title>
-      </Head>
-
-      {DynamicAdmin}
-    </>
-  );
-};
 export default Admin;
