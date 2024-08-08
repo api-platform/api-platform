@@ -50,16 +50,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "api-platform.fullname" . }}
                   key: mercure-jwt-secret
-            - name: TRUSTED_HOSTS
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "api-platform.fullname" . }}
-                  key: php-trusted-hosts
-            - name: TRUSTED_PROXIES
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "api-platform.fullname" . }}
-                  key: php-trusted-proxies
             - name: APP_ENV
               valueFrom:
                 configMapKeyRef:
