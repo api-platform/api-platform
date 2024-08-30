@@ -4,20 +4,8 @@ api_platform:
     # Mercure integration, remove if unwanted
     mercure:
         include_type: true
-    formats:
-        jsonld: ['application/ld+json']
-    docs_formats:
-        jsonld: ['application/ld+json']
-        jsonopenapi: ['application/vnd.openapi+json']
-        html: ['text/html']
     # Good defaults for REST APIs
     defaults:
         stateless: true
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']
-        extra_properties:
-            standard_put: true
-            rfc_7807_compliant_errors: true
-    # change this to true if you use controllers
-    use_symfony_listeners: false
-    keep_legacy_inflector: false
