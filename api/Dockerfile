@@ -1,4 +1,4 @@
-#syntax=docker/dockerfile:1.4
+#syntax=docker/dockerfile:1
 
 # Adapted from https://github.com/dunglas/symfony-docker
 
