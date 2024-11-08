@@ -1,0 +1,9 @@
+# E2E environment override
+services:
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.48.1-noble
+    volumes:
+      - ./e2e:/app
+
+
+
