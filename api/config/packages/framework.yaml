@@ -6,11 +6,6 @@ framework:
     http_method_override: false
     handle_all_throwables: true
  
-    trusted_proxies: '%env(TRUSTED_PROXIES)%'
-    trusted_hosts: '%env(TRUSTED_HOSTS)%'
-    # See https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#headers
-    trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto' ]
-
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     #session:
