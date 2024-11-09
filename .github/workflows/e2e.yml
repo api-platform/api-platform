@@ -1,0 +1,46 @@
+name: E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+  workflow_dispatch: ~
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build Docker images
+        uses: docker/bake-action@v4
+        with:
+          pull: true
+          load: true
+          files: |
+            compose.yaml
+            compose.override.yaml
+          set: |
+            php.cache-from=type=gha,scope=php-${{github.ref}}
+            php.cache-from=type=gha,scope=php-refs/heads/main
+            php.cache-to=type=gha,scope=php-${{github.ref}},mode=max
+            pwa.cache-from=type=gha,scope=pwa-${{github.ref}}
+            pwa.cache-from=type=gha,scope=pwa-refs/heads/main
+            pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
+      -
+        name: Start services
+        run: docker compose -f compose.yaml -f compose.override.yaml up --wait --no-build
+      -
+        name: Playwright
+        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.48.1-noble /bin/sh -c 'npm i; npx playwright test;'
