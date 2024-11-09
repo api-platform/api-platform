@@ -31,7 +31,6 @@ jobs:
           files: |
             compose.yaml
             compose.override.yaml
-            compose.e2e.yaml
           set: |
             php.cache-from=type=gha,scope=php-${{github.ref}}
             php.cache-from=type=gha,scope=php-refs/heads/main
@@ -39,13 +38,9 @@ jobs:
             pwa.cache-from=type=gha,scope=pwa-${{github.ref}}
             pwa.cache-from=type=gha,scope=pwa-refs/heads/main
             pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
-            e2e.cache-from=type=gha,scope=e2e-${{github.ref}}
-            e2e.cache-from=type=gha,scope=e2e-refs/heads/main
-            e2e.cache-to=type=gha,scope=e2e-${{github.ref}},mode=max
       -
         name: Start services
-        run: docker compose -f compose.yaml -f compose.override.yaml -f compose.e2e.yaml up --wait --no-build
+        run: docker compose -f compose.yaml -f compose.override.yaml up --wait --no-build
       -
         name: Playwright
-        run: docker compose -f compose.yaml -f compose.override.yaml -f compose.e2e.yaml run -w /app -it e2e sh -c 'npm i; npx playwright test'
-
+        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.48.1-noble /bin/sh -c 'npm i; npx playwright test;'

@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@api-platform/admin':
-        specifier: ^4.0.2
-        version: 4.0.2(@mui/utils@5.16.6(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(web-streams-polyfill@3.3.3)
+        specifier: ^4.0.3
+        version: 4.0.3(@mui/utils@5.16.6(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(web-streams-polyfill@3.3.3)
       '@fontsource/poppins':
         specifier: ^5.0.14
         version: 5.0.14
@@ -80,8 +80,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@api-platform/admin@4.0.2':
-    resolution: {integrity: sha512-xtndREs79jmP9SfLTtcM3/PCSTQ6iNv/0IMPOMZdgI6B8TNW+OL3KMcNAPGSDDvpHnt7UAvDl1G9MHrRqEPEiA==}
+  '@api-platform/admin@4.0.3':
+    resolution: {integrity: sha512-BuxOABOVOh9FtqPaKlc6NMTWOZLubiWin9NxfOgHJ7noBxUWr70P19yJW5BDXtlhvyi5iaZ/hFDFDZzW3DYysA==}
     peerDependencies:
       react: '*'
       react-dom: '*'
@@ -2326,7 +2326,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@api-platform/admin@4.0.2(@mui/utils@5.16.6(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(web-streams-polyfill@3.3.3)':
+  '@api-platform/admin@4.0.3(@mui/utils@5.16.6(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(web-streams-polyfill@3.3.3)':
     dependencies:
       '@api-platform/api-doc-parser': 0.16.6(web-streams-polyfill@3.3.3)
       jsonld: 8.3.2(web-streams-polyfill@3.3.3)
