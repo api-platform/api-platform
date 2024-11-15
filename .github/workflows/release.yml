@@ -43,7 +43,7 @@ jobs:
             pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
       -
         name: Update API Platform
-        run: docker compose run php composer update api-platform/core:${{ inputs.tag }}
+        run: docker compose run php composer update api-platform/symfony:${{ inputs.tag }} api-platform/doctrine-orm:${{ inputs.tag }}
       -
         name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
