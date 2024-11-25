@@ -51,4 +51,5 @@ jobs:
           commit-message: 'chore: api-platform ${{ inputs.tag }}'
           branch: api-platform-core
           title: 'chore: api-platform ${{ inputs.tag }}'
+          token: ${{ secrets.RELEASE_TOKEN }}
           body: 'Updates api-platform/core to ${{ inputs.tag }}'
