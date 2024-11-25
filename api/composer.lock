@@ -95,7 +95,7 @@
         },
         {
             "name": "api-platform/doctrine-orm",
-            "version": "v4.0.9",
+            "version": "v4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-orm.git",
@@ -173,7 +173,7 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.0.9"
+                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.0.10"
             },
             "time": "2024-11-04T14:21:40+00:00"
         },
@@ -917,16 +917,16 @@
         },
         {
             "name": "api-platform/symfony",
-            "version": "v4.0.9",
+            "version": "v4.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/symfony.git",
-                "reference": "c924cb45edec89c6d1a2cd92f7a63db586dc9f02"
+                "reference": "aa054d6c148cab17ee212382b20a05ce5fab85a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/symfony/zipball/c924cb45edec89c6d1a2cd92f7a63db586dc9f02",
-                "reference": "c924cb45edec89c6d1a2cd92f7a63db586dc9f02",
+                "url": "https://api.github.com/repos/api-platform/symfony/zipball/aa054d6c148cab17ee212382b20a05ce5fab85a6",
+                "reference": "aa054d6c148cab17ee212382b20a05ce5fab85a6",
                 "shasum": ""
             },
             "require": {
@@ -1034,9 +1034,9 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/api-platform/symfony/tree/v4.0.9"
+                "source": "https://github.com/api-platform/symfony/tree/v4.0.10"
             },
-            "time": "2024-11-15T10:11:07+00:00"
+            "time": "2024-11-22T11:08:39+00:00"
         },
         {
             "name": "api-platform/validator",
