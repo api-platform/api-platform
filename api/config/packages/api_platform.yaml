@@ -9,3 +9,5 @@ api_platform:
         stateless: true
         cache_headers:
             vary: ['Content-Type', 'Authorization', 'Origin']
+    serializer:
+        hydra_prefix: true
