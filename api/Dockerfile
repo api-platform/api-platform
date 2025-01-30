@@ -4,7 +4,7 @@
 
 
 # Versions
-FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
 
 
 # The different stages of this Dockerfile are meant to be built into separate images

@@ -24,7 +24,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       -
         name: Build Docker images
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v6
         with:
           pull: true
           load: true
@@ -43,4 +43,4 @@ jobs:
         run: docker compose -f compose.yaml -f compose.override.yaml up --wait --no-build
       -
         name: Playwright
-        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.48.1-noble /bin/sh -c 'npm i; npx playwright test;'
+        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.50.0-noble /bin/sh -c 'npm i; npx playwright test;'
