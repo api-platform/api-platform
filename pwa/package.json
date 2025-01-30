@@ -9,28 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@api-platform/admin": "^4.0.3",
-    "@fontsource/poppins": "^5.0.14",
-    "@tailwindcss/forms": "^0.5.7",
+    "@api-platform/admin": "^4.0.4",
+    "@fontsource/poppins": "^5.1.1",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/postcss": "^4.0.1",
     "formik": "^2.4.6",
     "isomorphic-unfetch": "^4.0.2",
-    "next": "^14.2.5",
-    "postcss": "^8.4.41",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-query": "^3.39.3"
+    "next": "^15.1.6",
+    "postcss": "^8.5.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-query": "^3.39.3",
+    "tailwindcss": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
+    "@babel/core": "^7.26.7",
     "@popperjs/core": "^2.11.8",
-    "@types/node": "^20.14.14",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.5",
-    "tailwindcss": "^3.4.7",
-    "typescript": "^5.5.4"
+    "@types/node": "^22.12.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.19.0",
+    "eslint-config-next": "^15.1.6",
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@babel/core": "^7.19.0",
