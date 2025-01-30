@@ -2,7 +2,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/doctrine-orm": "^4.0.3",
@@ -69,10 +69,11 @@
         "symfony/polyfill-intl-grapheme": "*",
         "symfony/polyfill-intl-normalizer": "*",
         "symfony/polyfill-mbstring": "*",
+        "symfony/polyfill-php84": "*",
+        "symfony/polyfill-php83": "*",
         "symfony/polyfill-php82": "*",
         "symfony/polyfill-php81": "*",
-        "symfony/polyfill-php80": "*",
-        "symfony/polyfill-php72": "*"
+        "symfony/polyfill-php80": "*"
     },
     "scripts": {
         "auto-scripts": {
