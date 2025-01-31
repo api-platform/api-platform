@@ -13,13 +13,13 @@
     "@fontsource/poppins": "^5.1.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.0.1",
+    "@tanstack/react-query": "^5.66.0",
     "formik": "^2.4.6",
     "isomorphic-unfetch": "^4.0.2",
     "next": "^15.1.6",
     "postcss": "^8.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-query": "^3.39.3",
     "tailwindcss": "^4.0.1"
   },
   "devDependencies": {
