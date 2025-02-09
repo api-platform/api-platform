@@ -36,6 +36,10 @@ services:
     image: ${IMAGES_PREFIX:-}app-pwa
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://php
+    ports:
+      - target: 5173
+        published: 5173
+        protocol: tcp
 
 ###> doctrine/doctrine-bundle ###
   database:
