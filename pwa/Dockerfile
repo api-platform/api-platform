@@ -14,7 +14,8 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /srv/app
 
-RUN corepack enable && \
+RUN npm install -g corepack@latest && \
+    corepack enable && \
 	corepack prepare --activate pnpm@latest && \
 	pnpm config -g set store-dir /.pnpm-store
 
