@@ -20,7 +20,7 @@ test('admin', async ({ page, browserName }) => {
   await expect(page).toHaveURL(/admin#\/greetings$/);
   await page.getByText('foo' + browserName).first().click();
   await expect(page).toHaveURL(/show$/);
-  await page.getByLabel('Edit').click();
+  await page.getByLabel('Edit').first().click();
   await page.getByLabel('Name').fill('bar' + browserName);
   await page.getByLabel('Save').click();
   await expect(page).toHaveURL(/admin#\/greetings$/);
