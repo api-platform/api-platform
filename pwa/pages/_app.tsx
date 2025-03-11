@@ -4,7 +4,6 @@ import type { AppProps } from "next/app"
 import type { DehydratedState } from "@tanstack/react-query"
 
 function MyApp({ Component, pageProps }: AppProps<{dehydratedState: DehydratedState}>) {
-  return <Component {...pageProps} />;
   return <Layout dehydratedState={pageProps.dehydratedState}>
     <Component {...pageProps} />
   </Layout>
