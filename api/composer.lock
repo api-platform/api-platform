@@ -95,16 +95,16 @@
         },
         {
             "name": "api-platform/doctrine-orm",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-orm.git",
-                "reference": "5aa5047c514de3b147b4909bcabf0848a8ddd0c8"
+                "reference": "38d5a59722acbd32ab3834499cf80c64ee96181e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/5aa5047c514de3b147b4909bcabf0848a8ddd0c8",
-                "reference": "5aa5047c514de3b147b4909bcabf0848a8ddd0c8",
+                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/38d5a59722acbd32ab3834499cf80c64ee96181e",
+                "reference": "38d5a59722acbd32ab3834499cf80c64ee96181e",
                 "shasum": ""
             },
             "require": {
@@ -173,9 +173,9 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.1.0"
+                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.1.1"
             },
-            "time": "2025-02-28T10:08:08+00:00"
+            "time": "2025-03-14T15:03:57+00:00"
         },
         {
             "name": "api-platform/documentation",
@@ -917,16 +917,16 @@
         },
         {
             "name": "api-platform/symfony",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/symfony.git",
-                "reference": "d42de358d9c7f7b00a356b9ee145b7e39ed13633"
+                "reference": "79f133defd611feea83f302d4ad81b407b7e47a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/symfony/zipball/d42de358d9c7f7b00a356b9ee145b7e39ed13633",
-                "reference": "d42de358d9c7f7b00a356b9ee145b7e39ed13633",
+                "url": "https://api.github.com/repos/api-platform/symfony/zipball/79f133defd611feea83f302d4ad81b407b7e47a2",
+                "reference": "79f133defd611feea83f302d4ad81b407b7e47a2",
                 "shasum": ""
             },
             "require": {
@@ -1034,9 +1034,9 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/api-platform/symfony/tree/v4.1.0"
+                "source": "https://github.com/api-platform/symfony/tree/v4.1.1"
             },
-            "time": "2025-02-28T10:08:08+00:00"
+            "time": "2025-03-11T14:03:14+00:00"
         },
         {
             "name": "api-platform/validator",
