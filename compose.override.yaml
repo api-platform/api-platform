@@ -36,8 +36,8 @@ services:
 ###> doctrine/doctrine-bundle ###
   database:
     ports:
-      - target: 5432
-        published: 5432
+      - target: 3306
+        published: 3306
         protocol: tcp
 ###< doctrine/doctrine-bundle ###
 

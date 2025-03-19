@@ -11,7 +11,8 @@ services:
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
       TRUSTED_PROXIES: ${TRUSTED_PROXIES:-127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
       TRUSTED_HOSTS: ${TRUSTED_HOSTS:-^${SERVER_NAME:-example\.com|localhost}|php$$}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-16}&charset=${POSTGRES_CHARSET:-utf8}
+      DATABASE_DRIVER: ${DATABASE_DRIVER:-mysql}
+      DATABASE_URL: ${DATABASE_DRIVER:-mysql}://${DB_USER:-app}:${DB_PASSWORD:-!ChangeMe!}@${IMAGES_PREFIX:-}database:3306/${DB_NAME:-app}?serverVersion=${DB_VERSION:-10.11.2-MariaDB}&charset=${DB_CHARSET:-utf8}
       MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
       MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}/.well-known/mercure}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
@@ -39,21 +40,20 @@ services:
 
 ###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    image: mariadb:10.6
+    container_name: ${IMAGES_PREFIX:-}database
     environment:
-      - POSTGRES_DB=${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
-      - POSTGRES_USER=${POSTGRES_USER:-app}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-app}  # Set your database name here
+      - MYSQL_USER=${MYSQL_USER:-app}          # Set your database user here
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-!ChangeMe!}  # Definitely change this in production
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-!ChangeMe!}  # Root password, change this too
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      test: ["CMD", "mysqladmin", "ping", "-u${MYSQL_USER:-app}", "-p${MYSQL_PASSWORD:-!ChangeMe!}"]
       timeout: 5s
       retries: 5
       start_period: 60s
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./api/docker/db/data:/var/lib/postgresql/data:rw
+      - ./api/docker/db/data:/var/lib/mysql/data:rw
 ###< doctrine/doctrine-bundle ###
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service

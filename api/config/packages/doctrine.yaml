@@ -4,7 +4,12 @@ doctrine:
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
+        server_version: '%env(DATABASE_SERVER_VERSION)%'
+
+        # Configuration spécifique à MariaDB
+        mapping_types:
+            enum: string
+            set: string
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
@@ -16,6 +21,7 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         identity_generation_preferences:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+            Doctrine\DBAL\Platforms\MariaDB102Platform: auto
         auto_mapping: true
         mappings:
             App:
@@ -24,6 +30,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            #B2MStarter:
+            #    type: attribute
+            #    is_bundle: false
+            #    dir: '%kernel.project_dir%/vendor/b2mfutsal/starter/src/Entity'
+            #    prefix: 'B2M\Starter'
+            #    alias: B2MStarter
         controller_resolver:
             auto_mapping: false
 

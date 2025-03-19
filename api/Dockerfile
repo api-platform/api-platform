@@ -40,8 +40,19 @@ RUN set -eux; \
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
+ARG DATABASE_DRIVER=mariadb
 RUN set -eux; \
-	install-php-extensions pdo_pgsql
+	case $DATABASE_DRIVER in \
+		pgsql) \
+			install-php-extensions pdo_pgsql \
+			;; \
+		mariadb) \
+			install-php-extensions pdo_mysql \
+			;; \
+		*) \
+			echo "Unsupported database driver" && exit 1 \
+			;; \
+	esac
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
