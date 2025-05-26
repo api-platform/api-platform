@@ -22,7 +22,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 
 # Development image
-FROM base as dev
+FROM base AS dev
 
 EXPOSE 3000
 ENV PORT 3000
