@@ -37,7 +37,7 @@ services:
   database:
     ports:
       - target: 5432
-        published: 5432
+        published: ${DB_PORT:-5432}
         protocol: tcp
 ###< doctrine/doctrine-bundle ###
 
