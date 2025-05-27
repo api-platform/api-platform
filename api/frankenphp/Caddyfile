@@ -1,8 +1,17 @@
 {
+	skip_install_trust
+
 	{$CADDY_GLOBAL_OPTIONS}
 
 	frankenphp {
 		{$FRANKENPHP_CONFIG}
+
+		worker {
+			env APP_RUNTIME Runtime\FrankenPhpSymfony\Runtime
+			file ./public/index.php
+
+			{$FRANKENPHP_WORKER_CONFIG}
+		}
 	}
 }
 
@@ -18,7 +27,7 @@
 		}
 	}
 
-	root * /app/public
+	root /app/public
 	encode zstd br gzip
 
 	mercure {
@@ -43,21 +52,34 @@
 	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
 	header ?Permissions-Policy "browsing-topics=()"
 
-	# Matches requests for HTML documents, for static files and for Next.js files,
-	# except for known API paths and paths with extensions handled by API Platform
-	@pwa expression `(
-			header({'Accept': '*text/html*'})
-			&& !path(
-				'/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
-				'*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
+	route {
+		# Matches requests for HTML documents, for static files and for Next.js files,
+		# except for known API paths and paths with extensions handled by API Platform
+		@pwa expression `(
+				header({'Accept': '*text/html*'})
+				&& !path(
+					'/docs*', '/graphql*', '/bundles*', '/contexts*', '/_profiler*', '/_wdt*',
+					'*.json*', '*.html', '*.csv', '*.yml', '*.yaml', '*.xml'
+				)
 			)
-		)
-		|| path('/favicon.ico', '/manifest.json', '/robots.txt', '/sitemap*', '/_next*', '/__next*')
-		|| query({'_rsc': '*'})`
+			|| path('/favicon.ico', '/manifest.json', '/robots.txt', '/sitemap*', '/_next*', '/__next*')
+			|| query({'_rsc': '*'})`
 
-	# Comment the following line if you don't want Next.js to catch requests for HTML documents.
-	# In this case, they will be handled by the PHP app.
-	reverse_proxy @pwa http://{$PWA_UPSTREAM}
+		# Comment the following line if you don't want Next.js to catch requests for HTML documents.
+		# In this case, they will be handled by the PHP app.
+		reverse_proxy @pwa http://{$PWA_UPSTREAM}
 
-	php_server
+		@phpRoute {
+			not path /.well-known/mercure*
+			not file {path}
+		}
+		rewrite @phpRoute index.php
+
+		@frontController path index.php
+		php @frontController
+
+		file_server {
+			hide *.php
+		}
+	}
 }
