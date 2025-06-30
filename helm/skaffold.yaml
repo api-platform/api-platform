@@ -7,7 +7,7 @@ build:
     - image: api-platform-php
       context: ../api
       docker:
-        target: app_php
+        target: frankenphp_prod
     - image: api-platform-pwa
       context: ../pwa
       docker:
