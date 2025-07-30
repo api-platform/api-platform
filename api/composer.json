@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^3.0",
         "nelmio/cors-bundle": "^2.2",
+        "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.0",
         "runtime/frankenphp-symfony": "^0.2",
         "symfony/asset": "7.2.*",
