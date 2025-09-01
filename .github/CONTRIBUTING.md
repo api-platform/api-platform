@@ -8,13 +8,13 @@ To have your code integrated in the API Platform project, there are some rules t
 
 If you happen to find a bug, we kindly request you to report it. However, before submitting it, please:
 
-  * Check the [project documentation available online](https://api-platform.com/docs/)
+- Check the [project documentation available online](https://api-platform.com/docs/)
 
 Then, if it appears that it's a real bug, you may report it using Github by following these 3 points:
 
-  * Check if the bug is not already reported!
-  * A clear title to resume the issue
-  * A description of the workflow needed to reproduce the bug,
+- Check if the bug is not already reported!
+- A clear title to resume the issue
+- A description of the workflow needed to reproduce the bug,
 
 > _NOTE:_ Don’t hesitate to give as much information as you can (OS, PHP version extensions...)
 
@@ -40,28 +40,28 @@ Be sure to add only **your modified files**. If another files are fixed by cs to
 
 When you send a PR, just make sure that:
 
-* You add valid test cases.
-* Tests are green.
-* You make a PR on the related documentation in the [api-platform/docs](https://github.com/api-platform/docs) repository.
-* You make the PR on the same branch you based your changes on. If you see commits
+- You add valid test cases.
+- Tests are green.
+- You make a PR on the related documentation in the [api-platform/docs](https://github.com/api-platform/docs) repository.
+- You make the PR on the same branch you based your changes on. If you see commits
   that you did not make in your PR, you're doing it wrong.
-* Also don't forget to add a comment when you update a PR with a ping to [the maintainers](https://github.com/orgs/api-platform/people),
+- Also don't forget to add a comment when you update a PR with a ping to [the maintainers](https://github.com/orgs/api-platform/people),
   so he/she will get a notification.
-* Squash your commits into one commit. (see the next chapter)
+- Squash your commits into one commit. (see the next chapter)
 
 Fill in the following header from the pull request template:
 
 ```markdown
-| Q             | A
-| ------------- | ---
-| Bug fix?      | yes/no
-| New feature?  | yes/no
-| BC breaks?    | no
-| Deprecations? | no
-| Tests pass?   | yes
-| Fixed tickets | #1234, #5678
-| License       | MIT
-| Doc PR        | api-platform/docs#1234
+| Q             | A                      |
+| ------------- | ---------------------- |
+| Bug fix?      | yes/no                 |
+| New feature?  | yes/no                 |
+| BC breaks?    | no                     |
+| Deprecations? | no                     |
+| Tests pass?   | yes                    |
+| Fixed tickets | #1234, #5678           |
+| License       | MIT                    |
+| Doc PR        | api-platform/docs#1234 |
 ```
 
 ## Squash your Commits
