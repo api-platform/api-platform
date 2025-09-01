@@ -14,7 +14,7 @@ indent_size = 4
 [{*Dockerfile,*Caddyfile,*.sh}]
 indent_style = tab
 
-[{{**/*.{css,js,json,html,ts,tsx,xml.dist},compose.*yaml,.github/**/*.yaml,.github/dependabot.yml,helm/**}}]
+[{{**/*.{css,js,json,html,ts,tsx,xml.dist},compose.*yaml,.github/**/*.yaml,helm/**}}]
 indent_size = 2
 
 [{**.md,**txt,**.dist}]
