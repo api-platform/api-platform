@@ -31,13 +31,23 @@ services:
       - target: 443
         published: ${HTTP3_PORT:-443}
         protocol: udp
-
+    healthcheck:
+      test: curl --insecure --fail https://localhost/docs || exit 1
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+  
   pwa:
     image: ${IMAGES_PREFIX:-}app-pwa
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://php
-
-###> doctrine/doctrine-bundle ###
+    healthcheck:
+      test: curl -f http://localhost:3000 || exit 1
+      timeout: 5s
+      retries: 5
+      start_period: 60s  
+  
+  ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
