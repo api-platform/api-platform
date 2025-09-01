@@ -11,12 +11,12 @@ end_of_line = lf
 indent_style = space
 indent_size = 4
 
-[**/{Dockerfile,*Caddyfile,*.sh}]
+[{*Dockerfile,*Caddyfile,*.sh}]
 indent_style = tab
 
-[{compose.*yaml,.github/**/*.yaml,.github/dependabot.yml,helm/**/*.yaml}]
+[{{**/*.{css,js,json,html,ts,tsx,xml.dist},compose.*yaml,.github/**/*.yaml,.github/dependabot.yml,helm/**}}]
 indent_size = 2
 
-[{**.md,**/Chart.lock}]
+[{**.md,**txt,**.dist}]
 indent_size = unset
 indent_style = unset
