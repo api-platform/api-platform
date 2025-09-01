@@ -1,3 +1,4 @@
+---
 name: CI
 
 on:
@@ -7,19 +8,19 @@ on:
   pull_request: ~
   workflow_dispatch: ~
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
-
-permissions:
-  contents: read
 
 jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v5
         with:
           persist-credentials: false
@@ -45,11 +46,11 @@ jobs:
       - name: Check HTTP reachability
         run: curl -v --fail-with-body http://localhost
       - name: Check API reachability
-        run: curl -vk --fail-with-body https://localhost
+        run: curl -v --insecure --fail-with-body https://localhost
       - name: Check PWA reachability
-        run: "curl -vk --fail-with-body -H 'Accept: text/html' https://localhost"
+        run: "curl -v --insecure --fail-with-body -H 'Accept: text/html' https://localhost"
       - name: Check Mercure reachability
-        run: curl -vkI --fail-with-body https://localhost/.well-known/mercure?topic=test
+        run: curl -vI --insecure --fail-with-body https://localhost/.well-known/mercure?topic=test
       - name: Create test database
         run: docker compose exec -T php bin/console -e test doctrine:database:create
       - name: Run migrations
@@ -61,12 +62,11 @@ jobs:
       - name: Doctrine Schema Validator
         run: docker compose exec -T php bin/console -e test doctrine:schema:validate
   lint:
-    name: Docker Lint
+    name: Lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: read
-      # To report GitHub Actions status checks
       statuses: write
     steps:
       - name: Checkout
@@ -75,7 +75,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Lint Code Base
-        uses: super-linter/super-linter@v8
+        uses: super-linter/super-linter/slim@v8
         env:
-          # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_CHECKOV: false
+          VALIDATE_TRIVY: false

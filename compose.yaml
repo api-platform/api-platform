@@ -1,3 +1,4 @@
+---
 services:
   php:
     image: ${IMAGES_PREFIX:-}app-php

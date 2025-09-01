@@ -1,3 +1,4 @@
+---
 # Production environment override
 services:
   php:
