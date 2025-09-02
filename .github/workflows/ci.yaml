@@ -78,6 +78,7 @@ jobs:
         uses: super-linter/super-linter/slim@v8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPOSER_IGNORE_PLATFORM_REQS: 1
           VALIDATE_PHP: false
           VALIDATE_CHECKOV: false
           VALIDATE_TRIVY: false
