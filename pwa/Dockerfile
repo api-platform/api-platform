@@ -11,7 +11,7 @@ FROM node_upstream AS base
 WORKDIR /srv/app
 
 RUN npm install -g corepack@latest && \
-    corepack enable && \
+	corepack enable && \
 	corepack prepare --activate pnpm@latest && \
 	pnpm config -g set store-dir /.pnpm-store
 

@@ -1,0 +1,84 @@
+---
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+  workflow_dispatch: ~
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker images
+        uses: docker/bake-action@v6
+        with:
+          pull: true
+          load: true
+          files: |
+            compose.yaml
+            compose.override.yaml
+          set: |
+            php.cache-from=type=gha,scope=php-${{github.ref}}
+            php.cache-from=type=gha,scope=php-refs/heads/main
+            php.cache-to=type=gha,scope=php-${{github.ref}},mode=max
+            pwa.cache-from=type=gha,scope=pwa-${{github.ref}}
+            pwa.cache-from=type=gha,scope=pwa-refs/heads/main
+            pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
+      - name: Start services
+        run: docker compose up --wait --no-build
+      - name: Check HTTP reachability
+        run: curl -v --fail-with-body http://localhost
+      - name: Check API reachability
+        run: curl -v --insecure --fail-with-body https://localhost
+      - name: Check PWA reachability
+        run: "curl -v --insecure --fail-with-body -H 'Accept: text/html' https://localhost"
+      - name: Check Mercure reachability
+        run: curl -vI --insecure --fail-with-body https://localhost/.well-known/mercure?topic=test
+      - name: Create test database
+        run: docker compose exec -T php bin/console -e test doctrine:database:create
+      - name: Run migrations
+        run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
+      - name: Run PHPUnit
+        run: docker compose exec -T php bin/phpunit
+      - name: Playwright E2E Tests
+        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.50.0-noble /bin/sh -c 'npm i; npx playwright test;'
+      - name: Doctrine Schema Validator
+        run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Lint Code Base
+        uses: super-linter/super-linter/slim@v8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPOSER_IGNORE_PLATFORM_REQS: 1
+          VALIDATE_PHP: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_TRIVY: false

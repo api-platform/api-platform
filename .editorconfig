@@ -5,57 +5,18 @@
 root = true
 
 [*]
-# Change these settings to your own preference
-indent_style = space
-indent_size = 4
-
-# We recommend you to keep these unchanged
-end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
 insert_final_newline = true
-
-[*.{js,html,ts,tsx}]
-indent_size = 2
-
-[*.json]
-indent_size = 2
-
-[*.md]
-trim_trailing_whitespace = false
-
-[*.sh]
-indent_style = tab
-
-[*.xml{,.dist}]
+end_of_line = lf
 indent_style = space
 indent_size = 4
 
-[*.{yaml,yml}]
-trim_trailing_whitespace = false
-
-[helm/api-platform/**.yaml]
-indent_size = 2
-
-[.github/workflows/*.yml]
-indent_size = 2
-
-[.gitmodules]
+[{*Dockerfile,*Caddyfile,*.sh}]
 indent_style = tab
 
-[.php_cs{,.dist}]
-indent_style = space
-indent_size = 4
-
-[composer.json]
-indent_size = 4
-
-[{,docker-}compose{,.*}.{yaml,yml}]
-indent_style = space
+[{{**/*.{css,js,json,html,ts,tsx,xml.dist},compose.*yaml,.github/**/*.yaml,helm/**}}]
 indent_size = 2
 
-[{,*.*}Dockerfile]
-indent_style = tab
-
-[{,*.*}Caddyfile]
-indent_style = tab
+[{**.md,**txt,**.dist}]
+indent_size = unset
+indent_style = unset
