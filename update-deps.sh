@@ -11,9 +11,11 @@ docker compose run php /bin/sh -c 'composer update; composer outdated'
 docker compose run pwa /bin/sh -c 'pnpm install; pnpm update; pnpm outdated'
 
 # Update Symfony recipes
-cd api
+cd api || exit
 composer recipes:update
 
+# shellcheck disable=SC2016
 echo 'Run `git diff` and carefully inspect the changes made by the recipes.'
+# shellcheck disable=SC2016
 echo 'Run `docker compose up --wait --force-recreate` now and check that everything is fine!'
 echo 'Run `docker compose exec php /bin/sh -c ''bin/console -e test doctrine:database:create ; bin/console -e test doctrine:migrations:migrate --no-interaction ; bin/phpunit ; bin/console -e test doctrine:schema:validate''` to check that the tests are green.'

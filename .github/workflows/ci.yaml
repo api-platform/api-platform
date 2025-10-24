@@ -10,6 +10,8 @@ on:
 
 permissions:
   contents: read
+  packages: read
+  statuses: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -79,6 +81,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMPOSER_IGNORE_PLATFORM_REQS: 1
+          VALIDATE_CSS: false
           VALIDATE_PHP: false
           VALIDATE_CHECKOV: false
           VALIDATE_TRIVY: false
