@@ -1,0 +1,5 @@
+/api/public/bundles
+/api/vendor
+/helm
+/pwa/.next
+/pwa/pnpm-lock.yaml

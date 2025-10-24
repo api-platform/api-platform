@@ -59,12 +59,12 @@ services:
         healthcheck:
             test:
                 [
-                    'CMD',
-                    'pg_isready',
-                    '-d',
-                    '${POSTGRES_DB:-app}',
-                    '-U',
-                    '${POSTGRES_USER:-app}',
+                    "CMD",
+                    "pg_isready",
+                    "-d",
+                    "${POSTGRES_DB:-app}",
+                    "-U",
+                    "${POSTGRES_USER:-app}",
                 ]
             timeout: 5s
             retries: 5

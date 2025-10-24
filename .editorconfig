@@ -17,9 +17,6 @@ indent_style = tab
 [{{**/*.{css,js,json,html,ts,tsx,xml.dist},compose.*yaml,.github/**/*.yaml,helm/**}}]
 indent_size = 2
 
-[**.yaml]
-quote_type = single
-
 [{**.md,**txt,**.dist}]
 indent_size = unset
 indent_style = unset
