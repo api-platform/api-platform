@@ -21,9 +21,9 @@ deploy:
               chartPath: ./api-platform
               namespace: default
               setValueTemplates:
-                  php.image.repository: "{{.IMAGE_REPO_api_platform_php}}"
-                  php.image.tag: "{{.IMAGE_TAG_api_platform_php}}@{{.IMAGE_DIGEST_api_platform_php}}"
-                  pwa.image.repository: "{{.IMAGE_REPO_api_platform_pwa}}"
-                  pwa.image.tag: "{{.IMAGE_TAG_api_platform_pwa}}@{{.IMAGE_DIGEST_api_platform_pwa}}"
+                  php.image.repository: '{{.IMAGE_REPO_api_platform_php}}'
+                  php.image.tag: '{{.IMAGE_TAG_api_platform_php}}@{{.IMAGE_DIGEST_api_platform_php}}'
+                  pwa.image.repository: '{{.IMAGE_REPO_api_platform_pwa}}'
+                  pwa.image.tag: '{{.IMAGE_TAG_api_platform_pwa}}@{{.IMAGE_DIGEST_api_platform_pwa}}'
               valuesFiles:
                   - skaffold-values.yaml

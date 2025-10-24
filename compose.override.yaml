@@ -17,8 +17,8 @@ services:
             FRANKENPHP_WORKER_CONFIG: watch
             MERCURE_EXTRA_DIRECTIVES: demo
             # See https://xdebug.org/docs/all_settings#mode
-            XDEBUG_MODE: "${XDEBUG_MODE:-off}"
-            APP_ENV: "${APP_ENV:-dev}"
+            XDEBUG_MODE: '${XDEBUG_MODE:-off}'
+            APP_ENV: '${APP_ENV:-dev}'
         extra_hosts:
             # Ensure that host.docker.internal is correctly defined on Linux
             - host.docker.internal:host-gateway
@@ -34,7 +34,7 @@ services:
             API_PLATFORM_CREATE_CLIENT_ENTRYPOINT: http://php
             API_PLATFORM_CREATE_CLIENT_OUTPUT: .
             # On Linux, you may want to comment the following line for improved performance
-            WATCHPACK_POLLING: "true"
+            WATCHPACK_POLLING: 'true'
 
     ###> doctrine/doctrine-bundle ###
     database:

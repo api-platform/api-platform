@@ -4,34 +4,34 @@
 
 php:
     image:
-        repository: "chart-example.local/api-platform/php"
+        repository: 'chart-example.local/api-platform/php'
         pullPolicy: IfNotPresent
         # Overrides the image tag whose default is the chart appVersion.
-        tag: ""
+        tag: ''
     appEnv: prod
-    appDebug: "0"
-    appSecret: ""
+    appDebug: '0'
+    appSecret: ''
     corsAllowOrigin: "^https?://.*?\\.chart-example\\.local$"
     trustedHosts: "^127\\.0\\.0\\.1|localhost|.*\\.chart-example\\.local$"
     trustedProxies:
-        - "127.0.0.1"
-        - "10.0.0.0/8"
-        - "172.16.0.0/12"
-        - "192.168.0.0/16"
-    caddyGlobalOptions: ""
+        - '127.0.0.1'
+        - '10.0.0.0/8'
+        - '172.16.0.0/12'
+        - '192.168.0.0/16'
+    caddyGlobalOptions: ''
 
 pwa:
     image:
-        repository: "chart-example.local/api-platform/pwa"
+        repository: 'chart-example.local/api-platform/pwa'
         pullPolicy: IfNotPresent
         # Overrides the image tag whose default is the chart appVersion.
-        tag: ""
+        tag: ''
 
 # You may prefer using the managed version in production: https://mercure.rocks
 mercure:
     publicUrl: https://chart-example.local/.well-known/mercure
     # Change me!
-    jwtSecret: "!ChangeThisMercureHubJWTSecretKey!"
+    jwtSecret: '!ChangeThisMercureHubJWTSecretKey!'
     extraDirectives: cors_origins http://chart-example.local https://chart-example.local
 
 # Full configuration: https://github.com/bitnami/charts/tree/master/bitnami/postgresql
@@ -42,9 +42,9 @@ postgresql:
     global:
         postgresql:
             auth:
-                username: "example"
-                password: "!ChangeMe!"
-                database: "api"
+                username: 'example'
+                password: '!ChangeMe!'
+                database: 'api'
     # Persistent Volume Storage configuration.
     # ref: https://kubernetes.io/docs/user-guide/persistent-volumes
     primary:
@@ -62,8 +62,8 @@ postgresql:
                 cpu: 1m
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 serviceAccount:
     # Specifies whether a service account should be created
@@ -72,7 +72,7 @@ serviceAccount:
     annotations: {}
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
-    name: ""
+    name: ''
 
 podAnnotations: {}
 
