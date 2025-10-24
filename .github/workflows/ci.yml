@@ -28,6 +28,7 @@ jobs:
         with:
           pull: true
           load: true
+          source: .
           files: |
             compose.yaml
             compose.override.yaml
