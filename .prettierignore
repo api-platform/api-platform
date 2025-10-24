@@ -3,3 +3,4 @@
 /helm
 /pwa/.next
 /pwa/pnpm-lock.yaml
+*.lock
