@@ -1,70 +1,78 @@
 ---
 services:
-  php:
-    image: ${IMAGES_PREFIX:-}app-php
-    depends_on:
-      - database
-    restart: unless-stopped
-    environment:
-      PWA_UPSTREAM: pwa:3000
-      SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
-      MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-      MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
-      TRUSTED_HOSTS: ${TRUSTED_HOSTS:-^${SERVER_NAME:-example\.com|localhost}|php$$}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-16}&charset=${POSTGRES_CHARSET:-utf8}
-      MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
-      MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
-      MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-    ports:
-      # HTTP
-      - target: 80
-        published: ${HTTP_PORT:-80}
-        protocol: tcp
-      # HTTPS
-      - target: 443
-        published: ${HTTPS_PORT:-443}
-        protocol: tcp
-      # HTTP/3
-      - target: 443
-        published: ${HTTP3_PORT:-443}
-        protocol: udp
-    healthcheck:
-      test: curl --insecure --fail https://localhost/docs || exit 1
-      timeout: 5s
-      retries: 5
-      start_period: 60s
-  
-  pwa:
-    image: ${IMAGES_PREFIX:-}app-pwa
-    environment:
-      NEXT_PUBLIC_ENTRYPOINT: http://php
-    healthcheck:
-      test: curl -f http://localhost:3000 || exit 1
-      timeout: 5s
-      retries: 5
-      start_period: 60s  
-  
-  ###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      - POSTGRES_DB=${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
-      - POSTGRES_USER=${POSTGRES_USER:-app}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
-      timeout: 5s
-      retries: 5
-      start_period: 60s
-    volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./api/docker/db/data:/var/lib/postgresql/data:rw
+    php:
+        image: ${IMAGES_PREFIX:-}app-php
+        depends_on:
+            - database
+        restart: unless-stopped
+        environment:
+            PWA_UPSTREAM: pwa:3000
+            SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
+            MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+            MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+            TRUSTED_PROXIES: ${TRUSTED_PROXIES:-127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
+            TRUSTED_HOSTS: ${TRUSTED_HOSTS:-^${SERVER_NAME:-example\.com|localhost}|php$$}
+            DATABASE_URL: postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-!ChangeMe!}@database:5432/${POSTGRES_DB:-app}?serverVersion=${POSTGRES_VERSION:-16}&charset=${POSTGRES_CHARSET:-utf8}
+            MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
+            MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
+            MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+        ports:
+            # HTTP
+            - target: 80
+              published: ${HTTP_PORT:-80}
+              protocol: tcp
+            # HTTPS
+            - target: 443
+              published: ${HTTPS_PORT:-443}
+              protocol: tcp
+            # HTTP/3
+            - target: 443
+              published: ${HTTP3_PORT:-443}
+              protocol: udp
+        healthcheck:
+            test: curl --insecure --fail https://localhost/docs || exit 1
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+
+    pwa:
+        image: ${IMAGES_PREFIX:-}app-pwa
+        environment:
+            NEXT_PUBLIC_ENTRYPOINT: http://php
+        healthcheck:
+            test: curl -f http://localhost:3000 || exit 1
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+
+    ###> doctrine/doctrine-bundle ###
+    database:
+        image: postgres:${POSTGRES_VERSION:-16}-alpine
+        environment:
+            - POSTGRES_DB=${POSTGRES_DB:-app}
+            # You should definitely change the password in production
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
+            - POSTGRES_USER=${POSTGRES_USER:-app}
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "pg_isready",
+                    "-d",
+                    "${POSTGRES_DB:-app}",
+                    "-U",
+                    "${POSTGRES_USER:-app}",
+                ]
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+        volumes:
+            - database_data:/var/lib/postgresql/data:rw
+            # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+            # - ./api/docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
 
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
@@ -72,10 +80,10 @@ services:
 ###< symfony/mercure-bundle ###
 
 volumes:
-  caddy_data:
-  caddy_config:
-###> doctrine/doctrine-bundle ###
-  database_data:
+    caddy_data:
+    caddy_config:
+    ###> doctrine/doctrine-bundle ###
+    database_data:
 ###< doctrine/doctrine-bundle ###
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
