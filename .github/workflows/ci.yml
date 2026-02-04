@@ -65,6 +65,12 @@ jobs:
       -
         name: Doctrine Schema Validator
         run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+      -
+        name: Debug Services
+        if: failure()
+        run: |
+          docker compose ps
+          docker compose logs
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest
