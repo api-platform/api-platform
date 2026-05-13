@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+foreach ([__DIR__.'/../../../autoload.php', __DIR__.'/../vendor/autoload.php'] as $autoload) {
+    if (is_file($autoload)) {
+        require $autoload;
+        break;
+    }
+}
+
+use ApiPlatform\Installer\InstallerCommand;
+use Symfony\Component\Console\Application;
+
+$command = new InstallerCommand();
+$application = new Application('API Platform', InstallerCommand::version());
+$application->add($command);
+$application->setDefaultCommand((string) $command->getName(), true);
+$application->run();

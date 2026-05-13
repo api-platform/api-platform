@@ -1,0 +1,13 @@
+{
+    "main": "bin/api-platform",
+    "output": "bin/api-platform.phar",
+    "directories": ["src", "templates"],
+    "files": ["composer.json"],
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\Php",
+        "KevinGH\\Box\\Compactor\\Json"
+    ],
+    "compression": "GZ",
+    "force-autodiscovery": true,
+    "git-version": "package_version"
+}
