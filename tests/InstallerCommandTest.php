@@ -78,11 +78,56 @@ final class InstallerCommandTest extends TestCase
         $this->assertStringContainsString('Unsupported framework', $tester->getDisplay());
     }
 
+    public function testRejectsUnknownDocs(): void
+    {
+        $tester = $this->tester();
+        $tester->execute(['name' => 'demo', '--framework' => 'symfony', '--docs' => ['foo']], ['interactive' => false]);
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('Unknown --docs', $tester->getDisplay());
+    }
+
+    public function testAcceptsScalarAsDocsOption(): void
+    {
+        $this->assertContains('scalar', InstallerCommand::DOCS);
+    }
+
     public function testReportsDevVersionWhenPlaceholderUnsubstituted(): void
     {
         // With box's git-version replacement disabled (running from source),
         // the @package_version@ placeholder must collapse to a "dev" string.
         $this->assertSame('dev', InstallerCommand::version());
+    }
+
+    public function testInteractiveMultiselectPromptsEmitNoPhpWarnings(): void
+    {
+        $tmp = sys_get_temp_dir().'/installer-test-'.bin2hex(random_bytes(4));
+        mkdir($tmp);
+
+        $errors = [];
+        set_error_handler(static function (int $severity, string $message, string $file, int $line) use (&$errors): bool {
+            $errors[] = ['severity' => $severity, 'message' => $message, 'file' => $file, 'line' => $line];
+
+            return true;
+        });
+
+        try {
+            $cwd = getcwd();
+            chdir(\dirname($tmp));
+            $tester = $this->tester();
+            // Accept defaults for the two multiselect prompts (formats, docs).
+            $tester->setInputs(['', '']);
+            $tester->execute(
+                ['name' => basename($tmp), '--framework' => 'symfony', '--with-docker' => false, '--with-pwa' => false],
+                ['interactive' => true],
+            );
+            chdir((string) $cwd);
+        } finally {
+            restore_error_handler();
+            rmdir($tmp);
+        }
+
+        $warnings = array_values(array_filter($errors, static fn (array $e): bool => \E_WARNING === $e['severity']));
+        $this->assertSame([], $warnings, 'Expected no PHP warnings from interactive prompts, got: '.json_encode($warnings));
     }
 
     private function tester(): CommandTester

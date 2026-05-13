@@ -29,7 +29,7 @@ final class InstallerCommand extends Command
     public const FRAMEWORK_LARAVEL = 'laravel';
 
     public const FORMATS = ['jsonld', 'jsonapi', 'hal'];
-    public const DOCS = ['swagger_ui', 'redoc'];
+    public const DOCS = ['swagger_ui', 'redoc', 'scalar'];
 
     private const NAME_PATTERN = '/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/';
 
@@ -179,10 +179,14 @@ final class InstallerCommand extends Command
             return $defaults;
         }
 
+        // SymfonyQuestionHelper renders a multiselect default by looking up
+        // each comma-separated token as a key of the choices array. Pass the
+        // numeric indices of the default values to satisfy that lookup.
+        $defaultKeys = array_keys(array_intersect($allowed, $defaults));
         $question = new ChoiceQuestion(
             $label.($allowEmpty ? ' (comma-separated, empty for none)' : ' (comma-separated)'),
             $allowed,
-            implode(',', $defaults),
+            implode(',', $defaultKeys),
         );
         $question->setMultiselect(true);
         if ($allowEmpty) {

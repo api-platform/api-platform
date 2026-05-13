@@ -31,6 +31,15 @@ return [
         // Enables Swagger UI at /api.
         'enabled' => true,
     ],
+
+    'redoc' => [
+        'enabled' => true,
+    ],
+
+    'scalar' => [
+        'enabled' => true,
+        'extra_configuration' => [],
+    ],
 ];
 PHP;
 
@@ -59,6 +68,63 @@ PHP;
         );
 
         $this->assertStringContainsString("'enabled' => false", $patched);
+    }
+
+    public function testKeepsScalarEnabledWhenInDocs(): void
+    {
+        $patched = (new LaravelConfigPatcher())->patch(
+            self::FIXTURE,
+            formats: ['jsonld'],
+            docs: ['scalar'],
+        );
+
+        // Both swagger_ui and scalar blocks contain 'enabled' — scalar must stay true.
+        $this->assertMatchesRegularExpression(
+            "/'scalar' => \[\s*'enabled' => true/",
+            $patched,
+        );
+    }
+
+    public function testDisablesScalarWhenNotInDocs(): void
+    {
+        $patched = (new LaravelConfigPatcher())->patch(
+            self::FIXTURE,
+            formats: ['jsonld'],
+            docs: ['swagger_ui'],
+        );
+
+        $this->assertMatchesRegularExpression(
+            "/'scalar' => \[\s*'enabled' => false/",
+            $patched,
+        );
+    }
+
+    public function testKeepsRedocEnabledWhenInDocs(): void
+    {
+        $patched = (new LaravelConfigPatcher())->patch(
+            self::FIXTURE,
+            formats: ['jsonld'],
+            docs: ['redoc'],
+        );
+
+        $this->assertMatchesRegularExpression(
+            "/'redoc' => \[\s*'enabled' => true/",
+            $patched,
+        );
+    }
+
+    public function testDisablesRedocWhenNotInDocs(): void
+    {
+        $patched = (new LaravelConfigPatcher())->patch(
+            self::FIXTURE,
+            formats: ['jsonld'],
+            docs: ['swagger_ui'],
+        );
+
+        $this->assertMatchesRegularExpression(
+            "/'redoc' => \[\s*'enabled' => false/",
+            $patched,
+        );
     }
 
     public function testKeepsSurroundingArrayKeysIntact(): void

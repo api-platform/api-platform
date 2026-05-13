@@ -147,6 +147,15 @@ final class SymfonyScaffold
         $configDir = $apiDir.'/config/packages';
         $this->fs->mkdir($configDir);
 
+        $config = self::buildApiPlatformConfig($opts);
+        file_put_contents($configDir.'/api_platform.yaml', Yaml::dump(['api_platform' => $config], 4, 4));
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public static function buildApiPlatformConfig(ScaffoldOptions $opts): array
+    {
         $formats = [];
         foreach ($opts->formats as $f) {
             if (isset(self::KNOWN_FORMATS[$f])) {
@@ -160,6 +169,7 @@ final class SymfonyScaffold
             'formats' => $formats,
             'enable_swagger_ui' => \in_array('swagger_ui', $opts->docs, true),
             'enable_re_doc' => \in_array('redoc', $opts->docs, true),
+            'enable_scalar' => \in_array('scalar', $opts->docs, true),
             'defaults' => [
                 'stateless' => true,
                 'cache_headers' => [
@@ -168,13 +178,15 @@ final class SymfonyScaffold
             ],
         ];
 
+        // Add the html format only when at least one HTML viewer is selected.
+        // Never set enable_docs: false — it's a master switch in core that
+        // forces hideHydraOperation: true and empties /docs.jsonld's
+        // supportedClass, breaking Hydra clients like the bundled PWA.
         if ([] !== $opts->docs) {
             $config['formats']['html'] = ['text/html'];
-        } else {
-            $config['enable_docs'] = false;
         }
 
-        file_put_contents($configDir.'/api_platform.yaml', Yaml::dump(['api_platform' => $config], 4, 4));
+        return $config;
     }
 
     private function printNextSteps(string $projectName, ScaffoldOptions $opts): void

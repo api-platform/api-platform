@@ -46,7 +46,15 @@ final class LaravelConfigPatcher
         $this->replaceFormats($root, $formats);
 
         if (!\in_array('swagger_ui', $docs, true)) {
-            $this->disableSwaggerUi($root);
+            $this->disableSection($root, 'swagger_ui');
+        }
+
+        if (!\in_array('redoc', $docs, true)) {
+            $this->disableSection($root, 'redoc');
+        }
+
+        if (!\in_array('scalar', $docs, true)) {
+            $this->disableSection($root, 'scalar');
         }
 
         return (new PrettyPrinter\Standard())->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
@@ -91,9 +99,9 @@ final class LaravelConfigPatcher
         $node->value = new Node\Expr\Array_($items);
     }
 
-    private function disableSwaggerUi(Node\Expr\Array_ $root): void
+    private function disableSection(Node\Expr\Array_ $root, string $name): void
     {
-        $section = $this->findKey($root, 'swagger_ui');
+        $section = $this->findKey($root, $name);
         if (null === $section || !$section->value instanceof Node\Expr\Array_) {
             return;
         }

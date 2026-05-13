@@ -4,26 +4,37 @@ declare(strict_types=1);
 
 namespace ApiPlatform\Installer\Scaffold;
 
+use ApiPlatform\Installer\Templates;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\ExecutableFinder;
 
 final class LaravelScaffold
 {
+    private const JS_PACKAGES = [
+        '@api-platform/api-doc-parser',
+        'github:api-platform/zod',
+        '@api-platform/ld',
+        '@api-platform/mercure',
+    ];
+
     private readonly ProcessRunner $runner;
     private readonly LaravelConfigPatcher $patcher;
+    private readonly Filesystem $fs;
 
     public function __construct(
         private readonly SymfonyStyle $io,
     ) {
         $this->runner = new ProcessRunner($io);
         $this->patcher = new LaravelConfigPatcher();
+        $this->fs = new Filesystem();
     }
 
     public function run(string $projectDir, string $projectName, ScaffoldOptions $opts): int
     {
         $finder = new ExecutableFinder();
-        $missing = array_values(array_filter(['composer', 'php'], static fn (string $b): bool => null === $finder->find($b)));
+        $missing = array_values(array_filter(['composer', 'php', 'npm'], static fn (string $b): bool => null === $finder->find($b)));
         if ([] !== $missing) {
             throw new \RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
         }
@@ -52,14 +63,89 @@ final class LaravelScaffold
         $patched = $this->patcher->patch((string) file_get_contents($configPath), $opts->formats, $opts->docs);
         file_put_contents($configPath, $patched);
 
+        $this->patchAppUrl($projectDir);
+        $this->setupWelcomePage($projectDir);
+
         $this->io->success(sprintf('Project created successfully at %s', $projectDir));
         $this->io->writeln('');
         $this->io->writeln('<comment>Next steps:</comment>');
         $this->io->writeln(sprintf('  cd %s', $projectName));
-        $this->io->writeln('  php artisan serve');
+        $this->io->writeln('  npm run dev          # in one terminal');
+        $this->io->writeln('  php artisan serve    # in another');
         $this->io->writeln('  open http://localhost:8000');
         $this->io->writeln('');
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * Sets APP_URL to match the `php artisan serve` default port so the Vite
+     * plugin advertises the URL the user will actually load in the browser.
+     * Idempotent: only rewrites a bare `http://localhost` (Laravel default).
+     */
+    public static function patchAppUrlEnv(string $envContent, string $appUrl): string
+    {
+        return preg_replace(
+            '/^APP_URL=http:\/\/localhost$/m',
+            'APP_URL='.$appUrl,
+            $envContent,
+        ) ?? $envContent;
+    }
+
+    /**
+     * Appends an ES module import to a Laravel `resources/js/app.js`. Idempotent.
+     */
+    public static function appendAppJsImport(string $existing, string $modulePath): string
+    {
+        $line = sprintf("import '%s';", $modulePath);
+        if (str_contains($existing, $line)) {
+            return $existing;
+        }
+
+        $sep = str_ends_with($existing, "\n") || '' === $existing ? '' : "\n";
+
+        return $existing.$sep.$line."\n";
+    }
+
+    private function patchAppUrl(string $projectDir): void
+    {
+        $envFile = $projectDir.'/.env';
+        if (!is_file($envFile)) {
+            return;
+        }
+        $content = (string) file_get_contents($envFile);
+        $patched = self::patchAppUrlEnv($content, 'http://localhost:8000');
+        if ($patched !== $content) {
+            file_put_contents($envFile, $patched);
+        }
+    }
+
+    private function setupWelcomePage(string $projectDir): void
+    {
+        $this->io->writeln('<info>Installing front-end welcome page</info>');
+
+        $this->fs->copy(
+            Templates::path('laravel-welcome.blade.php'),
+            $projectDir.'/resources/views/welcome.blade.php',
+            true,
+        );
+        $this->fs->copy(
+            Templates::path('laravel-resources.js'),
+            $projectDir.'/resources/js/api-platform-resources.js',
+            true,
+        );
+
+        $appJs = $projectDir.'/resources/js/app.js';
+        if (!is_file($appJs)) {
+            throw new \RuntimeException(sprintf('Could not find %s.', $appJs));
+        }
+        file_put_contents(
+            $appJs,
+            self::appendAppJsImport((string) file_get_contents($appJs), './api-platform-resources'),
+        );
+
+        $this->io->writeln('<info>Installing JavaScript dependencies</info>');
+        $this->runner->run(['npm', 'install'], $projectDir);
+        $this->runner->run(['npm', 'install', ...self::JS_PACKAGES], $projectDir);
     }
 }
