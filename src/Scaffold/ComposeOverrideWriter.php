@@ -41,6 +41,10 @@ final class ComposeOverrideWriter
         }
 
         file_put_contents($apiDir.'/compose.api-platform.yaml', $this->buildYaml());
-        file_put_contents($envFile, self::COMPOSE_FILE_LINE, \FILE_APPEND);
+
+        $env = (string) file_get_contents($envFile);
+        if (!preg_match('/^COMPOSE_FILE=/m', $env)) {
+            file_put_contents($envFile, self::COMPOSE_FILE_LINE, \FILE_APPEND);
+        }
     }
 }

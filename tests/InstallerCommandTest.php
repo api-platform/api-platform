@@ -86,6 +86,35 @@ final class InstallerCommandTest extends TestCase
         $this->assertStringContainsString('Unknown --docs', $tester->getDisplay());
     }
 
+    public function testRejectsWithDockerOnLaravel(): void
+    {
+        $tester = $this->tester();
+        $tester->execute(
+            ['name' => 'demo', '--framework' => 'laravel', '--with-docker' => true],
+            ['interactive' => false],
+        );
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('--with-docker is not supported with Laravel', $tester->getDisplay());
+    }
+
+    public function testRejectsWithPwaOnLaravel(): void
+    {
+        $tester = $this->tester();
+        $tester->execute(
+            ['name' => 'demo', '--framework' => 'laravel', '--with-pwa' => true],
+            ['interactive' => false],
+        );
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('--with-pwa is not supported with Laravel', $tester->getDisplay());
+    }
+
+    public function testDocsOptionDescriptionMentionsScalar(): void
+    {
+        $command = new InstallerCommand();
+        $description = $command->getDefinition()->getOption('docs')->getDescription();
+        $this->assertStringContainsString('scalar', $description);
+    }
+
     public function testAcceptsScalarAsDocsOption(): void
     {
         $this->assertContains('scalar', InstallerCommand::DOCS);
@@ -120,7 +149,9 @@ final class InstallerCommandTest extends TestCase
                 ['name' => basename($tmp), '--framework' => 'symfony', '--with-docker' => false, '--with-pwa' => false],
                 ['interactive' => true],
             );
-            chdir((string) $cwd);
+            if (false !== $cwd) {
+                chdir($cwd);
+            }
         } finally {
             restore_error_handler();
             rmdir($tmp);

@@ -48,4 +48,16 @@ final class ComposeOverrideWriterTest extends TestCase
         $this->expectException(\RuntimeException::class);
         (new ComposeOverrideWriter())->write($this->apiDir);
     }
+
+    public function testIsIdempotentAndDoesNotDuplicateComposeFileLine(): void
+    {
+        file_put_contents($this->apiDir.'/.env', "APP_ENV=dev\n");
+
+        $writer = new ComposeOverrideWriter();
+        $writer->write($this->apiDir);
+        $writer->write($this->apiDir);
+
+        $env = (string) file_get_contents($this->apiDir.'/.env');
+        $this->assertSame(1, substr_count($env, 'COMPOSE_FILE=compose.yaml:compose.override.yaml:compose.api-platform.yaml'));
+    }
 }

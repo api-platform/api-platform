@@ -17,12 +17,26 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Prefer the canonical push-triggered run on this SHA; fall back to
+          # any successful run (e.g. workflow_dispatch re-run after a fix).
           status=$(gh run list \
             --repo ${{ github.repository }} \
             --workflow=e2e.yml \
             --commit=${{ github.sha }} \
+            --event push \
+            --limit 1 \
             --json conclusion \
             --jq '.[0].conclusion // "missing"')
+          if [ "$status" != "success" ]; then
+            status=$(gh run list \
+              --repo ${{ github.repository }} \
+              --workflow=e2e.yml \
+              --commit=${{ github.sha }} \
+              --status success \
+              --limit 1 \
+              --json conclusion \
+              --jq '.[0].conclusion // "missing"')
+          fi
           echo "E2E conclusion for ${{ github.sha }}: $status"
           if [ "$status" != "success" ]; then
             echo "::error::E2E workflow for this commit is '$status' — refusing to release."

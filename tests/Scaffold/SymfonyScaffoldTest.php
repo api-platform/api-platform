@@ -37,6 +37,13 @@ final class SymfonyScaffoldTest extends TestCase
         $this->assertFalse($config['enable_scalar']);
     }
 
+    public function testSymfonyDockerRefIsPinnedToFullCommitSha(): void
+    {
+        // A floating ref (branch name) means every install would track upstream
+        // HEAD; pinning to a 40-char SHA-1 guarantees reproducible scaffolds.
+        $this->assertMatchesRegularExpression('/^[0-9a-f]{40}$/', SymfonyScaffold::SYMFONY_DOCKER_REF);
+    }
+
     public function testDisablesAllUiViewersWhenEmptyButKeepsHydraDocs(): void
     {
         // No UI selected must NOT trigger enable_docs: false — that's a master

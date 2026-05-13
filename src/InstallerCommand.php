@@ -46,7 +46,7 @@ final class InstallerCommand extends Command
             ->addOption('with-pwa', null, InputOption::VALUE_NEGATABLE, 'Include Next.js PWA (Symfony only)')
             ->addOption('with-docker', null, InputOption::VALUE_NEGATABLE, 'Use Docker (Symfony only)')
             ->addOption('format', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'API formats (jsonld|jsonapi|hal); repeat for several')
-            ->addOption('docs', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Documentation (swagger_ui|redoc); repeat for several, empty disables');
+            ->addOption('docs', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Documentation (swagger_ui|redoc|scalar); repeat for several, empty disables');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -140,8 +140,13 @@ final class InstallerCommand extends Command
                     $withPwa = (bool) $io->askQuestion(new ConfirmationQuestion('Include Next.js PWA?', false));
                 }
             }
-        } elseif (true === $input->getOption('with-pwa')) {
-            $io->warning('--with-pwa is not supported with Laravel; ignoring.');
+        } else {
+            if (true === $input->getOption('with-docker')) {
+                throw new InvalidArgumentException('--with-docker is not supported with Laravel.');
+            }
+            if (true === $input->getOption('with-pwa')) {
+                throw new InvalidArgumentException('--with-pwa is not supported with Laravel.');
+            }
         }
 
         $formats = $this->resolveMulti($io, $input, 'format', self::FORMATS, ['jsonld'], 'API formats');
