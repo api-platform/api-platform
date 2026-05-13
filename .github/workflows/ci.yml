@@ -71,7 +71,7 @@ jobs:
 
       - run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
-      - run: box compile -o bin/api-platform.phar
+      - run: box compile
 
       - run: php bin/api-platform.phar --version
 

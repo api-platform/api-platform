@@ -13,7 +13,7 @@ test:
 # Build a self-contained PHAR using box (https://github.com/box-project/box).
 phar:
 	composer install --no-dev --no-interaction --no-progress --optimize-autoloader
-	box compile -o $(PHAR)
+	box compile
 	composer install --no-interaction --no-progress
 
 # Build a static binary using crazywhalecc/static-php-cli.

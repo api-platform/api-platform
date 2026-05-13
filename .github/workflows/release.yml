@@ -85,7 +85,7 @@ jobs:
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
       - name: Build PHAR
-        run: box compile -o bin/api-platform.phar
+        run: box compile
 
       - name: Cache spc sources
         uses: actions/cache@v4
