@@ -2,8 +2,8 @@
 /.env
 /.phpunit.cache
 /.phpunit.result.cache
-/bin/api-platform.phar
 /buildroot
 /composer.lock
 /dist
 /vendor
+triage/

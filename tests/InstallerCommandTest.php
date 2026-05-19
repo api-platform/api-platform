@@ -126,8 +126,8 @@ final class InstallerCommandTest extends TestCase
 
     public function testReportsDevVersionWhenPlaceholderUnsubstituted(): void
     {
-        // With box's git-version replacement disabled (running from source),
-        // the @package_version@ placeholder must collapse to a "dev" string.
+        // No version-injection step is wired into the build yet, so the raw
+        // @package_version@ placeholder must collapse to a "dev" string.
         $this->assertSame('dev', InstallerCommand::version());
     }
 

@@ -79,13 +79,14 @@ jobs:
         with:
           php-version: '8.3'
           coverage: none
-          tools: composer:v2, box
+          ini-values: phar.readonly=0
+          tools: composer:v2
 
       - name: Install dependencies (production)
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
       - name: Build PHAR
-        run: box compile
+        run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar
 
       - name: Cache spc sources
         uses: actions/cache@v4
@@ -111,9 +112,9 @@ jobs:
 
       - name: Combine PHAR + micro
         run: |
-          mkdir -p dist
-          ./spc micro:combine bin/api-platform.phar -O "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
+          ./spc micro:combine dist/api-platform.phar -O "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
           chmod +x "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
+          rm -f dist/api-platform.phar
 
       - name: Smoke test built binary
         run: |

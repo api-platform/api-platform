@@ -67,12 +67,13 @@ jobs:
         with:
           php-version: '8.3'
           coverage: none
-          tools: composer:v2, box
+          ini-values: phar.readonly=0
+          tools: composer:v2
 
       - run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
-      - run: box compile
+      - run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar
 
-      - run: php bin/api-platform.phar --version
+      - run: php dist/api-platform.phar --version
 
-      - run: php bin/api-platform.phar --help
+      - run: php dist/api-platform.phar --help
