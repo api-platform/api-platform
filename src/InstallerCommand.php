@@ -149,8 +149,8 @@ final class InstallerCommand extends Command
             }
         }
 
-        $formats = $this->resolveMulti($io, $input, 'format', self::FORMATS, ['jsonld'], 'API formats');
-        $docs = $this->resolveMulti($io, $input, 'docs', self::DOCS, ['swagger_ui'], 'API documentation', allowEmpty: true);
+        $formats = $this->resolveMulti($io, $input, 'format', self::FORMATS, self::FORMATS, 'API formats');
+        $docs = $this->resolveMulti($io, $input, 'docs', self::DOCS, self::DOCS, 'API documentation', allowEmpty: true);
 
         return new ScaffoldOptions(withPwa: $withPwa, withDocker: $withDocker, formats: $formats, docs: $docs);
     }

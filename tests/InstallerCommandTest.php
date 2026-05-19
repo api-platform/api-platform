@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Tests;
 
 use ApiPlatform\Installer\InstallerCommand;
+use ApiPlatform\Installer\Scaffold\ScaffoldOptions;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Tester\CommandTester;
 
 final class InstallerCommandTest extends TestCase
@@ -127,6 +131,14 @@ final class InstallerCommandTest extends TestCase
         $this->assertSame('dev', InstallerCommand::version());
     }
 
+    public function testNonInteractiveDefaultsSelectEveryFormatAndDocViewer(): void
+    {
+        $opts = $this->resolveDefaultOptions();
+
+        $this->assertSame(InstallerCommand::FORMATS, $opts->formats);
+        $this->assertSame(InstallerCommand::DOCS, $opts->docs);
+    }
+
     public function testInteractiveMultiselectPromptsEmitNoPhpWarnings(): void
     {
         $tmp = sys_get_temp_dir().'/installer-test-'.bin2hex(random_bytes(4));
@@ -168,5 +180,23 @@ final class InstallerCommandTest extends TestCase
         $app->add($command);
 
         return new CommandTester($app->find((string) $command->getName()));
+    }
+
+    private function resolveDefaultOptions(): ScaffoldOptions
+    {
+        $command = new InstallerCommand();
+        $input = new ArrayInput([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+        ]);
+        $input->bind($command->getDefinition());
+        $input->setInteractive(false);
+        $io = new SymfonyStyle($input, new BufferedOutput());
+
+        $method = new \ReflectionMethod($command, 'resolveOptions');
+
+        return $method->invoke($command, $io, $input, InstallerCommand::FRAMEWORK_SYMFONY);
     }
 }
