@@ -144,7 +144,7 @@ final class SymfonyScaffold
             $this->fs->remove($tmpDir);
         }
 
-        $this->io->writeln('<info>Writing API Platform Compose override</info>');
+        $this->io->writeln('<info>Patching compose.yaml with Hydra+Mercure Link header</info>');
         (new ComposeOverrideWriter())->write($apiDir);
     }
 
