@@ -112,6 +112,37 @@ final class InstallerCommandTest extends TestCase
         $this->assertStringContainsString('--with-pwa is not supported with Laravel', $tester->getDisplay());
     }
 
+    public function testAdminOptionIsAcceptedOnSymfony(): void
+    {
+        $command = new InstallerCommand();
+        $this->assertTrue($command->getDefinition()->hasOption('with-admin'));
+    }
+
+    public function testAdminOptionIsAcceptedOnLaravel(): void
+    {
+        $command = new InstallerCommand();
+        $input = new ArrayInput([
+            'name' => 'demo',
+            '--framework' => 'laravel',
+            '--with-admin' => true,
+        ]);
+        $input->bind($command->getDefinition());
+        $input->setInteractive(false);
+        $io = new SymfonyStyle($input, new BufferedOutput());
+
+        $method = new \ReflectionMethod($command, 'resolveOptions');
+        $opts = $method->invoke($command, $io, $input, InstallerCommand::FRAMEWORK_LARAVEL);
+
+        $this->assertTrue($opts->withAdmin);
+    }
+
+    public function testAdminDefaultsToFalseInNonInteractiveMode(): void
+    {
+        $opts = $this->resolveDefaultOptions();
+
+        $this->assertFalse($opts->withAdmin);
+    }
+
     public function testDocsOptionDescriptionMentionsScalar(): void
     {
         $command = new InstallerCommand();

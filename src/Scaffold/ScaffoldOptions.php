@@ -15,6 +15,7 @@ final readonly class ScaffoldOptions
         public bool $withDocker,
         public array $formats,
         public array $docs,
+        public bool $withAdmin = false,
     ) {
     }
 }

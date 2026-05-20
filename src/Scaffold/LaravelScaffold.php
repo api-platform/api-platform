@@ -66,6 +66,10 @@ final class LaravelScaffold
         $this->patchAppUrl($projectDir);
         $this->setupWelcomePage($projectDir);
 
+        if ($opts->withAdmin) {
+            (new LaravelAdminScaffold($this->io))->run($projectDir);
+        }
+
         $this->io->success(sprintf('Project created successfully at %s', $projectDir));
         $this->io->writeln('');
         $this->io->writeln('<comment>Next steps:</comment>');
@@ -73,6 +77,9 @@ final class LaravelScaffold
         $this->io->writeln('  npm run dev          # in one terminal');
         $this->io->writeln('  php artisan serve    # in another');
         $this->io->writeln('  open http://localhost:8000');
+        if ($opts->withAdmin) {
+            $this->io->writeln('  open http://localhost:8000/admin');
+        }
         $this->io->writeln('');
 
         return Command::SUCCESS;

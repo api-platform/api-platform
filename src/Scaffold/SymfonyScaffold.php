@@ -44,8 +44,9 @@ final class SymfonyScaffold
         $this->checkRequiredBinaries($opts);
 
         $parentDir = \dirname($projectDir);
+        $needsSiblingLayout = $opts->withPwa || $opts->withAdmin;
 
-        if ($opts->withPwa) {
+        if ($needsSiblingLayout) {
             $apiDir = $projectDir.'/api';
             $this->fs->mkdir($projectDir);
             $this->io->writeln('<info>Creating Symfony skeleton</info>');
@@ -94,6 +95,16 @@ final class SymfonyScaffold
             (new PwaScaffold($this->io))->run($projectDir, $apiDir);
         }
 
+        if ($opts->withAdmin) {
+            if (!$opts->withPwa) {
+                // PwaScaffold installs nelmio/cors-bundle already; avoid duplicate composer call.
+                $this->setupCorsForLocalhost($apiDir);
+            }
+            $this->io->writeln('<info>Setting up React-admin SPA</info>');
+            $entrypoint = $opts->withDocker ? 'https://localhost' : 'http://localhost:8000';
+            (new SymfonyAdminScaffold($this->io))->run($projectDir, $entrypoint);
+        }
+
         $this->io->success(sprintf('Project created successfully at %s', $projectDir));
         $this->printNextSteps($projectName, $opts);
 
@@ -110,12 +121,52 @@ final class SymfonyScaffold
         if ($opts->withPwa) {
             array_push($required, 'node', 'npx', 'pnpm');
         }
+        if ($opts->withAdmin) {
+            array_push($required, 'node', 'npm');
+        }
 
         $finder = new ExecutableFinder();
+        $required = array_values(array_unique($required));
         $missing = array_values(array_filter($required, static fn (string $b): bool => null === $finder->find($b)));
         if ([] !== $missing) {
             throw new \RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
         }
+    }
+
+    private function setupCorsForLocalhost(string $apiDir): void
+    {
+        if (!self::composerHasRequirement($apiDir, 'nelmio/cors-bundle')) {
+            $this->io->writeln('<info>Requiring nelmio/cors-bundle</info>');
+            $this->runner->run(['composer', 'require', 'nelmio/cors-bundle'], $apiDir);
+        }
+
+        $envFile = $apiDir.'/.env';
+        if (!is_file($envFile)) {
+            return;
+        }
+        $existing = (string) file_get_contents($envFile);
+        if (str_contains($existing, 'CORS_ALLOW_ORIGIN=')) {
+            return;
+        }
+        file_put_contents(
+            $envFile,
+            "\nCORS_ALLOW_ORIGIN=^https?://localhost(:[0-9]+)?$\n",
+            \FILE_APPEND,
+        );
+    }
+
+    private static function composerHasRequirement(string $apiDir, string $package): bool
+    {
+        $manifest = $apiDir.'/composer.json';
+        if (!is_file($manifest)) {
+            return false;
+        }
+        $json = json_decode((string) file_get_contents($manifest), true);
+        if (!\is_array($json)) {
+            return false;
+        }
+
+        return isset($json['require'][$package]) || isset($json['require-dev'][$package]);
     }
 
     private function setupDocker(string $apiDir): void
@@ -199,7 +250,7 @@ final class SymfonyScaffold
     {
         $this->io->writeln('');
         $this->io->writeln('<comment>Next steps:</comment>');
-        $cdTarget = $opts->withPwa ? "$projectName/api" : $projectName;
+        $cdTarget = ($opts->withPwa || $opts->withAdmin) ? "$projectName/api" : $projectName;
         $this->io->writeln(sprintf('  cd %s', $cdTarget));
 
         if ($opts->withDocker) {
@@ -217,6 +268,13 @@ final class SymfonyScaffold
             $this->io->writeln('  open http://localhost:3000');
             $this->io->writeln('');
             $this->io->writeln('CORS is pre-configured to allow requests from localhost.');
+        }
+
+        if ($opts->withAdmin) {
+            $this->io->writeln('');
+            $this->io->writeln('  cd ../admin');
+            $this->io->writeln('  npm run dev');
+            $this->io->writeln('  open http://localhost:5173');
         }
         $this->io->writeln('');
     }

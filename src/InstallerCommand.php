@@ -44,6 +44,7 @@ final class InstallerCommand extends Command
             ->addArgument('name', InputArgument::OPTIONAL, 'Project name')
             ->addOption('framework', null, InputOption::VALUE_REQUIRED, 'Framework: symfony or laravel')
             ->addOption('with-pwa', null, InputOption::VALUE_NEGATABLE, 'Include Next.js PWA (Symfony only)')
+            ->addOption('with-admin', null, InputOption::VALUE_NEGATABLE, 'Include React-admin SPA')
             ->addOption('with-docker', null, InputOption::VALUE_NEGATABLE, 'Use Docker (Symfony only)')
             ->addOption('format', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'API formats (jsonld|jsonapi|hal); repeat for several')
             ->addOption('docs', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Documentation (swagger_ui|redoc|scalar); repeat for several, empty disables');
@@ -132,8 +133,7 @@ final class InstallerCommand extends Command
             if (null !== $pwaOption) {
                 $withPwa = (bool) $pwaOption;
             } else {
-                $finder = new ExecutableFinder();
-                $missing = array_filter(['node', 'npx', 'pnpm'], static fn (string $b): bool => null === $finder->find($b));
+                $missing = $this->missingBinaries(['node', 'npx', 'pnpm']);
                 if ([] !== $missing) {
                     $io->note(sprintf('Skipping PWA prompt: %s not found in PATH.', implode(', ', $missing)));
                 } else {
@@ -149,10 +149,51 @@ final class InstallerCommand extends Command
             }
         }
 
+        $withAdmin = $this->resolveWithAdmin($io, $input);
+
         $formats = $this->resolveMulti($io, $input, 'format', self::FORMATS, self::FORMATS, 'API formats');
         $docs = $this->resolveMulti($io, $input, 'docs', self::DOCS, self::DOCS, 'API documentation', allowEmpty: true);
 
-        return new ScaffoldOptions(withPwa: $withPwa, withDocker: $withDocker, formats: $formats, docs: $docs);
+        return new ScaffoldOptions(
+            withPwa: $withPwa,
+            withDocker: $withDocker,
+            formats: $formats,
+            docs: $docs,
+            withAdmin: $withAdmin,
+        );
+    }
+
+    private function resolveWithAdmin(SymfonyStyle $io, InputInterface $input): bool
+    {
+        $option = $input->getOption('with-admin');
+        if (null !== $option) {
+            return (bool) $option;
+        }
+
+        if (!$input->isInteractive()) {
+            return false;
+        }
+
+        $missing = $this->missingBinaries(['node', 'npm']);
+        if ([] !== $missing) {
+            $io->note(sprintf('Skipping admin prompt: %s not found in PATH.', implode(', ', $missing)));
+
+            return false;
+        }
+
+        return (bool) $io->askQuestion(new ConfirmationQuestion('Include React-admin SPA?', false));
+    }
+
+    /**
+     * @param array<string> $binaries
+     *
+     * @return array<string>
+     */
+    private function missingBinaries(array $binaries): array
+    {
+        $finder = new ExecutableFinder();
+
+        return array_values(array_filter($binaries, static fn (string $b): bool => null === $finder->find($b)));
     }
 
     /**
