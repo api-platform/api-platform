@@ -170,6 +170,31 @@ final class InstallerCommandTest extends TestCase
         $this->assertSame(InstallerCommand::DOCS, $opts->docs);
     }
 
+    public function testEmptyDocsOptionDisablesDocViewers(): void
+    {
+        $opts = $this->resolveOptions([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+            '--docs' => [''],
+        ]);
+
+        $this->assertSame([], $opts->docs);
+    }
+
+    public function testRejectsEmptyDocsOptionCombinedWithDocViewers(): void
+    {
+        $tester = $this->tester();
+        $tester->execute(
+            ['name' => 'demo', '--framework' => 'symfony', '--docs' => ['', 'redoc']],
+            ['interactive' => false],
+        );
+
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('Cannot combine empty --docs with other values', $tester->getDisplay());
+    }
+
     /**
      * @return array<string, array{string, array<string>}>
      */
@@ -228,6 +253,8 @@ final class InstallerCommandTest extends TestCase
 
         $warnings = array_values(array_filter($errors, static fn (array $e): bool => \E_WARNING === $e['severity']));
         $this->assertSame([], $warnings, 'Expected no PHP warnings from interactive prompts, got: '.json_encode($warnings));
+        $this->assertStringContainsString('API documentation (comma-separated)', $tester->getDisplay());
+        $this->assertStringNotContainsString('empty for none', $tester->getDisplay());
     }
 
     private function tester(): CommandTester
@@ -241,15 +268,23 @@ final class InstallerCommandTest extends TestCase
 
     private function resolveDefaultOptions(): ScaffoldOptions
     {
-        $command = new InstallerCommand();
-        $input = new ArrayInput([
+        return $this->resolveOptions([
             'name' => 'demo',
             '--framework' => 'symfony',
             '--with-docker' => false,
             '--with-pwa' => false,
         ]);
+    }
+
+    /**
+     * @param array<string, mixed> $inputValues
+     */
+    private function resolveOptions(array $inputValues, bool $interactive = false): ScaffoldOptions
+    {
+        $command = new InstallerCommand();
+        $input = new ArrayInput($inputValues);
         $input->bind($command->getDefinition());
-        $input->setInteractive(false);
+        $input->setInteractive($interactive);
         $io = new SymfonyStyle($input, new BufferedOutput());
 
         $method = new \ReflectionMethod($command, 'resolveOptions');

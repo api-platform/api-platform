@@ -213,6 +213,14 @@ final class InstallerCommand extends Command
     ): array {
         $values = $input->getOption($option);
         if ([] !== $values) {
+            if ($allowEmpty && \in_array('', $values, true)) {
+                if ([] !== array_diff($values, [''])) {
+                    throw new InvalidArgumentException(sprintf('Cannot combine empty --%s with other values.', $option));
+                }
+
+                return [];
+            }
+
             $unknown = array_diff($values, $allowed);
             if ([] !== $unknown) {
                 throw new InvalidArgumentException(sprintf('Unknown --%s value(s): %s. Allowed: %s.', $option, implode(', ', $unknown), implode(', ', $allowed)));
@@ -230,7 +238,7 @@ final class InstallerCommand extends Command
         // numeric indices of the default values to satisfy that lookup.
         $defaultKeys = array_keys(array_intersect($allowed, $defaults));
         $question = new ChoiceQuestion(
-            $label.($allowEmpty ? ' (comma-separated, empty for none)' : ' (comma-separated)'),
+            $label.' (comma-separated)',
             $allowed,
             implode(',', $defaultKeys),
         );
