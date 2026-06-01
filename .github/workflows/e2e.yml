@@ -71,16 +71,29 @@ jobs:
       - name: Set up Node + pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11.5.0
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install installer deps
         run: composer install --no-interaction --no-progress
 
       - name: Scaffold Symfony + PWA project
         run: bin/api-platform demo --no-interaction --framework=symfony --with-docker --with-pwa --format=jsonld --docs=swagger_ui
+
+      - name: Verify PWA scaffolding
+        run: |
+          test -d demo/pwa
+          test -f demo/pwa/package.json
+          test -f demo/pwa/app/page.tsx
+          grep -q "API Platform" demo/pwa/app/page.tsx
+          if grep -q "To get started, edit the page.tsx file" demo/pwa/app/page.tsx; then
+            echo "PWA still contains the default Next.js page"
+            exit 1
+          fi
+          test "$(grep -c '^CORS_ALLOW_ORIGIN=' demo/api/.env)" -eq 1
+          pnpm --dir demo/pwa exec tsc --noEmit
 
       - name: Boot Docker stack
         working-directory: demo/api
@@ -99,12 +112,6 @@ jobs:
           curl -kv https://localhost/docs.jsonld || true
           docker compose -f demo/api/compose.yaml logs
           exit 1
-
-      - name: Verify PWA scaffolding
-        run: |
-          test -d demo/pwa
-          test -f demo/pwa/package.json
-          grep -q "CORS_ALLOW_ORIGIN" demo/api/.env
 
       - name: Stop Docker stack
         if: always()
