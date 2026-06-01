@@ -13,6 +13,7 @@ final class PwaScaffold
 {
     private const PNPM_BUILD_APPROVALS = ['sharp', 'unrs-resolver'];
     private const PNPM_BUILD_APPROVAL_PLACEHOLDER = 'set this to true or false';
+    private const CORS_ALLOW_ORIGIN = "'^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$'";
 
     private const JS_PACKAGES = [
         '@api-platform/api-doc-parser',
@@ -42,11 +43,7 @@ final class PwaScaffold
         if (!is_file($envFile)) {
             throw new \RuntimeException(sprintf('Could not find %s.', $envFile));
         }
-        file_put_contents(
-            $envFile,
-            "\nCORS_ALLOW_ORIGIN=^https?://localhost(:[0-9]+)?$\n",
-            \FILE_APPEND,
-        );
+        file_put_contents($envFile, self::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
 
         $pwaDir = $projectDir.'/pwa';
         $this->io->writeln('<info>Creating Next.js app with create-next-app</info>');
@@ -117,6 +114,17 @@ final class PwaScaffold
         }
 
         return Yaml::dump($config, 4, 2);
+    }
+
+    public static function patchCorsAllowOriginEnv(string $content): string
+    {
+        if (preg_match('/^CORS_ALLOW_ORIGIN=/m', $content)) {
+            return $content;
+        }
+
+        $separator = str_ends_with($content, "\n") || '' === $content ? '' : "\n";
+
+        return $content.$separator."\nCORS_ALLOW_ORIGIN=".self::CORS_ALLOW_ORIGIN."\n";
     }
 
     private function approvePnpmBuilds(string $pwaDir): bool

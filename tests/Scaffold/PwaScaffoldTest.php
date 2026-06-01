@@ -9,6 +9,37 @@ use PHPUnit\Framework\TestCase;
 
 final class PwaScaffoldTest extends TestCase
 {
+    public function testKeepsExistingCorsAllowOriginFromNelmioRecipe(): void
+    {
+        $env = <<<'ENV'
+            APP_ENV=dev
+
+            ###> nelmio/cors-bundle ###
+            CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+            ###< nelmio/cors-bundle ###
+            ENV;
+
+        $this->assertSame($env, PwaScaffold::patchCorsAllowOriginEnv($env));
+    }
+
+    public function testAddsNelmioCorsAllowOriginFallbackWhenMissing(): void
+    {
+        $patched = PwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
+
+        $this->assertStringContainsString(
+            "CORS_ALLOW_ORIGIN='^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$'\n",
+            $patched,
+        );
+    }
+
+    public function testCorsAllowOriginFallbackIsIdempotent(): void
+    {
+        $once = PwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
+
+        $this->assertSame($once, PwaScaffold::patchCorsAllowOriginEnv($once));
+        $this->assertSame(1, substr_count($once, 'CORS_ALLOW_ORIGIN='));
+    }
+
     public function testApprovesPnpmBuildPlaceholdersCreatedByCreateNextApp(): void
     {
         $patched = PwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
