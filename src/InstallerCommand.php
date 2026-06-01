@@ -236,18 +236,17 @@ final class InstallerCommand extends Command
         );
         $question->setMultiselect(true);
         if ($allowEmpty) {
-            $question->setValidator(static function ($v) use ($allowed): array {
+            $nativeValidator = $question->getValidator();
+            if (null === $nativeValidator) {
+                throw new \LogicException('ChoiceQuestion validator should be configured.');
+            }
+
+            $question->setValidator(static function ($v) use ($nativeValidator): array {
                 if (null === $v || '' === $v) {
                     return [];
                 }
-                $parts = array_values(array_filter(array_map('trim', explode(',', (string) $v))));
-                foreach ($parts as $p) {
-                    if (!\in_array($p, $allowed, true)) {
-                        throw new InvalidArgumentException(sprintf('Invalid value "%s".', $p));
-                    }
-                }
 
-                return $parts;
+                return array_values((array) $nativeValidator($v));
             });
         }
 

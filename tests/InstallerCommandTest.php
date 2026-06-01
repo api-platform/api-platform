@@ -170,6 +170,32 @@ final class InstallerCommandTest extends TestCase
         $this->assertSame(InstallerCommand::DOCS, $opts->docs);
     }
 
+    /**
+     * @return array<string, array{string, array<string>}>
+     */
+    public static function interactiveDocsSelections(): array
+    {
+        return [
+            'swagger-ui numeric key' => ['0', ['swagger_ui']],
+            'redoc numeric key' => ['1', ['redoc']],
+            'scalar numeric key' => ['2', ['scalar']],
+            'all numeric keys' => ['0,1,2', ['swagger_ui', 'redoc', 'scalar']],
+            'redoc value' => ['redoc', ['redoc']],
+            'scalar value' => ['scalar', ['scalar']],
+            'all values' => ['swagger_ui,redoc,scalar', ['swagger_ui', 'redoc', 'scalar']],
+            'default' => ['', ['swagger_ui', 'redoc', 'scalar']],
+        ];
+    }
+
+    /**
+     * @param array<string> $expected
+     */
+    #[DataProvider('interactiveDocsSelections')]
+    public function testInteractiveDocsPromptAcceptsDisplayedChoices(string $answer, array $expected): void
+    {
+        $this->assertSame($expected, $this->resolveInteractiveDocs($answer));
+    }
+
     public function testInteractiveMultiselectPromptsEmitNoPhpWarnings(): void
     {
         $tmp = sys_get_temp_dir().'/installer-test-'.bin2hex(random_bytes(4));
@@ -229,5 +255,36 @@ final class InstallerCommandTest extends TestCase
         $method = new \ReflectionMethod($command, 'resolveOptions');
 
         return $method->invoke($command, $io, $input, InstallerCommand::FRAMEWORK_SYMFONY);
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function resolveInteractiveDocs(string $answer): array
+    {
+        $command = new InstallerCommand();
+        $input = new ArrayInput([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+            '--format' => ['jsonld'],
+        ]);
+        $input->bind($command->getDefinition());
+        $input->setInteractive(true);
+
+        $stream = fopen('php://memory', 'r+');
+        if (false === $stream) {
+            throw new \RuntimeException('Could not open memory stream.');
+        }
+        fwrite($stream, $answer."\n");
+        rewind($stream);
+        $input->setStream($stream);
+
+        $io = new SymfonyStyle($input, new BufferedOutput());
+        $method = new \ReflectionMethod($command, 'resolveOptions');
+        $opts = $method->invoke($command, $io, $input, InstallerCommand::FRAMEWORK_SYMFONY);
+
+        return $opts->docs;
     }
 }
