@@ -28,7 +28,7 @@ function ApiResources() {
             fields: (r.fields ?? []).map((f) => ({
               name: f.name,
               range: f.range ? String(f.range) : null,
-              required: f.required,
+              required: Boolean(f.required),
             })),
             operations: (r.operations ?? []).map((op) => ({
               method: op.method ?? "GET",
