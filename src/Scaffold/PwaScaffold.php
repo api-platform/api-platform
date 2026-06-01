@@ -7,9 +7,13 @@ namespace ApiPlatform\Installer\Scaffold;
 use ApiPlatform\Installer\Templates;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Yaml;
 
 final class PwaScaffold
 {
+    private const PNPM_BUILD_APPROVALS = ['sharp', 'unrs-resolver'];
+    private const PNPM_BUILD_APPROVAL_PLACEHOLDER = 'set this to true or false';
+
     private const JS_PACKAGES = [
         '@api-platform/api-doc-parser',
         'github:api-platform/zod',
@@ -47,6 +51,10 @@ final class PwaScaffold
         $pwaDir = $projectDir.'/pwa';
         $this->io->writeln('<info>Creating Next.js app with create-next-app</info>');
         $this->runner->run(['npx', 'create-next-app', 'pwa', '--use-pnpm'], $projectDir);
+        if ($this->approvePnpmBuilds($pwaDir)) {
+            $this->io->writeln('<info>Approving required pnpm build scripts</info>');
+            $this->runner->run(['pnpm', 'install'], $pwaDir);
+        }
 
         $this->io->writeln('<info>Installing API Platform frontend libraries</info>');
         $this->runner->run(['pnpm', 'add', ...self::JS_PACKAGES], $pwaDir);
@@ -68,5 +76,64 @@ final class PwaScaffold
         }
 
         $this->fs->copy(Templates::path('pwa-page.tsx'), $pagePath, true);
+    }
+
+    public static function approvePnpmWorkspaceBuilds(string $content): string
+    {
+        $config = Yaml::parse($content);
+        if (!\is_array($config)) {
+            return $content;
+        }
+
+        $allowBuilds = $config['allowBuilds'] ?? null;
+        if (!\is_array($allowBuilds)) {
+            return $content;
+        }
+
+        $changed = false;
+        foreach (self::PNPM_BUILD_APPROVALS as $package) {
+            if (($allowBuilds[$package] ?? null) !== self::PNPM_BUILD_APPROVAL_PLACEHOLDER) {
+                continue;
+            }
+
+            $allowBuilds[$package] = true;
+            $changed = true;
+        }
+
+        if (!$changed) {
+            return $content;
+        }
+
+        $config['allowBuilds'] = $allowBuilds;
+
+        $ignoredBuilds = $config['ignoredBuiltDependencies'] ?? null;
+        if (\is_array($ignoredBuilds)) {
+            $ignoredBuilds = array_values(array_diff($ignoredBuilds, self::PNPM_BUILD_APPROVALS));
+            if ([] === $ignoredBuilds) {
+                unset($config['ignoredBuiltDependencies']);
+            } else {
+                $config['ignoredBuiltDependencies'] = $ignoredBuilds;
+            }
+        }
+
+        return Yaml::dump($config, 4, 2);
+    }
+
+    private function approvePnpmBuilds(string $pwaDir): bool
+    {
+        $workspaceFile = $pwaDir.'/pnpm-workspace.yaml';
+        if (!is_file($workspaceFile)) {
+            return false;
+        }
+
+        $content = (string) file_get_contents($workspaceFile);
+        $patched = self::approvePnpmWorkspaceBuilds($content);
+        if ($patched === $content) {
+            return false;
+        }
+
+        file_put_contents($workspaceFile, $patched);
+
+        return true;
     }
 }
