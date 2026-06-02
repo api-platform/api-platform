@@ -177,6 +177,7 @@ final class InstallerCommandTest extends TestCase
             '--framework' => 'symfony',
             '--with-docker' => false,
             '--with-pwa' => false,
+            '--with-admin' => false,
             '--docs' => [''],
         ]);
 
@@ -240,7 +241,7 @@ final class InstallerCommandTest extends TestCase
             // Accept defaults for the two multiselect prompts (formats, docs).
             $tester->setInputs(['', '']);
             $tester->execute(
-                ['name' => basename($tmp), '--framework' => 'symfony', '--with-docker' => false, '--with-pwa' => false],
+                ['name' => basename($tmp), '--framework' => 'symfony', '--with-docker' => false, '--with-pwa' => false, '--with-admin' => false],
                 ['interactive' => true],
             );
             if (false !== $cwd) {
@@ -273,6 +274,7 @@ final class InstallerCommandTest extends TestCase
             '--framework' => 'symfony',
             '--with-docker' => false,
             '--with-pwa' => false,
+            '--with-admin' => false,
         ]);
     }
 
@@ -303,6 +305,7 @@ final class InstallerCommandTest extends TestCase
             '--framework' => 'symfony',
             '--with-docker' => false,
             '--with-pwa' => false,
+            '--with-admin' => false,
             '--format' => ['jsonld'],
         ]);
         $input->bind($command->getDefinition());

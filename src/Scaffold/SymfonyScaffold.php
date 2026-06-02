@@ -144,15 +144,7 @@ final class SymfonyScaffold
         if (!is_file($envFile)) {
             return;
         }
-        $existing = (string) file_get_contents($envFile);
-        if (str_contains($existing, 'CORS_ALLOW_ORIGIN=')) {
-            return;
-        }
-        file_put_contents(
-            $envFile,
-            "\nCORS_ALLOW_ORIGIN=^https?://localhost(:[0-9]+)?$\n",
-            \FILE_APPEND,
-        );
+        file_put_contents($envFile, PwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
     }
 
     private static function composerHasRequirement(string $apiDir, string $package): bool
