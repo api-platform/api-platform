@@ -71,4 +71,29 @@ final class ViteConfigPatcherTest extends TestCase
 
         (new ViteConfigPatcher())->patch("export default {};\n", 'resources/js/admin/main.tsx');
     }
+
+    public function testDoesNotIntroduceArrayHoleOnTrailingComma(): void
+    {
+        $config = <<<'JS'
+            import { defineConfig } from 'vite';
+            import laravel from 'laravel-vite-plugin';
+
+            export default defineConfig({
+                plugins: [
+                    laravel({
+                        input: ['resources/css/app.css', 'resources/js/app.js',],
+                        refresh: true,
+                    }),
+                ],
+            });
+
+            JS;
+
+        $patched = (new ViteConfigPatcher())->patch($config, 'resources/js/admin/main.tsx');
+
+        // Concatenating `, $injection` after a captured trailing comma would
+        // produce `'app.js',, /* ... */` — a JS array hole. Guard against it.
+        $this->assertStringNotContainsString(',,', $patched);
+        $this->assertStringContainsString("'resources/js/admin/main.tsx'", $patched);
+    }
 }

@@ -27,7 +27,10 @@ final class ViteConfigPatcher
         $patched = (string) preg_replace_callback(
             '/(input:\s*\[)([^\]]*)(\])/',
             static function (array $m) use ($injection): string {
-                $existing = rtrim($m[2]);
+                // Strip trailing whitespace then a trailing comma (and the
+                // whitespace it may have hidden) so injecting `, $injection`
+                // never produces `,,` — an empty array element in JS.
+                $existing = rtrim(rtrim(rtrim($m[2]), ','));
                 $sep = '' === $existing ? '' : ', ';
 
                 return $m[1].$existing.$sep.$injection.$m[3];
