@@ -143,7 +143,7 @@ final class SymfonyScaffold
 
         $envFile = $apiDir.'/.env';
         if (!is_file($envFile)) {
-            return;
+            throw new \RuntimeException(sprintf('Could not find %s.', $envFile));
         }
         file_put_contents($envFile, PwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
     }

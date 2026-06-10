@@ -87,4 +87,22 @@ final class SymfonyScaffoldTest extends TestCase
             @rmdir($apiDir);
         }
     }
+
+    public function testSetupCorsForLocalhostFailsLoudlyWhenEnvMissing(): void
+    {
+        $apiDir = sys_get_temp_dir().'/symfony-scaffold-test-'.bin2hex(random_bytes(4));
+        mkdir($apiDir);
+        file_put_contents($apiDir.'/composer.json', '{"require":{"nelmio/cors-bundle":"^2.5"}}');
+
+        try {
+            $scaffold = new SymfonyScaffold(new SymfonyStyle(new ArrayInput([]), new BufferedOutput()));
+            $method = new \ReflectionMethod($scaffold, 'setupCorsForLocalhost');
+
+            $this->expectException(\RuntimeException::class);
+            $method->invoke($scaffold, $apiDir);
+        } finally {
+            @unlink($apiDir.'/composer.json');
+            @rmdir($apiDir);
+        }
+    }
 }
