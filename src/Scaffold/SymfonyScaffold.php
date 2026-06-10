@@ -92,7 +92,8 @@ final class SymfonyScaffold
 
         if ($opts->withPwa) {
             $this->io->writeln('<info>Setting up Next.js PWA</info>');
-            (new PwaScaffold($this->io))->run($projectDir, $apiDir);
+            $pwaEntrypoint = $opts->withDocker ? 'https://localhost' : 'http://localhost:8000';
+            (new PwaScaffold($this->io))->run($projectDir, $apiDir, $pwaEntrypoint);
         }
 
         if ($opts->withAdmin) {

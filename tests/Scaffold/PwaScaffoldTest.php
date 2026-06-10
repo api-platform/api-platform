@@ -103,4 +103,28 @@ final class PwaScaffoldTest extends TestCase
 
         $this->assertSame($once, PwaScaffold::approvePnpmWorkspaceBuilds($once));
     }
+
+    public function testWritesNextPublicApiEntrypointEnvWhenAbsent(): void
+    {
+        $patched = PwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
+
+        $this->assertStringContainsString('NEXT_PUBLIC_API_ENTRYPOINT=http://localhost:8000', $patched);
+    }
+
+    public function testNextPublicApiEntrypointEnvIsIdempotent(): void
+    {
+        $once = PwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
+        $twice = PwaScaffold::appendNextPublicApiEntrypointEnv($once, 'http://localhost:8000');
+
+        $this->assertSame($once, $twice);
+        $this->assertSame(1, substr_count($twice, 'NEXT_PUBLIC_API_ENTRYPOINT='));
+    }
+
+    public function testNextPublicApiEntrypointEnvDoesNotOverwriteCustomValue(): void
+    {
+        $existing = "NEXT_PUBLIC_API_ENTRYPOINT=https://api.example.com\n";
+        $patched = PwaScaffold::appendNextPublicApiEntrypointEnv($existing, 'http://localhost:8000');
+
+        $this->assertSame($existing, $patched);
+    }
 }

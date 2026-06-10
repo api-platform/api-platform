@@ -32,7 +32,7 @@ final class PwaScaffold
         $this->runner = new ProcessRunner($io);
     }
 
-    public function run(string $projectDir, string $apiDir): void
+    public function run(string $projectDir, string $apiDir, string $apiEntrypoint = 'https://localhost'): void
     {
         // The Flex recipe creates config/packages/nelmio_cors.yaml pre-configured
         // to read CORS_ALLOW_ORIGIN from the environment.
@@ -73,6 +73,26 @@ final class PwaScaffold
         }
 
         $this->fs->copy(Templates::path('pwa-page.tsx'), $pagePath, true);
+
+        $envLocalFile = $pwaDir.'/.env.local';
+        $existingEnv = is_file($envLocalFile) ? (string) file_get_contents($envLocalFile) : '';
+        file_put_contents($envLocalFile, self::appendNextPublicApiEntrypointEnv($existingEnv, $apiEntrypoint));
+    }
+
+    /**
+     * Adds `NEXT_PUBLIC_API_ENTRYPOINT=...` to the PWA `.env.local` so the
+     * page targets the actual API URL chosen at install time. Idempotent: a
+     * custom value is left untouched on re-run.
+     */
+    public static function appendNextPublicApiEntrypointEnv(string $existing, string $entrypoint): string
+    {
+        if (preg_match('/^NEXT_PUBLIC_API_ENTRYPOINT=/m', $existing)) {
+            return $existing;
+        }
+
+        $sep = '' === $existing || str_ends_with($existing, "\n") ? '' : "\n";
+
+        return $existing.$sep.'NEXT_PUBLIC_API_ENTRYPOINT='.$entrypoint."\n";
     }
 
     public static function approvePnpmWorkspaceBuilds(string $content): string
