@@ -20,6 +20,11 @@ final class ComposeOverrideWriter
     public const START_MARKER = '###> '.self::RECIPE_NAME.' ###';
     public const END_MARKER = '###< '.self::RECIPE_NAME.' ###';
 
+    // Upstream symfony-docker has historically named the Caddy/PHP service
+    // `php`; recent images may rename it to `frankenphp` (matching the image
+    // name). Walk through every known candidate when locating environment.
+    private const PHP_SERVICE_CANDIDATES = ['php', 'frankenphp'];
+
     public function write(string $apiDir): void
     {
         $file = $apiDir.'/compose.yaml';
@@ -55,7 +60,8 @@ final class ComposeOverrideWriter
         $sectionEnd = $this->findEnvironmentSectionEnd($lines);
         if (null === $sectionEnd) {
             throw new \RuntimeException(sprintf(
-                'Could not find services.php.environment in %s; cannot inject the Hydra+Mercure Link header.',
+                'Could not find services.{%s}.environment in %s; cannot inject the Hydra+Mercure Link header.',
+                implode('|', self::PHP_SERVICE_CANDIDATES),
                 $file,
             ));
         }
@@ -79,18 +85,22 @@ final class ComposeOverrideWriter
         }
         $servicesEnd = $this->findSectionEnd($lines, $servicesAt + 1, 0);
 
-        $phpAt = $this->findKey($lines, $servicesAt + 1, $servicesEnd, '  ', 'php');
-        if (null === $phpAt) {
-            return null;
-        }
-        $phpEnd = $this->findSectionEnd($lines, $phpAt + 1, 2);
+        foreach (self::PHP_SERVICE_CANDIDATES as $service) {
+            $phpAt = $this->findKey($lines, $servicesAt + 1, $servicesEnd, '  ', $service);
+            if (null === $phpAt) {
+                continue;
+            }
+            $phpEnd = $this->findSectionEnd($lines, $phpAt + 1, 2);
 
-        $envAt = $this->findKey($lines, $phpAt + 1, $phpEnd, '    ', 'environment');
-        if (null === $envAt) {
-            return null;
+            $envAt = $this->findKey($lines, $phpAt + 1, $phpEnd, '    ', 'environment');
+            if (null === $envAt) {
+                continue;
+            }
+
+            return $this->findSectionEnd($lines, $envAt + 1, 4);
         }
 
-        return $this->findSectionEnd($lines, $envAt + 1, 4);
+        return null;
     }
 
     /**

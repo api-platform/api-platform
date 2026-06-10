@@ -143,6 +143,32 @@ final class ComposeOverrideWriterTest extends TestCase
         $this->assertSame(1, substr_count($second, 'CADDY_SERVER_EXTRA_DIRECTIVES:'));
     }
 
+    public function testInjectsUnderFrankenphpServiceName(): void
+    {
+        // Upstream symfony-docker may rename the `php` service to
+        // `frankenphp` (matching the image name); the writer must keep
+        // finding the `environment` block under the new key.
+        $compose = <<<'YAML'
+            services:
+              frankenphp:
+                restart: unless-stopped
+                environment:
+                  SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
+                volumes:
+                  - caddy_data:/data
+
+            volumes:
+              caddy_data:
+            YAML;
+        file_put_contents($this->apiDir.'/compose.yaml', $compose);
+
+        (new ComposeOverrideWriter())->write($this->apiDir);
+
+        $patched = (string) file_get_contents($this->apiDir.'/compose.yaml');
+        $this->assertStringContainsString(ComposeOverrideWriter::CADDY_DIRECTIVES, $patched);
+        $this->assertMatchesRegularExpression('/^      ###> api-platform\/api-platform ###$/m', $patched);
+    }
+
     public function testRewritesBlockInPlaceWhenDirectivesChange(): void
     {
         file_put_contents($this->apiDir.'/compose.yaml', self::UPSTREAM_COMPOSE);
