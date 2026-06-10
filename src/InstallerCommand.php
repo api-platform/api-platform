@@ -244,10 +244,9 @@ final class InstallerCommand extends Command
         );
         $question->setMultiselect(true);
         if ($allowEmpty) {
+            // ChoiceQuestion's constructor always installs a validator.
             $nativeValidator = $question->getValidator();
-            if (null === $nativeValidator) {
-                throw new \LogicException('ChoiceQuestion validator should be configured.');
-            }
+            \assert(null !== $nativeValidator);
 
             $question->setValidator(static function ($v) use ($nativeValidator): array {
                 if (null === $v || '' === $v) {
