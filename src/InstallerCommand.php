@@ -81,7 +81,7 @@ final class InstallerCommand extends Command
 
     public static function validateName(string $name): string
     {
-        if ('' === $name || !preg_match(self::NAME_PATTERN, $name)) {
+        if (!preg_match(self::NAME_PATTERN, $name)) {
             throw new InvalidArgumentException('Project name must start with a letter or digit and contain only letters, digits, hyphens, dots, or underscores.');
         }
 
