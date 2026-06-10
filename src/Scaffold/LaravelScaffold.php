@@ -154,7 +154,8 @@ final class LaravelScaffold
         );
 
         $this->io->writeln('<info>Installing JavaScript dependencies</info>');
-        $this->runner->run(['npm', 'install'], $projectDir);
+        // `npm install <pkg>...` installs declared deps from package.json and
+        // adds the new packages in a single dependency walk.
         $this->runner->run(['npm', 'install', ...self::JS_PACKAGES], $projectDir);
     }
 }
