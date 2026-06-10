@@ -127,4 +127,18 @@ final class PwaScaffoldTest extends TestCase
 
         $this->assertSame($existing, $patched);
     }
+
+    public function testCreateNextAppCommandPinsTypeScriptAndAppRouter(): void
+    {
+        $cmd = PwaScaffold::createNextAppCommand('pwa');
+
+        $this->assertContains('--use-pnpm', $cmd);
+        // --yes skips every interactive prompt so the installer never stalls
+        // on a TTY waiting for choices the user can change in the template.
+        $this->assertContains('--yes', $cmd);
+        // PwaScaffold relies on the App Router layout under app/page.tsx;
+        // a Pages-router or JS scaffold would crash the entry-page lookup.
+        $this->assertContains('--ts', $cmd);
+        $this->assertContains('--app', $cmd);
+    }
 }

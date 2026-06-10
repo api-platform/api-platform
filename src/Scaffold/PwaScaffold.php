@@ -47,7 +47,7 @@ final class PwaScaffold
 
         $pwaDir = $projectDir.'/pwa';
         $this->io->writeln('<info>Creating Next.js app with create-next-app</info>');
-        $this->runner->run(['npx', 'create-next-app', 'pwa', '--use-pnpm'], $projectDir);
+        $this->runner->run(self::createNextAppCommand('pwa'), $projectDir);
         if ($this->approvePnpmBuilds($pwaDir)) {
             $this->io->writeln('<info>Approving required pnpm build scripts</info>');
             $this->runner->run(['pnpm', 'install'], $pwaDir);
@@ -77,6 +77,19 @@ final class PwaScaffold
         $envLocalFile = $pwaDir.'/.env.local';
         $existingEnv = is_file($envLocalFile) ? (string) file_get_contents($envLocalFile) : '';
         file_put_contents($envLocalFile, self::appendNextPublicApiEntrypointEnv($existingEnv, $apiEntrypoint));
+    }
+
+    /**
+     * Builds the `npx create-next-app` command line used to scaffold the PWA.
+     * The flags pin TypeScript + App Router so the entry-page lookup
+     * downstream finds `app/page.tsx`, and `--yes` skips every interactive
+     * prompt so a TTY user can't pick incompatible options.
+     *
+     * @return list<string>
+     */
+    public static function createNextAppCommand(string $appName): array
+    {
+        return ['npx', '--yes', 'create-next-app', $appName, '--use-pnpm', '--yes', '--ts', '--app'];
     }
 
     /**
