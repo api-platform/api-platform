@@ -92,8 +92,10 @@ final class LaravelScaffold
      */
     public static function patchAppUrlEnv(string $envContent, string $appUrl): string
     {
+        // `\r?` keeps the patch working on CRLF-encoded .env files (Windows
+        // editors, .env shipped via Composer on a non-Unix host).
         return preg_replace(
-            '/^APP_URL=http:\/\/localhost$/m',
+            '/^APP_URL=http:\/\/localhost\r?$/m',
             'APP_URL='.$appUrl,
             $envContent,
         ) ?? $envContent;

@@ -69,4 +69,13 @@ final class LaravelScaffoldTest extends TestCase
 
         $this->assertSame($env, $patched);
     }
+
+    public function testPatchesDefaultAppUrlWithCrlfLineEndings(): void
+    {
+        $env = "APP_NAME=Laravel\r\nAPP_URL=http://localhost\r\nDB_CONNECTION=sqlite\r\n";
+        $patched = LaravelScaffold::patchAppUrlEnv($env, 'http://localhost:8000');
+
+        $this->assertStringContainsString('APP_URL=http://localhost:8000', $patched);
+        $this->assertStringNotContainsString('APP_URL=http://localhost'."\r", $patched);
+    }
 }
