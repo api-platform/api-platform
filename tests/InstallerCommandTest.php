@@ -58,7 +58,9 @@ final class InstallerCommandTest extends TestCase
                 ['name' => basename($tmp), '--framework' => 'symfony', '--with-docker' => false, '--with-pwa' => false],
                 ['interactive' => false],
             );
-            chdir($cwd);
+            if (false !== $cwd) {
+                chdir($cwd);
+            }
             $this->assertSame(2, $tester->getStatusCode());
             $this->assertStringContainsString('already exists', $tester->getDisplay());
         } finally {
