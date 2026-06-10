@@ -145,4 +145,16 @@ PHP;
         $this->expectException(\RuntimeException::class);
         (new LaravelConfigPatcher())->patch('<?php $foo = 1;', ['jsonld'], ['swagger_ui']);
     }
+
+    public function testTargetsNewestSupportedPhpVersion(): void
+    {
+        // A hardcoded version blocks every future PHP syntax the host already
+        // supports. The patcher should follow the parser's newest-supported
+        // version so api-platform/laravel can ship configs with newer syntax.
+        $patcher = new LaravelConfigPatcher();
+        $reflection = new \ReflectionMethod($patcher, 'parserPhpVersion');
+        $version = $reflection->invoke($patcher);
+
+        $this->assertEquals(\PhpParser\PhpVersion::getNewestSupported(), $version);
+    }
 }

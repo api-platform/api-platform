@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
+use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use PhpParser\PrettyPrinter;
@@ -30,7 +31,7 @@ final class LaravelConfigPatcher
      */
     public function patch(string $source, array $formats, array $docs): string
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromString('8.3'));
+        $parser = $this->createParser();
         $oldStmts = $parser->parse($source) ?? [];
         $oldTokens = $parser->getTokens();
 
@@ -58,6 +59,19 @@ final class LaravelConfigPatcher
         }
 
         return (new PrettyPrinter\Standard())->printFormatPreserving($newStmts, $oldStmts, $oldTokens);
+    }
+
+    private function createParser(): Parser
+    {
+        return (new ParserFactory())->createForVersion($this->parserPhpVersion());
+    }
+
+    private function parserPhpVersion(): PhpVersion
+    {
+        // Track the newest version the parser knows about so future syntax
+        // landing in api-platform/laravel keeps parsing once nikic/php-parser
+        // is bumped — no need to touch this file on every PHP release.
+        return PhpVersion::getNewestSupported();
     }
 
     /**
