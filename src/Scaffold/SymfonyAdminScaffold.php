@@ -50,8 +50,21 @@ final class SymfonyAdminScaffold
         $existing = is_file($envFile) ? (string) file_get_contents($envFile) : '';
         file_put_contents($envFile, self::appendEntrypointEnv($existing, $apiEntrypoint));
 
+        $this->printEntrypointHint($apiEntrypoint);
+
         $this->io->writeln('<info>Installing admin JavaScript dependencies</info>');
         $this->runner->run(['npm', 'install'], $adminDir);
+    }
+
+    private function printEntrypointHint(string $apiEntrypoint): void
+    {
+        // appendEntrypointEnv is idempotent and refuses to overwrite, so a
+        // user whose actual server runs on another host/port needs a clear
+        // pointer at the file to edit instead of guessing.
+        $this->io->writeln(sprintf(
+            '<comment>Admin API entrypoint set to %s. Edit admin/.env (VITE_ENTRYPOINT) if your API runs elsewhere.</comment>',
+            $apiEntrypoint,
+        ));
     }
 
     /**

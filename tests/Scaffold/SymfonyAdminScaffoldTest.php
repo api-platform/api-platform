@@ -7,6 +7,9 @@ namespace ApiPlatform\Installer\Tests\Scaffold;
 use ApiPlatform\Installer\Scaffold\SymfonyAdminScaffold;
 use ApiPlatform\Installer\Templates;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SymfonyAdminScaffoldTest extends TestCase
 {
@@ -64,5 +67,23 @@ final class SymfonyAdminScaffoldTest extends TestCase
 
         $this->assertStringContainsString('id="admin-root"', $content);
         $this->assertStringContainsString('src="/src/main.tsx"', $content);
+    }
+
+    public function testPrintsOverrideHintForChosenEntrypoint(): void
+    {
+        // VITE_ENTRYPOINT is frozen by appendEntrypointEnv on first run; if
+        // the user's actual Symfony server port differs from the heuristic,
+        // they need an obvious paper-trail back to admin/.env.
+        $output = new BufferedOutput();
+        $io = new SymfonyStyle(new ArrayInput([]), $output);
+        $scaffold = new SymfonyAdminScaffold($io);
+        $method = new \ReflectionMethod($scaffold, 'printEntrypointHint');
+
+        $method->invoke($scaffold, 'http://localhost:8000');
+
+        $display = $output->fetch();
+        $this->assertStringContainsString('admin/.env', $display);
+        $this->assertStringContainsString('VITE_ENTRYPOINT', $display);
+        $this->assertStringContainsString('http://localhost:8000', $display);
     }
 }
