@@ -55,12 +55,29 @@ final class LaravelAdminScaffold
 
         $this->patchViteConfig($projectDir);
         $this->patchRoutes($projectDir);
+        $this->patchEnv($projectDir);
 
         $missing = self::filterInstalledPackages($projectDir, self::JS_PACKAGES);
         if ([] !== $missing) {
             $this->io->writeln('<info>Installing admin JavaScript dependencies</info>');
             $this->runner->run(['npm', 'install', ...$missing], $projectDir);
         }
+    }
+
+    /**
+     * Adds `VITE_ENTRYPOINT=...` to the project `.env` so the admin app
+     * (served by Laravel at /admin) reaches the API under its route_prefix.
+     * Idempotent: a custom value is left untouched on re-run.
+     */
+    public static function appendViteEntrypointEnv(string $existing, string $entrypoint): string
+    {
+        if (preg_match('/^VITE_ENTRYPOINT=/m', $existing)) {
+            return $existing;
+        }
+
+        $sep = '' === $existing || str_ends_with($existing, "\n") ? '' : "\n";
+
+        return $existing.$sep.'VITE_ENTRYPOINT='.$entrypoint."\n";
     }
 
     /**
@@ -130,6 +147,19 @@ final class LaravelAdminScaffold
         $patched = self::appendAdminRoute($existing);
         if ($patched !== $existing) {
             file_put_contents($routesFile, $patched);
+        }
+    }
+
+    private function patchEnv(string $projectDir): void
+    {
+        $envFile = $projectDir.'/.env';
+        if (!is_file($envFile)) {
+            return;
+        }
+        $existing = (string) file_get_contents($envFile);
+        $patched = self::appendViteEntrypointEnv($existing, '/api');
+        if ($patched !== $existing) {
+            file_put_contents($envFile, $patched);
         }
     }
 }

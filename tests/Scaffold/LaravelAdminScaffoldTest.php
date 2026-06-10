@@ -101,4 +101,30 @@ final class LaravelAdminScaffoldTest extends TestCase
             rmdir($projectDir);
         }
     }
+
+    public function testAppendsViteEntrypointEnvForLaravel(): void
+    {
+        $env = "APP_NAME=Laravel\nAPP_ENV=local\n";
+        $patched = LaravelAdminScaffold::appendViteEntrypointEnv($env, '/api');
+
+        $this->assertStringContainsString('VITE_ENTRYPOINT=/api', $patched);
+        $this->assertStringContainsString('APP_NAME=Laravel', $patched);
+    }
+
+    public function testViteEntrypointEnvIsIdempotent(): void
+    {
+        $once = LaravelAdminScaffold::appendViteEntrypointEnv("APP_NAME=Laravel\n", '/api');
+        $twice = LaravelAdminScaffold::appendViteEntrypointEnv($once, '/api');
+
+        $this->assertSame($once, $twice);
+        $this->assertSame(1, substr_count($twice, 'VITE_ENTRYPOINT='));
+    }
+
+    public function testViteEntrypointEnvDoesNotOverwriteCustomValue(): void
+    {
+        $existing = "VITE_ENTRYPOINT=https://api.example.com\n";
+        $patched = LaravelAdminScaffold::appendViteEntrypointEnv($existing, '/api');
+
+        $this->assertSame($existing, $patched);
+    }
 }
