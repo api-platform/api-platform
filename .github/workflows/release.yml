@@ -116,6 +116,10 @@ jobs:
           chmod +x "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
           rm -f dist/api-platform.phar
 
+      - name: Generate checksum
+        working-directory: dist
+        run: shasum -a 256 "api-platform-${{ matrix.os }}-${{ matrix.arch }}" > "api-platform-${{ matrix.os }}-${{ matrix.arch }}.sha256"
+
       - name: Smoke test built binary
         run: |
           ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version
