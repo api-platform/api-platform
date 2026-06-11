@@ -9,7 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
-final class PwaScaffold
+final class NextPwaScaffold
 {
     private const PNPM_BUILD_APPROVALS = ['sharp', 'unrs-resolver'];
     private const PNPM_BUILD_APPROVAL_PLACEHOLDER = 'set this to true or false';

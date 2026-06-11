@@ -93,12 +93,12 @@ final class SymfonyScaffold
         if ($opts->withPwa) {
             $this->io->writeln('<info>Setting up Next.js PWA</info>');
             $pwaEntrypoint = $opts->withDocker ? 'https://localhost' : 'http://localhost:8000';
-            (new PwaScaffold($this->io))->run($projectDir, $apiDir, $pwaEntrypoint);
+            (new NextPwaScaffold($this->io))->run($projectDir, $apiDir, $pwaEntrypoint);
         }
 
         if ($opts->withAdmin) {
             if (!$opts->withPwa) {
-                // PwaScaffold installs nelmio/cors-bundle already; avoid duplicate composer call.
+                // NextPwaScaffold installs nelmio/cors-bundle already; avoid duplicate composer call.
                 $this->setupCorsForLocalhost($apiDir);
             }
             $this->io->writeln('<info>Setting up React-admin SPA</info>');
@@ -145,7 +145,7 @@ final class SymfonyScaffold
         if (!is_file($envFile)) {
             throw new \RuntimeException(sprintf('Could not find %s.', $envFile));
         }
-        file_put_contents($envFile, PwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
+        file_put_contents($envFile, NextPwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
     }
 
     private static function composerHasRequirement(string $apiDir, string $package): bool

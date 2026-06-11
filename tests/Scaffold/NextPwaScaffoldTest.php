@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ApiPlatform\Installer\Tests\Scaffold;
 
-use ApiPlatform\Installer\Scaffold\PwaScaffold;
+use ApiPlatform\Installer\Scaffold\NextPwaScaffold;
 use PHPUnit\Framework\TestCase;
 
-final class PwaScaffoldTest extends TestCase
+final class NextPwaScaffoldTest extends TestCase
 {
     public function testKeepsExistingCorsAllowOriginFromNelmioRecipe(): void
     {
@@ -19,12 +19,12 @@ final class PwaScaffoldTest extends TestCase
             ###< nelmio/cors-bundle ###
             ENV;
 
-        $this->assertSame($env, PwaScaffold::patchCorsAllowOriginEnv($env));
+        $this->assertSame($env, NextPwaScaffold::patchCorsAllowOriginEnv($env));
     }
 
     public function testAddsNelmioCorsAllowOriginFallbackWhenMissing(): void
     {
-        $patched = PwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
+        $patched = NextPwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
 
         $this->assertStringContainsString(
             "CORS_ALLOW_ORIGIN='^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$'\n",
@@ -34,15 +34,15 @@ final class PwaScaffoldTest extends TestCase
 
     public function testCorsAllowOriginFallbackIsIdempotent(): void
     {
-        $once = PwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
+        $once = NextPwaScaffold::patchCorsAllowOriginEnv("APP_ENV=dev\n");
 
-        $this->assertSame($once, PwaScaffold::patchCorsAllowOriginEnv($once));
+        $this->assertSame($once, NextPwaScaffold::patchCorsAllowOriginEnv($once));
         $this->assertSame(1, substr_count($once, 'CORS_ALLOW_ORIGIN='));
     }
 
     public function testApprovesPnpmBuildPlaceholdersCreatedByCreateNextApp(): void
     {
-        $patched = PwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
+        $patched = NextPwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
             allowBuilds:
               sharp: set this to true or false
               unrs-resolver: set this to true or false
@@ -59,7 +59,7 @@ final class PwaScaffoldTest extends TestCase
 
     public function testKeepsUnrelatedIgnoredBuildDependencies(): void
     {
-        $patched = PwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
+        $patched = NextPwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
             allowBuilds:
               sharp: set this to true or false
               unrs-resolver: set this to true or false
@@ -87,12 +87,12 @@ final class PwaScaffoldTest extends TestCase
               - sharp
             YAML;
 
-        $this->assertSame($workspace, PwaScaffold::approvePnpmWorkspaceBuilds($workspace));
+        $this->assertSame($workspace, NextPwaScaffold::approvePnpmWorkspaceBuilds($workspace));
     }
 
     public function testPnpmBuildApprovalPatchIsIdempotent(): void
     {
-        $once = PwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
+        $once = NextPwaScaffold::approvePnpmWorkspaceBuilds(<<<'YAML'
             allowBuilds:
               sharp: set this to true or false
               unrs-resolver: set this to true or false
@@ -101,20 +101,20 @@ final class PwaScaffoldTest extends TestCase
               - unrs-resolver
             YAML);
 
-        $this->assertSame($once, PwaScaffold::approvePnpmWorkspaceBuilds($once));
+        $this->assertSame($once, NextPwaScaffold::approvePnpmWorkspaceBuilds($once));
     }
 
     public function testWritesNextPublicApiEntrypointEnvWhenAbsent(): void
     {
-        $patched = PwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
+        $patched = NextPwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
 
         $this->assertStringContainsString('NEXT_PUBLIC_API_ENTRYPOINT=http://localhost:8000', $patched);
     }
 
     public function testNextPublicApiEntrypointEnvIsIdempotent(): void
     {
-        $once = PwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
-        $twice = PwaScaffold::appendNextPublicApiEntrypointEnv($once, 'http://localhost:8000');
+        $once = NextPwaScaffold::appendNextPublicApiEntrypointEnv('', 'http://localhost:8000');
+        $twice = NextPwaScaffold::appendNextPublicApiEntrypointEnv($once, 'http://localhost:8000');
 
         $this->assertSame($once, $twice);
         $this->assertSame(1, substr_count($twice, 'NEXT_PUBLIC_API_ENTRYPOINT='));
@@ -123,20 +123,20 @@ final class PwaScaffoldTest extends TestCase
     public function testNextPublicApiEntrypointEnvDoesNotOverwriteCustomValue(): void
     {
         $existing = "NEXT_PUBLIC_API_ENTRYPOINT=https://api.example.com\n";
-        $patched = PwaScaffold::appendNextPublicApiEntrypointEnv($existing, 'http://localhost:8000');
+        $patched = NextPwaScaffold::appendNextPublicApiEntrypointEnv($existing, 'http://localhost:8000');
 
         $this->assertSame($existing, $patched);
     }
 
     public function testCreateNextAppCommandPinsTypeScriptAndAppRouter(): void
     {
-        $cmd = PwaScaffold::createNextAppCommand('pwa');
+        $cmd = NextPwaScaffold::createNextAppCommand('pwa');
 
         $this->assertContains('--use-pnpm', $cmd);
         // --yes skips every interactive prompt so the installer never stalls
         // on a TTY waiting for choices the user can change in the template.
         $this->assertContains('--yes', $cmd);
-        // PwaScaffold relies on the App Router layout under app/page.tsx;
+        // NextPwaScaffold relies on the App Router layout under app/page.tsx;
         // a Pages-router or JS scaffold would crash the entry-page lookup.
         $this->assertContains('--ts', $cmd);
         $this->assertContains('--app', $cmd);
