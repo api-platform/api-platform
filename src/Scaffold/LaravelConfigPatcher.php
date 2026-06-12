@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Scaffold;
 
 use PhpParser\Node;
+use RuntimeException;
 use PhpParser\NodeFinder;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\CloningVisitor;
@@ -41,7 +42,7 @@ final class LaravelConfigPatcher
 
         $root = $this->findReturnedArray($newStmts);
         if (null === $root) {
-            throw new \RuntimeException('Expected a top-level "return [...]".');
+            throw new RuntimeException('Expected a top-level "return [...]".');
         }
 
         $this->replaceFormats($root, $formats);
@@ -108,7 +109,7 @@ final class LaravelConfigPatcher
 
         $node = $this->findKey($root, 'formats');
         if (null === $node) {
-            throw new \RuntimeException('Could not find "formats" key in config.');
+            throw new RuntimeException('Could not find "formats" key in config.');
         }
         $node->value = new Node\Expr\Array_($items);
     }

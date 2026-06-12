@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Scaffold;
 
 use ApiPlatform\Installer\Templates;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
@@ -130,7 +131,7 @@ final class SymfonyScaffold
         $required = array_values(array_unique($required));
         $missing = array_values(array_filter($required, static fn (string $b): bool => null === $finder->find($b)));
         if ([] !== $missing) {
-            throw new \RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
+            throw new RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
         }
     }
 
@@ -143,9 +144,9 @@ final class SymfonyScaffold
 
         $envFile = $apiDir.'/.env';
         if (!is_file($envFile)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $envFile));
+            throw new RuntimeException(sprintf('Could not find %s.', $envFile));
         }
-        file_put_contents($envFile, NextPwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
+        FileWriter::write($envFile, NextPwaScaffold::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
     }
 
     private static function composerHasRequirement(string $apiDir, string $package): bool
@@ -198,7 +199,7 @@ final class SymfonyScaffold
         $this->fs->mkdir($configDir);
 
         $config = self::buildApiPlatformConfig($opts);
-        file_put_contents($configDir.'/api_platform.yaml', Yaml::dump(['api_platform' => $config], 4, 4));
+        FileWriter::write($configDir.'/api_platform.yaml', Yaml::dump(['api_platform' => $config], 4, 4));
     }
 
     /**

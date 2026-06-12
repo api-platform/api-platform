@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Scaffold;
 
 use ApiPlatform\Installer\Templates;
+use RuntimeException;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -128,25 +129,25 @@ final class LaravelAdminScaffold
     {
         $viteConfig = $projectDir.'/vite.config.js';
         if (!is_file($viteConfig)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $viteConfig));
+            throw new RuntimeException(sprintf('Could not find %s.', $viteConfig));
         }
         $patched = $this->vitePatcher->patch(
             (string) file_get_contents($viteConfig),
             'resources/js/admin/main.tsx',
         );
-        file_put_contents($viteConfig, $patched);
+        FileWriter::write($viteConfig, $patched);
     }
 
     private function patchRoutes(string $projectDir): void
     {
         $routesFile = $projectDir.'/routes/web.php';
         if (!is_file($routesFile)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $routesFile));
+            throw new RuntimeException(sprintf('Could not find %s.', $routesFile));
         }
         $existing = (string) file_get_contents($routesFile);
         $patched = self::appendAdminRoute($existing);
         if ($patched !== $existing) {
-            file_put_contents($routesFile, $patched);
+            FileWriter::write($routesFile, $patched);
         }
     }
 
@@ -159,7 +160,7 @@ final class LaravelAdminScaffold
         $existing = (string) file_get_contents($envFile);
         $patched = self::appendViteEntrypointEnv($existing, '/api');
         if ($patched !== $existing) {
-            file_put_contents($envFile, $patched);
+            FileWriter::write($envFile, $patched);
         }
     }
 }

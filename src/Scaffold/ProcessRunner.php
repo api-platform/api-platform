@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ApiPlatform\Installer\Scaffold;
 
+use RuntimeException;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
@@ -32,7 +33,7 @@ final class ProcessRunner
         });
 
         if (!$process->isSuccessful()) {
-            throw new \RuntimeException(sprintf('Command failed: %s', $process->getCommandLine()));
+            throw new RuntimeException(sprintf('Command failed: %s', $process->getCommandLine()));
         }
     }
 

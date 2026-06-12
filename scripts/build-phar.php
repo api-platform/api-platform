@@ -11,6 +11,17 @@ if (ini_get('phar.readonly')) {
     exit(1);
 }
 
+function read_file(string $path): string
+{
+    $contents = file_get_contents($path);
+    if (false === $contents) {
+        fwrite(STDERR, sprintf("Could not read %s\n", $path));
+        exit(1);
+    }
+
+    return $contents;
+}
+
 $root = \dirname(__DIR__);
 $output = $argv[1] ?? $root.'/dist/api-platform.phar';
 $alias = basename($output);
@@ -36,15 +47,14 @@ foreach ($includeDirs as $dir) {
             continue;
         }
         $relative = ltrim(substr($file->getPathname(), \strlen($root)), '/');
-        $phar->addFromString($relative, file_get_contents($file->getPathname()));
+        $phar->addFromString($relative, read_file($file->getPathname()));
     }
 }
-$phar->addFromString('composer.json', file_get_contents($root.'/composer.json'));
+$phar->addFromString('composer.json', read_file($root.'/composer.json'));
 
 // Strip the shebang from bin/api-platform so the Phar stub can require it
 // without leaking "#!/usr/bin/env php" to stdout at runtime.
-$entry = file_get_contents($root.'/bin/api-platform');
-$entry = preg_replace('/^#![^\n]*\n/', '', $entry);
+$entry = preg_replace('/^#![^\n]*\n/', '', read_file($root.'/bin/api-platform'));
 $phar->addFromString('bin/api-platform', $entry);
 
 $phar->setStub(<<<STUB

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Scaffold;
 
 use ApiPlatform\Installer\Templates;
+use RuntimeException;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
@@ -41,9 +42,9 @@ final class NextPwaScaffold
 
         $envFile = $apiDir.'/.env';
         if (!is_file($envFile)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $envFile));
+            throw new RuntimeException(sprintf('Could not find %s.', $envFile));
         }
-        file_put_contents($envFile, self::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
+        FileWriter::write($envFile, self::patchCorsAllowOriginEnv((string) file_get_contents($envFile)));
 
         $pwaDir = $projectDir.'/pwa';
         $this->io->writeln('<info>Creating Next.js app with create-next-app</info>');
@@ -69,14 +70,14 @@ final class NextPwaScaffold
             }
         }
         if (null === $pagePath) {
-            throw new \RuntimeException(sprintf('Could not find Next.js entry page in %s.', $pwaDir));
+            throw new RuntimeException(sprintf('Could not find Next.js entry page in %s.', $pwaDir));
         }
 
         $this->fs->copy(Templates::path('pwa-page.tsx'), $pagePath, true);
 
         $envLocalFile = $pwaDir.'/.env.local';
         $existingEnv = is_file($envLocalFile) ? (string) file_get_contents($envLocalFile) : '';
-        file_put_contents($envLocalFile, self::appendNextPublicApiEntrypointEnv($existingEnv, $apiEntrypoint));
+        FileWriter::write($envLocalFile, self::appendNextPublicApiEntrypointEnv($existingEnv, $apiEntrypoint));
     }
 
     /**
@@ -173,7 +174,7 @@ final class NextPwaScaffold
             return false;
         }
 
-        file_put_contents($workspaceFile, $patched);
+        FileWriter::write($workspaceFile, $patched);
 
         return true;
     }

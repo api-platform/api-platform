@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ApiPlatform\Installer\Scaffold;
 
 use ApiPlatform\Installer\Templates;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
@@ -36,7 +37,7 @@ final class LaravelScaffold
         $finder = new ExecutableFinder();
         $missing = array_values(array_filter(['composer', 'php', 'npm'], static fn (string $b): bool => null === $finder->find($b)));
         if ([] !== $missing) {
-            throw new \RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
+            throw new RuntimeException(sprintf('Missing required binaries in PATH: %s.', implode(', ', $missing)));
         }
 
         $parentDir = \dirname($projectDir);
@@ -61,7 +62,7 @@ final class LaravelScaffold
         $this->io->writeln('<info>Configuring API Platform</info>');
         $configPath = $projectDir.'/config/api-platform.php';
         $patched = $this->patcher->patch((string) file_get_contents($configPath), $opts->formats, $opts->docs);
-        file_put_contents($configPath, $patched);
+        FileWriter::write($configPath, $patched);
 
         $this->patchAppUrl($projectDir);
         $this->setupWelcomePage($projectDir);
@@ -125,7 +126,7 @@ final class LaravelScaffold
         $content = (string) file_get_contents($envFile);
         $patched = self::patchAppUrlEnv($content, 'http://localhost:8000');
         if ($patched !== $content) {
-            file_put_contents($envFile, $patched);
+            FileWriter::write($envFile, $patched);
         }
     }
 
@@ -146,9 +147,9 @@ final class LaravelScaffold
 
         $appJs = $projectDir.'/resources/js/app.js';
         if (!is_file($appJs)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $appJs));
+            throw new RuntimeException(sprintf('Could not find %s.', $appJs));
         }
-        file_put_contents(
+        FileWriter::write(
             $appJs,
             self::appendAppJsImport((string) file_get_contents($appJs), './api-platform-resources'),
         );

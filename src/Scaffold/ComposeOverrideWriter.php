@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ApiPlatform\Installer\Scaffold;
 
+use RuntimeException;
+
 /**
  * Patches the project's `compose.yaml` so docker compose emits the Hydra
  * `apiDocumentation` + Mercure Link headers on every response.
@@ -29,7 +31,7 @@ final class ComposeOverrideWriter
     {
         $file = $apiDir.'/compose.yaml';
         if (!is_file($file)) {
-            throw new \RuntimeException(sprintf('Could not find %s.', $file));
+            throw new RuntimeException(sprintf('Could not find %s.', $file));
         }
 
         $contents = (string) file_get_contents($file);
@@ -38,7 +40,7 @@ final class ComposeOverrideWriter
             : $this->insertBlock($contents, $file);
 
         if ($patched !== $contents) {
-            file_put_contents($file, $patched);
+            FileWriter::write($file, $patched);
         }
     }
 
@@ -59,7 +61,7 @@ final class ComposeOverrideWriter
         $lines = preg_split('/\R/', $contents) ?: [];
         $sectionEnd = $this->findEnvironmentSectionEnd($lines);
         if (null === $sectionEnd) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 'Could not find services.{%s}.environment in %s; cannot inject the Hydra+Mercure Link header.',
                 implode('|', self::PHP_SERVICE_CANDIDATES),
                 $file,

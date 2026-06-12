@@ -48,7 +48,7 @@ final class SymfonyAdminScaffold
 
         $envFile = $adminDir.'/.env';
         $existing = is_file($envFile) ? (string) file_get_contents($envFile) : '';
-        file_put_contents($envFile, self::appendEntrypointEnv($existing, $apiEntrypoint));
+        FileWriter::write($envFile, self::appendEntrypointEnv($existing, $apiEntrypoint));
 
         $this->printEntrypointHint($apiEntrypoint);
 
