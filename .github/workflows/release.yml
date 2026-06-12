@@ -69,6 +69,9 @@ jobs:
       EXTENSIONS: phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl
       # Mirror of EXTENSIONS with dashes — cache keys reject commas.
       EXTENSIONS_KEY: phar-filter-tokenizer-mbstring-ctype-zlib-curl-openssl
+      # spc fetches source metadata from the GitHub API; authenticate to
+      # avoid the 60 req/h unauthenticated rate limit (403 on cache miss).
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout
