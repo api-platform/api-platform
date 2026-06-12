@@ -67,6 +67,8 @@ jobs:
 
     env:
       EXTENSIONS: phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl
+      # Mirror of EXTENSIONS with dashes — cache keys reject commas.
+      EXTENSIONS_KEY: phar-filter-tokenizer-mbstring-ctype-zlib-curl-openssl
 
     steps:
       - name: Checkout
@@ -94,7 +96,7 @@ jobs:
           path: |
             downloads
             buildroot/source
-          key: spc-${{ matrix.os }}-${{ matrix.arch }}-${{ env.EXTENSIONS }}
+          key: spc-${{ matrix.os }}-${{ matrix.arch }}-${{ env.EXTENSIONS_KEY }}
 
       - name: Download spc
         run: |
