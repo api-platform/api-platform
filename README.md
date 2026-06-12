@@ -40,7 +40,40 @@ It means that you can:
 
 ## Install
 
-[Read the official "Getting Started" guide](https://api-platform.com/docs/distribution/).
+This repository hosts the `api-platform` installer used to scaffold new
+projects. To install it:
+
+### Static binary (recommended)
+
+Download the latest release for your platform from the
+[Releases page](https://github.com/api-platform/api-platform/releases) and
+move the binary somewhere on your `$PATH`:
+
+```sh
+curl -L https://github.com/api-platform/api-platform/releases/latest/download/api-platform-linux-x86_64 -o /usr/local/bin/api-platform
+chmod +x /usr/local/bin/api-platform
+```
+
+### Composer
+
+If you already have PHP and Composer installed:
+
+```sh
+composer global require api-platform/installer
+```
+
+The `api-platform` binary will be available in `~/.composer/vendor/bin`.
+
+## Usage
+
+```sh
+api-platform                # interactive wizard
+api-platform my-app --framework=symfony --with-docker --with-pwa
+api-platform my-app --framework=laravel
+```
+
+For full project documentation, [read the official "Getting Started"
+guide](https://api-platform.com/docs/distribution/).
 
 ## Credits
 

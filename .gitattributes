@@ -1,22 +1,14 @@
 * text=auto eol=lf
 
 *.conf text eol=lf
-*.html text eol=lf
+*.go text eol=lf
 *.ini text eol=lf
-*.js text eol=lf
-*.json text eol=lf
 *.md text eol=lf
-*.php text eol=lf
 *.sh text eol=lf
 *.yaml text eol=lf
 *.yml text eol=lf
-bin/console text eol=lf
-composer.lock text eol=lf merge=ours
-pnpm-lock.yaml text eol=lf merge=ours
 
 *.ico binary
 *.png binary
 
-update-deps.sh export-ignore
-.github/CONTRIBUTING.md
-.github/workflows/release.yml
+go.sum text eol=lf merge=ours

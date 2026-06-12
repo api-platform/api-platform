@@ -4,50 +4,169 @@ on:
   push:
     branches:
       - main
-  pull_request: ~
   workflow_dispatch: ~
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  tests:
-    name: Tests
+  symfony-no-docker:
+    name: Symfony (no Docker)
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build Docker images
-        uses: docker/bake-action@v6
+      - uses: actions/checkout@v6
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          pull: true
-          load: true
-          files: |
-            compose.yaml
-            compose.override.yaml
-          set: |
-            php.cache-from=type=gha,scope=php-${{github.ref}}
-            php.cache-from=type=gha,scope=php-refs/heads/main
-            php.cache-to=type=gha,scope=php-${{github.ref}},mode=max
-            pwa.cache-from=type=gha,scope=pwa-${{github.ref}}
-            pwa.cache-from=type=gha,scope=pwa-refs/heads/main
-            pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
-      -
-        name: Start services
-        run: docker compose -f compose.yaml -f compose.override.yaml up --wait --no-build
-      -
-        name: Playwright
-        run: docker run --network host -w /app -v ./e2e:/app --rm --ipc=host mcr.microsoft.com/playwright:v1.50.0-noble /bin/sh -c 'npm i; npx playwright test;'
-      -
-        name: Debug Services
-        if: failure()
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2, symfony-cli
+
+      - name: Install installer deps
+        run: composer install --no-interaction --no-progress
+
+      - name: Scaffold Symfony project
+        run: bin/api-platform demo --no-interaction --framework=symfony --no-with-docker --no-with-pwa --format=jsonld --docs=swagger_ui
+
+      - name: Start Symfony server
+        working-directory: demo
+        run: symfony server:start --daemon --no-tls --port=8000
+
+      - name: Smoke test API
         run: |
-          docker compose ps
-          docker compose logs
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8000/docs.jsonld -o /dev/null; then
+              echo "API responded"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API never responded — last attempt:"
+          curl -v http://127.0.0.1:8000/docs.jsonld
+          exit 1
+
+      - name: Verify config was written
+        run: |
+          test -f demo/config/packages/api_platform.yaml
+          test -f demo/config/routes/api_platform.yaml
+          test -f demo/src/ApiResource/Greetings.php
+
+  symfony-docker-pwa:
+    name: Symfony (Docker + PWA)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node + pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.5.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install installer deps
+        run: composer install --no-interaction --no-progress
+
+      - name: Scaffold Symfony + PWA project
+        run: bin/api-platform demo --no-interaction --framework=symfony --with-docker --with-pwa --format=jsonld --docs=swagger_ui
+
+      - name: Verify PWA scaffolding
+        run: |
+          test -d demo/pwa
+          test -f demo/pwa/package.json
+          test -f demo/pwa/app/page.tsx
+          grep -q "API Platform" demo/pwa/app/page.tsx
+          if grep -q "To get started, edit the page.tsx file" demo/pwa/app/page.tsx; then
+            echo "PWA still contains the default Next.js page"
+            exit 1
+          fi
+          test "$(grep -c '^CORS_ALLOW_ORIGIN=' demo/api/.env)" -eq 1
+          pnpm --dir demo/pwa exec tsc --noEmit
+
+      - name: Boot Docker stack
+        working-directory: demo/api
+        run: docker compose up --wait --wait-timeout 300
+
+      - name: Smoke test API
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fksS https://localhost/docs.jsonld -o /dev/null; then
+              echo "API responded"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API never responded — dumping logs:"
+          curl -kv https://localhost/docs.jsonld || true
+          docker compose -f demo/api/compose.yaml logs
+          exit 1
+
+      - name: Stop Docker stack
+        if: always()
+        working-directory: demo/api
+        run: docker compose down -v
+
+  laravel:
+    name: Laravel
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          extensions: pdo_sqlite
+          tools: composer:v2
+
+      - name: Install installer deps
+        run: composer install --no-interaction --no-progress
+
+      - name: Scaffold Laravel project
+        run: bin/api-platform demo --no-interaction --framework=laravel --format=jsonld --docs=swagger_ui
+
+      - name: Start Laravel server
+        working-directory: demo
+        run: |
+          php artisan serve --host=127.0.0.1 --port=8000 &
+          echo $! > server.pid
+          sleep 3
+
+      - name: Smoke test API
+        run: |
+          for i in $(seq 1 30); do
+            status=$(curl -sk -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/api || echo "000")
+            if [ "$status" != "000" ] && [ "$status" -lt 500 ]; then
+              echo "API responded with HTTP $status"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API never responded:"
+          curl -v http://127.0.0.1:8000/api
+          exit 1
+
+      - name: Verify config was patched
+        run: |
+          test -f demo/config/api-platform.php
+          grep -q "'jsonld' => \['application/ld+json'\]" demo/config/api-platform.php
+
+      - name: Stop Laravel server
+        if: always()
+        working-directory: demo
+        run: |
+          if [ -f server.pid ]; then kill $(cat server.pid) || true; fi

@@ -1,55 +1,131 @@
 name: Release
+
 permissions:
-  contents: write 
-  pull-requests: write
+  contents: write
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'API Platform core tag'
-        required: true
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  tests:
-    name: Update api-platform/core
+  gate:
+    name: Verify E2E green
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Build Docker images
-        uses: docker/bake-action@v6
+      - name: Check E2E status for ${{ github.sha }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Prefer the canonical push-triggered run on this SHA; fall back to
+          # any successful run (e.g. workflow_dispatch re-run after a fix).
+          status=$(gh run list \
+            --repo ${{ github.repository }} \
+            --workflow=e2e.yml \
+            --commit=${{ github.sha }} \
+            --event push \
+            --limit 1 \
+            --json conclusion \
+            --jq '.[0].conclusion // "missing"')
+          if [ "$status" != "success" ]; then
+            status=$(gh run list \
+              --repo ${{ github.repository }} \
+              --workflow=e2e.yml \
+              --commit=${{ github.sha }} \
+              --status success \
+              --limit 1 \
+              --json conclusion \
+              --jq '.[0].conclusion // "missing"')
+          fi
+          echo "E2E conclusion for ${{ github.sha }}: $status"
+          if [ "$status" != "success" ]; then
+            echo "::error::E2E workflow for this commit is '$status' — refusing to release."
+            echo "Re-run the E2E workflow on this commit (workflow_dispatch) and re-tag once green."
+            exit 1
+          fi
+
+  build:
+    name: Build ${{ matrix.os }}-${{ matrix.arch }}
+    needs: gate
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: linux
+            arch: x86_64
+            runner: ubuntu-latest
+          - os: linux
+            arch: aarch64
+            runner: ubuntu-24.04-arm
+          - os: macos
+            arch: x86_64
+            runner: macos-13
+          - os: macos
+            arch: aarch64
+            runner: macos-14
+
+    env:
+      EXTENSIONS: phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
         with:
-          pull: true
-          load: true
-          files: |
-            compose.yaml
-            compose.override.yaml
-          set: |
-            php.cache-from=type=gha,scope=php-${{github.ref}}
-            php.cache-from=type=gha,scope=php-refs/heads/main
-            php.cache-to=type=gha,scope=php-${{github.ref}},mode=max
-            pwa.cache-from=type=gha,scope=pwa-${{github.ref}}
-            pwa.cache-from=type=gha,scope=pwa-refs/heads/main
-            pwa.cache-to=type=gha,scope=pwa-${{github.ref}},mode=max
-      -
-        name: Update API Platform
-        run: docker compose run php composer update api-platform/symfony:${{ inputs.tag }} api-platform/doctrine-orm:${{ inputs.tag }}
-      -
-        name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          commit-message: 'chore: api-platform ${{ inputs.tag }}'
-          branch: api-platform-core
-          title: 'chore: api-platform ${{ inputs.tag }}'
-          token: ${{ secrets.RELEASE_TOKEN }}
-          body: 'Updates api-platform/core to ${{ inputs.tag }}'
+          php-version: '8.3'
+          coverage: none
+          ini-values: phar.readonly=0
+          tools: composer:v2
+
+      - name: Install dependencies (production)
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+      - name: Build PHAR
+        run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar
+
+      - name: Cache spc sources
+        uses: actions/cache@v5
+        with:
+          path: |
+            downloads
+            buildroot/source
+          key: spc-${{ matrix.os }}-${{ matrix.arch }}-${{ env.EXTENSIONS }}
+
+      - name: Download spc
+        run: |
+          curl -fsSL -o spc "https://dl.static-php.dev/static-php-cli/spc-bin/nightly/spc-${{ matrix.os }}-${{ matrix.arch }}"
+          chmod +x ./spc
+
+      - name: Download PHP sources
+        run: ./spc download --for-extensions="$EXTENSIONS" --with-php=8.3
+
+      - name: Install build deps
+        run: ./spc doctor --auto-fix
+
+      - name: Build micro SAPI
+        run: ./spc build "$EXTENSIONS" --build-micro
+
+      - name: Combine PHAR + micro
+        run: |
+          ./spc micro:combine dist/api-platform.phar -O "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
+          chmod +x "dist/api-platform-${{ matrix.os }}-${{ matrix.arch }}"
+          rm -f dist/api-platform.phar
+
+      - name: Generate checksum
+        working-directory: dist
+        run: shasum -a 256 "api-platform-${{ matrix.os }}-${{ matrix.arch }}" > "api-platform-${{ matrix.os }}-${{ matrix.arch }}.sha256"
+
+      - name: Smoke test built binary
+        run: |
+          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version
+          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --help
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*

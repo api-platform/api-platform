@@ -1,3 +1,9 @@
+/.claude
 /.env
-/helm/api-platform/charts/*
-!/helm/api-platform/charts/.gitignore
+/.phpunit.cache
+/.phpunit.result.cache
+/buildroot
+/composer.lock
+/dist
+/vendor
+triage/
