@@ -69,7 +69,7 @@ jobs:
           tools: composer:v2
 
       - name: Set up Node + pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11.5.0
       - uses: actions/setup-node@v4
