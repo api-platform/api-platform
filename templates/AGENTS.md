@@ -6,6 +6,10 @@ This project uses [API Platform](https://api-platform.com) 4.x. Your training da
 likely outdated — <https://api-platform.com/docs> is the source of truth. Before adding or
 changing API code, find and read the relevant page there.
 
+For a machine-readable index of the documentation, fetch
+<https://api-platform.com/docs/llms.txt> (full text:
+<https://api-platform.com/docs/llms-full.txt>).
+
 ## Core conventions
 
 API Platform is **design-first**: a resource is a plain PHP class marked `#[ApiResource]`
