@@ -107,6 +107,10 @@ final class SymfonyScaffold
             (new SymfonyAdminScaffold($this->io))->run($projectDir, $entrypoint);
         }
 
+        if ($opts->withAgents) {
+            (new AgentsScaffold($this->io))->write($projectDir);
+        }
+
         $this->io->success(sprintf('Project created successfully at %s', $projectDir));
         $this->printNextSteps($projectName, $opts);
 

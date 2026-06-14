@@ -46,6 +46,7 @@ final class InstallerCommand extends Command
             ->addOption('with-pwa', null, InputOption::VALUE_NEGATABLE, 'Include Next.js PWA (Symfony only)')
             ->addOption('with-admin', null, InputOption::VALUE_NEGATABLE, 'Include React-admin SPA')
             ->addOption('with-docker', null, InputOption::VALUE_NEGATABLE, 'Use Docker (Symfony only)')
+            ->addOption('with-agents', null, InputOption::VALUE_NEGATABLE, 'Write AI agent instruction files AGENTS.md and CLAUDE.md (default: yes)')
             ->addOption('format', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'API formats (jsonld|jsonapi|hal); repeat for several')
             ->addOption('docs', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Documentation (swagger_ui|redoc|scalar); repeat for several, empty disables');
     }
@@ -154,12 +155,18 @@ final class InstallerCommand extends Command
         $formats = $this->resolveMulti($io, $input, 'format', self::FORMATS, self::FORMATS, 'API formats');
         $docs = $this->resolveMulti($io, $input, 'docs', self::DOCS, self::DOCS, 'API documentation', allowEmpty: true);
 
+        // Agent instruction files are written by default (like create-next-app);
+        // --no-with-agents opts out. No interactive prompt: the files are tiny and
+        // always beneficial, so prompting would only add friction.
+        $withAgents = (bool) ($input->getOption('with-agents') ?? true);
+
         return new ScaffoldOptions(
             withPwa: $withPwa,
             withDocker: $withDocker,
             formats: $formats,
             docs: $docs,
             withAdmin: $withAdmin,
+            withAgents: $withAgents,
         );
     }
 

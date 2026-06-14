@@ -71,6 +71,10 @@ final class LaravelScaffold
             (new LaravelAdminScaffold($this->io))->run($projectDir);
         }
 
+        if ($opts->withAgents) {
+            (new AgentsScaffold($this->io))->write($projectDir);
+        }
+
         $this->io->success(sprintf('Project created successfully at %s', $projectDir));
         $this->io->writeln('');
         $this->io->writeln('<comment>Next steps:</comment>');

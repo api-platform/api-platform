@@ -16,6 +16,7 @@ final readonly class ScaffoldOptions
         public array $formats,
         public array $docs,
         public bool $withAdmin = false,
+        public bool $withAgents = true,
     ) {
     }
 }
