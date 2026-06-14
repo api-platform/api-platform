@@ -13,21 +13,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class AgentsScaffoldTest extends TestCase
 {
-    public function testWritesAgentsAndClaudeFilesAtProjectRoot(): void
+    public function testWritesFetchedAgentsAndThinClaudeImport(): void
     {
         $dir = sys_get_temp_dir().'/agents-scaffold-test-'.bin2hex(random_bytes(4));
         mkdir($dir);
 
         try {
-            (new AgentsScaffold(new SymfonyStyle(new ArrayInput([]), new BufferedOutput())))->write($dir);
+            $scaffold = new AgentsScaffold($this->io(), static fn (): string => "# API Platform stub\n");
+            $scaffold->write($dir);
 
-            $this->assertFileExists($dir.'/AGENTS.md');
-            $this->assertFileExists($dir.'/CLAUDE.md');
-
-            $agents = (string) file_get_contents($dir.'/AGENTS.md');
-            $this->assertStringContainsString('https://api-platform.com/docs', $agents);
-            $this->assertStringContainsString('/plugin marketplace add api-platform/skillset', $agents);
-
+            $this->assertSame("# API Platform stub\n", (string) file_get_contents($dir.'/AGENTS.md'));
             // CLAUDE.md stays a thin @-import so there is a single source of project guidance.
             $this->assertSame("@AGENTS.md\n", (string) file_get_contents($dir.'/CLAUDE.md'));
         } finally {
@@ -37,10 +32,32 @@ final class AgentsScaffoldTest extends TestCase
         }
     }
 
+    public function testSkipsBothFilesWhenFetchFails(): void
+    {
+        $dir = sys_get_temp_dir().'/agents-scaffold-test-'.bin2hex(random_bytes(4));
+        mkdir($dir);
+
+        try {
+            // A null fetch (offline, rate limit) must not abort the scaffold.
+            $scaffold = new AgentsScaffold($this->io(), static fn (): ?string => null);
+            $scaffold->write($dir);
+
+            $this->assertFileDoesNotExist($dir.'/AGENTS.md');
+            $this->assertFileDoesNotExist($dir.'/CLAUDE.md');
+        } finally {
+            @rmdir($dir);
+        }
+    }
+
     public function testWithAgentsDefaultsToTrue(): void
     {
         $opts = new ScaffoldOptions(withPwa: false, withDocker: false, formats: [], docs: []);
 
         $this->assertTrue($opts->withAgents);
+    }
+
+    private function io(): SymfonyStyle
+    {
+        return new SymfonyStyle(new ArrayInput([]), new BufferedOutput());
     }
 }
