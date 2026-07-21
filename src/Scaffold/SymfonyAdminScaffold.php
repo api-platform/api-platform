@@ -19,6 +19,7 @@ final class SymfonyAdminScaffold
     private const TEMPLATE_FILES = [
         // template name => destination relative to admin/
         'admin-index.html' => 'index.html',
+        'admin-gitignore' => '.gitignore',
         'admin-package.json' => 'package.json',
         'admin-vite.config.ts' => 'vite.config.ts',
         'admin-tsconfig.json' => 'tsconfig.json',
