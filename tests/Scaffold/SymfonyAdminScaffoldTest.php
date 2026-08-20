@@ -13,6 +13,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SymfonyAdminScaffoldTest extends TestCase
 {
+    private const ADMIN_GITIGNORE_TEMPLATE = 'admin-gitignore';
+    private const ADMIN_GITIGNORE_DESTINATION = '.gitignore';
+
     public function testAppendsViteEntrypointEnvWhenAbsent(): void
     {
         $patched = SymfonyAdminScaffold::appendEntrypointEnv('', 'https://localhost');
@@ -45,6 +48,14 @@ final class SymfonyAdminScaffoldTest extends TestCase
         $this->assertFileExists(Templates::path('admin-package.json'));
         $this->assertFileExists(Templates::path('admin-vite.config.ts'));
         $this->assertFileExists(Templates::path('admin-tsconfig.json'));
+        $this->assertFileExists(Templates::path(self::ADMIN_GITIGNORE_TEMPLATE));
+    }
+
+    public function testAdminScaffoldCopiesGitignoreTemplate(): void
+    {
+        $templates = (new \ReflectionClass(SymfonyAdminScaffold::class))->getConstant('TEMPLATE_FILES');
+
+        $this->assertSame(self::ADMIN_GITIGNORE_DESTINATION, $templates[self::ADMIN_GITIGNORE_TEMPLATE] ?? null);
     }
 
     public function testAdminPackageJsonPinsCriticalDeps(): void
