@@ -22,6 +22,7 @@ final class SymfonyScaffold
         'compose.yaml',
         'compose.override.yaml',
         'compose.prod.yaml',
+        '.devcontainer',
         'frankenphp',
     ];
     private const KNOWN_FORMATS = [

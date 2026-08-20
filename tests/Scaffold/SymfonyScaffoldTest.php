@@ -14,6 +14,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SymfonyScaffoldTest extends TestCase
 {
+    private const DEVCONTAINER_DIR = '.devcontainer';
+
     public function testGreetingsTemplateOnlyDeclaresWorkingCollectionOperation(): void
     {
         $template = (string) file_get_contents(Templates::path('Greetings.php'));
@@ -56,6 +58,13 @@ final class SymfonyScaffoldTest extends TestCase
         // A floating ref (branch name) means every install would track upstream
         // HEAD; pinning to a 40-char SHA-1 guarantees reproducible scaffolds.
         $this->assertMatchesRegularExpression('/^[0-9a-f]{40}$/', SymfonyScaffold::SYMFONY_DOCKER_REF);
+    }
+
+    public function testSymfonyDockerCopyListIncludesDevcontainer(): void
+    {
+        $dockerFiles = (new \ReflectionClass(SymfonyScaffold::class))->getConstant('DOCKER_FILES');
+
+        $this->assertContains(self::DEVCONTAINER_DIR, $dockerFiles);
     }
 
     public function testDisablesAllUiViewersWhenEmptyButKeepsHydraDocs(): void
