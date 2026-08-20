@@ -6,6 +6,7 @@ namespace ApiPlatform\Installer\Tests\Scaffold;
 
 use ApiPlatform\Installer\Scaffold\ScaffoldOptions;
 use ApiPlatform\Installer\Scaffold\SymfonyScaffold;
+use ApiPlatform\Installer\Templates;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -13,6 +14,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class SymfonyScaffoldTest extends TestCase
 {
+    public function testGreetingsTemplateOnlyDeclaresWorkingCollectionOperation(): void
+    {
+        $template = (string) file_get_contents(Templates::path('Greetings.php'));
+
+        $this->assertStringContainsString('new GetCollection(', $template);
+        $this->assertStringContainsString("provider: Greetings::class . '::provide'", $template);
+        $this->assertStringNotContainsString('new Get()', $template);
+        $this->assertStringNotContainsString('use ApiPlatform\\Metadata\\Get;', $template);
+    }
+
     public function testEnablesSelectedDocsAndDisablesOthers(): void
     {
         $config = SymfonyScaffold::buildApiPlatformConfig(new ScaffoldOptions(
