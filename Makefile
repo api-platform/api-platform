@@ -18,6 +18,7 @@ build:
 	php -d phar.readonly=0 scripts/build-phar.php $(PHAR)
 	composer install --no-interaction --no-progress
 	spc download --for-extensions=phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl
+	spc doctor --auto-fix
 	spc build "phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl" --build-micro
 	spc micro:combine $(PHAR) -O $(TARGET)
 	rm -f $(PHAR)

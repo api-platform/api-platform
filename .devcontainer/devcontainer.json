@@ -1,0 +1,9 @@
+{
+	"name": "PHP",
+	"image": "mcr.microsoft.com/devcontainers/php",
+	"features": {
+		"ghcr.io/postfinance/devcontainer-features/docker-out:1": {},
+		"ghcr.io/devcontainers/features/node:2": {}
+	},
+	"postCreateCommand": ".devcontainer/post-create.sh"
+}
