@@ -17,6 +17,7 @@ final readonly class ScaffoldOptions
         public array $docs,
         public bool $withAdmin = false,
         public bool $withAgents = true,
+        public string $symfonyDockerRef = SymfonyScaffold::SYMFONY_DOCKER_REF,
     ) {
     }
 }

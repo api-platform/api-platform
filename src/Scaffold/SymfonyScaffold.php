@@ -66,7 +66,7 @@ final class SymfonyScaffold
         }
 
         if ($opts->withDocker) {
-            $this->setupDocker($apiDir);
+            $this->setupDocker($apiDir, $opts->symfonyDockerRef);
         }
 
         $this->io->writeln('<info>Requiring API Platform packages</info>');
@@ -168,18 +168,19 @@ final class SymfonyScaffold
         return isset($json['require'][$package]) || isset($json['require-dev'][$package]);
     }
 
-    private function setupDocker(string $apiDir): void
+    private function setupDocker(string $apiDir, string $ref): void
     {
         $this->io->writeln('<info>Fetching Docker infrastructure from symfony-docker</info>');
         $tmpDir = sys_get_temp_dir().'/symfony-docker-'.bin2hex(random_bytes(4));
         $this->fs->mkdir($tmpDir);
 
         try {
-            // Pin to a specific SHA so every install gets identical Docker files.
-            // GitHub allows shallow fetch by SHA (uploadpack.allowReachableSHA1InWant).
+            // $ref defaults to a reviewed SHA so every install gets identical
+            // Docker files. GitHub allows shallow fetch by SHA
+            // (uploadpack.allowReachableSHA1InWant).
             $this->runner->run(['git', 'init', '--quiet', $tmpDir]);
             $this->runner->run(['git', '-C', $tmpDir, 'remote', 'add', 'origin', self::SYMFONY_DOCKER_REPO]);
-            $this->runner->run(['git', '-C', $tmpDir, 'fetch', '--depth=1', '--quiet', 'origin', self::SYMFONY_DOCKER_REF]);
+            $this->runner->run(['git', '-C', $tmpDir, 'fetch', '--depth=1', '--quiet', 'origin', $ref]);
             $this->runner->run(['git', '-C', $tmpDir, 'checkout', '--quiet', 'FETCH_HEAD']);
             foreach (self::DOCKER_FILES as $name) {
                 $src = $tmpDir.'/'.$name;

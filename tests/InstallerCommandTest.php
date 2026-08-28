@@ -103,6 +103,17 @@ final class InstallerCommandTest extends TestCase
         $this->assertStringContainsString('--with-docker is not supported with Laravel', $tester->getDisplay());
     }
 
+    public function testRejectsSymfonyDockerRefOnLaravel(): void
+    {
+        $tester = $this->tester();
+        $tester->execute(
+            ['name' => 'demo', '--framework' => 'laravel', '--symfony-docker-ref' => 'main'],
+            ['interactive' => false],
+        );
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('--symfony-docker-ref is not supported with Laravel', $tester->getDisplay());
+    }
+
     public function testRejectsWithPwaOnLaravel(): void
     {
         $tester = $this->tester();
@@ -112,6 +123,20 @@ final class InstallerCommandTest extends TestCase
         );
         $this->assertSame(2, $tester->getStatusCode());
         $this->assertStringContainsString('--with-pwa is not supported with Laravel', $tester->getDisplay());
+    }
+
+    public function testSymfonyDockerRefOptionIsPropagated(): void
+    {
+        $opts = $this->resolveOptions([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+            '--with-admin' => false,
+            '--symfony-docker-ref' => 'v1.2.3',
+        ]);
+
+        $this->assertSame('v1.2.3', $opts->symfonyDockerRef);
     }
 
     public function testAdminOptionIsAcceptedOnSymfony(): void
