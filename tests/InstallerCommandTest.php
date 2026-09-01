@@ -139,6 +139,47 @@ final class InstallerCommandTest extends TestCase
         $this->assertSame('v1.2.3', $opts->symfonyDockerRef);
     }
 
+    public function testWarnsWhenSymfonyDockerRefIsOverridden(): void
+    {
+        $display = $this->resolveOptionsDisplay([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => true,
+            '--with-pwa' => false,
+            '--with-admin' => false,
+            '--symfony-docker-ref' => 'main',
+        ]);
+
+        $this->assertStringContainsString('not reviewed by API Platform', $display);
+    }
+
+    public function testDoesNotWarnWhenTheRefIsLeftAtThePinnedDefault(): void
+    {
+        $display = $this->resolveOptionsDisplay([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => true,
+            '--with-pwa' => false,
+            '--with-admin' => false,
+        ]);
+
+        $this->assertStringNotContainsString('not reviewed by API Platform', $display);
+    }
+
+    public function testDoesNotWarnWhenTheRefCannotBeUsed(): void
+    {
+        $display = $this->resolveOptionsDisplay([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+            '--with-admin' => false,
+            '--symfony-docker-ref' => 'main',
+        ]);
+
+        $this->assertStringNotContainsString('not reviewed by API Platform', $display);
+    }
+
     public function testAdminOptionIsAcceptedOnSymfony(): void
     {
         $command = new InstallerCommand();
@@ -319,6 +360,23 @@ final class InstallerCommandTest extends TestCase
         $method = new \ReflectionMethod($command, 'resolveOptions');
 
         return $method->invoke($command, $io, $input, InstallerCommand::FRAMEWORK_SYMFONY);
+    }
+
+    /**
+     * @param array<string, mixed> $inputValues
+     */
+    private function resolveOptionsDisplay(array $inputValues): string
+    {
+        $command = new InstallerCommand();
+        $input = new ArrayInput($inputValues);
+        $input->bind($command->getDefinition());
+        $input->setInteractive(false);
+        $output = new BufferedOutput();
+
+        $method = new \ReflectionMethod($command, 'resolveOptions');
+        $method->invoke($command, new SymfonyStyle($input, $output), $input, InstallerCommand::FRAMEWORK_SYMFONY);
+
+        return $output->fetch();
     }
 
     /**

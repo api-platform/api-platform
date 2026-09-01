@@ -140,6 +140,18 @@ final class InstallerCommand extends Command
                 ? (bool) $dockerOption
                 : (bool) $io->askQuestion(new ConfirmationQuestion('Use Docker?', true));
 
+            if ($withDocker && SymfonyScaffold::SYMFONY_DOCKER_REF !== $symfonyDockerRef) {
+                // GitHub serves a fork network from one object store, so this
+                // resolves any commit pushed to any fork of symfony-docker —
+                // a SHA is no proof the code was ever merged or reviewed.
+                $io->getErrorStyle()->warning(sprintf(
+                    'Fetching symfony-docker at "%s" instead of the pinned commit. This ref is not reviewed by API Platform, '
+                    .'any commit from any fork of the repository resolves here, and the files it ships (Dockerfile, '
+                    .'docker-entrypoint.sh) run on your machine. Only use a ref you trust.',
+                    $symfonyDockerRef,
+                ));
+            }
+
             $pwaOption = $input->getOption('with-pwa');
             if (null !== $pwaOption) {
                 $withPwa = (bool) $pwaOption;
