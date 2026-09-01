@@ -1,0 +1,171 @@
+name: symfony-docker bump
+
+# Weekly check for new dunglas/symfony-docker commits.
+#
+# The pin in SymfonyScaffold stays a SHA on purpose: those files are fetched on
+# the user's machine at install time and a Dockerfile is executable code, so an
+# unpinned ref would ship whatever upstream HEAD is, unreviewed. This workflow
+# keeps the pin fresh without giving that property up.
+#
+# It boots the scaffolded stack with the candidate SHA *before* opening the PR:
+# a PR pushed with GITHUB_TOKEN does not trigger CI, so this run is the only
+# evidence the bump works. Swap the token for a PAT or App token if you'd rather
+# have ci.yml and e2e.yml run on the PR itself.
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch: ~
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: symfony-docker-bump
+  cancel-in-progress: false
+
+env:
+  UPSTREAM: dunglas/symfony-docker
+  BRANCH: automation/symfony-docker-pin
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  bump:
+    name: Bump and validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - run: composer install --no-interaction --no-progress
+
+      - name: Compare the pin against upstream main
+        id: compare
+        run: |
+          current=$(php scripts/symfony-docker-pin.php ref)
+          latest=$(gh api "repos/$UPSTREAM/commits/main" --jq .sha)
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+
+          if [ "$current" = "$latest" ]; then
+            echo "Already pinned to $latest."
+            exit 0
+          fi
+
+          # Upstream churns on docs, CI and devcontainer docs we never copy.
+          # Only the files the scaffold actually installs justify a PR.
+          gh api "repos/$UPSTREAM/compare/$current...$latest" --paginate --jq '.files[].filename' \
+            | php scripts/symfony-docker-pin.php filter > copied-changes.txt
+
+          if [ ! -s copied-changes.txt ]; then
+            echo "$UPSTREAM is at $latest but no copied file changed; leaving the pin alone."
+            exit 0
+          fi
+
+          echo 'Copied files changed upstream:'
+          cat copied-changes.txt
+          echo "changed=1" >> "$GITHUB_OUTPUT"
+
+      - name: Repin the scaffold
+        if: steps.compare.outputs.changed
+        run: php scripts/symfony-docker-pin.php pin '${{ steps.compare.outputs.latest }}'
+
+      - name: Unit tests
+        if: steps.compare.outputs.changed
+        run: vendor/bin/phpunit
+
+      - name: Scaffold a Docker project on the candidate SHA
+        if: steps.compare.outputs.changed
+        run: |
+          bin/api-platform demo --no-interaction --framework=symfony \
+            --with-docker --no-with-pwa --no-with-admin --no-with-agents \
+            --format=jsonld --docs=swagger_ui
+
+      - name: Boot the Docker stack
+        id: boot
+        if: steps.compare.outputs.changed
+        working-directory: demo
+        run: docker compose up --wait --wait-timeout 300
+
+      - name: Smoke test the API
+        if: steps.compare.outputs.changed
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fksS https://localhost/docs.jsonld -o /dev/null; then
+              echo 'API responded'
+              exit 0
+            fi
+            sleep 2
+          done
+          echo 'API never responded — dumping logs:'
+          curl -kv https://localhost/docs.jsonld || true
+          docker compose -f demo/compose.yaml logs
+          exit 1
+
+      - name: Verify the Hydra+Mercure Link header survived
+        if: steps.compare.outputs.changed
+        run: |
+          # ComposeOverrideWriter injects CADDY_SERVER_EXTRA_DIRECTIVES into
+          # compose.yaml; upstream's Caddyfile expands it. If upstream drops the
+          # placeholder the directive is silently ignored and /docs.jsonld still
+          # answers 200, so probe a path Caddy serves on its own instead: the
+          # `header ?Link` directive only applies where Symfony set no Link of
+          # its own, and API Platform sets one on every response it handles.
+          curl -sk -o /dev/null -D headers.txt https://localhost/nonexistent-asset.txt
+          cat headers.txt
+          grep -qi 'rel="http://www.w3.org/ns/hydra/core#apiDocumentation"' headers.txt
+          grep -qi 'rel="mercure"' headers.txt
+
+      - name: Stop the Docker stack
+        if: always() && steps.boot.outcome == 'success'
+        working-directory: demo
+        run: docker compose down -v
+
+      - name: Open or update the bump PR
+        if: steps.compare.outputs.changed
+        env:
+          CURRENT: ${{ steps.compare.outputs.current }}
+          LATEST: ${{ steps.compare.outputs.latest }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add src/Scaffold/SymfonyScaffold.php
+          git commit -m "chore(installer): bump symfony-docker to ${LATEST:0:7}"
+          git push --force origin "$BRANCH"
+
+          {
+            echo "Bumps the pinned [\`dunglas/symfony-docker\`](https://github.com/$UPSTREAM) commit"
+            echo "from \`${CURRENT:0:7}\` to \`${LATEST:0:7}\`."
+            echo
+            echo "[Full upstream diff](https://github.com/$UPSTREAM/compare/$CURRENT...$LATEST)"
+            echo
+            echo '### Files the scaffold copies that changed'
+            echo
+            sed 's/^/- `/; s/$/`/' copied-changes.txt
+            echo
+            echo '### Validation'
+            echo
+            echo 'This SHA was scaffolded and booted before the PR was opened:'
+            echo '`docker compose up --wait`, `GET /docs.jsonld`, and the Hydra + Mercure'
+            echo '`Link` headers all passed in'
+            echo "[run #${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+            echo
+            echo 'Review the upstream diff before merging — these files run on user machines.'
+          } > pr-body.md
+
+          if gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number' | grep -q .; then
+            gh pr edit "$BRANCH" --title "chore(installer): bump symfony-docker to ${LATEST:0:7}" --body-file pr-body.md
+          else
+            gh pr create --head "$BRANCH" --base main \
+              --title "chore(installer): bump symfony-docker to ${LATEST:0:7}" \
+              --body-file pr-body.md
+          fi

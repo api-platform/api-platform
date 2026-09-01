@@ -62,9 +62,7 @@ final class SymfonyScaffoldTest extends TestCase
 
     public function testSymfonyDockerCopyListIncludesDevcontainer(): void
     {
-        $dockerFiles = (new \ReflectionClass(SymfonyScaffold::class))->getConstant('DOCKER_FILES');
-
-        $this->assertContains(self::DEVCONTAINER_DIR, $dockerFiles);
+        $this->assertContains(self::DEVCONTAINER_DIR, SymfonyScaffold::DOCKER_FILES);
     }
 
     public function testDisablesAllUiViewersWhenEmptyButKeepsHydraDocs(): void
