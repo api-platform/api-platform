@@ -46,6 +46,7 @@ final class InstallerCommand extends Command
             ->addOption('with-pwa', null, InputOption::VALUE_NEGATABLE, 'Include Next.js PWA (Symfony only)')
             ->addOption('with-admin', null, InputOption::VALUE_NEGATABLE, 'Include React-admin SPA')
             ->addOption('with-docker', null, InputOption::VALUE_NEGATABLE, 'Use Docker (Symfony only)')
+            ->addOption('symfony-docker-ref', null, InputOption::VALUE_REQUIRED, 'Git ref for dunglas/symfony-docker; defaults to the reviewed pinned commit (Symfony only)')
             ->addOption('with-agents', null, InputOption::VALUE_NEGATABLE, 'Write AI agent instruction files AGENTS.md and CLAUDE.md (default: yes)')
             ->addOption('format', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'API formats (jsonld|jsonapi|hal); repeat for several')
             ->addOption('docs', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Documentation (swagger_ui|redoc|scalar); repeat for several, empty disables');
@@ -123,12 +124,33 @@ final class InstallerCommand extends Command
     {
         $withDocker = false;
         $withPwa = false;
+        $symfonyDockerRef = SymfonyScaffold::SYMFONY_DOCKER_REF;
 
         if (self::FRAMEWORK_SYMFONY === $framework) {
+            $dockerRefOption = $input->getOption('symfony-docker-ref');
+            if (null !== $dockerRefOption) {
+                if (!\is_string($dockerRefOption) || '' === trim($dockerRefOption)) {
+                    throw new InvalidArgumentException('--symfony-docker-ref cannot be empty.');
+                }
+                $symfonyDockerRef = $dockerRefOption;
+            }
+
             $dockerOption = $input->getOption('with-docker');
             $withDocker = null !== $dockerOption
                 ? (bool) $dockerOption
                 : (bool) $io->askQuestion(new ConfirmationQuestion('Use Docker?', true));
+
+            if ($withDocker && SymfonyScaffold::SYMFONY_DOCKER_REF !== $symfonyDockerRef) {
+                // GitHub serves a fork network from one object store, so this
+                // resolves any commit pushed to any fork of symfony-docker —
+                // a SHA is no proof the code was ever merged or reviewed.
+                $io->getErrorStyle()->warning(sprintf(
+                    'Fetching symfony-docker at "%s" instead of the pinned commit. This ref is not reviewed by API Platform, '
+                    .'any commit from any fork of the repository resolves here, and the files it ships (Dockerfile, '
+                    .'docker-entrypoint.sh) run on your machine. Only use a ref you trust.',
+                    $symfonyDockerRef,
+                ));
+            }
 
             $pwaOption = $input->getOption('with-pwa');
             if (null !== $pwaOption) {
@@ -142,6 +164,9 @@ final class InstallerCommand extends Command
                 }
             }
         } else {
+            if (null !== $input->getOption('symfony-docker-ref')) {
+                throw new InvalidArgumentException('--symfony-docker-ref is not supported with Laravel.');
+            }
             if (true === $input->getOption('with-docker')) {
                 throw new InvalidArgumentException('--with-docker is not supported with Laravel.');
             }
@@ -167,6 +192,7 @@ final class InstallerCommand extends Command
             docs: $docs,
             withAdmin: $withAdmin,
             withAgents: $withAgents,
+            symfonyDockerRef: $symfonyDockerRef,
         );
     }
 

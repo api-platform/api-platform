@@ -55,8 +55,9 @@ final class SymfonyScaffoldTest extends TestCase
 
     public function testSymfonyDockerRefIsPinnedToFullCommitSha(): void
     {
-        // A floating ref (branch name) means every install would track upstream
-        // HEAD; pinning to a 40-char SHA-1 guarantees reproducible scaffolds.
+        // A floating default (branch name) means every install would track
+        // upstream HEAD; pinning to a 40-char SHA-1 guarantees reproducible
+        // scaffolds. --symfony-docker-ref overrides this per install.
         $this->assertMatchesRegularExpression('/^[0-9a-f]{40}$/', SymfonyScaffold::SYMFONY_DOCKER_REF);
     }
 
