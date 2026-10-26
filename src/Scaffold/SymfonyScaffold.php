@@ -15,7 +15,7 @@ use Symfony\Component\Yaml\Yaml;
 final class SymfonyScaffold
 {
     private const SYMFONY_DOCKER_REPO = 'https://github.com/dunglas/symfony-docker';
-    public const SYMFONY_DOCKER_REF = '422756611d61e0108600ed7ec1370ec677d0e8d0';
+    public const SYMFONY_DOCKER_REF = '92d0d49293cd8678d82ca57c9c81b2dc45cf5561';
     public const DOCKER_FILES = [
         'Dockerfile',
         '.dockerignore',
