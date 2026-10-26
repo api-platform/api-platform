@@ -37,7 +37,7 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Scaffold Symfony project
-        run: bin/api-platform demo --no-interaction --framework=symfony --no-with-docker --no-with-pwa --format=jsonld --docs=swagger_ui
+        run: bin/api-platform demo --no-interaction --framework=symfony --no-with-docker --no-with-pwa --format=jsonld --format=hal --docs=swagger_ui
 
       - name: Start Symfony server
         working-directory: demo
@@ -61,6 +61,16 @@ jobs:
           test -f demo/config/packages/api_platform.yaml
           test -f demo/config/routes/api_platform.yaml
           test -f demo/src/ApiResource/Greetings.php
+
+      - name: Verify HAL representation
+        run: |
+          curl -fsS -H 'Accept: application/hal+json' http://127.0.0.1:8000/greetings | php -r '
+            $data = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
+            if (!isset($data["_links"]["self"]["href"]) || ($data["_embedded"]["item"][0]["hello"] ?? null) !== "World!") {
+                fwrite(STDERR, "Expected a HAL Greetings collection with a self link.\n");
+                exit(1);
+            }
+          '
 
   symfony-docker-pwa:
     name: Symfony (Docker + PWA)
