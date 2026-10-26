@@ -26,9 +26,9 @@ final class SymfonyScaffold
         'frankenphp',
     ];
     private const KNOWN_FORMATS = [
-        'jsonld' => 'application/ld+json',
-        'jsonapi' => 'application/vnd.api+json',
-        'hal' => 'application/hal+json',
+        'jsonld' => ['key' => 'jsonld', 'mime' => 'application/ld+json'],
+        'jsonapi' => ['key' => 'jsonapi', 'mime' => 'application/vnd.api+json'],
+        'hal' => ['key' => 'jsonhal', 'mime' => 'application/hal+json'],
     ];
 
     private readonly Filesystem $fs;
@@ -216,7 +216,8 @@ final class SymfonyScaffold
         $formats = [];
         foreach ($opts->formats as $f) {
             if (isset(self::KNOWN_FORMATS[$f])) {
-                $formats[$f] = [self::KNOWN_FORMATS[$f]];
+                $format = self::KNOWN_FORMATS[$f];
+                $formats[$format['key']] = [$format['mime']];
             }
         }
 
