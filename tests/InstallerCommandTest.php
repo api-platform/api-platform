@@ -144,7 +144,7 @@ final class InstallerCommandTest extends TestCase
      */
     public static function invalidSymfonyDockerRefs(): array
     {
-        return [['--upload-pack=touch /tmp/pwned'], ['-b'], ['main..v1.2.3'], ['has space'], ['main~1'], ['refs:heads'], ['feature/'], ['branch.lock'], ['@{-1}']];
+        return [['--upload-pack=touch /tmp/pwned'], ['-b'], ['main..v1.2.3'], ['has space'], ['main~1'], ['refs:heads'], ['feature/'], ['branch.lock'], ['branch.lock/sub'], ['@{-1}'], ['a@{b'], ['@']];
     }
 
     #[DataProvider('invalidSymfonyDockerRefs')]

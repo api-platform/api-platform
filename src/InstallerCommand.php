@@ -310,6 +310,7 @@ final class InstallerCommand extends Command
             && !str_ends_with($ref, '/')
             && !str_ends_with($ref, '.')
             && !str_ends_with($ref, '.lock')
+            && !str_contains($ref, '.lock/')
             && '@' !== $ref
             && !str_contains($ref, '..')
             && !str_contains($ref, '//')
