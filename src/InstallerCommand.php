@@ -32,7 +32,6 @@ final class InstallerCommand extends Command
     public const DOCS = ['swagger_ui', 'redoc', 'scalar'];
 
     private const NAME_PATTERN = '/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/';
-    private const GIT_REF_PATTERN = '#^[a-zA-Z0-9][a-zA-Z0-9._/-]*$#D';
 
     public static function version(): string
     {
@@ -135,8 +134,8 @@ final class InstallerCommand extends Command
                 }
                 // The ref is passed to `git fetch`: refuse anything git could
                 // read as an option or a revision range.
-                if (!preg_match(self::GIT_REF_PATTERN, $dockerRefOption) || str_contains($dockerRefOption, '..')) {
-                    throw new InvalidArgumentException(sprintf('Invalid --symfony-docker-ref "%s": expected a branch, tag or commit SHA (letters, digits, ".", "_", "-" and "/", not starting with "-").', $dockerRefOption));
+                if (!self::isValidGitRef($dockerRefOption)) {
+                    throw new InvalidArgumentException(sprintf('Invalid --symfony-docker-ref "%s": expected a branch, tag or commit SHA, not starting with "-".', $dockerRefOption));
                 }
                 $symfonyDockerRef = $dockerRefOption;
             }
@@ -297,5 +296,25 @@ final class InstallerCommand extends Command
         }
 
         return (array) $io->askQuestion($question);
+    }
+
+    /**
+     * Follows the rules of `git check-ref-format`, and also refuses a leading
+     * "-" that `git fetch` would read as an option.
+     */
+    private static function isValidGitRef(string $ref): bool
+    {
+        return !str_starts_with($ref, '-')
+            && !str_starts_with($ref, '.')
+            && !str_starts_with($ref, '/')
+            && !str_ends_with($ref, '/')
+            && !str_ends_with($ref, '.')
+            && !str_ends_with($ref, '.lock')
+            && '@' !== $ref
+            && !str_contains($ref, '..')
+            && !str_contains($ref, '//')
+            && !str_contains($ref, '/.')
+            && !str_contains($ref, '@{')
+            && !preg_match('/[\x00-\x20\x7f~^:?*\[\\\\]/', $ref);
     }
 }
