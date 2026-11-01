@@ -91,7 +91,7 @@ jobs:
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
       - name: Build PHAR
-        run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar
+        run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar "${{ github.ref_name }}"
 
       - name: Cache spc sources
         uses: actions/cache@v6
@@ -127,7 +127,7 @@ jobs:
 
       - name: Smoke test built binary
         run: |
-          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version
+          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version | grep -F "${{ github.ref_name }}"
           ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --help
 
       - name: Upload to release

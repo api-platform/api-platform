@@ -26,6 +26,14 @@ $root = \dirname(__DIR__);
 $output = $argv[1] ?? $root.'/dist/api-platform.phar';
 $alias = basename($output);
 
+// Version printed by `--version`: second argument (the release tag in CI),
+// then the INSTALLER_VERSION environment variable, then `git describe --tags`.
+// When none is available the placeholder stays and the binary reports "dev".
+$version = $argv[2] ?? (getenv('INSTALLER_VERSION') ?: '');
+if ('' === $version) {
+    $version = trim((string) shell_exec('git -C '.escapeshellarg($root).' describe --tags 2>/dev/null'));
+}
+
 @unlink($output);
 @mkdir(\dirname($output), 0o755, true);
 
@@ -47,7 +55,11 @@ foreach ($includeDirs as $dir) {
             continue;
         }
         $relative = ltrim(substr($file->getPathname(), \strlen($root)), '/');
-        $phar->addFromString($relative, read_file($file->getPathname()));
+        $contents = read_file($file->getPathname());
+        if ('' !== $version && 'src/InstallerCommand.php' === $relative) {
+            $contents = str_replace('@package_version@', $version, $contents);
+        }
+        $phar->addFromString($relative, $contents);
     }
 }
 $phar->addFromString('composer.json', read_file($root.'/composer.json'));
