@@ -29,9 +29,22 @@ $alias = basename($output);
 // Version printed by `--version`: second argument (the release tag in CI),
 // then the INSTALLER_VERSION environment variable, then `git describe --tags`.
 // When none is available the placeholder stays and the binary reports "dev".
+// The value ends up in a PHP string literal, so only plain version strings are
+// accepted: an explicit invalid version aborts the build, an unusable
+// `git describe` output falls back to "dev".
+const VERSION_PATTERN = '/^v?\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/D';
+
 $version = $argv[2] ?? (getenv('INSTALLER_VERSION') ?: '');
+if ('' !== $version && !preg_match(VERSION_PATTERN, $version)) {
+    fwrite(STDERR, sprintf("Invalid version \"%s\": expected something like v1.2.3 or 1.2.3-beta.1\n", addcslashes($version, "\0..\37\177..\377")));
+    exit(1);
+}
 if ('' === $version) {
     $version = trim((string) shell_exec('git -C '.escapeshellarg($root).' describe --tags 2>/dev/null'));
+    if ('' !== $version && !preg_match(VERSION_PATTERN, $version)) {
+        fwrite(STDERR, "Ignoring `git describe` output that is not a version, the binary will report \"dev\"\n");
+        $version = '';
+    }
 }
 
 @unlink($output);
@@ -57,7 +70,11 @@ foreach ($includeDirs as $dir) {
         $relative = ltrim(substr($file->getPathname(), \strlen($root)), '/');
         $contents = read_file($file->getPathname());
         if ('' !== $version && 'src/InstallerCommand.php' === $relative) {
-            $contents = str_replace('@package_version@', $version, $contents);
+            $contents = str_replace("'@package_version@'", var_export($version, true), $contents, $count);
+            if (1 !== $count) {
+                fwrite(STDERR, "Could not find the version placeholder in src/InstallerCommand.php\n");
+                exit(1);
+            }
         }
         $phar->addFromString($relative, $contents);
     }
