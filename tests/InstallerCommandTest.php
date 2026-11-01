@@ -139,6 +139,40 @@ final class InstallerCommandTest extends TestCase
         $this->assertSame('v1.2.3', $opts->symfonyDockerRef);
     }
 
+    /**
+     * @return array<array{string}>
+     */
+    public static function invalidSymfonyDockerRefs(): array
+    {
+        return [['--upload-pack=touch /tmp/pwned'], ['-b'], ['main..v1.2.3'], ['has space'], ['main;id']];
+    }
+
+    #[DataProvider('invalidSymfonyDockerRefs')]
+    public function testRejectsInvalidSymfonyDockerRef(string $ref): void
+    {
+        $tester = $this->tester();
+        $tester->execute(
+            ['name' => 'demo', '--framework' => 'symfony', '--symfony-docker-ref' => $ref],
+            ['interactive' => false],
+        );
+        $this->assertSame(2, $tester->getStatusCode());
+        $this->assertStringContainsString('Invalid --symfony-docker-ref', $tester->getDisplay());
+    }
+
+    public function testAcceptsSymfonyDockerRefWithSlash(): void
+    {
+        $opts = $this->resolveOptions([
+            'name' => 'demo',
+            '--framework' => 'symfony',
+            '--with-docker' => false,
+            '--with-pwa' => false,
+            '--with-admin' => false,
+            '--symfony-docker-ref' => 'feature/my-branch',
+        ]);
+
+        $this->assertSame('feature/my-branch', $opts->symfonyDockerRef);
+    }
+
     public function testWarnsWhenSymfonyDockerRefIsOverridden(): void
     {
         $display = $this->resolveOptionsDisplay([

@@ -32,6 +32,7 @@ final class InstallerCommand extends Command
     public const DOCS = ['swagger_ui', 'redoc', 'scalar'];
 
     private const NAME_PATTERN = '/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/';
+    private const GIT_REF_PATTERN = '#^[a-zA-Z0-9][a-zA-Z0-9._/-]*$#D';
 
     public static function version(): string
     {
@@ -131,6 +132,11 @@ final class InstallerCommand extends Command
             if (null !== $dockerRefOption) {
                 if (!\is_string($dockerRefOption) || '' === trim($dockerRefOption)) {
                     throw new InvalidArgumentException('--symfony-docker-ref cannot be empty.');
+                }
+                // The ref is passed to `git fetch`: refuse anything git could
+                // read as an option or a revision range.
+                if (!preg_match(self::GIT_REF_PATTERN, $dockerRefOption) || str_contains($dockerRefOption, '..')) {
+                    throw new InvalidArgumentException(sprintf('Invalid --symfony-docker-ref "%s": expected a branch, tag or commit SHA (letters, digits, ".", "_", "-" and "/", not starting with "-").', $dockerRefOption));
                 }
                 $symfonyDockerRef = $dockerRefOption;
             }
