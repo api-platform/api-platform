@@ -168,6 +168,14 @@ final class SymfonyScaffold
         return isset($json['require'][$package]) || isset($json['require-dev'][$package]);
     }
 
+    /**
+     * @return list<string>
+     */
+    public static function buildSymfonyDockerFetchCommand(string $repoDir, string $ref): array
+    {
+        return ['git', '-C', $repoDir, 'fetch', '--depth=1', '--quiet', '--', 'origin', $ref];
+    }
+
     private function setupDocker(string $apiDir, string $ref): void
     {
         $this->io->writeln('<info>Fetching Docker infrastructure from symfony-docker</info>');
@@ -180,7 +188,7 @@ final class SymfonyScaffold
             // (uploadpack.allowReachableSHA1InWant).
             $this->runner->run(['git', 'init', '--quiet', $tmpDir]);
             $this->runner->run(['git', '-C', $tmpDir, 'remote', 'add', 'origin', self::SYMFONY_DOCKER_REPO]);
-            $this->runner->run(['git', '-C', $tmpDir, 'fetch', '--depth=1', '--quiet', 'origin', $ref]);
+            $this->runner->run(self::buildSymfonyDockerFetchCommand($tmpDir, $ref));
             $this->runner->run(['git', '-C', $tmpDir, 'checkout', '--quiet', 'FETCH_HEAD']);
             foreach (self::DOCKER_FILES as $name) {
                 $src = $tmpDir.'/'.$name;
