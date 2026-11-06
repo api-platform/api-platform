@@ -53,6 +53,14 @@ final class SymfonyScaffoldTest extends TestCase
         $this->assertFalse($config['enable_scalar']);
     }
 
+    public function testSymfonyDockerFetchEndsOptionParsingBeforeTheRef(): void
+    {
+        $this->assertSame(
+            ['git', '-C', '/tmp/x', 'fetch', '--depth=1', '--quiet', '--', 'origin', '--upload-pack=touch pwned'],
+            SymfonyScaffold::buildSymfonyDockerFetchCommand('/tmp/x', '--upload-pack=touch pwned'),
+        );
+    }
+
     public function testSymfonyDockerRefIsPinnedToFullCommitSha(): void
     {
         // A floating default (branch name) means every install would track
