@@ -36,8 +36,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
-        with:
-          path: api-platform
 
       - uses: actions/checkout@v7
         with:
@@ -57,6 +55,7 @@ jobs:
           anthropic_service_account_id: ${{ vars.ANTHROPIC_SERVICE_ACCOUNT_ID }}
           anthropic_workspace_id: ${{ vars.ANTHROPIC_WORKSPACE_ID }}
           github_token: ${{ github.token }}
+          show_full_output: true
           claude_args: |
             --model claude-sonnet-5-5
             --allowedTools Read,Grep,Glob
@@ -64,7 +63,7 @@ jobs:
           prompt: |
             Decide whether the GitHub issue in ./issue.md, opened on api-platform/api-platform, belongs to api-platform/core instead.
 
-            ./api-platform is this repository: the installer CLI (src/InstallerCommand.php), the Symfony/Laravel/PWA/admin scaffolds (src/Scaffold), the Docker setup and the distribution itself.
+            The current directory is this repository: the installer CLI (src/InstallerCommand.php), the Symfony/Laravel/PWA/admin scaffolds (src/Scaffold), the Docker setup and the distribution itself.
             ./core is the framework: State, Metadata, Doctrine, Serializer, JsonLd, Hydra, OpenApi, GraphQl, Laravel and Symfony integrations, etc.
 
             An issue belongs to core when the problem or request is about framework behavior (a bug in a provider, a filter, serialization, OpenAPI output...), even if the reporter used the distribution to hit it. It stays here when it is about installing, scaffolding, the generated project layout or the Docker stack. Grep both trees for the classes, options or files the issue mentions instead of guessing from the title.
