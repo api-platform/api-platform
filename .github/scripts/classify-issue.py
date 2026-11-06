@@ -99,14 +99,17 @@ def _gh(*args: str) -> str:
 def search_core_issues(query: str) -> str:
     """Search api-platform/core issues, open or closed, updated during the last year.
 
+    Every word must appear in the issue, so keep queries to one to three distinctive words
+    (e.g. a class name and one symptom word) and run several of them.
+
     Args:
-        query: Keywords, e.g. a class name and the symptom.
+        query: Space-separated keywords.
     """
     since = (date.today() - timedelta(days=365)).isoformat()
     issues = json.loads(
         _gh(
             "search", "issues", "--repo", CORE_REPO, "--updated", f">={since}",
-            "--json", "number,title,state,updatedAt", "--limit", "20", "--", query,
+            "--json", "number,title,state,updatedAt", "--limit", "20", "--", *query.split(),
         )
     )
     seen_core_issues.update(issue["number"] for issue in issues)
@@ -145,6 +148,10 @@ def main() -> None:
         output_config={"effort": "medium", "format": {"type": "json_schema", "schema": DECISION_SCHEMA}},
         messages=[{"role": "user", "content": f"<issue>\n{issue}\n</issue>"}],
     )
+    for step in runner:
+        for block in step.content:
+            if block.type == "tool_use":
+                print(f"{block.name} {json.dumps(block.input)}", file=sys.stderr)
     message = runner.until_done()
     if message.stop_reason != "end_turn":
         sys.exit(f"stopped with {message.stop_reason}")
