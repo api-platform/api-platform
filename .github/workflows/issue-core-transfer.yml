@@ -90,4 +90,10 @@ jobs:
       - if: steps.app-token.outcome == 'success'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: gh issue transfer "$ISSUE" api-platform/core -R "$GITHUB_REPOSITORY"
+        run: |
+          state=$(gh issue view "$ISSUE" -R "$GITHUB_REPOSITORY" --json state --jq .state)
+          if [ "$state" != OPEN ]; then
+            echo "#$ISSUE is $state, not transferring."
+            exit 0
+          fi
+          gh issue transfer "$ISSUE" api-platform/core -R "$GITHUB_REPOSITORY"
