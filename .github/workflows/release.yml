@@ -91,7 +91,14 @@ jobs:
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
 
       - name: Build PHAR
-        run: php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if ! printf '%s' "$RELEASE_TAG" | grep -Eq '^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            echo "::error::Release tag is not a version (expected v1.2.3 or v1.2.3-beta.1)"
+            exit 1
+          fi
+          php -d phar.readonly=0 scripts/build-phar.php dist/api-platform.phar "$RELEASE_TAG"
 
       - name: Cache spc sources
         uses: actions/cache@v6
@@ -126,8 +133,10 @@ jobs:
         run: shasum -a 256 "api-platform-${{ matrix.os }}-${{ matrix.arch }}" > "api-platform-${{ matrix.os }}-${{ matrix.arch }}.sha256"
 
       - name: Smoke test built binary
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version
+          ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --version | grep -F -- "$RELEASE_TAG"
           ./dist/api-platform-${{ matrix.os }}-${{ matrix.arch }} --help
 
       - name: Upload to release

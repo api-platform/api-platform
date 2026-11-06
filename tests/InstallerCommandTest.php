@@ -268,8 +268,8 @@ final class InstallerCommandTest extends TestCase
 
     public function testReportsDevVersionWhenPlaceholderUnsubstituted(): void
     {
-        // No version-injection step is wired into the build yet, so the raw
-        // @package_version@ placeholder must collapse to a "dev" string.
+        // Only scripts/build-phar.php substitutes the placeholder, so outside
+        // a release binary the raw @package_version@ must collapse to "dev".
         $this->assertSame('dev', InstallerCommand::version());
     }
 
