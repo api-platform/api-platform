@@ -11,13 +11,13 @@ and flexibility:
 * Enjoy the **beautiful automatically generated API documentation** ([OpenAPI](https://api-platform.com/docs/core/openapi/)).
 * Add [**a convenient Material Design administration interface**](https://api-platform.com/docs/admin) built with [React](https://reactjs.org/)
   without writing a line of code.
-* **Scaffold fully functional Progressive-Web-Apps and mobile apps** built with [Next.js](https://api-platform.com/docs/client-generator/nextjs/) (React),
-[Nuxt.js](https://api-platform.com/docs/client-generator/nuxtjs/) (Vue.js) or [React Native](https://api-platform.com/docs/client-generator/react-native/)
-thanks to [the client generator](https://api-platform.com/docs/client-generator/) (a Vue.js generator is also available).
+* **Scaffold fully functional Progressive-Web-Apps and mobile apps** built with [Next.js](https://api-platform.com/docs/create-client/nextjs/) (React),
+[Nuxt.js](https://api-platform.com/docs/create-client/nuxtjs/) (Vue.js) or [React Native](https://api-platform.com/docs/create-client/react-native/)
+thanks to [the client generator](https://api-platform.com/docs/create-client/) (a Vue.js generator is also available).
 * Install a development environment and deploy your project in production using **[Docker](https://api-platform.com/docs/distribution)**
 and [Kubernetes](https://api-platform.com/docs/deployment/kubernetes).
 * Easily add **[OAuth](https://oauth.net/) authentication**.
-* Create specs and tests with **[a developer friendly API testing tool](https://api-platform.com/docs/distribution/testing/)**.
+* Create specs and tests with **[a developer friendly API testing tool](https://api-platform.com/docs/symfony/testing/)**.
 
 The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
 
