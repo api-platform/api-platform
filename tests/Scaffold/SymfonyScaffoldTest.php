@@ -40,6 +40,22 @@ final class SymfonyScaffoldTest extends TestCase
         $this->assertTrue($config['enable_scalar']);
     }
 
+    public function testMapsHalOptionToTheJsonhalFormatUsedByApiPlatform(): void
+    {
+        $config = SymfonyScaffold::buildApiPlatformConfig(new ScaffoldOptions(
+            withPwa: false,
+            withDocker: false,
+            formats: ['jsonld', 'jsonapi', 'hal'],
+            docs: [],
+        ));
+
+        $this->assertSame([
+            'jsonld' => ['application/ld+json'],
+            'jsonapi' => ['application/vnd.api+json'],
+            'jsonhal' => ['application/hal+json'],
+        ], $config['formats']);
+    }
+
     public function testDisablesScalarWhenNotSelected(): void
     {
         $config = SymfonyScaffold::buildApiPlatformConfig(new ScaffoldOptions(
