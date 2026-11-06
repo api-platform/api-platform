@@ -62,6 +62,7 @@ jobs:
 
       - id: classify
         env:
+          GH_TOKEN: ${{ github.token }}
           ANTHROPIC_IDENTITY_TOKEN_FILE: ${{ runner.temp }}/oidc-token
           ANTHROPIC_FEDERATION_RULE_ID: ${{ vars.ANTHROPIC_FEDERATION_RULE_ID }}
           ANTHROPIC_ORGANIZATION_ID: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
@@ -71,7 +72,7 @@ jobs:
           decision=$(python .github/scripts/classify-issue.py "$RUNNER_TEMP/issue.md")
           echo "#$ISSUE: $decision" | tee -a "$GITHUB_STEP_SUMMARY"
 
-      - if: steps.classify.outputs.transfer == 'true' && !inputs.dry_run
+      - if: steps.classify.outputs.action != 'none' && !inputs.dry_run
         id: app-token
         uses: actions/create-github-app-token@v2
         with:
@@ -84,10 +85,17 @@ jobs:
       - if: steps.app-token.outcome == 'success'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          ACTION: ${{ steps.classify.outputs.action }}
+          DUPLICATE_OF: ${{ steps.classify.outputs.duplicate_of }}
         run: |
           state=$(gh issue view "$ISSUE" -R "$GITHUB_REPOSITORY" --json state --jq .state)
           if [ "$state" != OPEN ]; then
-            echo "#$ISSUE is $state, not transferring."
+            echo "#$ISSUE is $state, leaving it alone."
             exit 0
           fi
-          gh issue transfer "$ISSUE" api-platform/core -R "$GITHUB_REPOSITORY"
+          if [ "$ACTION" = close_duplicate ]; then
+            gh issue comment "$ISSUE" -R "$GITHUB_REPOSITORY" --body "Duplicate of api-platform/core#$DUPLICATE_OF."
+            gh issue close "$ISSUE" -R "$GITHUB_REPOSITORY" --reason duplicate
+          else
+            gh issue transfer "$ISSUE" api-platform/core -R "$GITHUB_REPOSITORY"
+          fi
