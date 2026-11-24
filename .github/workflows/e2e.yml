@@ -13,6 +13,10 @@ on:
       - composer.json
       - .github/workflows/e2e.yml
   workflow_dispatch: ~
+  # The scaffold pulls floating images (FrankenPHP, Mercure), so main can break
+  # without a commit.
+  schedule:
+    - cron: '23 5 * * *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -131,6 +135,15 @@ jobs:
           docker compose -f demo/api/compose.yaml logs
           exit 1
 
+      - name: Verify the Hydra+Mercure Link header
+        run: |
+          # The `header ?Link` directive only applies where Symfony set no Link
+          # of its own, so probe a path Caddy serves on its own.
+          curl -sk -o /dev/null -D headers.txt https://localhost/nonexistent-asset.txt
+          cat headers.txt
+          grep -qi 'rel="http://www.w3.org/ns/hydra/core#apiDocumentation"' headers.txt
+          grep -qi 'rel="mercure"' headers.txt
+
       - name: Stop Docker stack
         if: always()
         working-directory: demo/api
@@ -188,3 +201,26 @@ jobs:
         working-directory: demo
         run: |
           if [ -f server.pid ]; then kill $(cat server.pid) || true; fi
+
+  report-scheduled-failure:
+    name: Report scheduled failure
+    needs: [symfony-no-docker, symfony-docker-pwa, laravel]
+    if: failure() && github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      # Created with GITHUB_TOKEN on purpose: it does not fire `issues: opened`,
+      # so issue-core-transfer leaves this issue alone.
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title='Scheduled E2E fails on main'
+          issue=$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" -R "$GITHUB_REPOSITORY" --body "Still failing: $RUN_URL"
+          else
+            gh issue create -R "$GITHUB_REPOSITORY" --title "$title" \
+              --body "The scheduled E2E run failed on main without a new commit, most likely a floating image (FrankenPHP, Mercure) or the symfony-docker pin. Run: $RUN_URL"
+          fi
