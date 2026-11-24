@@ -26,17 +26,12 @@ $root = \dirname(__DIR__);
 $output = $argv[1] ?? $root.'/dist/api-platform.phar';
 $alias = basename($output);
 
-// Version printed by `--version`: second argument (the release tag in CI),
-// then the INSTALLER_VERSION environment variable, then `git describe --tags`.
-// When none is available the placeholder stays and the binary reports "dev".
-// The value ends up in a PHP string literal, so only plain version strings are
-// accepted: an explicit invalid version aborts the build, an unusable
-// `git describe` output falls back to "dev".
+// Release tag from argv[2], else git describe; without one the binary reports "dev".
 const VERSION_PATTERN = '/^v?\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/D';
 
-$version = $argv[2] ?? (getenv('INSTALLER_VERSION') ?: '');
+$version = $argv[2] ?? '';
 if ('' !== $version && !preg_match(VERSION_PATTERN, $version)) {
-    fwrite(STDERR, sprintf("Invalid version \"%s\": expected something like v1.2.3 or 1.2.3-beta.1\n", addcslashes($version, "\0..\37\177..\377")));
+    fwrite(STDERR, sprintf("Invalid version \"%s\": expected something like v1.2.3 or 1.2.3-beta.1\n", $version));
     exit(1);
 }
 if ('' === $version) {
