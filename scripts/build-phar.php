@@ -26,6 +26,22 @@ $root = \dirname(__DIR__);
 $output = $argv[1] ?? $root.'/dist/api-platform.phar';
 $alias = basename($output);
 
+// Release tag from argv[2], else git describe; without one the binary reports "dev".
+const VERSION_PATTERN = '/^v?\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/D';
+
+$version = $argv[2] ?? '';
+if ('' !== $version && !preg_match(VERSION_PATTERN, $version)) {
+    fwrite(STDERR, sprintf("Invalid version \"%s\": expected something like v1.2.3 or 1.2.3-beta.1\n", $version));
+    exit(1);
+}
+if ('' === $version) {
+    $version = trim((string) shell_exec('git -C '.escapeshellarg($root).' describe --tags 2>/dev/null'));
+    if ('' !== $version && !preg_match(VERSION_PATTERN, $version)) {
+        fwrite(STDERR, "Ignoring `git describe` output that is not a version, the binary will report \"dev\"\n");
+        $version = '';
+    }
+}
+
 @unlink($output);
 @mkdir(\dirname($output), 0o755, true);
 
@@ -47,7 +63,15 @@ foreach ($includeDirs as $dir) {
             continue;
         }
         $relative = ltrim(substr($file->getPathname(), \strlen($root)), '/');
-        $phar->addFromString($relative, read_file($file->getPathname()));
+        $contents = read_file($file->getPathname());
+        if ('' !== $version && 'src/InstallerCommand.php' === $relative) {
+            $contents = str_replace("'@package_version@'", var_export($version, true), $contents, $count);
+            if (1 !== $count) {
+                fwrite(STDERR, "Could not find the version placeholder in src/InstallerCommand.php\n");
+                exit(1);
+            }
+        }
+        $phar->addFromString($relative, $contents);
     }
 }
 $phar->addFromString('composer.json', read_file($root.'/composer.json'));
