@@ -25,6 +25,7 @@ return [
 
     'docs_formats' => [
         'jsonld' => ['application/ld+json'],
+        'jsonopenapi' => ['application/vnd.openapi+json'],
     ],
 
     'swagger_ui' => [
@@ -57,6 +58,22 @@ PHP;
         $this->assertStringContainsString("'enabled' => true", $patched);
         $this->assertStringContainsString('// Title shown in the API docs.', $patched, 'comments must be preserved');
         $this->assertStringContainsString('// Enables Swagger UI at /api.', $patched, 'inline comments must be preserved');
+    }
+
+    public function testAllowsNonJsonLdFormatsWithoutAddingJsonLdBack(): void
+    {
+        foreach (['jsonapi' => 'jsonapi', 'hal' => 'jsonhal'] as $selected => $configKey) {
+            $patched = (new LaravelConfigPatcher())->patch(
+                self::FIXTURE,
+                formats: [$selected],
+                docs: ['swagger_ui'],
+            );
+
+            $this->assertSame(1, preg_match("/'formats' => \\[(.*?)\\],/s", $patched, $matches));
+            $this->assertStringContainsString("'{$configKey}' =>", $matches[1]);
+            $this->assertStringNotContainsString("'jsonld' =>", $matches[1]);
+            $this->assertStringContainsString("'jsonopenapi' => ['application/vnd.openapi+json']", $patched);
+        }
     }
 
     public function testDisablesSwaggerUiWhenNotInDocs(): void

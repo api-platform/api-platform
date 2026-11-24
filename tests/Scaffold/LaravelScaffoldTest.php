@@ -40,6 +40,25 @@ final class LaravelScaffoldTest extends TestCase
         $this->assertStringContainsString('API Platform', $content);
     }
 
+    public function testWelcomeTemplateDoesNotOfferHydraFeaturesWhenJsonLdIsDisabled(): void
+    {
+        $content = (string) file_get_contents(Templates::path('laravel-welcome.blade.php'));
+        $condition = "@if (config('api-platform.formats.jsonld'))";
+
+        $this->assertStringContainsString($condition, $content);
+        [$before, $conditional] = explode($condition, $content, 2);
+        [$hydra, $conditional] = explode('@else', $conditional, 2);
+        [$otherFormats] = explode('@endif', $conditional, 2);
+
+        $this->assertStringNotContainsString('id="ap-resources"', $before);
+        $this->assertStringContainsString('id="ap-resources"', $hydra);
+        $this->assertStringContainsString('class="ap-libraries"', $hydra);
+        $this->assertStringNotContainsString('id="ap-resources"', $otherFormats);
+        $this->assertStringNotContainsString('class="ap-libraries"', $otherFormats);
+        $this->assertStringContainsString('/api/docs.jsonopenapi', $otherFormats);
+        $this->assertStringContainsString('config/api-platform.php', $otherFormats);
+    }
+
     public function testResourcesTemplateUsesHydraParserAgainstLaravelEntrypoint(): void
     {
         $path = Templates::path('laravel-resources.js');

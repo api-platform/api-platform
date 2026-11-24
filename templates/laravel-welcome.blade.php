@@ -217,6 +217,7 @@
             <a href="https://github.com/api-platform" target="_blank" rel="noopener noreferrer" class="ap-btn ap-btn-outline">GitHub</a>
         </section>
 
+        @if (config('api-platform.formats.jsonld'))
         <section id="ap-resources" class="ap-resources-mount">
             <p class="ap-loading">Connecting to API&hellip;</p>
         </section>
@@ -239,6 +240,13 @@ if (result.success) {
   console.log(result.data.title);
 }</code></pre>
         </section>
+        @else
+        <section class="ap-empty" aria-labelledby="ap-explore-title">
+            <h2 id="ap-explore-title">Explore your API</h2>
+            <p>This starter page's live resource preview and frontend examples use JSON-LD, which is not enabled in this project.</p>
+            <p>See your available operations in the <a href="/api/docs.jsonopenapi">OpenAPI specification</a>. To enable the live preview later, add the <code>jsonld</code> format in <code>config/api-platform.php</code>.</p>
+        </section>
+        @endif
     </main>
 </body>
 </html>
