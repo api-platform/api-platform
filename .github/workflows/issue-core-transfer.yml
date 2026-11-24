@@ -80,7 +80,6 @@ jobs:
           private-key: ${{ secrets.API_PLATFORM_APP_PRIVATE_KEY }}
           owner: api-platform
           repositories: api-platform,core
-          permission-issues: write
 
       - if: steps.app-token.outcome == 'success'
         env:
