@@ -63,7 +63,7 @@ jobs:
             runner: macos-15-intel
           - os: macos
             arch: aarch64
-            runner: macos-14
+            runner: macos-15
 
     env:
       EXTENSIONS: phar,filter,tokenizer,mbstring,ctype,zlib,curl,openssl
