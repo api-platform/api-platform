@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import subprocess
 import sys
 from datetime import date, timedelta
@@ -80,7 +81,7 @@ def read(repo: str, path: str, start_line: int = 1, line_count: int = 200) -> st
     """
     root = _root(repo)
     file = (root / path).resolve()
-    if not file.is_relative_to(root) or not file.is_file():
+    if not file.is_relative_to(root) or ".git" in file.relative_to(root).parts or not file.is_file():
         raise ValueError(f"{path} is not a file in {repo}")
     lines = file.read_text(errors="replace").splitlines()
     start = max(start_line, 1) - 1
@@ -136,6 +137,10 @@ def action_for(decision: dict) -> str:
     return "transfer"
 
 
+def issue_prompt(issue: str) -> str:
+    return "<issue>\n" + re.sub(r"<\s*/\s*issue\s*>", "&lt;/issue&gt;", issue, flags=re.IGNORECASE) + "\n</issue>"
+
+
 def main() -> None:
     issue = Path(sys.argv[1]).read_text()
     client = anthropic.Anthropic()
@@ -146,7 +151,7 @@ def main() -> None:
         system=SYSTEM,
         tools=[grep, read, search_core_issues, read_core_issue],
         output_config={"effort": "medium", "format": {"type": "json_schema", "schema": DECISION_SCHEMA}},
-        messages=[{"role": "user", "content": f"<issue>\n{issue}\n</issue>"}],
+        messages=[{"role": "user", "content": issue_prompt(issue)}],
     )
     for step in runner:
         for block in step.content:

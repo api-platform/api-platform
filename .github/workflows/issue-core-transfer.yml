@@ -36,11 +36,14 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - uses: actions/checkout@v7
         with:
           repository: api-platform/core
           path: core
+          persist-credentials: false
 
       - name: Load the issue
         env:
